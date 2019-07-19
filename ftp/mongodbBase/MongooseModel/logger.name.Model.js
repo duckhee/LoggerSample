@@ -74,11 +74,11 @@ LoggerNameModel.statics.findOneOrCreate = function findOneOrCreate(condition, ca
 /**
  * auto increment id
  */
-/*
+
 LoggerNameModel.plugin(autoIncrement.plugin, {
     model: 'LoggerName',
     field: 'index'
 });
-*/
+
 
 module.exports = mongoose.model('LoggerName', LoggerNameModel);
