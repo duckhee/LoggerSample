@@ -87,6 +87,20 @@ const GetAllText = (FileNameList) => {
 };
 
 const InsertDataLogger = async (ListJson, callback) => {
+
+    /**
+     * check empty 
+     * if empty return true
+     * not empty return false
+     */
+    const isEmpty = function (value) {
+        if (value == "" || value == null || value == undefined || (value != null && typeof value == "object" && !Object.keys(value).length)) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     const Delay = async () => {
         return new Promise(resole => setTimeout(resole, 500));
     };
@@ -156,8 +170,9 @@ const InsertDataLogger = async (ListJson, callback) => {
                 //InsertDataJson.fullValueData = fileData;
                 LoggerDao.CheckLoggerData(InsertDataJson.getFileName).then(CheckDataResult => {
                     if (CheckDataResult == null) {
-                        if (InsertDataJson.fullValueData == '' || InsertDataJson.fullNameData == null) {
-                            //console.log("insert Data Json ::: ", InsertDataJson);
+                        console.log("insert Data Json ::: ", InsertDataJson);
+                        if (!isEmpty(InsertDataJson.fullValueData)) {
+                            console.log('insert logger data');
                             InsertDataList.push(InsertDataJson);
                         }
                     }
@@ -172,7 +187,7 @@ const InsertDataLogger = async (ListJson, callback) => {
         if (InsertDataList.length != 0) {
             var ArrayData = new Array();
             LoggerDao.InsertLoggerDataArray(InsertDataList).then(DataResult => {
-                console.log('insert array _id ::: ', DataResult.ArrayObject);
+                //console.log('insert array _id ::: ', DataResult.ArrayObject);
                 if (NameReturnJson.LoggerData.length == 0) {
                     //NameReturnJson.LoggerData = (DataResult.ArrayObject);
                     ArrayData = DataResult.ArrayObject;
@@ -184,13 +199,13 @@ const InsertDataLogger = async (ListJson, callback) => {
                     //NameReturnJson.LoggerData.concat(DataResult.ArrayObject);
                 }
                 NameReturnJson.LoggerData = ArrayData;
-                console.log('get logger data array ::: ', ArrayData);
-                console.log('Checking Name Logger Data ::: ', NameReturnJson.LoggerData);
-                console.log('NameReturnJson ::: ', NameReturnJson);
+                //console.log('get logger data array ::: ', ArrayData);
+                //console.log('Checking Name Logger Data ::: ', NameReturnJson.LoggerData);
+                //console.log('NameReturnJson ::: ', NameReturnJson);
                 LoggerDao.updateDataInfo(LoggerInfoReturnJson, ArrayData).then(InfoResult => {
-                    console.log('update Logger Info Update ::: ', InfoResult);
+                    //console.log('update Logger Info Update ::: ', InfoResult);
                     LoggerDao.updateDateName(NameReturnJson, ArrayData).then(updateNameResult => {
-                        console.log('update Data Name In Data :::: ', updateNameResult);
+                        //console.log('update Data Name In Data :::: ', updateNameResult);
                     }).catch(err => {
                         return callback(err, null);
                     });
