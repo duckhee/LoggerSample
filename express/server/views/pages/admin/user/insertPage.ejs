@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Main</title>
+    <% include ../../../partials/admin/stylesheet.ejs %>
+  </head>
+  
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="/" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>C</b>&amp;H</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>C &amp; H </b></span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Tasks: style can be found in dropdown.less -->
+                        <!-- header nav 들어가는 부분 -->
+                        <% include ../../../partials/admin/headerNav.ejs %>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="/static/images/logo_iot.png" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        
+                        <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
+                    </div>
+                </div>
+                <!-- nav item -->
+                <% include ../../../partials/admin/navItem.ejs %>
+                <!-- end nav item -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                 <section class="content-header">
+                    <h1>
+                        Member <small>insert Page</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-users"></i> Home</a></li>
+                        <li><i class="ffa fa-dshboard"></i>Member</li>
+                        <li class="active"><a href="#">Insert</a></li>
+                    </ol>
+                </section> 
+            <div class="content">
+                <section class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-fw fa-user"></i>Regite Member</h3>
+                    </div>
+                    <!-- ./box-header end -->
+                    <form role="form" id="RegiteMember" name="RegiteMember" class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="user-id">USER ID</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="user_id" name="user_id" placeholder="INPUT USER ID ...." class="form-control">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="hidden" value="-1" id="user_idCheck" name="user_idCheck">
+                                    <button type="button" class="btn btn-default" id="checkVal" onclick="cheking()">ID CHECK</button>
+                                </div>
+                            </div>
+                            <!--./user-id-->
+                            <div class="form-group">
+                                <label for="user-pw" class="col-sm-2 control-label">USER PW</label>
+                                <div class="col-sm-8">
+                                    <input type="password" id="user_pw" name="user_pw" placeholder="INPUT USER PW ...." class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user-name" class="col-sm-2 control-label">USER NAME</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id = "user_name" name="user_name" class="form-control" placeholder="INPUT USER NAME ...">
+                                </div>
+                            </div>
+                        </div>
+                        <!--./box-body end -->
+                        <div class="box-footer">
+                            <button type="button" id="sendBtn" name="sendBtn" class="btn btn-primary pull-right">Create</button>
+                            <button type="button" id="cancelBtn" name="cancelBtn" class="btn btn-primary pull-left">Cancel</button>
+                        </div>
+                    </form>
+                    
+                </section>
+                <!-- ./box end -->
+            </div>
+        </div>
+    <% include ../../../partials/admin/footer.ejs %>
+    <% include ../../../partials/admin/footerScript.ejs %>
+    <script>
+    function cheking(){
+        if($("#user_id").val()){
+                    $.ajax({
+                        type:"POST",
+                        url:'/admin/member/user-idCheck',
+                        dataType:'json',
+                        data:{
+                            userId:$("#user_id").val()
+                        },
+                        error:function(){
+                        },
+                        success:function(data){
+                            if(data == 0){
+                            Swal.fire(
+                                'You can use this ID',
+                                '',
+                                'success'
+                            )
+                            }else{
+                                Swal.fire('you can\'t use this id.','','warning')
+                            }
+                            $("#user_idCheck").val(data);
+                        }
+                    });
+                }else{
+                    Swal.fire('first input user id','','warning');
+                }
+            
+        }
+        function sendCheck(){
+            let userId = $("#user_id").val();
+            let userPw = $("#user_pw").val();
+            let userName = $("#user_name").val();
+            let userIdCheck = $("#user_idCheck").val();
+            var flag = false;
+            console.log(userIdCheck);
+            if(!userId){
+                Swal.fire("Input id");
+            }else if(userIdCheck == -1){
+                Swal.fire("check id");
+            }
+            else if(!userPw){
+                Swal.fire("Input password");
+            }else if(!userName){
+                Swal.fire("input user name");
+            }else{
+                this.flag = true;
+            }
+            return this.flag;
+        }
+    $(document).ready(function(){
+        
+        
+        $("#sendBtn").click(function(){
+            const flag = sendCheck();
+            if(flag== true){
+                document.RegiteMember.method = "POST";
+                document.RegiteMember.action = "/admin/member/create";
+                document.RegiteMember.submit();
+            }else{
+            }
+        });
+    });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Main</title>
+    <% include ../../../partials/admin/stylesheet.ejs %>
+  </head>
+  
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="/" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>C</b>&amp;H</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>C &amp; H </b></span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Tasks: style can be found in dropdown.less -->
+                        <!-- header nav 들어가는 부분 -->
+                        <% include ../../../partials/admin/headerNav.ejs %>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="/static/images/logo_iot.png" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        
+                        <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
+                    </div>
+                </div>
+                <!-- nav item -->
+                <% include ../../../partials/admin/navItem.ejs %>
+                <!-- end nav item -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                 <section class="content-header">
+                    <h1>
+                        Logger <small>Insert Page</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-database"></i> Home</a></li>
+                        <li><i class="fa fa-dshboard"></i>Logger</li>
+                        <li class="active"><a href="#">Insert</a></li>
+                    </ol>
+                </section> 
+            <div class="content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Logger Registe</h3>
+                            </div>
+                            <!-- ./box-header end -->
+                            <form role="form" class="form-horizontal" id="LoggerCreate" name="LoggerCreate">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="loggerFolder" class="col-sm-2 control-label">LOGGER NAME(FTP SAVE NAME)</label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" type="text" id="loggerFolder" name="loggerFolder" placeholder="INPUT FTP SAVE FOLDER NAME HERE ...">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input type="hidden" value="-1" id="LoggerNameCheck" name="LoggerNameCheck">
+                                            <button type="button" class="btn btn-default" id="LoggerCheck" onclick="checkLogger();">LOGGER CHECK</button>
+                                        </div>
+                                    </div>
+                                    <!--./logger folder end-->
+                                    <div class="form-group">
+                                        <label for="logger-owner-id" class="col-sm-2 control-label">LOGGER OWNER USER ID</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="userId" name="userId" placeholder="INPUT LOGGER OWNER USER ID HERE ....">
+                                        </div>
+                                        <div clas="col-sm-2">
+                                            <input type="hidden" value="-1" id="LoggerOwnerCheck" name="LoggerOwnerCheck">
+                                            <button type="button" class="btn btn-default" id="UserIdCheck" onclick="checkUser();">USER ID CHECK</button>
+                                        </div>
+                                    </div>
+                                    <!--./user id end-->
+                                    <div class="form-group">
+                                        <label for="logger-owner-id" class="col-sm-2 control-label">LOGGER LATITUDE</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="LATITUDE" name="latitude" placeholder="INPUT LOGGER LATITUDE HERE ....">
+                                        </div>
+                                      
+                                    </div>
+                                    <!--./user id end-->
+                                    <div class="form-group">
+                                        <label for="logger-owner-id" class="col-sm-2 control-label">LOGGER LONGITUDE</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="LONGITUDE" name="longitude" placeholder="INPUT LOGGER LONGITUDE HERE ....">
+                                        </div>
+                                       
+                                    </div>
+                                    <!--./user id end-->
+                                    <div class="form-group">
+                                        <label for="logger-file-type" class="col-sm-2 control-label">SAVE FILE TYPE </label>
+                                        <div class="col-sm-8">
+                                            <select class='form-control' id="getType" name="getType">
+                                                <option value="" default>select type ...</option>
+                                                <option value="csv">csv</option>
+                                                <option value="MIS">MIS</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--./logger type end-->
+                                </div>
+                                <!-- ./box-body end -->
+                                <div class="box-footer">
+                                    <button type="button" id="sendBtn" name="sendBtn" class="btn btn-primary pull-right">Registe</button>
+                                    <button type="button" id="cancelBtn" name="cancelBtn" class="btn btn-primary pull-left">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- ./box end -->
+                    </div>
+                    <!-- ./col-xs-12 end -->
+                </div>
+                <!-- ./row -->
+            </div>
+        </div>
+    <% include ../../../partials/admin/footer.ejs %>
+    <% include ../../../partials/admin/footerScript.ejs %>
+    <script>
+        function checkUser(){
+            if($("#userId").val() == null || $("#userId").val() == ''){
+                Swal.fire("Input User", "", "warning").then(result=>{
+                        $("#userId").focus();
+                })
+                //$("#userId").focus();
+            }else{
+                $.ajax({
+                    type:'post',
+                    url:'/admin/member/user-idCheck',
+                    data:{
+                        userId:$("#userId").val()
+                    },
+                    dataType:'json',
+                    error:function(){
+
+                    },
+                    success:function(data){
+                        console.log('user check data ::: ', data);
+                        $("#LoggerOwnerCheck").val(data);
+                        if(data == 1){
+                            console.log('user id get count success');
+                            Swal.fire("User Have","Insert OK","success");
+                        }else{
+                            Swal.fire("User Not have", "Insert Failed", "error");
+                        }
+                    }
+                })
+            }
+        }
+        function checkLogger(){
+            if($("#loggerFolder").val() == null || $("#loggerFolder").val() == '')
+            {
+                Swal.fire('Input Logger name','','warning');
+                return;
+            }else{
+                $.ajax({
+                    type:'POST',
+                    url:'/admin/logger/check-name',
+                    data:{
+                        LoggerFolderName:$("#loggerFolder").val()
+                    },
+                    dataType:'json',
+                    error:function(){
+                        console.log('error ajax ');
+
+                    },
+                    success:function(data){
+                        console.log('get data ::: ', data);
+                        $("#LoggerNameCheck").val(data);
+                        if(data == 0){
+                            Swal.fire("Insert Logger Name Ok", "", "success");
+                        }else{
+                            Swal.fire("Need to Logger Name another", "", "error");
+                        }
+                    }
+                });
+            }
+        }
+        $(document).ready(function(){
+            $("#sendBtn").click(function(){
+                console.log('send check');
+                var folderCheck = $("#loggerFolder").val();
+                var selectCheck = $("#getType").val();
+                var UserIdCheck = $("#userId").val();
+                var FolderChecking = $("#LoggerNameCheck").val();
+                var UserChecking = $("#LoggerOwnerCheck").val();
+                var loggerLongitude = $("#LONGITUDE").val();
+                var loggerLatitude = $("#LATITUDE").val();
+                if(folderCheck == '' || folderCheck == null){
+                    $("#loggerFolder").focus();
+                }else if(selectCheck == '' || selectCheck == null){
+                    $("#LoggerOwnerCheck").focus();
+                }else if(UserIdCheck == '' || UserIdCheck == null){
+                    $("#userId").focus();
+                }else if(FolderChecking == '' || FolderChecking == null || Number(FolderChecking) != 0){
+                    $("#loggerFolder").focus();
+                }else if(UserChecking == '' || UserChecking == null || Number(UserChecking) != 1){
+                    $("#LoggerOwnerCheck").focus();
+                }
+                else{
+                    document.LoggerCreate.action = '/admin/logger/create';
+                    document.LoggerCreate.method = 'post';
+                    document.LoggerCreate.submit();
+                }
+            });
+        });
+    </script>
+  </body>
+</html>

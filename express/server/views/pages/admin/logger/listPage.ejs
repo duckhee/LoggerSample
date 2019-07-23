@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Main</title>
+    <% include ../../../partials/admin/stylesheet.ejs %>
+  </head>
+  
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="/" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>C</b>&amp;H</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>C &amp; H </b></span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Tasks: style can be found in dropdown.less -->
+                        <!-- header nav 들어가는 부분 -->
+                        <% include ../../../partials/admin/headerNav.ejs %>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="/static/images/logo_iot.png" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        
+                        <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
+                    </div>
+                </div>
+                <!-- nav item -->
+                <% include ../../../partials/admin/navItem.ejs %>
+                <!-- end nav item -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                 <section class="content-header">
+                    <h1>
+                        Logger <small>list Page</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="/"><i class="fa fa-database"></i> Home</a></li>
+                        <li><i class="fa fa-dshboard"></i>Logger</li>
+                        <li class="active"><a href="#">list</a></li>
+                    </ol>
+                </section> 
+            <div class="content">
+                <div class='row'>
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div class='box-header with-border'>
+                                <h3 class="box-title">Logger List</h3>
+                                <div class="pull-right">
+                                    <form id="search" name="search">
+                                        <div class="box-tools">
+                                            <div class="input-group input-group-sm" style="width:250px;">
+                                                <input tpye="text" class="form-control" name="keyword" id="searchKeyword">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-default"><i class="fa fa-fw fa-search"></i>Search</button>
+                                                </div>
+                                                <!--./input-group-btn end-->
+                                            </div>
+                                        </div>
+                                        <!--./box-tools end -->
+                                    </form>
+                                    <!--./search end-->
+                                </div>
+                                <!--./pull-right end-->
+                            </div>
+                            <!--./box-header end -->
+                            <div class="box-body">
+                                <form id="MethodUse" name="MethodUse">
+                                    <input type="hidden" value="" name="MethodBno" id="MethodBno">
+                                </form>
+                                <!--./delete and modify method do-->
+                                <table class="table table-bordered" id="tblboard">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center;"><input type="checkbox" name="th_checkAll" id="th_checkAll" onclick="AllCheck();"></th>
+                                            <th style="text-align:center;">LOGGER NAME</th>
+                                            <!--<th style="text-align:center;">LOGGER FOLDER</th>-->
+                                            <th style="text-align:center;">LOGGER OWNER</th>
+                                            <th style="text-align:center;">LOGGER FILE TYPE</th>
+                                            <th style="text-align:center;">LOGGER REGESITE TIME</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                        <%if(logger){
+                                            for(loggers of logger){%>
+                                            <tr>
+                                                <th style="text-align:center;"><input type="checkbox" name="checkRow" id="checkRow" value="<%=loggers._id%>"></th>
+                                                <td style="text-align:center;"><a href="/admin/logger/detail"><%=loggers.LoggerFolderName%></a></td>
+                                                <td style="text-align:center;"><%=loggers.UserInfo.userId%></td>
+                                                <td style="text-align:center;"><%=loggers.LoggerKind%></td>
+                                                
+                                                <td style="text-align:center;">
+                                                <%
+                                                var createdDate = new Date(loggers.createdAt);
+                                                var getDate = createdDate.getFullYear()+'년'+(createdDate.getMonth()+1)+'월'+createdDate.getDate()+"일"+createdDate.getHours()+"시";
+                                                %>
+                                                <%=getDate%>
+                                                </td>
+                                            </tr>
+                                        <%}}%>
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                                <!--./table end-->
+                            </div>
+                            <!--./box-body end-->
+                            <div class="box-footer">
+                                <div class="pull-right btn-group">
+                                    <button type="button" id="updateLogger" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> UPDATE LOGGER</button>
+                                    <button type="button" id="insertLogger" class="btn btn-sm btn-primary"><i class="fa fa-database"></i> CREATE LOGGER</button>
+                                </div>
+                                <!--./pull-right end-->
+                                <div class="pull-left">
+                                    <button type="button" id="deleteLogger" class="btn btn-sm btn-default"><i class="fa fa-trash-o">DELETE</i></button>
+                                </div>
+                                <!--./pull-left end-->
+                                <div class="text-center">
+                                    <ul class="pagination">
+                                        <li class="paginate_button next"><a href="/admin/logger/list"><<</a></li>
+                                        <li class="paginate_button next"><a href="/admin/logger/list"><</a></li>
+                                         <%
+                                        var offset = 3;
+                                        var test = 0;
+                                        for(var i = 1; i <= page.pageNum; i++){
+                                        %>
+                                            <li class="paginate_button next"><a href='/admin/logger/list?page=<%=i%>'><%=i%></a></li>
+                                        <%
+                                        }
+                                        %>
+                                        
+                                        <!--./paging number-->
+                                        <li class="paginate_button next"><a href="/admin/logger/list?page=">></a></li>
+                                        <li class="paginate_button next"><a href="/admin/logger/list">>></a></li>
+                                    </ul>
+                                </div>
+                                <!--./paging end -->
+                            </div>
+                            <!--./box-footer end-->
+                        </div>
+                        <!--./box end-->
+                    </div>
+                    <!--./col-md-12 end-->
+                </div>
+                <!--./row end-->
+            
+            </div>
+        </div>
+    <% include ../../../partials/admin/footer.ejs %>
+    <% include ../../../partials/admin/footerScript.ejs %>
+    <script>
+        function AllCheck(){
+            if($("#th_checkAll").is(":checked")){
+                $("input[name=checkRow]").prop("checked", true);
+            }else{
+                $("input[name=checkRow").prop("checked", false)
+            }
+        };
+
+        $(document).ready(function(){
+            $("#insertLogger").click(function(){
+                
+                document.location.href = "/admin/logger/create";
+            })
+        });
+    </script>
+  </body>
+</html>
