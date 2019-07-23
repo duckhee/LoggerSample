@@ -73,15 +73,22 @@ const GetTestingLogger = (req, res, next) => {
     };
 
     const LoggerNo = req.param('no');
-    AdminLoggerDao.ListByTestLoggerData().then(DataResult => {
-        let Names = NameMake(DataResult.LoggerName.fullNameData);
-        let DataSeries = MakeDataSeries(DataResult.LoggerData, Names);
-        let ReturnValueJson = {
-            NameValue: Names,
-            DataValue: DataSeries
-        }
-        res.json(ReturnValueJson);
-    });
+    if (LoggerNo == undefined || LoggerNo == null) {
+        console.log("Not Logger Get");
+        res.json(null);
+    } else {
+        console.log("Get Logger Num ::: ", LoggerNo);
+        AdminLoggerDao.ListByTestLoggerData(LoggerNo).then(DataResult => {
+            let Names = NameMake(DataResult.LoggerName.fullNameData);
+            let DataSeries = MakeDataSeries(DataResult.LoggerData, Names);
+            let ReturnValueJson = {
+                NameValue: Names,
+                DataValue: DataSeries
+            }
+            res.json(ReturnValueJson);
+        });
+    }
+
 };
 
 module.exports = {

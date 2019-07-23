@@ -87,23 +87,12 @@
                                         <input type="date" id="startCal" name="startCal" hidden="true">
                                         <input type="date" id="endCal" name="endCal" hidden="true">
                                     </form>
-                                    <div class="col-sm-4">
-                                        <label for="get-loggerName" class="control-label col-sm-2">DATA</label>
-                                    </div>
-                                    <!--./label end-->
-                                    <div class="col-sm-8">
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option>Test1</option>
-                                            <option selected>Test</option>
-                                        </select>
-                                    </div>
-                                    <!--./select end-->
                                 </div>
                                 <!--./end data colum show data logger data name-->
                             </div>
                             <!--./box-header end-->
                             <div class='box-body'>
-                                <div id="WeaterhDataChart" name="WeaterhDataChart"></div>
+                                <div id="WeatherhDataChart" name="WeatherhDataChart"></div>
                                 <div id="LoggerDataChart" name="LoggerDataChart"></div>
                             </div>
                             <!--./box-body end-->
@@ -124,181 +113,30 @@
     <!-- daterangepicker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="/static/admin/plugins/daterangepicker/daterangepicker.js"></script>
-    <script>
-     function getAjaxMakeChartTempData(data){
-          var i = 0;
-          var series = [];
-          
-          while(i < data.length){
-              var x = new Date(data[i].time).getTime();
-              var y = data[i].temp;
-              series.push([x, y]);
-              i++;
-          }
-          return series;
-      }
-      function getAjaxMakeChartData(data){
-          var i = 0;
-          var series = [];
-          console.log(data);
-          while(i < data.length){
-              var x = new Date(data[i].time).getTime();
-              //console.log('x :::: '+x);
-              var y = data[i].waterContent;
-              //console.log('y :::: '+y);
-              series.push([x, y]);
-              i++;
-          }
-          return series;
-      }
-    //get data make and get data time set
-      function DrawDataChart(){
-
-        var options = {
-            chart: {
-                height: 350,
-                type: 'area',
-                stacked:false,
+<script src="/static/chart/MakeChart.js"></script>
+<script src="/static/downLoad/download.js"></script>
+<script>
+    function UpdateWeatherChart(chart){
+        $.ajax({
+            type:'GET',
+            url:'/Json/getLoggerDataMongo?no=1',
+            dataType:'json',
+            error:function(){
+                return null;
             },
-            title:{
-                text:'Logger Data',
-            },
-            dataLabels: {
-                enabled: false
-            },
-            fill:{
-                        type:'gradient',
-                        gradient:{
-                            opacityFrom:0.6,
-                            opacityTo:0.8,
-                        }
-                    },
-            stroke: {
-                curve: 'smooth'
-            },
-            series: [{
-                name: 'series1',
-                type:'area',
-                data: [31, 40, 28, 51, 42, 109, 100]
-            }, {
-                name: 'series2',
-                type:'area',
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }],
-
-            xaxis: {
-                type: 'datetime',
-                categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],                
-            },
-            tooltip: {
-                x: {
-                    format: 'dd/MM/yy HH:mm'
-                },
+            success:function(data){
+                let GetData = data;
+                UpdateSeries(GetData.NameValue, GetData.DataValue, chart);
             }
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#LoggerDataChart"),
-            options
-        );
-        chart.render();
-        return;
-        }
-        //logger data show function end
-        function DrawWeatherData(){
-             var options = {
-            chart: {
-                height: 350,
-                type: 'area',
-                //type: 'line',
-                //stacked: false,
-            },
-            title:{
-                text:'Weather Data',
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            series: [{
-                name: 'series1',
-                type: 'area',
-                data: [31, 40, 28, 51, 42, 109, 100]
-            }, {
-                name: 'series2',
-                type: 'bar',
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }],
-
-            xaxis: {
-                type: 'datetime',
-                categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],                
-            },
-            tooltip: {
-                x: {
-                    format: 'dd/MM/yy HH:mm'
-                },
-            }
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#WeaterhDataChart"),
-            options
-        );
-        chart.render();
-        return;
-        }
-
-        function downloadRange(){
-                $('.daterange').daterangepicker({
-                    opens:'left',
-                    startDate:moment().subtract(29, 'days'),
-                    endDate:moment(),
-                    ranges: {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                    },
-                }, function(start, end){
-                    console.log(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
-                    $("#startCal").val(start.format('YYYY-MM-DD'));
-                    $("#endCal").val(end.format('YYYY-MM-DD'));
-                    console.log('hidden value start :::: '+$("#startCal").val()+", hidden value end ::: "+$("#endCal").val())
-                  
-            
-                    $.ajax({
-                        type:'post',
-                        url:'/download/loggerData?no=4',
-                        dataType:'json',
-                        data:{
-                            start:$("#startCal").val(),
-                            end:$("#endCal").val()
-                        },
-                        error:function(){
-
-                        },
-                        success:function(data){
-                            $("#startCal").val('');
-                            $("#endCal").val('');
-                            console.log(data);
-                        }
-                    })
-                   
-                });
-        }
-        
-        $(document).ready(function(){
-            
-            downloadRange();
-            DrawWeatherData();
-            DrawDataChart();
-        });
-        
-    </script>
+        })
+    }
+    $(document).ready(function(){
+        let WeatherChartValue = document.querySelector("#WeatherhDataChart");
+        let LoggerChartValue = document.querySelector("#LoggerDataChart");
+        let WeatherChart = MakeAreaChart(WeatherChartValue, "Weather Chart");
+        let LoggerChart = MakeAreaChart(LoggerChartValue, "Logger Chart");
+        UpdateWeatherChart(WeatherChart);
+    });
+</script>
   </body>
 </html>

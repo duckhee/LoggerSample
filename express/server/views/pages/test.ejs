@@ -272,50 +272,11 @@
             }
         });
     }
-    //Series Update
-    function UpdateSeries(chart){
-        $.ajax({
-            type:'GET',
-            url:'/test/testing',
-            dataType:'json',
-            error:function(){
-                return null;
-            },
-            /*
-            success:function(data){
-                console.log('get Ajax data ::: ', data);
-                return data;
-            }
-            */
-            
-            success:function(data){
-                var GetResult = data;
-                //console.log('get Data ::: ', data.LoggerName)
-                let Names = MakeNameSeries(data.LoggerName.fullNameData);
-                let datas = MakeDataSeries(data.LoggerData, Names);
-                let Series = MakeJson(Names,datas);
-                for(var i in Series){
-                    chart.appendSeries(Series[i]);
-                    
-                }
-                for(var i in Names){
-                    //console.log(Names[i]);
-                    chart.toggleSeries(Names[i]);
-                }
-            }
-            
-            /*
-            success:function(data){
-                TestingValue(data);
-            }
-            */
-        });
-    }
-
+    //update Data Series
     function SeriesTesting(chart){
         $.ajax({
             type:'GET',
-            url:'/test/testingData',
+            url:'/test/testingData?no=1',
             dataType:'json',
             error:function(){
                 return null;
@@ -346,33 +307,7 @@
             }
         })
     }
-    //Series Update
-    function UpdateSeriesTest(chart){
-        $.ajax({
-            type:'GET',
-            url:'/test/testingData',
-            dataType:'json',
-            error:function(){
-                return null;
-            },
-            
-            success:function(data){
-                var GetResult = data;
-                let Names = MakeNameSeries(data.LoggerName.fullNameData);
-                let datas = MakeDataSeries(data.LoggerData, Names);
-                let Series = MakeJson(Names,datas);
-                for(var i in Series){
-                    chart.appendSeries(Series[i]);
-                }
-            }
-            
-            /*
-            success:function(data){
-                TestingValue(data);
-            }
-            */
-        });
-    }
+
     //Make chart 
     function WeatherChart(){
         var options = {
@@ -407,7 +342,7 @@
                 }
             },
             legend:{
-                postion:'top',
+                position:'bottom',
                 horizontalAlign:'left',
                 
             },

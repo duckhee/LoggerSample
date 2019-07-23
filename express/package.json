@@ -21,6 +21,7 @@
     "morgan": "~1.9.1",
     "mysql": "^2.17.1",
     "mysql2": "^1.6.5",
+    "request": "^2.88.0",
     "sequelize": "^5.9.0",
     "sequelize-cli": "^5.5.0",
     "session": "^0.1.0",

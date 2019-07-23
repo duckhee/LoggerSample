@@ -1,0 +1,437 @@
+<%include ../partials/include_head.ejs %>
+
+<section class="content">
+
+<div class="row">
+<div class="col-xs-12">
+<!-- box set-->
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <i class="fa fa-bar-chart-o"></i>
+        <h3 class="box-title">Weather</h3>
+        
+    </div>
+    <div class="box-body">
+        <div id="cell1-chartLegend"></div>
+        <div id="weater-chart" style="height:300px;"></div>
+    </div>
+</div>
+
+</div>
+<div class="col-xs-12">
+<!-- box set-->
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <i class="fa fa-bar-chart-o"></i>
+        <h3 class="box-title">Cell 1</h3>
+        
+    </div>
+    <div class="box-body">
+        <div id="cell1-chartLegend"></div>
+        <div id="cell1-chart" style="height:300px;"></div>
+    </div>
+</div>
+
+</div>
+<div class="col-xs-12">
+<!-- box set-->
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <i class="fa fa-bar-chart-o"></i>
+        <h3 class="box-title">Cell 2</h3>
+        
+    </div>
+    <div class="box-body">
+        <div id="cell2-chartLegend"></div>
+        <div id="cell2-chart" style="height:300px;"></div>
+    </div>
+</div>
+
+</div>
+<div class="col-xs-12">
+<!-- box set-->
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <i class="fa fa-bar-chart-o"></i>
+        <h3 class="box-title">Cell 3</h3>
+        
+    </div>
+    <div class="box-body">
+        <div id="cell3-chartLegend"></div>
+        <div id="cell3-chart" style="height:300px;"></div>
+    </div>
+</div>
+
+<div id="testChart"></div>
+
+</div>
+</div>
+</section>
+<% include ../partials/include_footer.ejs %>
+<!-- FLOT CHARTS -->
+<script src="/static/plugins/flot/jquery.flot.min.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="/static/plugins/flot/jquery.flot.resize.min.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="/static/plugins/flot/jquery.flot.pie.min.js"></script>
+<!-- FLOT TIME PLUGIN - also used to time charts -->
+<script src="/static/plugins/flot/jquery.flot.time.js"></script>
+<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+<script src="/static/plugins/flot/jquery.flot.categories.min.js"></script>
+<!-- custom javascript chart -->
+<script src="/static/chart_function/float_input.js"></script>
+<!-- Morris.js charts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="/static/plugins/morris/morris.min.js"></script>
+<!-- FastClick -->
+<!-- apexcharts chart cdn -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="/static/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- apexcharts chart cdn -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+        function getAjaxMakeChartTempData(data){
+          var i = 0;
+          var series = [];
+          
+          while(i < data.length){
+              var x = new Date(data[i].time).getTime();
+              var y = data[i].temp;
+              series.push([x, y]);
+              i++;
+          }
+          console.log('series Testing Water Content ::: ', series);
+          return series;
+      }
+      function getAjaxMakeChartData(data){
+          var i = 0;
+          var series = [];
+          console.log(data);
+          while(i < data.length){
+              var x = new Date(data[i].time).getTime();
+              //console.log('x :::: '+x);
+              var y = data[i].waterContent;
+              //console.log('y :::: '+y);
+              series.push([x, y]);
+              i++;
+          }
+          console.log('series Testing Water Content ::: ', series);
+          return series;
+      }
+      function Series(DataInput){
+        var Name = 'waterContent';
+        let Data = getAjaxMakeChartData(DataInput);
+        console.log("Get Data value ::: ", Data);
+        let NameJson = {
+          name:Name,
+          data:Data
+        };
+        return NameJson;
+      }
+     function getCell1(){
+         $.ajax({
+             type:'GET',
+             url:'/deviceAll?no=1',
+             dataType:'json',
+             error:function(){
+                 var cell3Ajax;
+                 cell1Ajax = null;
+                 console.log('get data error');
+             },
+             success:function(data){
+                 var cell1Ajax = data;
+                 var options = {
+      chart: {
+        height: 350,
+        type: 'area',
+        stacked: true,
+        events: {
+          selection: function(chart, e) {
+            console.log(new Date(e.xaxis.min) )
+          }
+        },
+
+      },
+      colors: ['#008FFB', '#00E396', '#CED4DC'],
+      dataLabels: {
+          enabled: false
+      },
+      stroke: {
+        curve: 'smooth'
+      },
+
+      series: [Series(cell1Ajax),
+       {
+           name:'tempContent',
+           data:getAjaxMakeChartTempData(cell1Ajax)
+       }
+      ],
+      fill: {
+        type: 'gradient',
+        gradient: {
+          opacityFrom: 0.6,
+          opacityTo: 0.8,
+        }
+      },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'left'
+      },
+      xaxis: {
+        type: 'datetime'
+      },
+      tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            }
+    }
+
+    var chart = new ApexCharts(
+      document.querySelector("#cell1-chart"),
+      options
+    );
+
+    chart.render();
+
+    /*
+      // this function will generate output in this format
+      // data = [
+          [timestamp, 23],
+          [timestamp, 33],
+          [timestamp, 12]
+          ...
+      ]
+      */
+
+   
+    function generateDayWiseTimeSeries(baseval, count, yrange) {
+      var i = 0;
+      var series = [];
+      while (i < count) {
+        var x = baseval;
+        var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+        series.push([x, y]);
+        baseval += 86400000;
+        i++;
+      }
+      return series;
+    }
+
+  
+             }
+         })
+     }
+
+         function getCell2(){
+         $.ajax({
+             type:'GET',
+             url:'/deviceAll?no=2',
+             dataType:'json',
+             error:function(){
+                 var cell3Ajax;
+                 cell1Ajax = null;
+                 console.log('get data error');
+             },
+             success:function(data){
+                 var cell1Ajax = data;
+                 var options = {
+      chart: {
+        height: 350,
+        type: 'area',
+        stacked: true,
+        events: {
+          selection: function(chart, e) {
+            console.log(new Date(e.xaxis.min) )
+          }
+        },
+
+      },
+      colors: ['#008FFB', '#00E396', '#CED4DC'],
+      dataLabels: {
+          enabled: false
+      },
+      stroke: {
+        curve: 'smooth'
+      },
+
+      series: [{
+          name: 'waterContent',
+          data: getAjaxMakeChartData(cell1Ajax)
+        },
+       {
+           name:'tempContent',
+           data:getAjaxMakeChartTempData(cell1Ajax)
+       }
+      ],
+      fill: {
+        type: 'gradient',
+        gradient: {
+          opacityFrom: 0.6,
+          opacityTo: 0.8,
+        }
+      },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'left'
+      },
+      xaxis: {
+        type: 'datetime'
+      },
+      tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            }
+    }
+
+    var chart = new ApexCharts(
+      document.querySelector("#cell2-chart"),
+      options
+    );
+
+    chart.render();
+
+    /*
+      // this function will generate output in this format
+      // data = [
+          [timestamp, 23],
+          [timestamp, 33],
+          [timestamp, 12]
+          ...
+      ]
+      */
+
+   
+    function generateDayWiseTimeSeries(baseval, count, yrange) {
+      var i = 0;
+      var series = [];
+      while (i < count) {
+        var x = baseval;
+        var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+        series.push([x, y]);
+        baseval += 86400000;
+        i++;
+      }
+      return series;
+    }
+
+  
+             }
+         })
+     }
+
+
+        function getCell3(){
+         $.ajax({
+             type:'GET',
+             url:'/deviceAll?no=4',
+             dataType:'json',
+             error:function(){
+                 var cell3Ajax;
+                 cell1Ajax = null;
+                 console.log('get data error');
+             },
+             success:function(data){
+                 var cell1Ajax = data;
+                 var options = {
+      chart: {
+        height: 350,
+        type: 'area',
+        stacked: true,
+        events: {
+          selection: function(chart, e) {
+            console.log(new Date(e.xaxis.min) )
+          }
+        },
+
+      },
+      colors: ['#008FFB', '#00E396', '#CED4DC'],
+      dataLabels: {
+          enabled: false
+      },
+      stroke: {
+        curve: 'smooth'
+      },
+
+      series: [{
+          name: 'waterContent',
+          data: getAjaxMakeChartData(cell1Ajax)
+        },
+       {
+           name:'tempContent',
+           data:getAjaxMakeChartTempData(cell1Ajax)
+       }
+      ],
+      fill: {
+        type: 'gradient',
+        gradient: {
+          opacityFrom: 0.6,
+          opacityTo: 0.8,
+        }
+      },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'left'
+      },
+      xaxis: {
+        type: 'datetime'
+      },
+      tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            }
+    }
+
+    var chart = new ApexCharts(
+      document.querySelector("#cell3-chart"),
+      options
+    );
+
+    chart.render();
+
+    /*
+      // this function will generate output in this format
+      // data = [
+          [timestamp, 23],
+          [timestamp, 33],
+          [timestamp, 12]
+          ...
+      ]
+      */
+
+   
+    function generateDayWiseTimeSeries(baseval, count, yrange) {
+      var i = 0;
+      var series = [];
+      while (i < count) {
+        var x = baseval;
+        var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+
+        series.push([x, y]);
+        baseval += 86400000;
+        i++;
+      }
+      return series;
+    }
+
+  
+             }
+         })
+     }
+
+    getCell1();
+    getCell2();
+    getCell3();
+ });
+</script>
+</body>
+</html>
+

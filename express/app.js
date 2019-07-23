@@ -19,6 +19,11 @@ const indexRouter = require('./server/routes/index');
 const UserRouter = require('./server/routes/user/user.router');
 const DownloadRouter = require('./server/routes/download/download.router');
 const TestingRouter = require('./server/routes/logger/logger.data.router');
+
+/**
+ * Get Json Data router
+ */
+const MongoRouter = require('./server/routes/mongodb/mongo.db.router');
 /**
  * admin router
  */
@@ -95,6 +100,12 @@ app.use('/', indexRouter);
 app.use('/member', UserRouter);
 app.use('/download', DownloadRouter);
 app.use('/test', TestingRouter);
+
+/**
+ * Get Json Data Setting
+ */
+app.use('/Json', MongoRouter);
+
 /**
  * Admin router setting url
  */

@@ -95,16 +95,19 @@ const DetailInfoLogger = (LoggerInfo) => {
     });
 }
 
-const ListByTestLoggerData = () => {
+const ListByTestLoggerData = (LoggerNo) => {
     return new Promise((resolve, reject) => {
         Logger.findOne({
-            index: 0
+            index: LoggerNo
         }).populate({
             path: 'UserInfo',
             select: 'userId'
         }).populate({
             path: 'LoggerData',
-            select: 'fullValueData'
+            select: 'fullValueData',
+            options: {
+                limit: 200
+            }
         }).populate({
             path: 'LoggerName',
             select: 'fullNameData',

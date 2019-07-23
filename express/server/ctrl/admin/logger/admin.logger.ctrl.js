@@ -103,10 +103,15 @@ const ListPage = (req, res, next) => {
 const detailPage = (req, res, next) => {
     console.log('admin logger detail page show ');
     const loggerNo = req.param('no');
-    console.log('logger no ::: ', loggerNo);
-    res.render('admin/logger/detailPage', {
-        login: req.session.userInfo
-    });
+    if (loggerNo == undefined || loggerNo == null) {
+        res.redirect('/admin/logger/list');
+    } else {
+        console.log('logger no ::: ', loggerNo);
+        res.render('admin/logger/detailPage', {
+            login: req.session.userInfo,
+            GetDataNo: loggerNo
+        });
+    }
 };
 
 const downloadDo = (req, res, next) => {

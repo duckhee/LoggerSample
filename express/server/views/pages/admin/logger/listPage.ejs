@@ -108,7 +108,7 @@
                                             for(loggers of logger){%>
                                             <tr>
                                                 <th style="text-align:center;"><input type="checkbox" name="checkRow" id="checkRow" value="<%=loggers._id%>"></th>
-                                                <td style="text-align:center;"><a href="/admin/logger/detail"><%=loggers.LoggerFolderName%></a></td>
+                                                <td style="text-align:center;"><a href="/admin/logger/detail?no=<%=loggers.index%>"><%=loggers.LoggerFolderName%></a></td>
                                                 <td style="text-align:center;"><%=loggers.UserInfo.userId%></td>
                                                 <td style="text-align:center;"><%=loggers.LoggerKind%></td>
                                                 
