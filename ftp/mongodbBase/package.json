@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "build": "pkg . --target node10-linux-armv7,node10-linux-x64,node10-macos-x64,node10-win-x64 --out-path buildPkg",
-    "buildWindow": "pkg . --target node10-win-x64"
+    "buildWindow": "pkg . --target node10-win-x64 --out-path buildPkg",
+    "buildLinux": "pkg . --target node10-linux-armv7 --out-path buildPkg",
+    "buildMac": "pkg . --target node10-macos-x64 --out-path buildPkg"
   },
   "author": "",
   "license": "ISC",

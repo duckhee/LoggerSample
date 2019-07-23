@@ -121,6 +121,21 @@ const updateDataInfo = (updateJson, arrayList) => {
     });
 };
 
+const updateNameInfo = (updateJson) => {
+    return new Promise((resolve, reject) => {
+        LoggerInfo.update({
+            _id: updateJson._id
+        }, {
+            $set: updateJson
+        }).exec((err, upset) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(upset);
+        });
+    });
+}
+
 module.exports = {
     CheckLoggerInfo,
     CheckLoggerName,
@@ -129,6 +144,7 @@ module.exports = {
     CheckLoggerData,
     InsertLoggerDataArray,
     updateDataInfo,
-    updateDateName
+    updateDateName,
+    updateNameInfo
 
 };

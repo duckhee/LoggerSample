@@ -139,8 +139,8 @@ const InsertDataLogger = async (ListJson, callback) => {
                             NameReturnJson = NameResult;
                             LoggerNameValue = NameResult;
                             //Update Logger Main Info add Logger Name
-                            LoggerDao.updateDataInfo(fileName.LoggerMain).then(InfoUpdateResult => {
-                                //console.log('update User Info ::: ', InfoUpdateResult);
+                            LoggerDao.updateNameInfo(fileName.LoggerMain).then(InfoUpdateResult => {
+                                console.log('update User Info ::: ', InfoUpdateResult);
                             }).catch(err => {
                                 return callback(err, null);
                             });
@@ -202,6 +202,7 @@ const InsertDataLogger = async (ListJson, callback) => {
                 //console.log('get logger data array ::: ', ArrayData);
                 //console.log('Checking Name Logger Data ::: ', NameReturnJson.LoggerData);
                 //console.log('NameReturnJson ::: ', NameReturnJson);
+
                 LoggerDao.updateDataInfo(LoggerInfoReturnJson, ArrayData).then(InfoResult => {
                     //console.log('update Logger Info Update ::: ', InfoResult);
                     LoggerDao.updateDateName(NameReturnJson, ArrayData).then(updateNameResult => {
@@ -212,7 +213,8 @@ const InsertDataLogger = async (ListJson, callback) => {
 
                 }).catch(err => {
                     return callback(err, null);
-                })
+                });
+
             }).catch(err => {
                 return callback(err, null);
             });
