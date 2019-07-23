@@ -1,59 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const getReq = require('request');
+const SampleCtrl = require('../../ctrl/sample/sample.ctrl');
 
 /**
  * Sample One Page
  */
-router.get('/', (req, res, next) => {
-    res.render('sample/sample', {
-        login: req.session.userInfo
-    });
-});
+router.get('/', SampleCtrl.SamplePage);
 
 /**
  * Sample Cell One
  */
-router.get('/cellOne', (req, res, next) => {
-
-});
+router.get('/cellOne', SampleCtrl.CellOnePage);
 
 /**
  * Sample Cell Two
  */
-router.get('/cellTwo', (req, res, next) => {
-
-});
+router.get('/cellTwo', SampleCtrl.CellTwoPage);
 
 /**
  * Sample Cell Three
  */
-router.get('/cellThree', (req, res, next) => {
-
-});
+router.get('/cellThree', SampleCtrl.CellThreePage);
 
 /**
  * Get Main Web Data
  */
-router.get('/DeviceData', (req, res, next) => {
-    let no = req.query.no || req.params.no || req.param.no || req.body.no;
-    getReq('http://www.iof.center/DataValue/getDeviceList10?no=' + no, (err, response, body) => {
-        console.log("no :::::::::::::: " + no);
-        console.log("response", typeof (body));
-        res.send(body);
-    });
-});
+router.get('/DeviceData', SampleCtrl.GetDeviceData);
 
 /**
  * Get Main Web Image
  */
-router.get('/DeviceImage', (req, res, next) => {
-    let no = req.query.no || req.params.no || req.param.no || req.body.no;
-    getReq("http://www.iof.center/DataValue/DeviceImageGet?no=" + no, (err, response, body) => {
-        console.log("no :::::::::::::: " + no);
-        res.send(body);
-    });
-});
+router.get('/DeviceImage', SampleCtrl.GetImagePath);
 
 
 module.exports = router;

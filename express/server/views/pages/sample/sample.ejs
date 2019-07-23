@@ -1,4 +1,4 @@
-<%include ../partials/include_head.ejs %>
+<% include ../../partials/sample/include_head.ejs %>
 
 <section class="content">
 
@@ -13,7 +13,7 @@
     </div>
     <div class="box-body">
         <div id="cell1-chartLegend"></div>
-        <div id="weater-chart" style="height:300px;"></div>
+        <div id="weather-chart" style="height:300px;"></div>
     </div>
 </div>
 
@@ -67,7 +67,7 @@
 </div>
 </div>
 </section>
-<% include ../partials/include_footer.ejs %>
+<% include ../../partials/sample/include_footer.ejs %>
 <!-- FLOT CHARTS -->
 <script src="/static/plugins/flot/jquery.flot.min.js"></script>
 <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
@@ -92,6 +92,7 @@
 <script src="/static/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- apexcharts chart cdn -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="/static/chart/MakeChart.js"></script>
 <script type="text/javascript">
  $(document).ready(function(){
         function getAjaxMakeChartTempData(data){
@@ -135,7 +136,7 @@
      function getCell1(){
          $.ajax({
              type:'GET',
-             url:'/deviceAll?no=1',
+             url:'/sample/DeviceData?no=1',
              dataType:'json',
              error:function(){
                  var cell3Ajax;
@@ -178,7 +179,7 @@
         }
       },
       legend: {
-        position: 'top',
+        position: 'bottom',
         horizontalAlign: 'left'
       },
       xaxis: {
@@ -231,7 +232,7 @@
          function getCell2(){
          $.ajax({
              type:'GET',
-             url:'/deviceAll?no=2',
+             url:'/sample/DeviceData?no=2',
              dataType:'json',
              error:function(){
                  var cell3Ajax;
@@ -277,7 +278,7 @@
         }
       },
       legend: {
-        position: 'top',
+        position: 'bottom',
         horizontalAlign: 'left'
       },
       xaxis: {
@@ -331,7 +332,7 @@
         function getCell3(){
          $.ajax({
              type:'GET',
-             url:'/deviceAll?no=4',
+             url:'/sample/DeviceData?no=4',
              dataType:'json',
              error:function(){
                  var cell3Ajax;
@@ -377,7 +378,7 @@
         }
       },
       legend: {
-        position: 'top',
+        position: 'bottom',
         horizontalAlign: 'left'
       },
       xaxis: {
@@ -426,7 +427,23 @@
              }
          })
      }
-
+     function UpdateWeather(chart){
+       $.ajax({
+         type:'GET',
+         url:'/Json/getLoggerDataMongo?no=1',
+         dataType:'json',
+         error:function(){
+           return null;
+         },
+         success:function(data){
+           let GetData = data;
+           UpdateSeries(GetData.NameValue, GetData.DataValue, chart);
+         }
+       })
+     };
+     let WeatherChartValue = document.querySelector("#weather-chart");
+    let WeatherChart = MakeAreaChart(WeatherChartValue, "Weather Chart");
+    UpdateWeather(WeatherChart);
     getCell1();
     getCell2();
     getCell3();

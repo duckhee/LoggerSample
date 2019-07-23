@@ -13,6 +13,11 @@ const FileStore = require('session-file-store')(session);
 const flash = require('connect-flash');
 
 /**
+ * Sample Router
+ */
+const SampleRouter = require('./server/routes/sample/sample.router');
+
+/**
  * router
  */
 const indexRouter = require('./server/routes/index');
@@ -92,6 +97,11 @@ app.use(flash({
  * web resource url setting
  */
 app.use('/static', express.static(path.join(__dirname, 'public')));
+
+/**
+ * Sample Show Page delete
+ */
+app.use('/sample', SampleRouter);
 
 /**
  * router setting url
