@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/my_database');
+const connection = mongoose.createConnection('mongodb://192.168.3.7/my_database');
 const LoggerInfoDao = require('./dao/mongoose/logger/logger.dao');
 const LoggerCtrl = require('./ctrl/logger.ctrl');
 const LoggerSampleCtrl = require('./ctrl/logger.ctrl.sample');
