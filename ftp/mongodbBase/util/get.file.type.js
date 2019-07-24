@@ -7,6 +7,7 @@ const GetFolderInfo = (MainFolderPath) => {
 
     if (checkFolderExist) {
         let readFolder = fs.readdirSync(mainFolder);
+        console.log('Get Main Folder : ', readFolder);
         return readFolder;
     }
     return null;
