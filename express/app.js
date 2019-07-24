@@ -101,13 +101,14 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 /**
  * Sample Show Page delete
  */
-app.use('/sample', SampleRouter);
+app.use('/', SampleRouter);
+//app.use('/sample', SampleRouter);
 
 /**
  * User router setting url
  */
 //app.use('/', indexRouter);
-app.use('/member', SampleRouter);
+app.use('/member', UserRouter);
 app.use('/download', DownloadRouter);
 app.use('/test', TestingRouter);
 
