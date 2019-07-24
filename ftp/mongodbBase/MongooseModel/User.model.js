@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 const bcrypt = require('bcrypt-nodejs');
-const connection = mongoose.createConnection('mongodb://localhost/my_database');
+//const connection = mongoose.createConnection('mongodb://localhost/my_database');
 autoIncrement.initialize(connection);
 const Schema = mongoose.Schema;
 

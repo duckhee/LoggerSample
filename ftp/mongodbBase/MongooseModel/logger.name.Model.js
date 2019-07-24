@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
-const connection = mongoose.createConnection('mongodb://localhost/my_database');
+//const connection = mongoose.createConnection('mongodb://localhost/my_database');
 //const findOrCreate = require('mongoose-findorcreate');
 autoIncrement.initialize(connection);
 const Schema = mongoose.Schema;
