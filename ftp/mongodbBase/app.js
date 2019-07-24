@@ -4,10 +4,10 @@ const dbConnection = mongoose.connect('mongodb://localhost/my_database');
 const User = require('./MongooseModel/User.model');
 const LoggerSampleCtrl = require('./ctrl/logger.ctrl.sample');
 const FileUtil = require('./util/get.file.type');
-const MainFTPFolder = process.cwd() + '';
+//const MainFTPFolder = process.cwd() + '';
+const mainFTPFolder = process.cwd() + '/../../../test';
 //window Sample Path
 //let Path = 'c:\/Users\/Administrator\/Documents\/ftp\/test\/SINHEUNG';
-
 SampleProgram = () => {
     let getFolderName = FileUtil.GetFolderInfo(mainFTPFolder);
     LoggerSampleCtrl.CheckLoggerInfoArray(getFolderName).then(result => {
