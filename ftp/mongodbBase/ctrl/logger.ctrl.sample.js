@@ -74,7 +74,8 @@ const GetAllText = (FileNameList) => {
                 };
 
                 try {
-                    FileDataJson.Text = FileUtil.GetFileText(fileData.Path + '/' + fileAll);
+                    FileDataJson.Text = FileUtil.GetFileText(fileData.Path + '\/' + fileAll);
+                    //FileDataJson.Text = FileUtil.GetFileText(fileData.Path + '/' + fileAll);
                     FileTextArray.push(FileDataJson);
                 } catch (err) {
                     return reject(err);

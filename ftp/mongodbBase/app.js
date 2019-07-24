@@ -19,7 +19,8 @@ SampleProgram = () => {
                 FileName: checkList.FolderName
             };
             if (checkList.resultValue != 0) {
-                FileJson.Path = mainFTPFolder + '/' + checkList.FolderName;
+                FileJson.Path = mainFTPFolder + '\/' + checkList.FolderName;
+                //FileJson.Path = mainFTPFolder + '/' + checkList.FolderName;
                 FileJson.LoggerMain = checkList.resultValue;
                 checkArray.push(FileJson);
             }
