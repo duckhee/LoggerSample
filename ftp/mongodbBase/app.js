@@ -47,3 +47,7 @@ SampleProgram = () => {
 
 //set Time Val 
 SampleProgram();
+setInterval(function () {
+    console.log('start main function');
+    SampleProgram();
+}, 1000 * 60 * 60);
