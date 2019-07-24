@@ -1,8 +1,8 @@
 const LoggerDao = require('../dao/mongoose/logger/logger.dao.sample');
 const FileUtil = require('../util/get.file.type');
 const Sync = require('sync');
-//const mainFTPFolder = process.cwd() + '/../sampleData';
-const mainFTPFolder = process.cwd() + '/../../../test';
+const mainFTPFolder = process.cwd() + '/../sampleData';
+//const mainFTPFolder = process.cwd() + '/../../../test';
 /**
  * insert logger data
  * insert logger name
