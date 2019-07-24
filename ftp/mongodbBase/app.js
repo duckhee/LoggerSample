@@ -5,7 +5,7 @@ const User = require('./MongooseModel/User.model');
 const LoggerSampleCtrl = require('./ctrl/logger.ctrl.sample');
 const FileUtil = require('./util/get.file.type');
 //const MainFTPFolder = process.cwd() + '';
-const mainFTPFolder = process.cwd() + '/../../../test';
+const mainFTPFolder = "c:\/Users\/Administrator\/Documents\/ftp\/test\";
 //window Sample Path
 //let Path = 'c:\/Users\/Administrator\/Documents\/ftp\/test\/SINHEUNG';
 SampleProgram = () => {
