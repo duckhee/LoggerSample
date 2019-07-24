@@ -102,7 +102,7 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
  * Sample Show Page delete
  */
 app.use('/', SampleRouter);
-//app.use('/sample', SampleRouter);
+app.use('/sample', SampleRouter);
 
 /**
  * User router setting url
