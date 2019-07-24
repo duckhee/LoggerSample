@@ -130,12 +130,26 @@
             }
         })
     }
+    function UpdateLoggerChart(chart){
+        $.ajax({
+            type:"GET",
+            url:'/Json/getLoggerdataMongo?no=<%=%>',
+            error:function(){
+                return null;
+            },
+            success:function(data){
+                let GetDAta = data;
+                UpdateSeries(GetData.NameValue, GetData.DataValue, chart);
+            }
+        })
+    }
     $(document).ready(function(){
         let WeatherChartValue = document.querySelector("#WeatherhDataChart");
         let LoggerChartValue = document.querySelector("#LoggerDataChart");
         let WeatherChart = MakeAreaChart(WeatherChartValue, "Weather Chart");
         let LoggerChart = MakeAreaChart(LoggerChartValue, "Logger Chart");
         UpdateWeatherChart(WeatherChart);
+        UpdateLoggerChart(LoggerChart);
     });
 </script>
   </body>
