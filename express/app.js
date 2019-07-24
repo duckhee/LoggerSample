@@ -104,7 +104,7 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use('/sample', SampleRouter);
 
 /**
- * router setting url
+ * User router setting url
  */
 app.use('/', indexRouter);
 app.use('/member', UserRouter);
