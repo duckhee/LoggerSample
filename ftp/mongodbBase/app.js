@@ -29,8 +29,8 @@ SampleProgram = () => {
             LoggerSampleCtrl.GetAllText(FileListArrayResult).then(DataResult => {
                 LoggerSampleCtrl.InsertDataLogger(DataResult, (err, result) => {
                     if (result)
-                        process.exit(1);
-
+                        //process.exit(1);
+                        console.log('Main Function Done Result ::::', result);
                     if (err)
                         console.log('Insert Logic error :::: ', err);
                 });
