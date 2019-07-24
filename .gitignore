@@ -63,3 +63,7 @@ typings/
 
 #remove sample data folder
 sampleData/
+
+#sample Testing Expo example
+app/expo-sample/*
+#app/expo-sample/instargram-cline/*
