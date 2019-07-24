@@ -133,7 +133,7 @@
     function UpdateLoggerChart(chart){
         $.ajax({
             type:"GET",
-            url:'/Json/getLoggerdataMongo?no=<%=%>',
+            url:'/Json/getLoggerdataMongo?no=<%=GetDataNo%>',
             error:function(){
                 return null;
             },

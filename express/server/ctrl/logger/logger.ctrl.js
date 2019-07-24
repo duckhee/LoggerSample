@@ -74,11 +74,12 @@ const GetTestingLogger = (req, res, next) => {
 
     const LoggerNo = req.param('no');
     if (LoggerNo == undefined || LoggerNo == null) {
-        console.log("Not Logger Get");
+        console.log("Not Logger Get ::: ", LoggerNo);
         res.json(null);
     } else {
         console.log("Get Logger Num ::: ", LoggerNo);
         AdminLoggerDao.ListByTestLoggerData(LoggerNo).then(DataResult => {
+            console.log("Logger NameGet", DataResult);
             let Names = NameMake(DataResult.LoggerName.fullNameData);
             let DataSeries = MakeDataSeries(DataResult.LoggerData, Names);
             let ReturnValueJson = {
