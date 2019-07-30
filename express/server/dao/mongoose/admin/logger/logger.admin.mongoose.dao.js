@@ -95,6 +95,10 @@ const DetailInfoLogger = (LoggerInfo) => {
     });
 }
 
+/**
+ * limit 200 data 
+ * @param {Logger Index} LoggerNo 
+ */
 const ListByTestLoggerData = (LoggerNo) => {
     return new Promise((resolve, reject) => {
         Logger.findOne({
@@ -122,6 +126,60 @@ const ListByTestLoggerData = (LoggerNo) => {
     });
 };
 
+const ListByAllLoggerData = (LoggerNo) => {
+    return new Promise((resolve, reject) => {
+        Logger.findOne({
+            index: LoggerNo
+        }).populate({
+            path: 'UserInfo',
+            select: 'userId'
+        }).populate({
+            path: 'LoggerData',
+            select: 'fullValueData',
+           
+        }).populate({
+            path: 'LoggerName',
+            select: 'fullNameData',
+        }).exec((err, res) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(res);
+        });
+    });
+};
+
+
+const ListByRangeLoggerData = (LoggerData) => {
+    return new Promise((resolve, reject) => {
+        Logger.findOne({
+            index: LoggerData.LoggerNo
+        }).populate({
+            path: 'UserInfo',
+            select: 'userId'
+        }).populate({
+            path: 'LoggerData',
+            select: 'fullValueData',
+            match:{
+                createdAt:{
+                $gte:LoggerData.start,
+                $lte:LoggerData.end
+            }
+        }
+           
+        }).populate({
+            path: 'LoggerName',
+            select: 'fullNameData',
+        }).exec((err, res) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(res);
+        });
+    });
+};
+
+
 module.exports = {
     InsertInfoLogger,
     LoggerNameCheck,
@@ -130,5 +188,7 @@ module.exports = {
     UpdateInfoLogger,
     DetailInfoLogger,
     //Testing code
-    ListByTestLoggerData
+    ListByTestLoggerData,
+    ListByAllLoggerData,
+    ListByRangeLoggerData
 };
