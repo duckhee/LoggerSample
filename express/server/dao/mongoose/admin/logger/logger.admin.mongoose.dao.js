@@ -110,13 +110,13 @@ const ListByTestLoggerData = (LoggerNo) => {
             path: 'LoggerData',
             select: 'fullValueData',
             options: {
-                limit: 200,
-                sort:'-createdAt'
+                limit: 10,
+                sort:{_id:-1}
             },
         }).populate({
             path: 'LoggerName',
             select: 'fullNameData',
-        }).exec((err, res) => {
+        }).sort('LoggerData.createdAt').exec((err, res) => {
             if (err) {
                 return reject(err);
             }
@@ -179,6 +179,8 @@ const ListByRangeLoggerData = (LoggerData) => {
         });
     });
 };
+
+
 
 
 module.exports = {

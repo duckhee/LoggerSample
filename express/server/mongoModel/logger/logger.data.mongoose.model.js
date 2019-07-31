@@ -39,4 +39,5 @@ LoggerData.plugin(autoIncrement.plugin, {
 });
 */
 
+
 module.exports = mongoose.model('LoggerData', LoggerData);
