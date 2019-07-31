@@ -106,7 +106,7 @@ const ListByTestLoggerData = (LoggerNo) => {
             path: 'LoggerData',
             select: 'fullValueData',
             options: {
-		sort:'-createdAt',
+		sort:{_id:-1},
                 limit: 200
             }
         }).populate({
