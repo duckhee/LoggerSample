@@ -99,6 +99,20 @@ app.use(flash({
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
 /**
+ * web admin resource setting 
+ * if need to setting, It is server proxy pass Setting(apache setting)
+ * /admin
+ */
+app.use('/admin/static', express.static(path.join(__dirname, "public")));
+
+/**
+ * web user resource setting
+ * if need to setting , It is server proxy pass Setting(apache setting).
+ * /user
+ */
+app.use('/user/static', express.static(path.join(__dirname, 'public')));
+
+/**
  * Sample Show Page delete
  */
 app.use('/', SampleRouter);
