@@ -32,5 +32,10 @@ router.get('/DeviceData', SampleCtrl.GetDeviceData);
  */
 router.get('/DeviceImage', SampleCtrl.GetImagePath);
 
+/**
+ * Get file Image Test get ftp server
+ */
+
+
 
 module.exports = router;
