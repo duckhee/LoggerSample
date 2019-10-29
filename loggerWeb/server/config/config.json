@@ -1,0 +1,47 @@
+{
+    "development": {
+        "username": "root",
+        "password": "won1228A!",
+        "database": "database_development",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "timezone": "+09:00",
+        "define": {
+            "charset": "utf8mb4",
+            "dialectOptions": {
+                "collate": "utf8mb4_general_ci"
+            }
+        },
+        "operatorsAliases": false
+    },
+    "test": {
+        "username": "root",
+        "password": "won1228A!",
+        "database": "database_development",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "timezone": "+09:00",
+        "define": {
+            "charset": "utf8mb4",
+            "dialectOptions": {
+                "collate": "utf8mb4_general_ci"
+            }
+        },
+        "operatorsAliases": false
+    },
+    "production": {
+        "username": "root",
+        "password": "won1228A!",
+        "database": "database_development",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "timezone": "+09:00",
+        "define": {
+            "charset": "utf8mb4",
+            "dialectOptions": {
+                "collate": "utf8mb4_general_ci"
+            }
+        },
+        "operatorsAliases": false
+    }
+}

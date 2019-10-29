@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA=Compatible" content="IE=edge">
+        <title>IoF Admin | Log In</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="shortcut icon" type="image/x-icon" href="/static/images/logo.png" >
+        <!-- BootStrap 3.3.6 -->
+        <link rel="stylesheet" href="/static/admin/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Theme Style -->
+        <link rel="stylesheet" href="/static/admin/dist/css/AdminLTE.min.css">
+        <!-- iCheck -->
+        <link rel="stylesheet" href="/static/admin/plugins/iCheck/square/blue.css">
+    </head>
+    <body class="hold-transition login-page">
+        <!-- login box title end -->
+        <div class="login-box">
+            <div class="login-logo">
+                <a href="/"><b>Admin </b>IoF</a>
+            </div>
+        <!-- /.login box title end -->
+        <!-- Login Box body -->
+            <div class="login-box-body">
+                <p class="login-box-msg">Sing In to Start your Session</p>
+
+                <form id="loginInfo" action="" method="post">
+                    <div class="form-group has-feedback">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email...">
+                        <span class="glyphicon glyphicon-evelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" name="password" id="pw" class="form-control" placeholder="PassWord...">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <!-- col -->
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input type="checkbox" id="rememberPass">  Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <!-- col -->
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-primary btn-block btn-flat" id="LoginDo">Sign In</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </form>
+                <a href="#">I Forget My password</a><br>
+                <!-- <a href="#" class="text-center">Registe a new Membership</a> -->
+            </div>
+            <!-- /.Login Box body -->
+        </div>
+        <!-- /.Login Box -->
+        <script src="/static/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="/static/admin/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/admin/plugins/iCheck/icheck.min.js"></script>
+        <script>
+            $(function(){
+                $('#rememberPass').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '230%' // optional
+                });
+            });
+        </script>
+
+    </body>
+</html>

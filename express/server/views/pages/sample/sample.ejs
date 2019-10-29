@@ -239,8 +239,10 @@
                  cell1Ajax = null;
                  console.log('get data error');
              },
-             success:function(data){
+             success:function(data, textStatus, StatusCode){
                  var cell1Ajax = data;
+                 console.log('test', textStatus);
+                 console.log('get status', StatusCode.status);
                  var options = {
       chart: {
         height: 350,

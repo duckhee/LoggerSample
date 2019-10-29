@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const LoggerData = new Schema({
     fullValueData: {
         type: String,
-        require: true
+        required: true
     },
     LoggerMainInfoIndex: {
         type: mongoose.Schema.Types.ObjectId,
@@ -21,7 +21,7 @@ const LoggerData = new Schema({
     },
     createdAt: {
         type: Date,
-        require: true,
+        required: true,
         default: Date.now(),
     },
     updatedAt: {

@@ -5,6 +5,28 @@ autoIncrement.initialize(connection);
 const Schema = mongoose.Schema;
 
 const WeatherData = new Schema({
+    fullValueData: {
+        type: String,
+        required: true
+    },
+    WeatherMainInfoIndex: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'WeatherMainInfo',
+        required: true
+    },
+    WeatherNameIndex: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'WeatherName',
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        require: true,
+        default: Date.now()
+    },
+    updatedAt: {
+        type: Date
+    }
 
 });
 
@@ -15,4 +37,4 @@ WeatherData.plugin(autoIncrement.plugin, {
 });
 */
 
-//module.exports = mongoose.model('');
+module.exports = mongoose.model('WeatherData', WeatherData);

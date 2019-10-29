@@ -41,6 +41,11 @@ const AdminLoggerRouter = require('./server/routes/admin/logger/admin.logger.rou
  */
 const MongooseDB = require('./server/mongoModel/index.mongodb');
 
+/**
+ * test router
+ */
+const TestRouter = require('./server/routes/test');
+
 var app = express();
 
 // view engine setup
@@ -50,7 +55,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
-  extended: false
+    extended: false
 }));
 app.use(cookieParser("secretkeyDev"));
 //session setting save 
@@ -66,31 +71,31 @@ app.use(cookieParser("secretkeyDev"));
  * 
  */
 app.use(
-  session({
-    store: new FileStore, //local file session save file
-    key: 'secretekeyDevsession', //session save secrete key
-    saveUninitialized: true, //
-    uset: function (req) //not session setting do
-    {
-      req.session.destroy(function (err) {
-        //if session destroy error
-        console.log('session destroy error code ::: ', err.code);
-        console.log('session destroy error ::: ', err);
-      });
-    },
-    resave: false, //session resave option
-    cookie: {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 //cookie alive time setting 1hour??
-    }
-  })
+    session({
+        store: new FileStore, //local file session save file
+        key: 'secretekeyDevsession', //session save secrete key
+        saveUninitialized: true, //
+        uset: function(req) //not session setting do
+            {
+                req.session.destroy(function(err) {
+                    //if session destroy error
+                    console.log('session destroy error code ::: ', err.code);
+                    console.log('session destroy error ::: ', err);
+                });
+            },
+        resave: false, //session resave option
+        cookie: {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 //cookie alive time setting 1hour??
+        }
+    })
 );
 
 /**
  * flash message use add
  */
 app.use(flash({
-  unsafe: true
+    unsafe: true
 }));
 
 /**
@@ -110,7 +115,7 @@ app.use('/admin/static', express.static(path.join(__dirname, "public")));
  * if need to setting , It is server proxy pass Setting(apache setting).
  * /user
  */
-app.use('/user/static', express.static(path.join(__dirname, 'public')));
+app.use('/member/static', express.static(path.join(__dirname, 'public')));
 
 /**
  * Sample Show Page delete
@@ -125,6 +130,7 @@ app.use('/sample', SampleRouter);
 app.use('/member', UserRouter);
 app.use('/download', DownloadRouter);
 app.use('/test', TestingRouter);
+app.use('/testing', TestRouter);
 
 /**
  * Get Json Data Setting
@@ -139,23 +145,23 @@ app.use('/admin/member', AdminUserRouter);
 app.use('/admin/logger', AdminLoggerRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  var err = new Error("Not Found");
-  err.status = 404;
-  res.render('error/404');
+app.use(function(req, res, next) {
+    var err = new Error("Not Found");
+    err.status = 404;
+    res.render('error/404');
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  console.log('server error code ::: ', err.code);
-  console.log('server error :::: ', err);
-  res.render('error/500');
+    // render the error page
+    res.status(err.status || 500);
+    console.log('server error code ::: ', err.code);
+    console.log('server error :::: ', err);
+    res.render('error/500');
 });
 
 module.exports = app;
