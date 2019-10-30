@@ -1,6 +1,7 @@
 /** Admin User Page */
 const MainPage = (req, res, next) => {
-    res.redirect('/admin/user/profile', {});
+    /** Admin User redirect Profile Page */
+    res.redirect('/admin/User/profile');
 };
 
 /** Admin User Login Page */
@@ -36,12 +37,28 @@ const LogOutDo = (req, res, next) => {
 
 /** Admin User Profile Page */
 const ProfilePage = (req, res, next) => {
-
+    //TODO Delete Data just Test
+    var TestingLoginData = {
+        userId: 'test',
+        name: 'tester'
+    };
+    res.render('admin/Users/ProfilePage', {
+        login: TestingLoginData,
+        title: 'Admin Profile Page'
+    });
 };
 
 /** Admin User Modify Page */
 const ModifyPage = (req, res, next) => {
-
+    //TODO Delete Data just Test
+    var TestingLoginData = {
+        userId: 'test',
+        name: 'tester'
+    };
+    res.render('admin/Users/ModifyPage', {
+        login: TestingLoginData,
+        title: 'Admin Modify Page'
+    });
 };
 
 /** Admin User Modify Do */

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../../../../partials/admin/stylesheet.ejs %>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            <% include ../../../../partials/admin/header.ejs%>
+            <div class="content-wrapper">
+                <div class="content">
+                    <div class="register-box">
+                        <div class="register-logo">
+                            <a href="#"><b>Member</b>Registe</a>
+                        </div>
+                        <div class="register-box-body">
+                            <p class="login-box-msg">Registe New Member</p>
+                            <form action="" method="">
+                                <!-- User Email Input -->
+                                <div class="form-group has-feedback">
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" placeholder="User Email..." autocomplete="off">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-info btn-flat">Email Check</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- /.User Email Input -->
+                                <!-- User Pw Input -->
+                                <div class="form-group has-feedback">
+                                        <input type="password" class="form-control" placeholder="Password..." autocomplete="off">
+                                        <i class="glyphicon glyphicon-lock form-control-feedback"></i>
+                                </div>
+                                <!-- /.User Pw Input -->
+                                <!-- User Pw Input -->
+                                <div class="form-group has-feedback">
+                                    <input type="password" class="form-control" placeholder="confirm Password..." autocomplete="off">
+                                    <i class="glyphicon glyphicon-lock form-control-feedback"></i>
+                                </div>
+                                <!-- /.User Pw Input -->
+                                <div class="form-group has-feedback">
+                                    <input type="text" class="form-control" placeholder="User Name" autocomplete="off">
+                                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                </div>
+                                <!-- Registe Box Footer -->
+                                <div class="box-footer">
+                                        <button type="button" class="btn btn-danger ">Cancel</button>
+                                        <button type="button" class="btn btn-primary  pull-right">Register</button>
+                                </div>
+                                <!-- /.Registe Box Footer -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% include ../../../../partials/admin/footer.ejs %>
+        </div>
+        <% include ../../../../partials/admin/footerScript.ejs %>
+    </body>
+</html>

@@ -4,19 +4,18 @@ const UserModel = require('../../../../mongoModel/Users/user.mongoDB');
 const LoginDo = (LoginInfo) => {
     console.log('Admin Login Dao');
 
-    UserModel.findOne({LoginInfo.UserId},(err, users)=>{
-        if(err){
+    UserModel.findOne({ UserId: LoginInfo.userId }, (err, users) => {
+        if (err) {
             console.log('Login User Dao Error Code : ', err.code);
             console.log('Login User Dao Error : ', err);
             return err;
-        }else{
+        } else {
             const checking = users.comparePassword(UserInfo.userPw);
             var ReturnValue = '';
-            if(checking && users.level === 1)
-            {
+            if (checking && users.level === 1) {
                 /** Check password and user level Success */
 
-            }else{
+            } else {
                 /** Check password and user level Failed */
 
             }

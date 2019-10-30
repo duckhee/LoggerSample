@@ -12,6 +12,7 @@ passport.deserializeUser((id, done) => {
 
 
 passport.use('local-login', new LocalStrategy({
+    /** Form Field Login Info */
     usernameFiled: "username",
     passwordField: "password",
     passReqToCallback: true

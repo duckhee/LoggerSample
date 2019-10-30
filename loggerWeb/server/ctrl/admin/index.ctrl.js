@@ -5,7 +5,8 @@ const MainPage = (req, res, next) => {
     const LoginInfo = req.session.userInfo;
     if (LoginInfo) {
         res.render('admin/index', {
-            login: LoginInfo
+            login: LoginInfo,
+            title: 'Admin Main'
         });
     } else {
         //TODO Delete Data just Test
@@ -14,7 +15,8 @@ const MainPage = (req, res, next) => {
             name: 'tester'
         };
         res.render('admin/index', {
-            login: TestingLoginData
+            login: TestingLoginData,
+            title: 'Admin Main'
         });
         //res.redirect('/admin/login');
     }

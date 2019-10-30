@@ -17,7 +17,7 @@ module.exports = (app) => {
     /** Index router */
     app.use('/admin', router);
     /** Member router */
-    app.use('/admin/member', MemberRouter);
+    app.use('/admin/Members', MemberRouter);
     /** Admin User router */
     app.use('/admin/User', UserRouter);
 };

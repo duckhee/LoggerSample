@@ -75,4 +75,4 @@ Users.methods.comparePassword = (UserPw) => {
 };
 
 /** Export User Schema */
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('User', Users);
