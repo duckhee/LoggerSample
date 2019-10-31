@@ -5,9 +5,16 @@ const router = express.Router();
 const MapRouter = require('./Map/map.router');
 /** Logger Router */
 const LoggerRouter = require('./Logger/logger.router');
+/** DashBoard Router */
+const DashBoardRouter = require('./DashBoard/dashboard.router');
 
 router.get('/', (req, res, next) => {
 
+});
+
+router.use('/*', (req, res, next) => {
+    console.log('device router main get middle ware');
+    next();
 });
 
 module.exports = (app) => {
@@ -15,5 +22,7 @@ module.exports = (app) => {
     /** Logger Router */
     app.use('/Device/logger', LoggerRouter);
     /** Map Router */
-    app.use('/DeviceMap', MapRouter);
+    app.use('/Device/Map', MapRouter);
+    /** DashBoard Router */
+    app.use('/Device/DashBoard', DashBoardRouter);
 };

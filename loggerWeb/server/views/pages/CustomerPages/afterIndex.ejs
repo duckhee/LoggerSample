@@ -6,8 +6,32 @@
     </head>
     <body>
         <!-- header -->
+        <div class="wrapper">
         <% include ../../partials/customer/MainPage/afterMainHeader.ejs %>
+            <div class="content-wrapper">
+                <div class="content">
+                TEST
+                </div>
+                <!-- Footer -->
+            </div>
+        </div>
+		<% include ../../partials/customer/MainPage/footer.ejs %>
         <!-- end header -->
         <% include ../../partials/customer/MainPage/afterjavascript.ejs %>
+        <script>
+            $(document).ready(function(){
+                function fix()
+                {
+                    var window_height = $(window).height();
+                    var footer_height = $(".main-footer").outerHeight() || 0;
+                    $('body, html, .wrapper').css('height', 'auto');
+                    $(".content-wrapper").css("min-height", window_height - footer_height);
+                }
+                fix();
+                $(window, ".wrapper").resize(function(){
+                    fix();
+                });
+            });
+        </script>
     </body>
 </html>
