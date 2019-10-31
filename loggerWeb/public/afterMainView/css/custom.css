@@ -373,6 +373,14 @@
         width: 100%;
     }
     
+    .content_inner {
+        border: 1px #a9b5c7 solid;
+        padding: 15px 15px 10px 15px;
+        border-radius: 0 0 5px 5px;
+        border-top: 0px;
+        position: relative;
+    }
+    
     .showButtons {
         float: right;
         margin: 5px;
@@ -471,5 +479,6 @@
     }
     
     .dashboard-content {
+        z-index: 2;
         padding: 4em;
     }

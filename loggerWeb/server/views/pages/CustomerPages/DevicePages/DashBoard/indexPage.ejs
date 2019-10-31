@@ -121,22 +121,24 @@
                 </div>
                 <!-- /.modal -->
                 <!-- content -->
-                <div class="dashboard-content" >
-                    <div class="row">
-                        <div class="col-md-4">
-                            Testing
+                <div class="content_inner">
+                    <div class="dashboard-content" >
+                        <div class="row">
+                            <div class="col-md-4">
+                                Testing
+                            </div>
+                            <div class="col-md-4">
+                                Testing
+                            </div>
+                            <div class="col-md-4">
+                                Testing
+                            </div>
+                            <div class="col-md-4">
+                                Testing
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            Testing
-                        </div>
-                        <div class="col-md-4">
-                            Testing
-                        </div>
-                        <div class="col-md-4">
-                            Testing
-                        </div>
-                    </div>
                     <!--/.row-->
+                    </div>
                 </div>
                 <!-- /.content -->
             </div>
@@ -157,6 +159,7 @@
                     var footer_height = $(".main-footer").outerHeight() || 0;
                     $('body, html, .wrapper').css('height', 'auto');
                     $(".content-wrapper").css("min-height", window_height - footer_height);
+                    $(".content_inner").css("min-height", window_height - footer_height-100);
                 }
                 fix();
                 $(window, ".wrapper").resize(function(){
