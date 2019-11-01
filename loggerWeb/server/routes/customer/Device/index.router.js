@@ -7,6 +7,8 @@ const MapRouter = require('./Map/map.router');
 const LoggerRouter = require('./Logger/logger.router');
 /** DashBoard Router */
 const DashBoardRouter = require('./DashBoard/dashboard.router');
+/** DataReport Router */
+const DataReportRouter = require('./DataReport/datareport.router');
 
 router.get('/', (req, res, next) => {
 
@@ -25,4 +27,6 @@ module.exports = (app) => {
     app.use('/Device/Map', MapRouter);
     /** DashBoard Router */
     app.use('/Device/DashBoard', DashBoardRouter);
+    /** DataReport Router */
+    app.use('/Device/DataReport', DataReportRouter);
 };

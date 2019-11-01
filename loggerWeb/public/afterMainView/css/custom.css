@@ -382,6 +382,8 @@
     }
     
     .showButtons {
+        z-index: 99;
+        position: relative;
         float: right;
         margin: 5px;
     }
@@ -479,6 +481,103 @@
     }
     
     .dashboard-content {
-        z-index: 2;
         padding: 4em;
+    }
+    
+    .DataReport-content-header {
+        margin-top: 30px;
+        width: 100%;
+    }
+    
+    .DataReport-content-header-menu {
+        width: 100%;
+        margin-top: 15px;
+    }
+    
+    .DataReport-content-header-menu h1 {
+        background: #0070bb;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-bottom: 0;
+        border-radius: 5px 5px 0 0;
+        box-shadow: 0 1px 4px #888888;
+        color: #fff;
+        text-align: center;
+        font-weight: bold;
+        padding: 10px 15px;
+        font-size: 15px;
+    }
+    
+    .DataReport-content-header-menu-body {
+        margin-top: 0;
+        background-color: #ffff;
+        margin-left: 5%;
+        margin-right: 5%;
+        border-radius: 0 0 5px 5px;
+        border: 1px #a9b5c7 solid;
+    }
+    
+    .btn-border {
+        border: 1px #a9b5c7 solid;
+    }
+    
+    .DataReport-content-header-menu-body-menu {
+        margin-top: 2%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    
+    .resp-tabs-list {
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+        padding: 0;
+        list-style: none;
+        display: block;
+        border-left: 1px solid #d7d7d7;
+    }
+    
+    .resp-tabs-list li:first-child {
+        margin-left: 0px;
+        border-left: 1px solid #d7d7d7;
+    }
+    
+    .resp-tabs-list li.resp-tab-active,
+    .resp-tabs-list li:hover {
+        border: 1px solid #e4e4e4;
+        border-bottom: #FFF solid 1px;
+        color: #0070bb;
+        border-left: 0px;
+    }
+    
+    .resp-tabs-list li {
+        font-weight: normal;
+        font-family: "open_sansbold";
+        font-size: 15px;
+        display: inline-block;
+        padding: 10px 25px 10px;
+        margin: 0 0px -1px 0;
+        list-style: none;
+        cursor: pointer;
+        float: left;
+        border-right: 1px solid #d7d7d7;
+        border-top: 1px solid #d7d7d7;
+        color: #4eaae8;
+        outline: medium none;
+        position: relative;
+        background: #fff;
+    }
+    
+    li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+    }
+    
+    .DataReport-content-menu-body {
+        margin-top: 0;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
