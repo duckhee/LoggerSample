@@ -62,6 +62,7 @@ $.Main.actionBar = function(menu, map) {
                                 }
                 */
                 if ("#Map" === view) {
+                    $(".detail-view").css('display', 'none');
                     $(view).slideToggle(function() {
                         console.log('show');
                         $(view).focus();
@@ -70,6 +71,9 @@ $.Main.actionBar = function(menu, map) {
                     });
                 } else {
                     $(".map-view").css('display', 'none');
+                    $(view).slideToggle(function() {
+                        console.log("detail show");
+                    })
                 }
 
             }
@@ -119,9 +123,11 @@ $.Main.tree = function(menu) {
 $(function() {
     "use strict";
     var map;
+    var popup;
+    var marker;
     var options = $.Main.options;
     var Action = $(".md-menu").children('.active').text();
-    console.log("Action : ", Action);
+
     if (Action === "Map") {
         $('.map-view').css('display', 'block');
         var view = "#" + Action;
@@ -158,17 +164,20 @@ $(function() {
             /**map box end  */
             "</div>";
         /**map-popup end  */
-        var popup = new mapboxgl.Popup({ offset: 25, anchor: 'bottom' })
+        popup = new mapboxgl.Popup({ offset: 25, anchor: 'bottom' })
             .setMaxWidth("600px")
             .setHTML(mapPopUp);
 
-        var marker = new mapboxgl.Marker({
+        marker = new mapboxgl.Marker({
                 draggable: false
             })
             .setLngLat([126.8124566, 33.542319])
             .setPopup(popup)
             .addTo(map);
+
+
     }
+
     if (options.enableControlHeaderNav) {
         $.Main.headerNav(".menuBar");
     }
@@ -178,6 +187,26 @@ $(function() {
     if (options.enableControlActionBarView) {
         $.Main.actionBar(".md-menu", map);
     }
+    if (map !== undefined) {
+        map.on('click', function(e) {
+            var px = map.project(e.lngLat); // find the pixel location on the map where the popup anchor is
+            px.y -= e.lngLat.lat + 250; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+            map.panTo(map.unproject(px), { animate: true }); // pan to new center
+        });
 
+        $("#device1").click(function() {
+            var deviceLat = { lng: 126.8124566, lat: 33.542319 };
+            var px = map.project(deviceLat);
+            px.y -= deviceLat.lat + 250; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+            map.panTo(map.unproject(px), { animate: true });
+            popup.addTo(map);
+        });
+    }
+    $("#home").click(function() {
+        location.href = "./index.html";
+    });
+    $("#manage-device").click(function() {
+        location.href = "./ManageDevice.html";
+    });
 
 });
