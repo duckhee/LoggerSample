@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    
+        <meta name="robots" content="noindex, nofollow">
+    
+    <!--<script src="https://cdn.lr-ingest.io/LogRocket.min.js" crossorigin="anonymous"></script>-->
+    <!--<script type="text/javascript">
+        let hostname = 'www.zentracloud.com';
+        let SOFT_VERSION = '2.11';
+        let VERSION = '2.11.678-333b60f6f';
+        window.VERSION = VERSION;
+        if (hostname.endsWith('zentracloud.com')) {
+            window.LogRocket && window.LogRocket.init('meter/zentracloud', {
+                version: '2.11.678-333b60f6f'
+            });
+            LogRocket.identify(2645, {
+                email: 'fain9301@yahoo.com',
+                server: hostname,
+            });
+            let cached_version = localStorage.getItem('version-status')
+            //if user does not have most recent version, clear storage and hardload to display the most recent version
+            if (cached_version == VERSION || cached_version == null) {
+                console.log(`CACHED VALUE '${cached_version}' MATCHES Settings Version '${VERSION}'`);
+                localStorage.setItem('version-status', VERSION)
+            } else {
+                console.log("CACHE STORAGE CLEARED RELOAD NOW!!!!!")
+                LogRocket.track("clear_local_storage")
+                localStorage.clear();
+                location.reload();
+            }
+        }
+    </script>-->
+     <!-- Google Analytics -->
+    <!--
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-96701042-2', 'auto');
+      ga('set','userId', 2645);
+      ga('send', 'pageview');
+    </script>
+    -->
+    
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ZENTRA Cloud</title>
+    <link rel="shortcut icon" href="../images/favicon-32x32.png?v=2.11.678-333b60f6f" type="image/x-icon">
+    <!-- Bootstrap CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-tour.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- glider css -->
+
+
+
+    <link rel="stylesheet" href="https://sachinchoolur.github.io/lightslider/src/css/lightslider.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/uiswitch@1.1.1/css/uiswitch.min.css"/>
+
+    <!-- mapbox css -->
+    <!-- <link rel='stylesheet'  href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' /> -->
+    <!-- <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.3/leaflet.draw.css' rel='stylesheet' /> -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+    <link rel="stylesheet" href="../css/leaflet.awesome-markers.css">
+     <link rel="stylesheet" href="../css/aggregate.css"> 
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/meter.css">
+    <!-- Custom CSS -->
+    <link href="../css/style.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+    <!-- Menu Area -->
+    <div class="menuWrapper">
+        <div class="flash-container"></div>
+        <!-- the dark branding bar -->
+        <div class="navbar navbar-default keep-logout">
+            <div>
+                <div>
+                    <a class="navbar-brand" href="https://www.zentracloud.com/" title="ZENTRA Cloud v2.11.678-333b60f6f">
+                        <h1><span class="brand">Zentra</span> <span class="product">Cloud</span></h1>
+                    </a>
+                </div>
+
+                <div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown navbar-dropdown double-btn-dropdown">
+                            <a href="#" class="glyphicon glyphicon-menu-down dropdown-arrow" data-toggle="dropdown" id="account-dropdown-arrow" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                            <a href="#" class="dropdown-toggle menu-bar-toggle" data-toggle="dropdown" id="account-dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-id="2645">
+                                <span class="super-small-screen">fain9301@yahoo.com</span>
+                                <span class="userIcon"></span>
+                            </a>
+
+                            <ul class="dropdown-menu open-left">
+                                <li><a href="#" id="user-settings-menu-my-settings">My Profile</a></li>
+                                <li>
+                                    <a id="user-settings-menu-invites" onclick="showInviteModal()">Invitations </a>
+
+                                </li>
+                                <li><a href="#" id="user-settings-menu-measurement-settings">Measurement Settings</a></li>
+                                <li><a href="#" id="user-settings-menu-season-passes">Subscriptions</a></li>
+                                <li>
+                                    <a id="user-settings-menu-notifications" onclick="open_notifications()">Notifications <span class="badge">Beta</span>
+                                        <div id="notifications-indicator" class="badge invisible">
+                                            0
+                                        </div>
+                                    </a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/logout" id="user-settings-menu-logout">Logout</a></li>
+                            </ul>
+                        </li>
+                        
+                        <!-- <li>
+                            <div id="notifications" class="" onclick="open_notifications();">
+                                <i class=" icon ion-md-notifications" style="font-size:25px"></i>
+                                <div id="notifications-indicator" class="badge invisible">
+                                    0
+                                </div>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+
+        
+
+
+        <script type="mustache-template" id="search-bar">
+            <li class="input-group" id="search-bar-input">
+                <input type="search" class="form-control light no-margin extended" id="org-search-input" name="sn"
+                       value="" maxlength="255" placeholder="Search by organization or device..."/>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default" id="org-search-submit">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </li>
+        </script>
+
+        <!-- the menu bar -->
+        <div class="menuBar">
+            <div class="organizationDropdown">
+                <form id="org-name">
+                    
+                    <div class="default-line-height" id="org-dropdown" data-id="712"></div>
+                </form>
+            </div>
+            <div class="menuItem navItem active" data-hash="dashboard_report"> Home</div>
+            <div class="menuItem navItem" data-hash="manage_devices">Manage Devices</div>
+            <div class="menuItem navItem" data-hash="manage_users">Manage Users</div>
+            
+            <div class="menuItem navItem" data-hash="device_inventory">Device Inventory</div>
+            <div class="menuItem navItem" data-hash="calibration_settings">Manage Calibrations</div>
+            <div class="mobileMenuBurger"></div>
+            <div>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown navbar-dropdown double-btn-dropdown feedback">
+                        <a href="#" class="glyphicon glyphicon-menu-down dropdown-arrow" data-toggle="dropdown" id="feedback-dropdown-arrow" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                        <a href="#" class="glyphicon glyphicon-question-sign" data-toggle="dropdown" id="feedback-icon" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                        <ul class="dropdown-menu open-left">
+                            <li><a href="https://sites.google.com/metergroup.com/zentracloudwiki/home" target="_blank">Help</a></li>
+                            <li><a href="#" id="feedback-btn">Feedback</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mobileMenu closed"></div>
+
+    </div>
+        <!--<div class="zc-fade in int-load" style="position: relative; z-index: 10000; padding-top: 20%; padding-left: 43%; height:2000px; background-color: rgba(0, 0, 0, 0.5) !important;">-->
+            <!--<img id="dynamic_loader" src="../images/balls.gif?v=2.11.678-333b60f6f">-->
+        </div>
+    <!-- Content Area -->
+    <div class="contentWrapper">
+        <!-- The "add new..." button-->
+        <div id="sidebar">
+            <div class="addNew">
+                <div class="dropup addNewDropup">
+                    <button class="btn btn-primary btn-block btn-xs dropdown-toggle" type="button" id="addNewDropup" data-toggle="dropdown" >
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        <span>Add new…</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="addNewDropup">
+                        <li role="presentation">
+                            <a role="menuitem" id="new-site-btn"></a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" id="new-plot-btn"></a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" id="new-device-btn">
+                                <img src="../img/ico_device.svg" style="width: 20px;"/>
+                                Device
+                            </a>
+                        </li>
+                       <!-- <li role="presentation"><a role="menuitem" id="new-report-btn">Report</a></li> -->
+                      </ul>
+                </div>
+            </div>
+            <!-- /.bottom left nav -->
+            <!-- the device tree-->
+        <a class="float-collapse-button">
+                <div class="btn  hamburger-button ">
+                                <button class=" hide-tree-button">
+                                    <span class="glyphicon glyphicon-chevron-right" style="vertical-align:middle; top: auto; color: #4d5659;"></span>
+                                </button>
+                            </div>
+                </a>
+            <div class="deviceTree">
+
+             
+                <div class='site-group' data-site-name="C&amp;H TEST">
+                        <div class="treeItem site" data-id="967">
+                            <a class="edit-title site glyphicon glyphicon-pencil" onclick="edit_site(967)"></a>
+                            <div id="farm-name">C&amp;H TEST</div>
+                        </div>
+                    
+                        <div class='plot-group' data-plot-name="CUSTOMER">
+                            <div class="row section-row">
+                                <div class="treeItem plot" data-id="2334"   data-report-id="2163" >
+                                    <a class="edit-title plot glyphicon glyphicon-pencil" onclick="edit_plot(2334)"></a>
+                                    <span>CUSTOMER</span>
+                                </div>
+                                <button class="section-col-collapse-button section-collapse-icon collapsed" data-toggle="collapse"  href="#collapse2334"></button>
+                            </div>
+                            <div data-toggle="collapse" id="collapse2334" class="panel-collapse collapse treeItem no-padding">
+                                  
+                            </div>
+                        </div>
+                    
+                        <div class='plot-group' data-plot-name="DEMO">
+                            <div class="row section-row">
+                                <div class="treeItem plot" data-id="1196"   data-report-id="1024" >
+                                    <a class="edit-title plot glyphicon glyphicon-pencil" onclick="edit_plot(1196)"></a>
+                                    <span>DEMO</span>
+                                </div>
+                                <button class="section-col-collapse-button section-collapse-icon collapsed" data-toggle="collapse"  href="#collapse1196"></button>
+                            </div>
+                            <div data-toggle="collapse" id="collapse1196" class="panel-collapse collapse treeItem no-padding">
+                                  
+                                      <div class="treeItem logger" data-id="1122" data-sn="z6-00976" data-name="z6-00976(KC)"><span class="device-tree-badge" style="display: none;">0</span>z6-00976(KC)</div>
+                                  
+                                      <div class="treeItem logger" data-id="1124" data-sn="z6-01017" data-name="z6-01017"><span class="device-tree-badge" style="display: none;">0</span>z6-01017</div>
+                                  
+                            </div>
+                        </div>
+                    
+                        <div class='plot-group' data-plot-name="IPET">
+                            <div class="row section-row">
+                                <div class="treeItem plot" data-id="2525"   data-report-id="2354" >
+                                    <a class="edit-title plot glyphicon glyphicon-pencil" onclick="edit_plot(2525)"></a>
+                                    <span>IPET</span>
+                                </div>
+                                <button class="section-col-collapse-button section-collapse-icon collapsed" data-toggle="collapse"  href="#collapse2525"></button>
+                            </div>
+                            <div data-toggle="collapse" id="collapse2525" class="panel-collapse collapse treeItem no-padding">
+                                  
+                                      <div class="treeItem logger" data-id="2542" data-sn="5G129210" data-name="HWAONG"><span class="device-tree-badge" style="display: none;">0</span>HWAONG</div>
+                                  
+                                      <div class="treeItem logger" data-id="14170" data-sn="z6-04579" data-name="HWAONG_SOIL"><span class="device-tree-badge" style="display: none;">0</span>HWAONG_SOIL</div>
+                                  
+                                      <div class="treeItem logger" data-id="13705" data-sn="z6-03957" data-name="SAEMANGEUM"><span class="device-tree-badge" style="display: none;">0</span>SAEMANGEUM</div>
+                                  
+                                      <div class="treeItem logger" data-id="4380" data-sn="5G118343" data-name="SEOKMUN"><span class="device-tree-badge" style="display: none;">0</span>SEOKMUN</div>
+                                  
+                            </div>
+                        </div>
+                    
+
+                </div>
+            
+                <div class='site-group' data-site-name="IPET">
+                        <div class="treeItem site" data-id="1763">
+                            <a class="edit-title site glyphicon glyphicon-pencil" onclick="edit_site(1763)"></a>
+                            <div id="farm-name">IPET</div>
+                        </div>
+                    
+
+                </div>
+            
+            </div>
+        </div>
+
+
+        <!-- the action bar -->
+        <div class="actionBar toggle">
+
+            <div class="row toggleControls">
+                <div class="col col-xs-12 centered" id="action-nav">
+                    <div class="btn-group scrolling-wrapper-flexbox" role="group" aria-label="...">
+                        <button type="button" class="btn btn-xs btn-default navItem" data-hash="dashboard_report">
+                            <span class="glyphicon glyphicon-th noMarginLeft" aria-hidden="true"></span>
+                            <span>Dashboard</span>
+                        </button>
+                        <button type="button" class="btn btn-xs btn-default navItem" data-hash="dashboard_map">
+                            <span class="glyphicon glyphicon-map-marker noMarginLeft" aria-hidden="true"></span>
+                            <span>Map</span>
+                        </button>
+                        <button type="button" class="btn btn-xs btn-default navItem active" data-hash="dashboard_list">
+                            <span class="glyphicon glyphicon-list noMarginLeft" aria-hidden="true"></span>
+                            <span>List</span>
+                        </button>
+                        <button type="button" class="btn btn-xs btn-default navItem" data-hash="dashboard_detail">
+                            <span class="glyphicon glyphicon-eye-open noMarginLeft" aria-hidden="true"></span>
+                            <span>Detail</span>
+                        </button>
+                        <button type="button" class="btn btn-xs btn-default-colors dropdown_timeframe button_dropdown_timeframe" id="time_dropdown_button" data-toggle="dropdown">
+                            <span class="noMarginLeft glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            <span id="selected-time"></span>
+                        </button>
+                    </div>
+
+                    <div id="time_dropdown" class="dropdown maxWidth dropdown_timeframe">
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="time_dropdown">
+                            <li role="presentation"><a role="menuitem" class="" data-id="1">Last 24 hours</a></li>
+                            <li role="presentation"><a role="menuitem" class="" data-id="2">Last 2 Days</a></li>
+                            <li role="presentation"><a role="menuitem" class="active" data-id="3">Last Week</a></li>
+                            <li role="presentation"><a role="menuitem" class="" data-id="4">Last Month</a></li>
+                            <li role="presentation"><a role="menuitem" class="" data-id="7">Last 3 Months</a></li>
+                            <li role="presentation"><a role="menuitem" class="" data-id="8">Last 6 Months</a></li>
+                            
+                            
+                            <li role="presentation"><a role="menuitem" class="" data-id="6">Last Year</a></li>
+                      </ul>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div id ="interactive_map">
+            <!--<div id="map" class="map"></div>-->
+        </div>
+
+        <!-- the map, always have it in the background to avoid multiple renders. make visible when on dashboard map page -->
+        <div id="map_storage" style="visibility: hidden"></div>
+
+        <!-- the content -->
+        <div class="content"> <!-- Class "hasTopBar" will add space for actionBar-->
+            <!-- this content will be injected -->
+        </div>
+
+        <div class="modal fade errorDisplay" tabindex="-1" role="dialog" aria-labelledby="">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="icon icon_close" aria-hidden="true"></span>
+                        </button>
+                        <h4 class="modal-title" id="errorHeader">ERROR</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row center-vertically">
+                            <div class="col-xs-12 centered">
+                                <div class='alertimage popup image-alert'></div>
+                                <span class='alertMessage' id="error-message"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-xs-12 align-right">
+                                <button type="button" class="btn btn-primary btn-fixedWidth" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic Success modal -->
+    <div class="modal fade successDisplay" tabindex="-1" role="dialog" aria-labelledby="">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="icon icon_close" aria-hidden="true"></span>
+                    </button>
+                    <h4 class="modal-title" id="successHeader">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row center-vertically">
+                        <div class="col-xs-12 centered">
+                            <div class='alertimage popup image-success'></div>
+                            <span class='alertMessage' id="success-message"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-xs-12 align-right">
+                            <button type="button" class="btn btn-primary btn-fixedWidth" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal for deleting Account -->
+    <div class="modal fade deleteAccount" tabindex="-1" role="dialog" aria-labelledby="">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="icon icon_close" aria-hidden="true"></span>
+                    </button>
+                    <h4 class="modal-title">Delete Account</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row center-vertically">
+                        <div class="col-xs-12 centered">
+                            <div class="alertimage popup image-alert"></div>
+                            <span class="alertMessage">Do you really want to delete your account?</span>
+                        </div>
+                    </div>
+                    <div class="row center-vertically">
+                        <div class="col-xs-12 centered">
+                            <span>Deleting your account will have some consequences described in this text.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-xs-12 align-right">
+                            <button type="button" class="btn btn-default btn-fixedWidth" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary btn-fixedWidth" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal for error deleting Account -->
+    <div class="modal fade deleteAccountError" tabindex="-1" role="dialog" aria-labelledby="">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="icon icon_close" aria-hidden="true"></span>
+                    </button>
+                    <h4 class="modal-title">Cannot delete account</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row center-vertically">
+                        <div class="col-xs-12 centered">
+                            <div class="alertimage popup image-error"></div>
+                            <span class="alertMessage">
+                                Please select somebody for being
+                                <br><b>Primary Organization Administrator</b>
+                                <br>of your organization <b>»Organicallygrown Inc.«</b>
+                                <br>before deleting your account.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-xs-12 align-right">
+                            <button type="button" class="btn btn-primary btn-fixedWidth" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="../js/data.js?v=2.11.678-333b60f6f"></script>
+    <!--<script type="text/javascript" src="../js/data.json"></script>-->
+    <script src="../js/jquery.min.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/jquery.cookie.js?v=2.11.678-333b60f6f"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-visible/1.2.0/jquery.visible.min.js'></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="../js/bootstrap.min.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/bootstrap-tour.min.js?v=2.11.678-333b60f6f"></script>
+    <!-- Dependencies for Routing -->
+    <script src="../js/routing/signals.min.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/routing/crossroads.min.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/routing/hasher.min.js?v=2.11.678-333b60f6f"></script>
+    <!-- includes for bootstrap date pickers -->
+    <script src="../js/datepicker/moment.min.js?v=2.11.678-333b60f6f"></script>
+    <!-- Modernizr feature detection: touch events -->
+    <script src="../js/modernizr-custom.js?v=2.11.678-333b60f6f"></script>
+    <!-- mapbox -->
+    <script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.3/leaflet.draw.js'></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-geodesy/v0.1.0/leaflet-geodesy.js'></script>
+    <script src="../js/leaflet.awesome-markers.min.js?v=2.11.678-333b60f6f"></script>
+
+    <script src="../js/canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+
+    <!-- AM Charts-->
+    <script src="//www.amcharts.com/lib/version/4.5.10/core.js"></script>
+    <script src="//www.amcharts.com/lib/version/4.5.10/charts.js"></script>
+    <script src="//www.amcharts.com/lib/version/4.5.10/themes/animated.js"></script>
+
+    <script src="../js/amcharts/amcharts.js?v=2.11.678-333b60f6f" type="text/javascript"></script>
+    <script src="../js/amcharts/serial.js?v=2.11.678-333b60f6f" type="text/javascript"></script>
+    <script src="../js/amcharts/plugins/responsive/responsive.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/amcharts/plugins/export/export.min.js?v=2.11.678-333b60f6f" type="text/javascript"></script>
+    <script src="../js/amcharts/plugins/export/libs/jszip/jszip.js?v=2.11.678-333b60f6f" type="text/javascript"></script>
+    <script src="../js/amcharts/plugins/export/libs/xlsx/xlsx.min.js?v=2.11.678-333b60f6f" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <!-- jQuery scrollintoview -->
+    <script src="../js/jquery.scrollintoview.js?v=2.11.678-333b60f6f"></script>
+    <!-- deviceTree highlighting -->
+    <script src="../js/devicetree-highlighting.js?v=2.11.678-333b60f6f"></script>
+    <!-- inviting users -->
+    <script src="../js/invite_user.js?v=2.11.678-333b60f6f"></script>
+    <!-- Form validation -->
+    <script src="../js/jquery.validate.min.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/additional-methods.min.js?v=2.11.678-333b60f6f"></script>
+    <!-- Mustache -->
+    <script src="../js/mustache.min.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/zc-util.js?v=2.11.678-333b60f6f" type="text/javascript"></script>
+    <script src="../js/zc-modal/zc_modal.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/zc-template.js?v=2.11.678-333b60f6f"></script>
+
+    <script src="../js/zc-dropdown/zc-dropdown.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/zc-download/zc_loader.js?v=2.11.678-333b60f6f"></script>
+
+    <script src="../js/zc_page.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/edit-billing.js?v=2.11.678-333b60f6f"></script>
+    <!-- main controller -->
+    <script src="../js/main.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/notifications.js?v=2.11.678-333b60f6f"></script>
+    <!-- model metadata -->
+    <script src="../js/model_metadata.json?v=2.11.678-333b60f6f" type="text/javascript"></script>
+
+    <script src="../js/jscolor.js?v=2.11.678-333b60f6f" ></script>
+
+    <script src="../js/ResizeSensor.js?v=2.11.678-333b60f6f"></script>
+    <script src="../js/ElementQueries.js?v=2.11.678-333b60f6f"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js"></script>
+    <script src="https://unpkg.com/ionicons@4.4.4/dist/ionicons.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>IoF Main Page</title>
+        <% include ../../../../partials/customer/MainPage/afterstylesheet.ejs %>
+        
+    </head>
+    <body>
+        <!-- header -->
+        <% include ../../../../partials/customer/MainPage/afterMainHeader.ejs %>
+        <!-- end header -->
+        <div class="wrapper">
+            
+        </div>
+        <!--/.wrapper-->
+            <!-- Footer -->
+        <% include ../../../../partials/customer/MainPage/footer.ejs %>
+        <% include ../../../../partials/customer/MainPage/afterjavascript.ejs %>
+        
+        <script>
+            $(document).ready(function(){
+                
+                /* Layout Fix */
+                function fix()
+                {
+                    var window_height = $(window).height();
+                    var footer_height = $(".main-footer").outerHeight() || 0;
+                    $('body, html, .wrapper').css('height', 'auto');
+                    $(".content-wrapper").css("min-height", window_height - footer_height);
+                    $(".content_inner").css("min-height", window_height - footer_height-100);
+                }
+                fix();
+                $(window, ".wrapper").resize(function(){
+                    fix();
+                });
+            });
+    </script>
+        
+    </body>
+</html>

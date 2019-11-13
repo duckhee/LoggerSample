@@ -509,6 +509,8 @@
     }
     
     .DataReport-content-header-menu-body {
+        z-index: 99;
+        position: relative;
         margin-top: 0;
         background-color: #ffff;
         margin-left: 5%;
@@ -528,6 +530,9 @@
     }
     
     .resp-tabs-list {
+        clear: both;
+        z-index: 99;
+        position: relative;
         margin-block-start: 1em;
         margin-block-end: 1em;
         margin-inline-start: 0px;
@@ -550,6 +555,15 @@
         border-bottom: #FFF solid 1px;
         color: #0070bb;
         border-left: 0px;
+    }
+    
+    .resp-tab-active::after,
+    .resp-tabs-list li:hover::after {
+        content: "";
+        display: block;
+        border-bottom: #0070bb solid 2px;
+        padding-bottom: 0;
+        margin-bottom: 0;
     }
     
     .resp-tabs-list li {

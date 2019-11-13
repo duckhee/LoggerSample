@@ -3,10 +3,11 @@ const AdminMemberDao = require('../../../dao/admin/Members/mongoDB/members.dao')
 
 /** Admin Member Main Page */
 const MainPage = (req, res, next) => {
-
+    console.log('Main page is Member List Page');
+    res.redirect('/admin/Members/list');
 };
 
-/** Admin Member List Page */
+/** Admin Member List Page And Searching Use Parameter */
 const ListPage = (req, res, next) => {
     //TODO Session Checking
     //TODO Delete Data just Test
@@ -14,6 +15,9 @@ const ListPage = (req, res, next) => {
         userId: 'test',
         name: 'tester'
     };
+    //TODO Search and Paging
+    const Page = req.param.page || req.params.page;
+    const Search = req.param.search || req.params.search;
     /** Get page Info  */
     var page = req.param('page');
     /** Get Keyword Info */
@@ -26,11 +30,24 @@ const ListPage = (req, res, next) => {
         pageNumber: pageNumber,
         keyword: keyword
     };
+
+    //TODO Testing Data
+    var UserInfo = {
+        index: 1,
+        UserId: 'tester',
+        UserName: 'won',
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+    };
+
+    var UserList = [UserInfo, UserInfo];
     res.render('admin/Member/List/ListPage', {
         login: TestingLoginData,
+        UserInfoList: UserList,
         title: 'Admin Member List Page'
     });
 };
+
 
 /** Admin Member Create Page */
 const RegistePage = (req, res, next) => {

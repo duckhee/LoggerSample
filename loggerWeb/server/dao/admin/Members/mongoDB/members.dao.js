@@ -3,19 +3,19 @@ const MemberModel = require('../../../../mongoModel/Users/user.mongoDB');
 /** Create Member Dao */
 const InsertMember = (UserInfo) => {
     console.log('Insert Member Dao');
-
+    MemberModel.save(UserInfo);
 
 };
 
-/** List Member Dao */
+/** List Member Dao All member */
 const ListMember = () => {
     console.log('List Member Dao');
 
 };
 
-/** Paging Member List Dao */
+/** Paging Member List Dao (Use Member List Page) */
 const PagingMember = (PagingInfo) => {
-
+    console.log("List member Paging Dao");
 };
 
 /** SearchMember Dao */

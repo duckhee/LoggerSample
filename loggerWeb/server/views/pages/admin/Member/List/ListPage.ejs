@@ -8,7 +8,65 @@
             <% include ../../../../partials/admin/header.ejs %>
             <div class="content-wrapper">
                 <div class="content">
-                
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-fw fa-users"></i>Member List</h3>
+                            <div class='box-tools'>
+                                <div class="input-group input-group-sm" style="width:150px;">
+                                    <input type='text' class="form-control pull-right" placeholder="Search...">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td style="width:10px;"><input type="checkbox" name="th_checkAll" id="th_checkAll" onclick="allCheck();"></td>
+                                         <td>User Id</td>
+                                         <td>User Name</td>
+                                         <td>Registe Date</td>
+                                         <td>Update Date</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(UserInfoList){
+                                        UserInfoList.forEach(item=>{ %>
+                                            <tr>
+                                                <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
+                                                <td><%=item.UserId%></td>
+                                                <td><%=item.UserName%></td>
+                                                <td><%=new Date(item.createdAt).getFullYear() + '-' + new Date(item.createdAt).getMonth() + '-' + new Date(item.createdAt).getDay()%></td>
+                                                <td><%=item.updatedAt%></td>
+                                            </tr>
+                                    <%});
+                                    }%>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <div class="text-center">
+                            <ul class="pagination pagination-sm no-margin">
+                                <li>
+                                    <a href="#"><<</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="#">1</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="#">>></a>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!--/.content-->
             </div>
@@ -18,4 +76,16 @@
        <!--/.wrapper-->
        <% include ../../../../partials/admin/footerScript.ejs %>
     </body>
+    <script>
+        function allCheck(){
+            if($("#th_checkAll").is(":checked")){
+                $("input[name=checkRow]").prop("checked", true);
+            }else{
+                $("input[name=checkRow]").prop("checked", false);
+            }
+        }
+        $(document).ready(function(){
+            
+        })
+    </script>
 </html>
