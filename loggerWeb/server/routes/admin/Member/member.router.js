@@ -23,15 +23,15 @@ router.post('/delete', MemberCtrl.DeleteDo);
 router.get('/profile', MemberCtrl.ProfilePage);
 /** Registe Member UserId Check */
 router.get('/userId-check', (req, res, next) => {
-    next();
+    res.json('IdCheck');
 });
 /** Registe Member Email Check */
 router.get('/userEmail-check', (req, res, next) => {
-
+    res.json('EmailCheck');
 });
 /** Registe Member UserName Check */
 router.get('/userName-check', (req, res, next) => {
-
+    res.json('NameCheck');
 });
 
 

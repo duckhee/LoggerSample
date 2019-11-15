@@ -10,7 +10,7 @@
                 <div class="content">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-fw fa-users" style="margin-right:10px;"></i>Member List</h3>
+                            <h3 class="box-title"><i class="fa fa-fw fa-list" style="margin-right:10px;"></i>Site List</h3>
                             <div class='box-tools'>
                                 <div class="input-group input-group-sm" style="width:150px;">
                                     <input type='text' class="form-control pull-right" placeholder="Search...">
@@ -29,18 +29,20 @@
                                     <tr>
                                         <td style="width:10px;"><input type="checkbox" name="th_checkAll" id="th_checkAll" onclick="allCheck();"></td>
                                          <td>User Id</td>
-                                         <td>User Name</td>
-                                         <td>Registe Date</td>
+                                         <td>Site Name</td>
+                                         <td>Plot Number</td>
+                                         <td>Create Date</td>
                                          <td>Update Date</td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% if(UserInfoList){
-                                        UserInfoList.forEach(item=>{ %>
+                                    <% if(SiteInfoList){
+                                        SiteInfoList.forEach(item=>{ %>
                                             <tr>
                                                 <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
                                                 <td><%=item.UserId%></td>
-                                                <td><%=item.UserName%></td>
+                                                <td><%=item.SiteName%></td>
+                                                <td><%=item.plotNumber%></td>
                                                 <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
                                                 <td><%=item.updatedAt%></td>
                                             </tr>
@@ -92,12 +94,12 @@
         }
         function MoveCreateMember(){
             $("#createMember").click(function(){
-                location.href="/admin/Members/registe";
+                location.href="/admin/Site/create";
             });
         }
         function MoveEditMember(){
             $("#EditMember").click(function(){
-                location.href="/admin/Members/modify";
+                location.href="/admin/Site/modify";
             });
         }
         $(document).ready(function(){

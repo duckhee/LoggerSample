@@ -1,3 +1,9 @@
+//TODO Delete Data just Test
+var TestingLoginData = {
+    userId: 'test',
+    name: 'tester'
+};
+
 /** Admin User Page */
 const MainPage = (req, res, next) => {
     /** Admin User redirect Profile Page */
@@ -37,11 +43,6 @@ const LogOutDo = (req, res, next) => {
 
 /** Admin User Profile Page */
 const ProfilePage = (req, res, next) => {
-    //TODO Delete Data just Test
-    var TestingLoginData = {
-        userId: 'test',
-        name: 'tester'
-    };
     res.render('admin/Users/ProfilePage', {
         login: TestingLoginData,
         title: 'Admin Profile Page'
@@ -50,11 +51,6 @@ const ProfilePage = (req, res, next) => {
 
 /** Admin User Modify Page */
 const ModifyPage = (req, res, next) => {
-    //TODO Delete Data just Test
-    var TestingLoginData = {
-        userId: 'test',
-        name: 'tester'
-    };
     res.render('admin/Users/ModifyPage', {
         login: TestingLoginData,
         title: 'Admin Modify Page'

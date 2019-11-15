@@ -5,25 +5,26 @@ var TestingLoginData = {
     name: 'tester'
 };
 
-/** Admin Site Page */
+
+/** Plot Main Page */
 const MainPage = (req, res, next) => {
-    res.redirect('/admin/Site/List/ListPage');
+    res.redirect('/admin/Plot/list');
 };
 
-/** Admin Site Create Page */
+/** Plot Create Page */
 const CreatePage = (req, res, next) => {
-    res.render('admin/site/Create/CreatePage', {
+    res.render('admin/plot/Create/CreatePage', {
         login: TestingLoginData,
-        title: 'Admin Site Create Page'
+        title: 'Admin Plot Create page'
     });
 };
 
-/** Admin Site Create Do */
+/** Plot Create Do */
 const CreateDo = (req, res, next) => {
-    res.redirect('/admin/Site/list');
+
 };
 
-/** Admin Site List Page */
+/** Plot List Page */
 const ListPage = (req, res, next) => {
     /** Get Page Info */
     var page = req.param('page');
@@ -38,40 +39,38 @@ const ListPage = (req, res, next) => {
         keyword: keyword
     };
 
-    var SampleSiteInfo = {
+    var SamplePlotInfo = {
         index: 1,
-        UserId: 'tester',
         SiteName: 'testing site',
-        plotNumber: 1,
+        PlotName: 'Test',
+        DeviceNumber: 1,
         createdAt: Date.now(),
         updatedAt: Date.now()
     };
-
-    var SampleSiteList = [SampleSiteInfo, SampleSiteInfo];
-    res.render('admin/site/List/ListPage', {
+    var SamplePlotList = [SamplePlotInfo, SamplePlotInfo];
+    res.render('admin/plot/List/ListPage', {
         login: TestingLoginData,
-        title: 'Admin Site List Page',
-        SiteInfoList: SampleSiteList
+        title: 'Admin Plot List Page',
+        PlotInfoList: SamplePlotList
     });
-
 };
 
-/** Admin Site Edit Page */
+/** Plot Modify Page */
 const ModifyPage = (req, res, next) => {
 
 };
 
-/** Admin Site Edit Do */
+/** Plot Modify Do */
 const ModifyDo = (req, res, next) => {
 
 };
 
-/** Admin Site Delete Page */
+/** Plot Delete Page */
 const DeletePage = (req, res, next) => {
 
 };
 
-/** Admin Site Delete DO */
+/** Plot Delete Do */
 const DeleteDo = (req, res, next) => {
 
 };

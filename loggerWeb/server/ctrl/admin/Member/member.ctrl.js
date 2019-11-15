@@ -1,3 +1,10 @@
+//TODO Session Checking
+//TODO Delete Data just Test
+var TestingLoginData = {
+    userId: 'test',
+    name: 'tester'
+};
+
 /** Admin Member Dao */
 const AdminMemberDao = require('../../../dao/admin/Members/mongoDB/members.dao');
 
@@ -9,12 +16,6 @@ const MainPage = (req, res, next) => {
 
 /** Admin Member List Page And Searching Use Parameter */
 const ListPage = (req, res, next) => {
-    //TODO Session Checking
-    //TODO Delete Data just Test
-    var TestingLoginData = {
-        userId: 'test',
-        name: 'tester'
-    };
     //TODO Search and Paging
     const Page = req.param.page || req.params.page;
     const Search = req.param.search || req.params.search;
@@ -22,7 +23,7 @@ const ListPage = (req, res, next) => {
     var page = req.param('page');
     /** Get Keyword Info */
     var keyword = req.param('keyword');
-    /** */
+    /** Index page Number */
     var pageNumber = 1;
     /** Make Send Meber Paging Dao */
     var PageInfo = {
@@ -32,7 +33,7 @@ const ListPage = (req, res, next) => {
     };
 
     //TODO Testing Data
-    var UserInfo = {
+    var SampleUserInfo = {
         index: 1,
         UserId: 'tester',
         UserName: 'won',
@@ -40,10 +41,10 @@ const ListPage = (req, res, next) => {
         updatedAt: Date.now()
     };
 
-    var UserList = [UserInfo, UserInfo];
+    var SampleUserList = [SampleUserInfo, SampleUserInfo];
     res.render('admin/Member/List/ListPage', {
         login: TestingLoginData,
-        UserInfoList: UserList,
+        UserInfoList: SampleUserList,
         title: 'Admin Member List Page'
     });
 };
@@ -51,12 +52,6 @@ const ListPage = (req, res, next) => {
 
 /** Admin Member Create Page */
 const RegistePage = (req, res, next) => {
-    //TODO Session Checking
-    //TODO Delete Data just Test
-    var TestingLoginData = {
-        userId: 'test',
-        name: 'tester'
-    };
     res.render('admin/Member/Registe/RegistePage', {
         login: TestingLoginData,
         title: 'Admin Registe Customer Page'
