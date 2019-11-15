@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../../../../partials/admin/stylesheet.ejs %>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+       <div class="wrapper">
+            <% include ../../../../partials/admin/header.ejs %>
+            <div class="content-wrapper">
+                <div class="content">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-fw fa-list" style="margin-right:10px;"></i>Plot List</h3>
+                            <div class='box-tools'>
+                                <div class="input-group input-group-sm" style="width:150px;">
+                                    <input type='text' class="form-control pull-right" placeholder="Search...">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td style="width:10px;"><input type="checkbox" name="th_checkAll" id="th_checkAll" onclick="allCheck();"></td>
+                                         
+                                         <td>Site Name</td>
+                                         <td>Plot Name</td>
+                                         <td>Device Name</td>
+                                         <td>Create Date</td>
+                                         <td>Update Date</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(DeviceInfoList){
+                                        DeviceInfoList.forEach(item=>{ %>
+                                            <tr>
+                                                <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
+                                                <td><%=item.SiteName%></td>
+                                                <td><%=item.PlotName%></td>
+                                                <td><%=item.DeviceName%></td>
+                                                <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
+                                                <td><%=item.updatedAt%></td>
+                                            </tr>
+                                    <%});
+                                    }%>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <div class="pull-right">
+                                <!--<div class="btn-group">-->
+                                    <button id="EditMember" class="btn btn-warning"><i class="fa fa-fw fa-edit" style="margin-right:10px;"></i>Edit</button>
+                                    <button id="createMember" class="btn btn-primary"><i class="fa fa-fw fa-pencil" style="margin-right:10px;"></i>Insert</button>
+                                <!--</div>-->
+                            </div>
+                            <div class="text-center">
+                            <ul class="pagination pagination-sm no-margin">
+                                <li>
+                                    <a href="#"><<</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="#">1</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="#">>></a>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.content-->
+            </div>
+            <!-- /.content-wrapper-->
+            <% include ../../../../partials/admin/footer.ejs %>
+       </div>
+       <!--/.wrapper-->
+       <% include ../../../../partials/admin/footerScript.ejs %>
+    </body>
+    <script>
+        function allCheck(){
+            if($("#th_checkAll").is(":checked")){
+                $("input[name=checkRow]").prop("checked", true);
+            }else{
+                $("input[name=checkRow]").prop("checked", false);
+            }
+        }
+        function MoveCreateMember(){
+            $("#createMember").click(function(){
+                location.href="/admin/Site/create";
+            });
+        }
+        function MoveEditMember(){
+            $("#EditMember").click(function(){
+                location.href="/admin/Site/modify";
+            });
+        }
+        $(document).ready(function(){
+            MoveCreateMember();
+            MoveEditMember();
+        })
+    </script>
+</html>

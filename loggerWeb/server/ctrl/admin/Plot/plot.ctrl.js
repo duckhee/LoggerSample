@@ -13,7 +13,7 @@ const MainPage = (req, res, next) => {
 
 /** Plot Create Page */
 const CreatePage = (req, res, next) => {
-    res.render('admin/plot/Create/CreatePage', {
+    res.render('admin/PlotPage/Create/CreatePage', {
         login: TestingLoginData,
         title: 'Admin Plot Create page'
     });
@@ -48,7 +48,7 @@ const ListPage = (req, res, next) => {
         updatedAt: Date.now()
     };
     var SamplePlotList = [SamplePlotInfo, SamplePlotInfo];
-    res.render('admin/plot/List/ListPage', {
+    res.render('admin/PlotPage/List/ListPage', {
         login: TestingLoginData,
         title: 'Admin Plot List Page',
         PlotInfoList: SamplePlotList

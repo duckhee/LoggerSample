@@ -12,7 +12,7 @@ const MainPage = (req, res, next) => {
 
 /** Admin Site Create Page */
 const CreatePage = (req, res, next) => {
-    res.render('admin/site/Create/CreatePage', {
+    res.render('admin/SitePage/Create/CreatePage', {
         login: TestingLoginData,
         title: 'Admin Site Create Page'
     });
@@ -48,7 +48,7 @@ const ListPage = (req, res, next) => {
     };
 
     var SampleSiteList = [SampleSiteInfo, SampleSiteInfo];
-    res.render('admin/site/List/ListPage', {
+    res.render('admin/SitePage/List/ListPage', {
         login: TestingLoginData,
         title: 'Admin Site List Page',
         SiteInfoList: SampleSiteList
