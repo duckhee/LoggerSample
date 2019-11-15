@@ -16,6 +16,10 @@ const UserRouter = require('./Users/users.router');
 const SiteRouter = require('./Site/site.router');
 /** Admin Plot Router */
 const PlotRouter = require("./Plot/plot.router");
+/** Admin Device Router */
+const DeviceRouter = require('./Device/device.router');
+/** Admin Download Router */
+const DownLoadRouter = require('./download/index.router');
 
 module.exports = (app) => {
     /** Index router */
@@ -28,5 +32,9 @@ module.exports = (app) => {
     app.use('/admin/Site', SiteRouter);
     /** Admin Plot router */
     app.use('/admin/Plot', PlotRouter);
+    /** Admin Device router */
+    app.use('/admin/Device', DeviceRouter);
+    /** Admin Download router */
+    app.use('/admin/DownLoad', DownLoadRouter);
 
 };
