@@ -36,6 +36,7 @@ const ListPage = (req, res, next) => {
     var SampleUserInfo = {
         index: 1,
         UserId: 'tester',
+        UserLevel: 2,
         UserName: 'won',
         createdAt: Date.now(),
         updatedAt: Date.now()

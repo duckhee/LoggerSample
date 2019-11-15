@@ -1,4 +1,4 @@
-const MemberModel = require('../../../../mongoModel/Users/user.mongoDB');
+const MemberModel = require('../../../../DataBase/mongoModel/Users/user.mongoDB');
 
 /** Create Member Dao */
 const InsertMember = (UserInfo) => {

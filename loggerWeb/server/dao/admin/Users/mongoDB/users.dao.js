@@ -1,4 +1,4 @@
-const UserModel = require('../../../../mongoModel/Users/user.mongoDB');
+const UserModel = require('../../../../DataBase/mongoModel/Users/user.mongoDB');
 
 /** Admin Login */
 const LoginDo = (LoginInfo) => {

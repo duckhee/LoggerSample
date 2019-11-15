@@ -14,12 +14,6 @@ const flash = require('connect-flash');
 /** Auth Check */
 
 /**
- * db connection check
- */
-const MongooseDB = require('./server/mongoModel/index.mongodb');
-
-
-/**
  * admin router add
  */
 const AdminIndexRouter = require('./server/routes/admin/index.router');
