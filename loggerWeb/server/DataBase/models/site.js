@@ -41,12 +41,19 @@ module.exports = (sequelize, DataTypes) => {
     });
     site.associate = function(models) {
         // associations can be defined here
+        /** User have Site Many */
         site.belongsTo(models.user, {
             foreignKeyConstraint: true,
             foreignKey: 'UserEmail',
             allowNull: false,
             onDelete: 'CASCADE'
         });
+        /** site have Plot Many */
+        site.hasMany(models.plot, {
+            foreignKey: 'SiteName',
+            targetKey: 'name'
+        });
+
     };
     return site;
 };

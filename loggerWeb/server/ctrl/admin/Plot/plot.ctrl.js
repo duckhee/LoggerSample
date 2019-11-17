@@ -6,12 +6,12 @@ var TestingLoginData = {
 };
 
 
-/** Plot Main Page */
+/** Admin Plot Main Page */
 const MainPage = (req, res, next) => {
     res.redirect('/admin/Plot/list');
 };
 
-/** Plot Create Page */
+/** Admin Plot Create Page */
 const CreatePage = (req, res, next) => {
     res.render('admin/PlotPage/Create/CreatePage', {
         login: TestingLoginData,
@@ -19,12 +19,12 @@ const CreatePage = (req, res, next) => {
     });
 };
 
-/** Plot Create Do */
+/** Admin Plot Create Do */
 const CreateDo = (req, res, next) => {
 
 };
 
-/** Plot List Page */
+/** Admin Plot List Page */
 const ListPage = (req, res, next) => {
     /** Get Page Info */
     var page = req.param('page');
@@ -55,22 +55,27 @@ const ListPage = (req, res, next) => {
     });
 };
 
-/** Plot Modify Page */
+/** Admin Plot Detail page */
+const DetailPage = (req, res, next) => {
+
+};
+
+/** Admin Plot Modify Page */
 const ModifyPage = (req, res, next) => {
 
 };
 
-/** Plot Modify Do */
+/** Admin Plot Modify Do */
 const ModifyDo = (req, res, next) => {
 
 };
 
-/** Plot Delete Page */
+/** Admin Plot Delete Page */
 const DeletePage = (req, res, next) => {
 
 };
 
-/** Plot Delete Do */
+/** Admin Plot Delete Do */
 const DeleteDo = (req, res, next) => {
 
 };
@@ -81,6 +86,7 @@ module.exports = {
     CreatePage,
     CreateDo,
     ListPage,
+    DetailPage,
     ModifyPage,
     ModifyDo,
     DeletePage,

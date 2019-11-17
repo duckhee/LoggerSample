@@ -10,6 +10,8 @@ router.get('/create', AdminSiteCtrl.CreatePage);
 router.post('/create', AdminSiteCtrl.CreateDo);
 /** Admin Site List Page */
 router.get('/list', AdminSiteCtrl.ListPage);
+/** Admin Site Detail Page */
+router.get('/detail', AdminSiteCtrl.DetailPage);
 /** Admin Site Modify Page */
 router.get('/modify', AdminSiteCtrl.ModifyPage);
 /** Admin Site Modify Do */

@@ -48,7 +48,7 @@
                                             <tr>
                                                 <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
                                                 <td><%=item.UserId%></td>
-                                                <td><%=item.SiteName%></td>
+                                                <td><a href="/admin/Site/detail?no=<%=item.index%>"><%=item.SiteName%></a></td>
                                                 <td><%=item.plotNumber%></td>
                                                 <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
                                                 <td><%=item.updatedAt%></td>

@@ -56,6 +56,35 @@ const ListPage = (req, res, next) => {
 
 };
 
+/** Admin Site Detail Page */
+const DetailPage = (req, res, next) => {
+    let no = req.param.no || req.params.no;
+    console.log('parameter index ::: ', no);
+    var SampleDeviceInfo = {
+        DeviceName: 'Testing',
+        Type: 'Data Tracker'
+    };
+    var PlotDeviceArray = [SampleDeviceInfo, SampleDeviceInfo];
+    var PlotDetailInfo = {
+        PlotName: 'Test Plot',
+        DeviceInfo: PlotDeviceArray
+    };
+    var PlotDetailArray = [PlotDetailInfo, PlotDetailInfo];
+    //TODO Sample Data 
+    var SampleSiteDetailInfo = {
+        Name: 'Testing',
+        PlotNumber: 5,
+        PlotDetailInfo: PlotDetailArray
+    };
+
+
+    res.render('admin/SitePage/Detail/DetailPage', {
+        login: TestingLoginData,
+        title: 'Admin Site Detail page',
+        SiteDetailInfo: SampleSiteDetailInfo
+    });
+};
+
 /** Admin Site Edit Page */
 const ModifyPage = (req, res, next) => {
 
@@ -77,11 +106,14 @@ const DeleteDo = (req, res, next) => {
 };
 
 
+
+
 module.exports = {
     MainPage,
     CreatePage,
     CreateDo,
     ListPage,
+    DetailPage,
     ModifyPage,
     ModifyDo,
     DeletePage,

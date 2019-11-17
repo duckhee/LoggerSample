@@ -4,21 +4,23 @@ const router = express.Router();
 /** Admin Plot Controller */
 const AdminPlotCtrl = require("../../../ctrl/admin/Plot/plot.ctrl");
 
-/** Plot Main Page */
+/** Admin Plot Main Page */
 router.get('/', AdminPlotCtrl.MainPage);
-/** Plot Create Page */
+/** Admin Plot Create Page */
 router.get('/create', AdminPlotCtrl.CreatePage);
-/** Plot Create Do */
+/** Admin Plot Create Do */
 router.post('/create', AdminPlotCtrl.CreateDo);
-/** Plot List page */
+/** Admin Plot List page */
 router.get('/list', AdminPlotCtrl.ListPage);
-/** Plot Modify Page */
+/** Admin Plot Detail page */
+router.get('/detail', AdminPlotCtrl.DetailPage);
+/** Admin Plot Modify Page */
 router.get('/modify', AdminPlotCtrl.ModifyPage);
-/** Plot Modify Do */
+/** Admin Plot Modify Do */
 router.post('/modify', AdminPlotCtrl.ModifyDo);
-/** Plot Delete Page */
+/** Admin Plot Delete Page */
 router.get('/delete', AdminPlotCtrl.DeletePage);
-/** Plot Delete Do */
+/** Admin Plot Delete Do */
 router.post('/delete', AdminPlotCtrl.DeleteDo);
 
 module.exports = router;

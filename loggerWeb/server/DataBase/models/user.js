@@ -61,12 +61,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     user.associate = function(models) {
         // associations can be defined here
+        /** User have Site Many */
         user.hasMany(models.site, {
             foreignKey: 'Owner',
             targetKey: 'UserEmail'
-        })
+        });
+        /** User have Plot Many */
+        user.hasMany(models.site, {
+            foreignKey: 'Owner',
+            targetKey: 'UserEmail'
+        });
     };
-    //TODO
+    //TODO checking
     user.Login = function(models) {
         console.log('Testing : ', models);
         this.findOne({
