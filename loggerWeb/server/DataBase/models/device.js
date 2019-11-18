@@ -1,10 +1,35 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const device = sequelize.define('device', {
-    name: DataTypes.STRING
-  }, {});
-  device.associate = function(models) {
-    // associations can be defined here
-  };
-  return device;
+    const device = sequelize.define('device', {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        PlotIdx: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'plot',
+                key: 'id'
+            },
+            onDelete: 'CASCADE'
+        },
+        DeviceType: {
+            type: DataTypes.ENUM,
+            values: ['null', 'DataTracker', 'ecolog'],
+            defaultValue: 'null',
+            allowNull: false
+        }
+    }, {});
+    device.associate = function(models) {
+        // associations can be defined here
+        /** Plot have many Device */
+        device.belongsTo(models.plot, {
+            foreignKeyConstraint: true,
+            foreignKey: 'UserEmail',
+            allowNull: false,
+            onDelete: 'CASCADE'
+        });
+    };
+    return device;
 };

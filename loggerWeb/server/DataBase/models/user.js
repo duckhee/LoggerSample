@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        UserPw: {
+        UserPassword: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             afterCreate: function(user, options) {
                 console.log('after create user hook !');
-                //console.log('user email ::: ' + user.email + ", user password ::: " + user.password + ", user nick name ::: " + user.nickname + ", user level ::: " + user.userlevel);
+                //console.log('user email ::: ' + user.UserEmail + ", user password ::: " + user.UserPassword + ", user name ::: " + user.UserName + ", user level ::: " + user.UserLevel);
             }
         }
     });

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     const plot = sequelize.define('plot', {
-        name: {
+        PlotName: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'UserEmail'
             }
         },
-        SiteName: {
-            type: DataTypes.STRING,
+        SiteIdx: {
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: 'site',
-                key: 'name'
+                key: 'id'
             }
         }
     }, {});
@@ -27,16 +27,21 @@ module.exports = (sequelize, DataTypes) => {
         /** User have Plot Many */
         plot.belongsTo(models.user, {
             foreignKeyConstraint: true,
-            foreignKey: 'userEmail',
+            foreignKey: 'UserEmail',
             allowNull: false,
             onDelete: 'CASCADE'
         });
         /** Site have Plot Many */
         plot.belongsTo(models.site, {
             foreignKeyConstraint: true,
-            foreignKey: 'name',
+            foreignKey: 'id',
             allowNull: false,
             onDelete: 'CASCADE'
+        });
+        /** Plot have Many Device */
+        plot.hasMany(models.device, {
+            foreignKey: 'PlotIdx',
+            targetKey: 'id'
         });
     };
     return plot;

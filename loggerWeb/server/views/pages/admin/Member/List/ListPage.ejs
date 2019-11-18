@@ -49,7 +49,7 @@
                                             <tr>
                                                 <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
                                                 <td><%=item.UserId%></td>
-                                                <td><%=item.UserName%></td>
+                                                <td><a href="/admin/Member/detail?no=<%=item.UserId%>"><%=item.UserName%></a></td>
                                                 <td><%=item.UserLevel%></td>
                                                 <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
                                                 <td><%=item.updatedAt%></td>
@@ -60,6 +60,9 @@
                             </table>
                         </div>
                         <div class="box-footer clearfix">
+                            <div class="pull-left">
+                                <button id="DeleteMember" class="btn btn-danger"><i class="fa fa-fw fa-trash-o" style="margin-right:10px;"></i>Delete</button>
+                            </div>
                             <div class="pull-right">
                                 <!--<div class="btn-group">-->
                                     <button id="EditMember" class="btn btn-warning"><i class="fa fa-fw fa-edit" style="margin-right:10px;"></i>Edit</button>

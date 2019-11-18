@@ -1,33 +1,29 @@
 'use strict';
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('plots', {
+        return queryInterface.createTable('cameras', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            PlotName: {
+            name: {
                 type: Sequelize.STRING
             },
-            Owner: {
-                type: Sequelize.STRING,
-                allowNull: false,
-                references: {
-                    model: 'users',
-                    key: 'UserEmail'
-                },
-                onDelete: 'CASCADE'
-            },
-            SiteIdx: {
+            PlotIdx: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'sites',
+                    model: 'plots',
                     key: 'id'
                 },
                 onDelete: 'CASCADE'
+            },
+            CameraType: {
+                type: Sequelize.ENUM('null', 'hikvision'),
+                defaultValue: 'null',
+                allowNull: false,
             },
             createdAt: {
                 allowNull: false,
@@ -40,6 +36,6 @@ module.exports = {
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('plots');
+        return queryInterface.dropTable('cameras');
     }
 };

@@ -2,7 +2,7 @@
     "development": {
         "username": "root",
         "password": "won1228A!",
-        "database": "database_development",
+        "database": "cloud_database_development",
         "host": "127.0.0.1",
         "dialect": "mysql",
         "timezone": "+09:00",

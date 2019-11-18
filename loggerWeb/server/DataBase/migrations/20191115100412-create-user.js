@@ -15,7 +15,7 @@ module.exports = {
             UserName: {
                 type: Sequelize.STRING
             },
-            UserPw: {
+            UserPassword: {
                 type: Sequelize.STRING
             },
             UserLevel: {

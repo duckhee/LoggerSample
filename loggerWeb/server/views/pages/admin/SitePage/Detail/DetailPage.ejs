@@ -11,6 +11,9 @@
                    <div class="box" style="margin:auto; width:80%;">
                         <div class="box-header with-border">
                             <h3 class="box-title"><i class='fa fa-fw fa-inbox' style="margin-right:10ox;"></i>Site Detail</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
                         </div>
                         <div class="box-body">
                             <%if(SiteDetailInfo){%>
@@ -40,9 +43,12 @@
                                             </div>
                                             <%if(item.DeviceInfo){%>
                                                 <%item.DeviceInfo.forEach((device)=>{%>
-                                                    <div class="box" style="margin:auto; width:90%">
+                                                    <div class="box box-primary" style="margin:auto; width:80%">
                                                         <div class="box-header">
-                                                            <h3 class="box-title"><%=device.DeviceName%></h3>
+                                                            <h3 class="box-title"><i class="fa fa-fw fa-hdd-o"></i><%=device.DeviceName%></h3>
+                                                            <div class="box-tools pull-right">
+                                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                                            </div>
                                                         </div>
                                                         <div class="box-body">
                                                             <div class='form-group'>

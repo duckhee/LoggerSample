@@ -1,19 +1,22 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    const site = sequelize.define('site', {
+    const camera = sequelize.define('camera', {
         name: {
+            type: DataTypes.STRING
+        },
+        ModelName: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        Owner: {
-            type: DataTypes.STRING,
+        PlotIdx: {
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'user',
-                key: 'UserEmail'
-            }
+                model: 'plot',
+                key: 'id'
+            },
+            onDelete: 'CASCADE'
         }
-
     }, {
         /**
          * getter and setter method function make here.
@@ -32,39 +35,25 @@ module.exports = (sequelize, DataTypes) => {
          * }
          */
         hooks: {
-            beforeCreate: function(site, options) {
 
-
-            },
-            afterCreate: function(site, options) {
-
-            }
         }
     });
-    site.associate = function(models) {
+    camera.associate = function(models) {
         // associations can be defined here
-        /** User have Site Many */
-        site.belongsTo(models.user, {
+
+        /** Camera belong to plot */
+        camera.belongsTo(models.plot, {
             foreignKeyConstraint: true,
-            foreignKey: 'UserEmail',
+            foreignKey: 'id',
             allowNull: false,
             onDelete: 'CASCADE'
         });
-        /** site have Plot Many */
-        site.hasMany(models.plot, {
-            foreignKey: 'SiteIdx',
-            targetKey: 'id',
-        });
 
+        /** camera have Many Hikvision */
+        camera.hasMany(models.hikvision, {
+            foreignKey: 'CameraIdx',
+            targetKey: 'id'
+        });
     };
-    /**
-     * hook create
-     * user.addHook('afterCreate', function(user, options){return sequelize.Promise.reject()})
-     * User.beforeCreate(function(user, options) {
-     * return hashPassword(user.password).then(function (hashedPw) {
-     * user.password = hashedPw;
-     *  });
-     * 
-     */
-    return site;
+    return camera;
 };
