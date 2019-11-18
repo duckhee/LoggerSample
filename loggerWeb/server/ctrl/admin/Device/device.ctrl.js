@@ -36,14 +36,19 @@ const ListPage = (req, res, next) => {
     };
 
     var SampleDeviceInfo = {
-
+        SiteName: 'Test site',
+        PlotName: 'Test plot',
+        DeviceName: 'Testing Device',
+        DeviceType: 'Data-tracker',
+        createdAt: Date.now(),
+        updatedAt: Date.now()
     };
 
     var SampleDeviceList = [SampleDeviceInfo, SampleDeviceInfo];
     res.render('admin/DevicePage/List/ListPage', {
         login: TestingLoginData,
         title: 'Admin Device List Page',
-        DeviceInfoList: ''
+        DeviceInfoList: SampleDeviceList
 
     });
 

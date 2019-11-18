@@ -38,9 +38,10 @@
                                     <tr>
                                         <td style="width:10px;"><input type="checkbox" name="th_checkAll" id="th_checkAll" onclick="allCheck();"></td>
                                          
+                                         <td>Device Name</td>
                                          <td>Site Name</td>
                                          <td>Plot Name</td>
-                                         <td>Device Name</td>
+                                         <td>Device Type</td>
                                          <td>Create Date</td>
                                          <td>Update Date</td>
                                     </tr>
@@ -50,9 +51,10 @@
                                         DeviceInfoList.forEach(item=>{ %>
                                             <tr>
                                                 <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
+                                                <td><a href="#"><%=item.DeviceName%></a></td>
                                                 <td><%=item.SiteName%></td>
                                                 <td><%=item.PlotName%></td>
-                                                <td><%=item.DeviceName%></td>
+                                                <td><%=item.DeviceType%></td>
                                                 <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
                                                 <td><%=item.updatedAt%></td>
                                             </tr>
