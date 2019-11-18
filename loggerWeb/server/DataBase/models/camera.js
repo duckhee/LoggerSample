@@ -16,6 +16,20 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'id'
             },
             onDelete: 'CASCADE'
+        },
+        Latitude: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        Longitude: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        CameraType: {
+            type: DataTypes.ENUM,
+            values: ['null', 'hikvision'],
+            defaultValue: 'null',
+            allowNull: false
         }
     }, {
         /**

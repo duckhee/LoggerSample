@@ -14,6 +14,14 @@ module.exports = (sequelize, DataTypes) => {
             },
             onDelete: 'CASCADE'
         },
+        Latitude: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        Longitude: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         DeviceType: {
             type: DataTypes.ENUM,
             values: ['null', 'DataTracker', 'ecolog'],

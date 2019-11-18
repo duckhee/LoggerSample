@@ -20,6 +20,14 @@ module.exports = {
                 },
                 onDelete: 'CASCADE'
             },
+            Latitude: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            Longitude: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
             CameraType: {
                 type: Sequelize.ENUM('null', 'hikvision'),
                 defaultValue: 'null',

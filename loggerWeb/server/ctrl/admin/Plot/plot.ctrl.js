@@ -57,7 +57,11 @@ const ListPage = (req, res, next) => {
 
 /** Admin Plot Detail page */
 const DetailPage = (req, res, next) => {
-
+    let no = req.param.no || req.params.no;
+    console.log('parameter index ::: ', no);
+    var PlotSampleData = {
+        PlotName: 'Plot Testing'
+    };
 };
 
 /** Admin Plot Modify Page */

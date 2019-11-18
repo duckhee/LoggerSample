@@ -21,6 +21,14 @@ module.exports = {
                 },
                 onDelete: 'CASCADE'
             },
+            Latitude: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            Longitude: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
             DeviceType: {
                 type: Sequelize.ENUM('null', 'DataTracker', 'ecolog'),
                 defaultValue: 'null',
