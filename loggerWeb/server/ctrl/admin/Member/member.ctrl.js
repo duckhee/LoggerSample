@@ -67,6 +67,23 @@ const RegisteDo = (req, res, next) => {
 /** Admin Member Profile Page */
 const ProfilePage = (req, res, next) => {
 
+
+};
+
+/** Admin Member DetailPage */
+const DetailPage = (req, res, next) => {
+    let no = req.param.no || req.params.no || req.query.no;
+    console.log('member index no ::: ', no);
+    let SampleMemberInfo = {
+        UserEmail: 'test@co.kr',
+        UserName: 'test',
+        UserLevel: '5'
+    };
+
+    res.render('admin/Member/Detail/DetailPage', {
+        login: TestingLoginData,
+        title: 'Admin Member Detail Page'
+    });
 };
 
 /** Admin Member Modify Page */
@@ -100,6 +117,7 @@ module.exports = {
     RegistePage,
     RegisteDo,
     ProfilePage,
+    DetailPage,
     ModifyPage,
     ModifyDo,
     DeletePage,

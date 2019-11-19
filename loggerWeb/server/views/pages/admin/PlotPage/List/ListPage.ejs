@@ -48,7 +48,7 @@
                                         PlotInfoList.forEach(item=>{ %>
                                             <tr>
                                                 <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
-                                                <td><a href="#"><%=item.PlotName%></a></td>
+                                                <td><a href="/admin/Plot/detail?no=<%=item.index%>"><%=item.PlotName%></a></td>
                                                 <td><%=item.SiteName%></td>
                                                 <td><%=item.DeviceNumber%></td>
                                                 <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
@@ -110,7 +110,7 @@
         }
         function MoveEditMember(){
             $("#EditMember").click(function(){
-                location.href="/admin/Site/modify";
+                location.href="/admin/Site/modify?no=";
             });
         }
         $(document).ready(function(){

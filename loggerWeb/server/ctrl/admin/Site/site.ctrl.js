@@ -58,7 +58,7 @@ const ListPage = (req, res, next) => {
 
 /** Admin Site Detail Page */
 const DetailPage = (req, res, next) => {
-    let no = req.param.no || req.params.no;
+    let no = req.param.no || req.params.no || req.query.no;
     console.log('parameter index ::: ', no);
     var SampleDeviceInfo = {
         DeviceName: 'Testing',

@@ -19,6 +19,8 @@ router.post('/modify', MemberCtrl.ModifyDo);
 router.get('/delete', MemberCtrl.DeletePage);
 /** Member Delete Do */
 router.post('/delete', MemberCtrl.DeleteDo);
+/** Member Detail Page */
+router.get('/detail', MemberCtrl.DetailPage);
 /** Member Profile Page */
 router.get('/profile', MemberCtrl.ProfilePage);
 /** Registe Member UserId Check */

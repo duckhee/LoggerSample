@@ -9,18 +9,18 @@ var TestingLoginData = {
 const MainPage = (req, res, next) => {
     res.redirect('/admin/Device/list');
 };
-
+/** Admin Device Create Page */
 const CreatePage = (req, res, next) => {
     res.render('admin/DevicePage/Create/CreatePage', {
         login: TestingLoginData,
         title: 'Admin Device Create Page'
     });
 };
-
+/** Admin Device Create Do */
 const CreateDo = (req, res, next) => {
     res.redirect('/admin/Device/list');
 };
-
+/** Admin Device List Page */
 const ListPage = (req, res, next) => {
     /** Get Page Info */
     var page = req.param('page');
@@ -36,6 +36,7 @@ const ListPage = (req, res, next) => {
     };
 
     var SampleDeviceInfo = {
+        index: 1,
         SiteName: 'Test site',
         PlotName: 'Test plot',
         DeviceName: 'Testing Device',
@@ -53,23 +54,40 @@ const ListPage = (req, res, next) => {
     });
 
 };
-
+/** Admin Device Modify Page */
 const ModifyPage = (req, res, next) => {
 
 };
-
+/** Admin Device Modify Do */
 const ModifyDo = (req, res, next) => {
 
 };
-
+/** Admin Device Detail Page */
 const DetailPage = (req, res, next) => {
+    let no = req.param.no || req.params.no || req.query.no;
+    console.log('parameter index ::: ', no);
+
+    var DeviceSampleInfo = {
+        SiteName: 'test',
+        PlotName: 'Plot',
+        DeviceName: 'Testing Device',
+        DeviceLatitude: '20.00',
+        DeviceLongitude: '10.00'
+    };
+
+    res.render('admin/DevicePage/Detail/DetailPage', {
+        login: TestingLoginData,
+        title: 'Admin Device Detail Page',
+        DeviceInfo: DeviceSampleInfo
+    });
 
 };
 
+/** Admin Device Delete Page */
 const DeletePage = (req, res, next) => {
 
 };
-
+/** Admin Device Delete Do */
 const DeleteDo = (req, res, next) => {
 
 };

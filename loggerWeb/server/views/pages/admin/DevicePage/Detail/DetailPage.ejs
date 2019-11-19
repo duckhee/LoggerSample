@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../../../../partials/admin/stylesheet.ejs %>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+       <div class="wrapper">
+            <% include ../../../../partials/admin/header.ejs %>
+            <div class="content-wrapper">
+                <div class="content">
+                   <div class='box'>
+                        <div class='box-header with-border'>
+                            <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style="margin-right:10px;"></i>Device Detail</h3>
+                        </div>
+                        <!--./box-header-->
+                        <div class='box-body'>
+                            <div class='form-horizontal'>
+                                <%if(DeviceInfo){%>
+                                    <div class='form-group'>
+                                        <label for='' class='control-label col-xs-2'>Site Name</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value="<%=DeviceInfo.SiteName%>" disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='' class='control-label col-xs-2'>Plot Name</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value="<%=DeviceInfo.PlotName%>" disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for="" class='control-label col-xs-2'>Device Name</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value="<%=DeviceInfo.DeviceName%>" disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='' class='control-label col-xs-2'>Device Latitude</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value='<%=DeviceInfo.DeviceLatitude%>' disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='' class='control-label col-xs-2'>Device Longitude</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value='<%=DeviceInfo.DeviceLongitude%>' disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                <%}%>
+                            </div>
+                        </div>
+                        <!--./box-body-->
+                        <div class='box-footer'>
+                            <div class='pull-right'>
+                                <button class='btn btn-warning'><i class='fa fa-fw fa-edit' style='margin-right:10px;'></i>Edit</button>
+                            </div>
+                        </div>
+                        <!--./box-footer-->
+                   </div>
+                   <!--./box-->
+                </div>
+                <!--/.content-->
+            </div>
+            <!-- /.content-wrapper-->
+            <% include ../../../../partials/admin/footer.ejs %>
+       </div>
+       <!--/.wrapper-->
+       <% include ../../../../partials/admin/footerScript.ejs %>
+    </body>
+  
+</html>

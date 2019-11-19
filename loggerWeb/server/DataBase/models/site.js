@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
                 model: 'user',
                 key: 'UserEmail'
             }
-        }
+        },
+
 
     }, {
         /**

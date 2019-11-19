@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
+
             validate: {
                 /** Check Email Format */
                 isEmail: true
@@ -24,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: 5
         }
     }, {
+
         /**
          * getter and setter method function make here.
          * getter this.colum

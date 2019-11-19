@@ -12,5 +12,7 @@ router.get('/create', AdminDeviceCtrl.CreatePage);
 router.post('/create', AdminDeviceCtrl.CreateDo);
 /** Admin Device List Page */
 router.get('/list', AdminDeviceCtrl.ListPage);
+/** Admin Device Detail page */
+router.get('/detail', AdminDeviceCtrl.DetailPage);
 
 module.exports = router;

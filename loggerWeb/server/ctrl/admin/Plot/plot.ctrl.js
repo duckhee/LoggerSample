@@ -57,11 +57,25 @@ const ListPage = (req, res, next) => {
 
 /** Admin Plot Detail page */
 const DetailPage = (req, res, next) => {
-    let no = req.param.no || req.params.no;
+    let no = req.param.no || req.params.no || req.query.no;
     console.log('parameter index ::: ', no);
-    var PlotSampleData = {
-        PlotName: 'Plot Testing'
+    var DeviceSampleData = {
+        DeviceName: 'testingDevice',
+        DeviceType: 'data-tracker',
+        Latitude: '23.00',
+        Longitude: '12.00'
     };
+    var DeviceSampleArray = [DeviceSampleData, DeviceSampleData];
+    var PlotSampleData = {
+        PlotName: 'Plot Testing',
+        DeviceNumber: 2,
+        DeviceInfo: DeviceSampleArray
+    };
+    res.render('admin/PlotPage/Detail/DetailPage', {
+        login: TestingLoginData,
+        title: 'Admin Plot Detail Page',
+        PlotDetailInfo: PlotSampleData
+    });
 };
 
 /** Admin Plot Modify Page */

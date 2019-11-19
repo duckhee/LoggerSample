@@ -51,7 +51,7 @@
                                         DeviceInfoList.forEach(item=>{ %>
                                             <tr>
                                                 <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
-                                                <td><a href="#"><%=item.DeviceName%></a></td>
+                                                <td><a href="/admin/Device/detail?no=<%=item.index%>"><%=item.DeviceName%></a></td>
                                                 <td><%=item.SiteName%></td>
                                                 <td><%=item.PlotName%></td>
                                                 <td><%=item.DeviceType%></td>
@@ -114,7 +114,7 @@
         }
         function MoveEditMember(){
             $("#EditMember").click(function(){
-                location.href="/admin/Site/modify";
+                location.href="/admin/Site/modify?no=";
             });
         }
         $(document).ready(function(){
