@@ -87,6 +87,14 @@ const DetailPage = (req, res, next) => {
 
 /** Admin Site Edit Page */
 const ModifyPage = (req, res, next) => {
+    let no = req.params.no || req.param.no || req.query.no || req.body.no;
+    console.log('parameter index : ', no);
+
+    res.render('admin/SitePage/Modify/ModifyPage', {
+        login: TestingLoginData,
+        title: 'Admin Site Modify page',
+        SiteDetailInfo: ''
+    });
 
 };
 
@@ -95,14 +103,11 @@ const ModifyDo = (req, res, next) => {
 
 };
 
-/** Admin Site Delete Page */
-const DeletePage = (req, res, next) => {
-
-};
-
 /** Admin Site Delete DO */
 const DeleteDo = (req, res, next) => {
-
+    let deleteValue = req.query.delete || req.body.delete;
+    console.log('delete value : ', deleteValue);
+    res.json(deleteValue);
 };
 
 
@@ -116,6 +121,5 @@ module.exports = {
     DetailPage,
     ModifyPage,
     ModifyDo,
-    DeletePage,
     DeleteDo
 };

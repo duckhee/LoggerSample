@@ -1,4 +1,6 @@
 'use strict';
+/** Password Bcrypt */
+const bcrypt = require('bcrypt-nodejs');
 module.exports = (sequelize, DataTypes) => {
     const user = sequelize.define('user', {
         UserEmail: {
@@ -18,6 +20,15 @@ module.exports = (sequelize, DataTypes) => {
         UserPassword: {
             type: DataTypes.STRING,
             allowNull: false,
+            //TODO Checking
+            instanceMethods: {
+                generateHash(password) {
+                    return bcrypt.hash(passwrod, bcrypt.genSaltSync(8));
+                },
+                validPassword(passowrd) {
+                    return bcrypt.compare(password, this.password);
+                }
+            }
         },
         UserLevel: {
             type: DataTypes.INTEGER,
@@ -74,7 +85,7 @@ module.exports = (sequelize, DataTypes) => {
             targetKey: 'UserEmail'
         });
     };
-    //TODO checking
+    //TODO checking?
     user.Login = function(models) {
         console.log('Testing : ', models);
         this.findOne({

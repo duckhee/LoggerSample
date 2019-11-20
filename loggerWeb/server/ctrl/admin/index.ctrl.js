@@ -16,7 +16,7 @@ const MainPage = (req, res, next) => {
         };
         res.render('admin/index', {
             login: TestingLoginData,
-            title: 'Admin Main'
+            title: 'Admin Main Page'
         });
         //res.redirect('/admin/login');
     }

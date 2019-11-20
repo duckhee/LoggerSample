@@ -16,8 +16,6 @@ router.get('/detail', AdminSiteCtrl.DetailPage);
 router.get('/modify', AdminSiteCtrl.ModifyPage);
 /** Admin Site Modify Do */
 router.post('/modify', AdminSiteCtrl.ModifyDo);
-/** Admin Site Delete Page */
-router.get('/delete', AdminSiteCtrl.DeletePage);
 /** Admin Site Delete Do */
 router.post('/delete', AdminSiteCtrl.DeleteDo);
 

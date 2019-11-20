@@ -41,8 +41,16 @@ const ListPage = (req, res, next) => {
         createdAt: Date.now(),
         updatedAt: Date.now()
     };
+    var SampleUserInfo2 = {
+        index: 2,
+        UserId: 'tester',
+        UserLevel: 2,
+        UserName: 'won',
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+    };
 
-    var SampleUserList = [SampleUserInfo, SampleUserInfo];
+    var SampleUserList = [SampleUserInfo, SampleUserInfo2];
     res.render('admin/Member/List/ListPage', {
         login: TestingLoginData,
         UserInfoList: SampleUserList,
@@ -88,7 +96,12 @@ const DetailPage = (req, res, next) => {
 
 /** Admin Member Modify Page */
 const ModifyPage = (req, res, next) => {
-
+    const no = req.param.no || req.params.no || req.query.no;
+    console.log("parameter index ::: ", no);
+    res.render('admin/Member/Modify/ModifyPage', {
+        login: TestingLoginData,
+        title: 'Admin Member Modify Page'
+    });
 };
 
 /** Admin Member Modify Do */
@@ -96,14 +109,13 @@ const ModifyDo = (req, res, next) => {
 
 };
 
-/** Admin Member Delete Page */
-const DeletePage = (req, res, next) => {
-
-};
-
 /** Admin Member Delete Do */
 const DeleteDo = (req, res, next) => {
+    let deleteValue = req.param.delete || req.params.delete || req.body.delete || req.query.delete;
 
+    console.log('delete value ::: ', deleteValue);
+
+    res.json(true);
 };
 
 /** Admin Member Email Check */
@@ -120,7 +132,6 @@ module.exports = {
     DetailPage,
     ModifyPage,
     ModifyDo,
-    DeletePage,
     DeleteDo,
     EmailCheck
 };

@@ -88,14 +88,11 @@ const ModifyDo = (req, res, next) => {
 
 };
 
-/** Admin Plot Delete Page */
-const DeletePage = (req, res, next) => {
-
-};
-
 /** Admin Plot Delete Do */
 const DeleteDo = (req, res, next) => {
-
+    let deleteValue = req.query.delete || req.body.delete;
+    console.log('delete data : ', deleteValue);
+    res.json(deleteValue);
 };
 
 
@@ -107,6 +104,5 @@ module.exports = {
     DetailPage,
     ModifyPage,
     ModifyDo,
-    DeletePage,
     DeleteDo
 };

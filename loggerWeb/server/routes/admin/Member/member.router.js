@@ -15,8 +15,6 @@ router.get('/list', MemberCtrl.ListPage);
 router.get('/modify', MemberCtrl.ModifyPage);
 /** Member Modify Do */
 router.post('/modify', MemberCtrl.ModifyDo);
-/** Member Delete page */
-router.get('/delete', MemberCtrl.DeletePage);
 /** Member Delete Do */
 router.post('/delete', MemberCtrl.DeleteDo);
 /** Member Detail Page */

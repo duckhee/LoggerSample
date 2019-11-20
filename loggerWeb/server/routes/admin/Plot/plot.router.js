@@ -18,8 +18,6 @@ router.get('/detail', AdminPlotCtrl.DetailPage);
 router.get('/modify', AdminPlotCtrl.ModifyPage);
 /** Admin Plot Modify Do */
 router.post('/modify', AdminPlotCtrl.ModifyDo);
-/** Admin Plot Delete Page */
-router.get('/delete', AdminPlotCtrl.DeletePage);
 /** Admin Plot Delete Do */
 router.post('/delete', AdminPlotCtrl.DeleteDo);
 
