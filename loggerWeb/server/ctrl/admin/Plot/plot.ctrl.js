@@ -80,6 +80,14 @@ const DetailPage = (req, res, next) => {
 
 /** Admin Plot Modify Page */
 const ModifyPage = (req, res, next) => {
+    let no = req.query.no || req.body.no || req.param.no || req.params.no;
+    console.log('parameter index : ', no);
+
+    res.render('admin/PlotPage/Modify/ModifyPage', {
+        login: TestingLoginData,
+        title: 'Admin Plot Modify Page',
+
+    });
 
 };
 

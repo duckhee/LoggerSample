@@ -56,7 +56,12 @@ const ListPage = (req, res, next) => {
 };
 /** Admin Device Modify Page */
 const ModifyPage = (req, res, next) => {
-
+    let no = req.query.no || req.body.no || req.param.no || req.params.no;
+    console.log('parameter index : ', no);
+    res.render('admin/DevicePage/Modify/ModifyPage', {
+        login: TestingLoginData,
+        title: 'Admin Device Modify Page'
+    });
 };
 /** Admin Device Modify Do */
 const ModifyDo = (req, res, next) => {
@@ -83,10 +88,6 @@ const DetailPage = (req, res, next) => {
 
 };
 
-/** Admin Device Delete Page */
-const DeletePage = (req, res, next) => {
-
-};
 /** Admin Device Delete Do */
 const DeleteDo = (req, res, next) => {
 
@@ -103,6 +104,5 @@ module.exports = {
     ModifyPage,
     ModifyDo,
     DetailPage,
-    DeletePage,
     DeleteDo
 };
