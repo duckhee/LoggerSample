@@ -3,8 +3,6 @@ const router = express.Router();
 /** Control Main Router */
 const AdminMainCtrl = require('../../ctrl/admin/index.ctrl');
 
-/** Testing Function */
-
 
 /** Admin Get Router */
 router.get('/', AdminMainCtrl.MainPage);
@@ -20,6 +18,8 @@ const PlotRouter = require("./Plot/plot.router");
 const DeviceRouter = require('./Device/device.router');
 /** Admin Download Router */
 const DownLoadRouter = require('./download/index.router');
+/** Admin Camera Router */
+
 
 module.exports = (app) => {
     /** Index router */

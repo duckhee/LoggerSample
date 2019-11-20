@@ -64,7 +64,7 @@
                                     <!--./Setting tab-pane-->
                                     <div class="box-footer">
                                         <div class="pull-right">
-                                            <button class='btn btn-warning'><i class='fa fa-fw fa-pencil' style="margin-right:10px;"></i>Edit</button>
+                                            <button id="Edit" class='btn btn-warning'><i class='fa fa-fw fa-pencil' style="margin-right:10px;"></i>Edit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -84,5 +84,15 @@
        <!--/.wrapper-->
        <% include ../../../../partials/admin/footerScript.ejs %>
     </body>
+    <script>
+        function EditMember(){
+            $("#Edit").click(function(){
+                location.href="/admin/Members/modify?no=";
+            });
+        }
+        $(document).ready(function(){
+            EditMember();
+        });
+    </script>
    
 </html>

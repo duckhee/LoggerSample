@@ -102,12 +102,12 @@
                 $("input[name=checkRow]").prop("checked", false);
             }
         }
-        function CreateMember(){
+        function CreateSite(){
             $("#Create").click(function(){
                 location.href = "/admin/Members/create";
             });
         }
-        function EditMember(){
+        function EditSite(){
             $("#Edit").click(function(){
                 let checkValue = [];
                 $.each($('input[name="checkRow"]:checked'), function(){
@@ -129,7 +129,7 @@
             });
         }
 
-        function DeleteMember(){
+        function DeleteSite(){
             $("#Delete").click(function(){
                 let checkValue = [];
                 let checkingName = [];
@@ -175,9 +175,9 @@
         }
 
         $(document).ready(function(){
-            CreateMember();
-            EditMember();
-            DeleteMember();
+            CreateSite();
+            EditSite();
+            DeleteSite();
             
         })
     </script>

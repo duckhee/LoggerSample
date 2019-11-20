@@ -103,12 +103,12 @@
                 $("input[name=checkRow]").prop("checked", false);
             }
         }
-        function CreateMember(){
+        function CreatePlot(){
             $("#Create").click(function(){
                 location.href = "/admin/Plot/create";
             });
         }
-        function EditMember(){
+        function EditPlot(){
             $("#Edit").click(function(){
                 let checkValue = [];
                 $.each($('input[name="checkRow"]:checked'), function(){
@@ -130,7 +130,7 @@
             });
         }
 
-        function DeleteMember(){
+        function DeletePlot(){
             $("#Delete").click(function(){
                 let checkValue = [];
                 let checkingName = [];
@@ -176,9 +176,9 @@
         }
 
         $(document).ready(function(){
-            CreateMember();
-            EditMember();
-            DeleteMember();
+            CreatePlot();
+            EditPlot();
+            DeletePlot();
             
         })
     </script>
