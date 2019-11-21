@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+/** Cross-site request forgery protection middleware */
+const csurf = require('csurf');
 
 /**
  * add extra module
@@ -25,6 +27,8 @@ const CustomerIndexRouter = require('./server/routes/customer/index.router');
 
 var app = express();
 
+/** SetUp route middleware */
+const csurfMiddleWare = csurf({ key: 'secretKeyDevSession', cookie: true, httpOnly: true });
 // view engine setup
 app.set('views', path.join(__dirname, './server/views/pages'));
 app.set('view engine', 'ejs');
@@ -34,6 +38,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('secreteKeyWon'));
+/** csurfMiddleWare setting */
+app.use(csurfMiddleWare);
+
+
 
 /**
  * store
@@ -46,6 +54,7 @@ app.use(cookieParser('secreteKeyWon'));
  * proxy
  * 
  */
+
 app.use(
     session({
         /* local file session save file */
@@ -66,6 +75,7 @@ app.use(
         cookie: {
             httpOnly: true,
             /* session alive time setting 1hour */
+            // secure: true,
             maxAge: 1000 * 60 * 60,
         }
     })
@@ -89,12 +99,11 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
  * Admin Router Registe
  */
 //app.use('/admin', AdminIndexRouter);
-AdminIndexRouter(app);
+AdminIndexRouter(app, csurfMiddleWare);
 
 /**
  * Customer Router Registe
  */
-//app.use('/', CustomerIndexRouter);
 CustomerIndexRouter(app);
 
 
@@ -103,6 +112,8 @@ CustomerIndexRouter(app);
 app.use(function(req, res, next) {
     let err = new Error("Not Found Page");
     err.status = 404;
+    console.log('404 error code ::: ', err.code);
+    console.log('404 error ::: ', err);
     res.render('error/404');
 });
 
@@ -116,6 +127,9 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     console.log('server error code ::: ', err.code);
     console.log('server error ::: ', err);
+    if (err.code === 'EBADCSRFTOKEN') {
+        return res.render('error/403');
+    }
     res.render('error/500');
 
 });

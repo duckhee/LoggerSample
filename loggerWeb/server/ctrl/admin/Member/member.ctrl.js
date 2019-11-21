@@ -54,22 +54,25 @@ const ListPage = (req, res, next) => {
     res.render('admin/Member/List/ListPage', {
         login: TestingLoginData,
         UserInfoList: SampleUserList,
-        title: 'Admin Member List Page'
+        title: 'Admin Member List Page',
+        _csrf: req.csrfToken()
     });
 };
 
 
 /** Admin Member Create Page */
 const RegistePage = (req, res, next) => {
+    // console.log('csurfMiddleWare :: ', req.csrfToken());
     res.render('admin/Member/Registe/RegistePage', {
         login: TestingLoginData,
-        title: 'Admin Registe Customer Page'
+        title: 'Admin Registe Customer Page',
+        _csrf: req.csrfToken()
     });
 };
 
 /** Admin Member Create Do */
 const RegisteDo = (req, res, next) => {
-
+    res.json('test');
 };
 
 /** Admin Member Profile Page */
@@ -90,7 +93,8 @@ const DetailPage = (req, res, next) => {
 
     res.render('admin/Member/Detail/DetailPage', {
         login: TestingLoginData,
-        title: 'Admin Member Detail Page'
+        title: 'Admin Member Detail Page',
+        _csrf: req.csrfToken()
     });
 };
 
@@ -100,7 +104,8 @@ const ModifyPage = (req, res, next) => {
     console.log("parameter index ::: ", no);
     res.render('admin/Member/Modify/ModifyPage', {
         login: TestingLoginData,
-        title: 'Admin Member Modify Page'
+        title: 'Admin Member Modify Page',
+        _csrf: req.csrfToken()
     });
 };
 

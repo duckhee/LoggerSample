@@ -21,20 +21,20 @@ const DownLoadRouter = require('./download/index.router');
 /** Admin Camera Router */
 
 
-module.exports = (app) => {
+module.exports = (app, csurfMiddleWare) => {
     /** Index router */
     app.use('/admin', router);
     /** Member router */
-    app.use('/admin/Members', MemberRouter);
+    app.use('/admin/Members', MemberRouter(csurfMiddleWare));
     /** Admin User router */
-    app.use('/admin/User', UserRouter);
+    app.use('/admin/User', UserRouter(csurfMiddleWare));
     /** Admin Site router */
-    app.use('/admin/Site', SiteRouter);
+    app.use('/admin/Site', SiteRouter(csurfMiddleWare));
     /** Admin Plot router */
-    app.use('/admin/Plot', PlotRouter);
+    app.use('/admin/Plot', PlotRouter(csurfMiddleWare));
     /** Admin Device router */
-    app.use('/admin/Device', DeviceRouter);
+    app.use('/admin/Device', DeviceRouter(csurfMiddleWare));
     /** Admin Download router */
-    app.use('/admin/DownLoad', DownLoadRouter);
+    app.use('/admin/DownLoad', DownLoadRouter(csurfMiddleWare));
 
 };

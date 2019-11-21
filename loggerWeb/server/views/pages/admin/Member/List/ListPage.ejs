@@ -132,6 +132,7 @@
 
         function DeleteMember(){
             $("#Delete").click(function(){
+                
                 let checkValue = [];
                 let checkingName = [];
                 $.each($('input[name="checkRow"]:checked'), function(){
@@ -151,6 +152,11 @@
                         showCancelButton:true
                     }).then(result=>{
                         if(result){
+                            $.ajaxSetup({
+                                beforeSend: function(xhr) {
+                                    xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                                }
+                            });
                             $.ajax({
                                 url:'/admin/Members/delete',
                                 type:'post',

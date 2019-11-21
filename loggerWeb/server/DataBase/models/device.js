@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         DeviceType: {
             type: DataTypes.ENUM,
-            values: ['null', 'DataTracker', 'ecolog'],
+            values: ['null', 'DataTracker', 'ecolog', 'HikVision'],
             defaultValue: 'null',
             allowNull: false
         }

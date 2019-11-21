@@ -3,10 +3,17 @@
     <head>
         <% include ../../../../partials/admin/stylesheet.ejs %>
         <style>
+
+            .SelectDiv{
+                display:none;
+            }
+            .SelectActive{
+                display:block;
+            }
             .DataTracker{
                 display:none;
             }
-            .EcoLog{
+            .ecolog{
                 display:none;
             }
             .HikVision{
@@ -26,13 +33,15 @@
                         <!--./box header-->
                         <div class="box-body">
                            <form class="form-horizontal">
+                                <input type="hidden" id="_csrf" name="_csrf" value ="<%=_csrf%>">
                                 <div class="form-group">
                                     <label for="SiteOwnerId" class="col-sm-2 control-label">Site Owner Id</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="SiteOwnerId" placeholder="Site Owner Id ...">
+                                        <input type="text" class="form-control" name="SiteOwnerId" id="SiteOwnerId" placeholder="Site Owner Id ...">
                                     </div>
                                     <div class="col-sm-4">
                                         <button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-user" style="margin-right:10px;"></i>Id Check</button>
+                                        <input type="hidden" id="IdCheck" value="0">
                                     </div>
                                 </div>
                                 <!--./form-group-->
@@ -72,7 +81,7 @@
                                         <select id="deviceType" class="form-control">
                                             <option value=''>Selected...</option>
                                             <option value="DataTracker">Data Tracker</option>
-                                            <option value="EcoLog">EcoLog</option>
+                                            <option value="ecolog">EcoLog</option>
                                             <option value="HikVision">Hikvision Camera</option>
                                         </select>
                                     </div>
@@ -123,8 +132,21 @@
                                     <!--./form-group-->
                                 </div>
                                 <!--./data-tracker-->
-                                <div class="EcoLog">
-                                
+                                <div class="ecolog">
+                                    <div class='form-group'>
+                                        <label for='ecologFTPFolder' class='control-label col-sm-2'>ecolog FTP Folder Name</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' id="ecologFTPFolder" placeholder="FTP Folder Name...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='ecologFileType' class='control-label col-sm-2'>ecolog File Type</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' id="ecologFileType" placeholder='ecolog File Type...'>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
                                 </div>
                                 <!--./ecolog-->
                                 <div class="HikVision">
@@ -172,28 +194,57 @@
        <% include ../../../../partials/admin/footerScript.ejs %>
     </body>
     <script>
+        let TypeDevice = (function(){
+            let _deviceType = [ 'DataTracker', 'ecolog','HikVision' ];
+            return {
+                getType:function(){
+                    return _deviceType;
+                }
+            }
+        }());
+
+        function Create(){
+            $("#Create").click(function(){
+                let value = TypeDevice.getType();
+                console.log(value);
+                let deviceType = $("#deviceType").val();
+                if(deviceType === value[0]){
+
+                }else if(deviceType === value[1]){
+                    
+                }else if(deviceType === value[2]){
+
+                }else{
+                    Swal.fire({
+                        title:'Select Device Type',
+                        type:'warning',
+                    });
+                }
+            });
+        }
+
         $(document).ready(function(){
             $("#deviceType").change(function(){
                 let value = this.value;
                 if(value === 'DataTracker'){
-                    $(".EcoLog").css('display', 'none');
+                    $(".ecolog").css('display', 'none');
                     $(".HikVision").css('display', 'none');
                     $(".DataTracker").css('display', 'block');
-                }else if(value === 'EcoLog'){
+                }else if(value === 'ecolog'){
                     $(".DataTracker").css('display', 'none');
                     $(".HikVision").css('display', 'none');
-                    $(".EcoLog").css('display', 'block');
-
+                    $(".ecolog").css('display', 'block');
                 }else if(value === 'HikVision'){
                     $(".DataTracker").css('display', 'none');
                     $(".EcoLog").css('display', 'none');
                     $(".HikVision").css('display', 'block');
                 }else{
                     $(".DataTracker").css('display', 'none');
-                    $(".EcoLog").css('display', 'none');
+                    $(".ecolog").css('display', 'none');
                     $(".HikVision").css('display', 'none');
                 }
             });
+            Create();
         });
     </script>
 </html>

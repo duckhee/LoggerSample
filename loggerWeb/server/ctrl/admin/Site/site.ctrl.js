@@ -14,7 +14,8 @@ const MainPage = (req, res, next) => {
 const CreatePage = (req, res, next) => {
     res.render('admin/SitePage/Create/CreatePage', {
         login: TestingLoginData,
-        title: 'Admin Site Create Page'
+        title: 'Admin Site Create Page',
+        _csrf: req.csrfToken()
     });
 };
 
@@ -51,7 +52,8 @@ const ListPage = (req, res, next) => {
     res.render('admin/SitePage/List/ListPage', {
         login: TestingLoginData,
         title: 'Admin Site List Page',
-        SiteInfoList: SampleSiteList
+        SiteInfoList: SampleSiteList,
+        _csrf: req.csrfToken()
     });
 
 };
@@ -81,7 +83,8 @@ const DetailPage = (req, res, next) => {
     res.render('admin/SitePage/Detail/DetailPage', {
         login: TestingLoginData,
         title: 'Admin Site Detail page',
-        SiteDetailInfo: SampleSiteDetailInfo
+        SiteDetailInfo: SampleSiteDetailInfo,
+        _csrf: req.csrfToken()
     });
 };
 
@@ -93,7 +96,8 @@ const ModifyPage = (req, res, next) => {
     res.render('admin/SitePage/Modify/ModifyPage', {
         login: TestingLoginData,
         title: 'Admin Site Modify page',
-        SiteDetailInfo: ''
+        SiteDetailInfo: '',
+        _csrf: req.csrfToken()
     });
 
 };

@@ -14,7 +14,8 @@
                         </div>
                         <div class="register-box-body">
                             <p class="login-box-msg">Registe New Member</p>
-                            <form action="" method="">
+                            <form name="create" id="create" action="" method="">
+                                <input type="hidden" id="_csrf" name="_csrf" value ="<%=_csrf%>">
                                 <!-- User Email Input -->
                                 <div class="form-group has-feedback">
                                     <div class="input-group">
@@ -44,7 +45,7 @@
                                 <!-- Registe Box Footer -->
                                 <div class="box-footer">
                                         <button type="button" class="btn btn-danger ">Cancel</button>
-                                        <button type="button" class="btn btn-primary  pull-right">Register</button>
+                                        <button id="registe" type="button" class="btn btn-primary  pull-right">Register</button>
                                 </div>
                                 <!-- /.Registe Box Footer -->
                             </form>
@@ -56,4 +57,13 @@
         </div>
         <% include ../../../../partials/admin/footerScript.ejs %>
     </body>
+    <script>
+        $(document).ready(function(){
+            $("#registe").click(function(){
+                document.create.action = "/admin/Members/registe";
+                document.create.method = "post";
+                document.create.submit();
+            });
+        });
+    </script>
 </html>

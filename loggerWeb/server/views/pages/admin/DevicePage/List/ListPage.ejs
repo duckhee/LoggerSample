@@ -155,6 +155,11 @@
                         showCancelButton:true
                     }).then(result=>{
                         if(result){
+                            $.ajaxSetup({
+                                beforeSend: function(xhr) {
+                                    xhr.setRequestHeader('Csrf-Token', "<%=_csrf%>");
+                                }
+                            });
                             $.ajax({
                                 url:'/admin/Device/delete',
                                 type:'post',

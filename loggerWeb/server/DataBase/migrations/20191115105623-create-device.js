@@ -30,7 +30,7 @@ module.exports = {
                 allowNull: false,
             },
             DeviceType: {
-                type: Sequelize.ENUM('null', 'DataTracker', 'ecolog'),
+                type: Sequelize.ENUM('null', 'DataTracker', 'ecolog', 'HikVision'),
                 defaultValue: 'null',
                 allowNull: false,
             },

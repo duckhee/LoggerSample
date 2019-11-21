@@ -15,7 +15,8 @@ const MainPage = (req, res, next) => {
 const CreatePage = (req, res, next) => {
     res.render('admin/PlotPage/Create/CreatePage', {
         login: TestingLoginData,
-        title: 'Admin Plot Create page'
+        title: 'Admin Plot Create page',
+        _csrf: req.csrfToken()
     });
 };
 
@@ -51,7 +52,8 @@ const ListPage = (req, res, next) => {
     res.render('admin/PlotPage/List/ListPage', {
         login: TestingLoginData,
         title: 'Admin Plot List Page',
-        PlotInfoList: SamplePlotList
+        PlotInfoList: SamplePlotList,
+        _csrf: req.csrfToken()
     });
 };
 
@@ -74,7 +76,8 @@ const DetailPage = (req, res, next) => {
     res.render('admin/PlotPage/Detail/DetailPage', {
         login: TestingLoginData,
         title: 'Admin Plot Detail Page',
-        PlotDetailInfo: PlotSampleData
+        PlotDetailInfo: PlotSampleData,
+        _csrf: req.csrfToken()
     });
 };
 
@@ -86,7 +89,7 @@ const ModifyPage = (req, res, next) => {
     res.render('admin/PlotPage/Modify/ModifyPage', {
         login: TestingLoginData,
         title: 'Admin Plot Modify Page',
-
+        _csrf: req.csrfToken()
     });
 
 };

@@ -151,6 +151,11 @@
                         showCancelButton:true
                     }).then(result=>{
                         if(result){
+                            $.ajaxSetup({
+                                beforeSend: function(xhr) {
+                                    xhr.setRequestHeader('Csrf-Token', "<%=_csrf%>");
+                                }
+                            });
                             $.ajax({
                                 url:'/admin/Plot/delete',
                                 type:'post',

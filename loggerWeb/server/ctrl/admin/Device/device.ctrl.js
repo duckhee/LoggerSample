@@ -4,6 +4,8 @@ var TestingLoginData = {
     userId: 'test',
     name: 'tester'
 };
+/** Device Type Array */
+const DeviceTypes = [];
 
 /** Admin Device Main Page */
 const MainPage = (req, res, next) => {
@@ -13,7 +15,8 @@ const MainPage = (req, res, next) => {
 const CreatePage = (req, res, next) => {
     res.render('admin/DevicePage/Create/CreatePage', {
         login: TestingLoginData,
-        title: 'Admin Device Create Page'
+        title: 'Admin Device Create Page',
+        _csrf: req.csrfToken()
     });
 };
 /** Admin Device Create Do */
@@ -49,8 +52,8 @@ const ListPage = (req, res, next) => {
     res.render('admin/DevicePage/List/ListPage', {
         login: TestingLoginData,
         title: 'Admin Device List Page',
-        DeviceInfoList: SampleDeviceList
-
+        DeviceInfoList: SampleDeviceList,
+        _csrf: req.csrfToken()
     });
 
 };
@@ -60,7 +63,8 @@ const ModifyPage = (req, res, next) => {
     console.log('parameter index : ', no);
     res.render('admin/DevicePage/Modify/ModifyPage', {
         login: TestingLoginData,
-        title: 'Admin Device Modify Page'
+        title: 'Admin Device Modify Page',
+        _csrf: req.csrfToken()
     });
 };
 /** Admin Device Modify Do */
@@ -83,7 +87,8 @@ const DetailPage = (req, res, next) => {
     res.render('admin/DevicePage/Detail/DetailPage', {
         login: TestingLoginData,
         title: 'Admin Device Detail Page',
-        DeviceInfo: DeviceSampleInfo
+        DeviceInfo: DeviceSampleInfo,
+        _csrf: req.csrfToken()
     });
 
 };

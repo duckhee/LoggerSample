@@ -13,7 +13,7 @@ const MainPage = (req, res, next) => {
 /** Admin User Login Page */
 const LoginPage = (req, res, next) => {
     //TODO Session Check
-    res.render('admin/Users/LoginPage');
+    res.render('admin/Users/LoginPage', {});
 };
 
 /** Admin User Login Do */
