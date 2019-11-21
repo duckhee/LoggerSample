@@ -2,6 +2,17 @@
 <html>
     <head>
         <% include ../../../../partials/admin/stylesheet.ejs %>
+        <style>
+            .DataTracker{
+                display:none;
+            }
+            .EcoLog{
+                display:none;
+            }
+            .HikVision{
+                display:none;
+            }
+        </style>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
        <div class="wrapper">
@@ -58,10 +69,11 @@
                                 <div class="form-group">
                                     <label for="SelectType" class="col-sm-2 control-label">Device Type</label>
                                     <div class="col-sm-4">
-                                        <select class="form-control">
-                                            <option value="data-tracker">Data Tracker</option>
-                                            <option value="ecolog">EcoLog</option>
-                                            <option value="camera-hikvision">Hikvision Camera</option>
+                                        <select id="deviceType" class="form-control">
+                                            <option value=''>Selected...</option>
+                                            <option value="DataTracker">Data Tracker</option>
+                                            <option value="EcoLog">EcoLog</option>
+                                            <option value="HikVision">Hikvision Camera</option>
                                         </select>
                                     </div>
                                 </div>
@@ -79,13 +91,73 @@
                                         <input type="text" class="form-control" id='lon' placeholder="Device Longitude ...">
                                     </div>
                                 </div>
+                                <!--./form-group-->
+                                <div class="DataTracker">
+                                    <div class='form-group'>
+                                        <label for='dataTrackerIP' class='col-sm-2 control-label'>Data Tracker IP</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' id="dataTrackerIP" placeholder="Data Tracker IP...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class="form-group">
+                                        <label for="dataTrackerID" class="col-sm-2 control-label">Data Tracker ID</label>
+                                        <div class='col-sm-4'>
+                                            <input type="text" class="form-control" id="dataTrackerID" placeholder="Data Tracker WEB dEX4 id...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class="form-group">
+                                        <label for='dataTrackerPw' class='col-sm-2 control-label'>Data Tracker Password</label>
+                                        <div class='col-sm-4'>
+                                            <input type='password' class='form-control' id="dataTrackerPw" placeholder="Data Tracker WEB dEX4 password ...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class="form-group">
+                                        <label for='dataTrackerFolder' class='col-sm-2 control-label'>Data Tracker FTP Folder Name</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' id='dataTrackerFolder' placeholder="Data Tracker FTP Folder Name...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                </div>
+                                <!--./data-tracker-->
+                                <div class="EcoLog">
+                                
+                                </div>
+                                <!--./ecolog-->
+                                <div class="HikVision">
+                                    <div class='form-group'>
+                                        <label for='hikvisionIp' class='col-sm-2 control-label'>HikVision Camera IP</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' id="hikvisionIp" placeholder="Input Camera IP...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='hikvisionID' class='col-sm-2 control-label'>HikVision Camera ID</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' id="hikvisionID" placeholder="Input Camera Login ID...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='hikVisionPw' class='col-sm-2 control-label'>HikVision Camera Password</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' id="hikVisionPw" placeholder='Input Camera Login Password...'>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                </div>
+                                <!--./hikvision-->
                            </form>
                         </div>
                         <!--./box body-->
                         <div class="box-footer">
                             <div class=' pull-right'>
-                                <button type="button" class="btn btn-flat btn-danger"><i class="fa fa-fw fa-times" style="margin-right:10px;"></i>Cancel</button>
-                                <button type="button" class="btn btn-flat btn-primary"><i class="fa fa-fw fa-save" style="margin-right:10px;"></i>Create</button>
+                                <button id="Cancel" type="button" class="btn btn-flat btn-danger"><i class="fa fa-fw fa-times" style="margin-right:10px;"></i>Cancel</button>
+                                <button id="Create" type="button" class="btn btn-flat btn-primary"><i class="fa fa-fw fa-save" style="margin-right:10px;"></i>Create</button>
                             </div>
                         </div>
                         <!--./box-footer-->
@@ -99,5 +171,29 @@
        <!--/.wrapper-->
        <% include ../../../../partials/admin/footerScript.ejs %>
     </body>
-  
+    <script>
+        $(document).ready(function(){
+            $("#deviceType").change(function(){
+                let value = this.value;
+                if(value === 'DataTracker'){
+                    $(".EcoLog").css('display', 'none');
+                    $(".HikVision").css('display', 'none');
+                    $(".DataTracker").css('display', 'block');
+                }else if(value === 'EcoLog'){
+                    $(".DataTracker").css('display', 'none');
+                    $(".HikVision").css('display', 'none');
+                    $(".EcoLog").css('display', 'block');
+
+                }else if(value === 'HikVision'){
+                    $(".DataTracker").css('display', 'none');
+                    $(".EcoLog").css('display', 'none');
+                    $(".HikVision").css('display', 'block');
+                }else{
+                    $(".DataTracker").css('display', 'none');
+                    $(".EcoLog").css('display', 'none');
+                    $(".HikVision").css('display', 'none');
+                }
+            });
+        });
+    </script>
 </html>
