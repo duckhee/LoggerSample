@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 /** Cross-site request forgery protection middleware */
 const csurf = require('csurf');
+/** security setting */
+const helmet = require('helmet');
 
 /**
  * add extra module
@@ -29,10 +31,16 @@ var app = express();
 
 /** SetUp route middleware */
 const csurfMiddleWare = csurf({ key: 'secretKeyDevSession', cookie: true, httpOnly: true });
+
 // view engine setup
 app.set('views', path.join(__dirname, './server/views/pages'));
 app.set('view engine', 'ejs');
-
+/** security helmet middleware */
+app.disable('x-power-by');
+app.use(helmet());
+app.use(helmet.noCache());
+app.use(helmet.xssFilter());
+app.use(helmet.frameguard());
 
 app.use(logger('dev'));
 app.use(express.json());
