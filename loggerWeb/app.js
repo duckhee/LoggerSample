@@ -67,23 +67,28 @@ app.use(
     session({
         /* local file session save file */
         store: new FileStore,
+
         /* session save secrete key */
+        name: 'SecretSession',
+        secret: 'secreteKeyWon',
         key: 'secretKeyDevSession',
         saveUninitialized: true,
+        unset: 'destroy',
         /* not session setting do */
-        uset: function(req) {
-            req.session.destroy(err => {
-                /* if session destroy Error */
-                console.log('session destroy Error code ::: ', err.code);
-                console.log('session destroy Error ::: ', err);
-            });
-        },
+        // uset: function(req) {
+        //     req.session.destroy(err => {
+        //         /* if session destroy Error */
+        //         console.log('session destroy Error code ::: ', err.code);
+        //         console.log('session destroy Error ::: ', err);
+        //     });
+        // },
         /* session reSave option */
-        resave: false,
+        resave: true,
         cookie: {
             httpOnly: true,
             /* session alive time setting 1hour */
-            // secure: true,
+            /** It it make many session file ?   */
+            //secure: true,
             maxAge: 1000 * 60 * 60,
         }
     })
@@ -112,7 +117,7 @@ AdminIndexRouter(app, csurfMiddleWare);
 /**
  * Customer Router Registe
  */
-CustomerIndexRouter(app);
+CustomerIndexRouter(app, csurfMiddleWare);
 
 
 

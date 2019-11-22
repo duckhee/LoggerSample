@@ -10,16 +10,23 @@ module.exports = (sequelize, DataTypes) => {
 
             validate: {
                 /** Check Email Format */
-                isEmail: true
+                isEmail: true,
+                notNull: true
             }
         },
         UserName: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: true
+            }
         },
         UserPassword: {
             type: DataTypes.STRING,
             allowNull: false,
+            validate: {
+                notNull: true
+            },
             //TODO Checking
             instanceMethods: {
                 generateHash(password) {
@@ -33,7 +40,11 @@ module.exports = (sequelize, DataTypes) => {
         UserLevel: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            defaultValue: 5
+            defaultValue: 5,
+            validate: {
+                isInt: true,
+                notNull: true
+            },
         }
     }, {
 
@@ -53,6 +64,28 @@ module.exports = (sequelize, DataTypes) => {
          * }
          * }
          */
+        getterMethods: {
+            //Write methods here
+            GetEmail() {
+                return this.UserEmail;
+            },
+            GetModelToString() {
+                return this.UserEmail + ' ' + this.UserName + ' ' + this.UserLevel;
+            }
+        },
+        setterMethods: {
+            //Write methods here
+            SetEmail(email) {
+                this.setDataValue('UserEmail', email);
+            },
+        },
+        instanceMethods: {
+            //Write methods here
+        },
+        classMethods: {
+            //Write methods here
+        },
+
         hooks: {
             beforeCreate: function(user, options) {
                 console.log('before create user hook!');

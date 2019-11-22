@@ -15,7 +15,7 @@ router.get('/test', MainCtrl.LoginDone);
 
 //module.exports = router;
 /**Customer Router Management */
-module.exports = (app) => {
+module.exports = (app, csurfMiddleWare) => {
     /** index router */
     app.use('/', router);
     /** User Management Router */

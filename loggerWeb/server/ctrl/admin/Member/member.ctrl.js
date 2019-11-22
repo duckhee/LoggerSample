@@ -63,6 +63,13 @@ const ListPage = (req, res, next) => {
 /** Admin Member Create Page */
 const RegistePage = (req, res, next) => {
     // console.log('csurfMiddleWare :: ', req.csrfToken());
+    req.session.logined = true;
+    if (!req.session.count) {
+        req.session.count = 0;
+    } else {
+        req.session.count += 1;
+    }
+    console.log('req session : ', req.session);
     res.render('admin/Member/Registe/RegistePage', {
         login: TestingLoginData,
         title: 'Admin Registe Customer Page',
@@ -72,6 +79,12 @@ const RegistePage = (req, res, next) => {
 
 /** Admin Member Create Do */
 const RegisteDo = (req, res, next) => {
+    console.log('session get : ', req.session);
+    console.log('session testing count : ', req.session.logined);
+    //console.log('res :: ', res);
+    if (req.session.count) {
+        console.log('session count : ', req.session.count);
+    }
     res.json('test');
 };
 
