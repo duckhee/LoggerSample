@@ -21,11 +21,21 @@ const LoginUser = (UserInfo) => {
 
 };
 
+/** Logout User */
+const LogoutUser = (UserInfo)=>{
+
+};
+
 /** User Email Check */
 const EmailCheckUser = (UserInfo) => {
 
 };
 
 module.exports = {
-
+    RegisteUser,
+    ListUser,
+    PagingUser,
+    LoginUser,
+    LogoutUser,
+    EmailCheckUser,
 };

@@ -66,18 +66,32 @@ module.exports = (sequelize, DataTypes) => {
          */
         getterMethods: {
             //Write methods here
-            GetEmail() {
+            /** Getter Method */
+            GetUserEmail() {
                 return this.UserEmail;
             },
+            GetUserName(){
+                return this.UserName;
+            },
+            GetUserLevel(){
+                return this.UserLevel;
+            },
             GetModelToString() {
-                return this.UserEmail + ' ' + this.UserName + ' ' + this.UserLevel;
+                return this.UserEmail + ', ' +this.UserPassword+', ' +this.UserName + ', ' + this.UserLevel;
             }
         },
         setterMethods: {
             //Write methods here
+            /** Setter Method */
             SetEmail(email) {
                 this.setDataValue('UserEmail', email);
             },
+            SetUserName(name){
+                this.setDataValue('UserName', name);
+            },
+            SetUserLevel(level){
+                this.setDataValue('UserLevel', level);
+            }
         },
         instanceMethods: {
             //Write methods here

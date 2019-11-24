@@ -28,7 +28,39 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: 'null',
             allowNull: false
         }
-    }, {});
+    }, {
+        /**
+         * getter and setter method function make here.
+         * getter this.colum
+         * setter this.setDataValue('colum', setvalue)
+         * getterMethods: {
+         * fullName() {
+         *   return this.email + ' ' + this.nickname + " " + this.userlevel + " " + this.apikey;
+         * }
+         * if do you want to make hook
+         * hooks:{
+         * beforeValidate:function(){
+         * },
+         * afterValidate:function(){
+         * }
+         * }
+         */
+        getterMethods:{
+            //Write methods here
+            /** Getter Method */
+        },
+        setterMethods:{
+
+        },
+        hooks:{
+            beforeCreate:function(device, options){
+
+            },
+            afterCreate:function(device, options){
+                
+            }
+        }
+    });
     device.associate = function(models) {
         // associations can be defined here
         /** Plot have many Device */

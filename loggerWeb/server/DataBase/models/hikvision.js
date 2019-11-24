@@ -21,7 +21,62 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         }
     }, {
+        /**
+         * getter and setter method function make here.
+         * getter this.colum
+         * setter this.setDataValue('colum', setvalue)
+         * getterMethods: {
+         * fullName() {
+         *   return this.email + ' ' + this.nickname + " " + this.userlevel + " " + this.apikey;
+         * }
+         * if do you want to make hook
+         * hooks:{
+         * beforeValidate:function(){
+         * },
+         * afterValidate:function(){
+         * }
+         * }
+         */
+        getterMethods:{
+            //Write methods here
+            /** Getter Method */
+            GetCameraIdx(){
+                return this.CameraIdx;
+            },
+            GetModelName(){
+                return this.modelName;
+            },
+            GetHikVisionId(){
+                return this.HikVisionId;
+            },
+            GetHikVisionPw(){
+                return this.HikVisionPw;
+            }
+        },
+        setterMethods:{
+            //Write methods here
+            /** Getter Method */
+            SetCameraIdx(idx){
+                this.setDataValue('CameraIdx', idx);
+            },
+            SetModelName(name){
+                this.setDataValue('modelName', name);
+            },
+            SetHikVisionId(id){
+                this.setDataValue('HikVisionId', id);
+            },
+            SetHikVisionPw(pw){
+                this.setDataValue('HikVisionPw', pw);
+            }
+        },
+        hooks:{
+            beforeCreate:function(hikvision, options){
 
+            },
+            afterCreate:function(hikvision, options){
+
+            }
+        }
     });
     hikvision.associate = function(models) {
         // associations can be defined here
