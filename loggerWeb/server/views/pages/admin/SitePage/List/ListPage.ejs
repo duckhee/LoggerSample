@@ -149,7 +149,7 @@
                         html:'<p style="font-size:20px;">'+checkingName+'</p>',
                         showCancelButton:true
                     }).then(result=>{
-                        if(result){
+                        if(result.value){
                             $.ajaxSetup({
                                 beforeSend: function(xhr) {
                                     xhr.setRequestHeader('Csrf-Token', "<%=_csrf%>");

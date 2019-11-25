@@ -3,7 +3,11 @@ const MemberModel = require('../../../../DataBase/mongoModel/Users/user.mongoDB'
 /** Create Member Dao */
 const InsertMember = (UserInfo) => {
     console.log('Insert Member Dao');
-    MemberModel.save(UserInfo);
+    MemberModel.save(UserInfo).then(result => {
+
+    }).catch(err => {
+
+    });
 
 };
 

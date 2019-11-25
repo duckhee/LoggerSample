@@ -11,6 +11,8 @@ const MemberRouter = (csurfMiddleWare) => {
     router.get('/registe', csurfMiddleWare, MemberCtrl.RegistePage);
     /** Member Registe Do */
     router.post('/registe', csurfMiddleWare, MemberCtrl.RegisteDo);
+    /** Registe Member Email Check */
+    router.post('/userEmail-check', csurfMiddleWare, MemberCtrl.EmailCheck);
     /** Member List Page */
     router.get('/list', csurfMiddleWare, MemberCtrl.ListPage);
     /** Member Modify Page */
@@ -27,10 +29,7 @@ const MemberRouter = (csurfMiddleWare) => {
     router.get('/userId-check', (req, res, next) => {
         res.json('IdCheck');
     });
-    /** Registe Member Email Check */
-    router.get('/userEmail-check', (req, res, next) => {
-        res.json('EmailCheck');
-    });
+
     /** Registe Member UserName Check */
     router.get('/userName-check', (req, res, next) => {
         res.json('NameCheck');

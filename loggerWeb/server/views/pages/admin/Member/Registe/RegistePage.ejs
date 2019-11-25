@@ -19,27 +19,28 @@
                                 <!-- User Email Input -->
                                 <div class="form-group has-feedback">
                                     <div class="input-group">
-                                        <input type="email" class="form-control" placeholder="User Email..." autocomplete="off">
+                                        <input type="email" id="userEmail" name="userEmail" class="form-control" placeholder="User Email..." autocomplete="off">
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-info btn-flat">Email Check</button>
+                                            <input id="EmailCheckFlag" type="hidden" value="false">
+                                            <button type="button" id="EmailCheck" class="btn btn-info btn-flat">Email Check</button>
                                         </span>
                                     </div>
                                 </div>
                                 <!-- /.User Email Input -->
                                 <!-- User Pw Input -->
                                 <div class="form-group has-feedback">
-                                        <input type="password" class="form-control" placeholder="Password..." autocomplete="off">
+                                        <input type="password" id="userPw" name="userPw" class="form-control" placeholder="Password..." autocomplete="off">
                                         <i class="glyphicon glyphicon-lock form-control-feedback"></i>
                                 </div>
                                 <!-- /.User Pw Input -->
-                                <!-- User Pw Input -->
+                                <!-- User Pw check -->
                                 <div class="form-group has-feedback">
-                                    <input type="password" class="form-control" placeholder="confirm Password..." autocomplete="off">
+                                    <input type="password" id="userConfirmPw" name="userConfirmPw" class="form-control" placeholder="confirm Password..." autocomplete="off">
                                     <i class="glyphicon glyphicon-lock form-control-feedback"></i>
                                 </div>
                                 <!-- /.User Pw Input -->
                                 <div class="form-group has-feedback">
-                                    <input type="text" class="form-control" placeholder="User Name" autocomplete="off">
+                                    <input type="text" id="userName" name="userName" class="form-control" placeholder="User Name" autocomplete="off">
                                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                 </div>
                                 <!-- Registe Box Footer -->
@@ -58,12 +59,159 @@
         <% include ../../../../partials/admin/footerScript.ejs %>
     </body>
     <script>
-        $(document).ready(function(){
+        var regExp = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		var regPhone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
+        /** alert Message */
+        function AlertMessage(message, url, type){
+            if(url !== ''){
+                Swal.fire({
+                    title:message,
+                    type:'warning',
+                    showCancelButton:true
+                }).then(result=>{
+                    if(result.value){
+                        console.log('result :: ', result);
+                        location.href = "/login";
+                    }
+                });
+            }else{
+                Swal.fire({
+                title:'Registe User Check',
+                text:message,
+                type:type,
+            });
+            }
+        }
+        /** Email Check Function */
+        function IDCheck(){
+            let IdVal = $("#userEmail").val();
+            if(IdVal.indexOf(' ') >= 0){
+                AlertMessage("Not INPUT SPACE FORMAT", "", 'warning');
+                $("#userEmail").focus();
+                $("#userEmail").select();
+                return false;
+            }
+            if(!regExp.test(IdVal)){
+                AlertMessage("Not EMAIL FORMAT", "", 'warning');
+                $("#userEmail").focus();
+                $("#userEmail").select();
+                return false;
+            }
+            if(IdVal === ''){
+                AlertMessage("Not Null EMAIL ", "", 'warning');
+                $("#userEmail").focus();
+                $("#userEmail").select();
+                return false;
+            }
+            return true;
+        }
+        /** Password Check Function */
+        function PwCheck(){
+            let PwVal = $("#userPw").val();
+            let CPwVal = $("#userConfirmPw").val();
+            if(PwVal === ""){
+                AlertMessage("User PASSWORD NOT NULL", "", "danger");
+                $("#userPw").focus();
+                $("#userPw").select();
+                return false;
+            }
+            if(CPwVal === ""){
+                AlertMessage("User Password Confirm not null", "", "warning");
+                $("#userPw").focus();
+                return false;
+            }
+            if(PwVal !== CPwVal){
+                AlertMessage("User Password Confirm not match", "", "warning");
+                $("#userConfirmPw").val("");
+                $("#userConfirmPw").focus();
+                $("#userConfirmPw").select();
+                return false;
+            }else{
+                console.log('same');
+                return true;
+            }
+        }
+        function NameCheck(){
+            let NameVal = $('#userName').val();
+            if(NameVal === ""){
+                AlertMessage("User Name not null", "", "warning");
+                $("#userName").focus();
+                $("#userName").select();
+                return false;
+            }else{
+                return true;
+            }
+        }
+        function EmailCheck(){
+            $("#EmailCheck").click(function(){
+                let uEmail =$("#userEmail").val();
+                if(IDCheck() === false ){
+                    return $("#EmailCheckFlag").val(false);
+                }else{
+                    $.ajaxSetup({
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                        }
+                    });
+                    $.ajax({
+                        url:'/admin/Members/userEmail-check',
+                        type:'post',
+                        dataType:'json',
+                        contentType:'application/json',
+                        data:JSON.stringify({
+                            'email':uEmail
+                        }),
+                        success:function(data){
+                            console.log('Email check success ', data);
+                            if(data === 1){
+                                AlertMessage("ALREADY HAVE USER GO TO LOGIN PAGE", "/login", 'warning');
+                                $("#EmailCheckFlag").val(false);
+                                return false;
+                            }else if(data === '-1'){
+                                AlertMessage("RETRY", '', 'warning');
+                                $("#EmailCheckFlag").val(false);
+                                return false;
+                            }else{
+                                AlertMessage("You Can Use This Email", '', 'success');
+                                $("#EmailCheckFlag").val(true);
+                                return true;
+                            }
+                        },
+                        err:function(request, status, error){
+                            console.log('code : ', request.status);
+                            console.log('message : ', request.responseText);
+                            console.log('status : ', status);
+                            console.log('error ::: ', error);
+                            return false;
+                        }
+                    });
+                }
+            });
+        }
+        
+        function EmailCheckFlag(){
+            if($("#EmailCheckFlag").val() === "true"){
+                return true;
+            }else{
+                AlertMessage("Email Check First", "", "warning");
+                return false;
+            }
+        }
+     
+        function create(){
             $("#registe").click(function(){
+                if(EmailCheckFlag() && PwCheck() && NameCheck())
+                {
                 document.create.action = "/admin/Members/registe";
                 document.create.method = "post";
                 document.create.submit();
+                }
+                
             });
+        }
+        $(document).ready(function(){
+            EmailCheck();
+            create();
         });
     </script>
 </html>

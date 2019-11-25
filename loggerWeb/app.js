@@ -30,8 +30,8 @@ const CustomerIndexRouter = require('./server/routes/customer/index.router');
 var app = express();
 
 /** SetUp route middleware */
-const csurfMiddleWare = csurf({ key: 'secretKeyDevSession', cookie: true, httpOnly: true });
-
+const csurfMiddleWare = csurf({ key: 'secreteKeyWon', cookie: true, httpOnly: true });
+//const csurfMiddleWare = csurf();
 // view engine setup
 app.set('views', path.join(__dirname, './server/views/pages'));
 app.set('view engine', 'ejs');
@@ -97,9 +97,7 @@ app.use(
 /**
  * flash message use add
  */
-app.use(flash({
-    unsafe: true
-}));
+app.use(flash());
 
 
 /**

@@ -47,8 +47,8 @@
                                     <% if(UserInfoList){
                                         UserInfoList.forEach(item=>{ %>
                                             <tr>
-                                                <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
-                                                <td><%=item.UserId%></td>
+                                                <td><input type="checkbox" name="checkRow" value="<%=item.id%>"></td>
+                                                <td><%=item.UserEmail%></td>
                                                 <td><a href="/admin/Members/detail?no=<%=item.index%>"><%=item.UserName%></a></td>
                                                 <td><%=item.UserLevel%></td>
                                                 <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
@@ -74,11 +74,15 @@
                                 <li>
                                     <a href="#"><<</a>
                                 </li>
-                                
+                                <% if(UserAllPage){%>
+                                <li>
+                                    <a href="#">1</a>
+                                </li>    
+                                <%}else{%>
                                 <li>
                                     <a href="#">1</a>
                                 </li>
-                                
+                                <%}%>
                                 <li>
                                     <a href="#">>></a>
                                 </li>
@@ -151,7 +155,7 @@
                         html:'<p style="font-size:20px;">'+checkingName+'</p>',
                         showCancelButton:true
                     }).then(result=>{
-                        if(result){
+                        if(result.value){
                             $.ajaxSetup({
                                 beforeSend: function(xhr) {
                                     xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
