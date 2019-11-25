@@ -45,7 +45,19 @@ const ListUser = (UserInfo) => {
 };
 /** Paging user */
 const PagingUser = (UserInfo) => {
+    let offsetting = 0;
+    if (UserInfo.Pages > 1) {
+        offsetting = 10 * (UserInfo.Pages - 1);
+    }
+    models.user.findAll({
+        where: '',
+        limit: 10,
+        offset: offsetting
+    }).then(result => {
 
+    }).catch(err => {
+
+    });
 };
 
 /** Login User */
@@ -69,7 +81,13 @@ const LoginUser = (UserInfo) => {
 
 /** User Email Check */
 const EmailCheckUser = (UserInfo) => {
+    models.user.count({
+        where: UserInfo.Email
+    }).then(result => {
 
+    }).catch(err => {
+
+    });
 };
 
 module.exports = {

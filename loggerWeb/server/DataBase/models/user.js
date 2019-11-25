@@ -30,10 +30,10 @@ module.exports = (sequelize, DataTypes) => {
             //TODO Checking
             instanceMethods: {
                 generateHash(password) {
-                    return bcrypt.hash(passwrod, bcrypt.genSaltSync(8));
+                    return bcrypt.hashSync(passwrod, bcrypt.genSaltSync(8));
                 },
                 validPassword(passowrd) {
-                    return bcrypt.compare(password, this.password);
+                    return bcrypt.compareSync(password, this.password);
                 }
             }
         },
@@ -78,6 +78,12 @@ module.exports = (sequelize, DataTypes) => {
             SetEmail(email) {
                 this.setDataValue('UserEmail', email);
             },
+            SetUserName(name) {
+                this.setDataValue('UserName', name);
+            },
+            SetPassword(password) {
+                this.setDataValue('UserPassword', password);
+            }
         },
         instanceMethods: {
             //Write methods here
