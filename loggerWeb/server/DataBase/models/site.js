@@ -32,6 +32,29 @@ module.exports = (sequelize, DataTypes) => {
          * }
          * }
          */
+        getterMethods:{
+            //Write methods here
+            /** Getter Method */
+            GetName(){
+                return this.name;
+            },
+            GetOwner(){
+                return this.Owner;
+            },
+            GetModelToString(){
+                return this.name + ', ' + this.Owner;
+            }
+        },
+        setterMethods:{
+            //Write methods here
+            /** Setter Method */
+            SetName(name){
+                this.setDataValue('name', name);
+            },
+            SetOwner(owner){
+                this.setDataValue('Owner', owner);
+            }
+        },
         hooks: {
             beforeCreate: function(site, options) {
 

@@ -3,7 +3,7 @@ const configDatabase = require('../../../../config/config.json');
 
 
 
-
+/** Admin get User Dao */
 const UserDao = () => {
     if (configDatabase.database === "mysql") {
         console.log('mysql db setting');
