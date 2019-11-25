@@ -15,7 +15,6 @@ const MainPage = (req, res, next) => {
 
 /** Admin User Login Page */
 const LoginPage = (req, res, next) => {
-    //console.log('flash message : ', req.flash('message').length);
     //TODO Session Check
     res.render('admin/Users/LoginPage', {
         _csrf: req.csrfToken(),
@@ -51,7 +50,9 @@ const LoginDo = (req, res, next) => {
                 email: result.UserEmail,
                 level: result.UserLevel,
             };
-            if (result.UserLevel > 3) {
+            console.log('result : ', Number(result.UserLevel));
+            if (Number(result.UserLevel) < 3) {
+                console.log('admin user : ', Number(result.UserLevel));
                 return res.redirect('/admin');
             } else {
                 /** flash message */
