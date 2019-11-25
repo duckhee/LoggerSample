@@ -89,11 +89,15 @@ const LogOutDo = (req, res, next) => {
 
 /** Admin User Profile Page */
 const ProfilePage = (req, res, next) => {
-    res.render('admin/Users/ProfilePage', {
-        login: TestingLoginData,
-        title: 'Admin Profile Page',
-        message: req.flash('message')
-    });
+    if (req.session.userInfo && (req.session.userInfo.level < 3)) {
+        return res.render('admin/Users/ProfilePage', {
+            login: TestingLoginData,
+            title: 'Admin Profile Page',
+            message: req.flash('LoginMessage')
+        });
+    } else {
+        return res.redirect('/admin/User/login');
+    }
 };
 
 /** Admin User Modify Page */
