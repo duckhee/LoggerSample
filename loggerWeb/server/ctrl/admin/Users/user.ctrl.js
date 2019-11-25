@@ -74,7 +74,7 @@ const LoginDo = (req, res, next) => {
 /** Admin User LogOut Do */
 const LogOutDo = (req, res, next) => {
     //TODO Session Check
-    const SessionInfo = req.session.userInfo;
+    const SessionInfo = req.session.UserLogin;
     if (SessionInfo) {
         req.session.destroy(() => {
             res.session;
@@ -89,7 +89,7 @@ const LogOutDo = (req, res, next) => {
 
 /** Admin User Profile Page */
 const ProfilePage = (req, res, next) => {
-    if (req.session.userInfo && (req.session.userInfo.level < 3)) {
+    if (req.session.userInfo && (req.session.UserLogin.level < 3)) {
         return res.render('admin/Users/ProfilePage', {
             login: TestingLoginData,
             title: 'Admin Profile Page',

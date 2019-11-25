@@ -3,7 +3,9 @@ const MainPage = (req, res, next) => {
     let LoginInfo = req.session.userInfo;
     if (LoginInfo) {
         //TODO
-        res.render('CustomerPages/afterIndex', {});
+        res.render('CustomerPages/afterIndex', {
+
+        });
     } else {
         res.render('CustomerPages/index');
     }
