@@ -43,7 +43,7 @@
                                          <td>Update Date</td>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="member-tbody">
                                     <% if(UserInfoList){
                                         UserInfoList.forEach(item=>{ %>
                                             <tr>
@@ -134,6 +134,20 @@
             });
         }
 
+        function reloadingTable(data){
+            $("#member-tbody").empty();
+            let txt = "";
+            $.each(data, function(idx, obj){
+                txt += "<tr><td><input type='checkbox' name='checkRow' value="+obj.id+"></td>";
+                txt += "<td>"+obj.UserEmail+"</td>";
+                txt += "<td><a href='/admin/Members/detail?no='"+obj.id+"'>"+obj.UserName+"</a></td>";
+                txt += "<td>"+obj.UserLevel+"</td>";
+                txt += "<td>"+obj.createdAt+"</td>";
+                txt += "<td>"+obj.updatedAt+"</td></tr>";
+            });
+            $("#member-tbody").append(txt);
+        }
+
         function DeleteMember(){
             $("#Delete").click(function(){
                 
@@ -170,7 +184,7 @@
                                     'delete':checkValue
                                 }),
                                 success:function(data){
-                                    console.log('delete success ', data);
+                                    reloadingTable(data);
                                 },
                                 err:function(request, status, error){
                                     console.log('code : ', request.status);
@@ -184,6 +198,7 @@
                 }
             });
         }
+
 
         $(document).ready(function(){
             CreateMember();

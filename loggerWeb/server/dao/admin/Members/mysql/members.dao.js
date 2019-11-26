@@ -67,7 +67,6 @@ const ListUser = (UserInfo) => {
 };
 /** Paging user */
 const PagingUser = (ListInfo) => {
-    let offsetting = 0;
     return new Promise((resolve, reject) => {
         /** Count All User first */
         CountUser().then(result => {
@@ -83,13 +82,13 @@ const PagingUser = (ListInfo) => {
             console.log('offset : ', offsetting);
             /** Search Options */
             let SearchOptions = {};
-            if (ListInfo.SearchesByName !== "") {
+            if ((ListInfo.SearchesByName) !== "" && (ListInfo.SearchesByName !== undefined)) {
                 SearchOptions.UserName = ListInfo.SearchesByName;
             }
-            if (ListInfo.SearchesById !== "") {
+            if ((ListInfo.SearchesById !== "") && (ListInfo.SearchesById !== undefined)) {
                 SearchOptions.UserEmail = ListInfo.SearchesById;
             }
-            if (ListInfo.SearchesByLevel !== "") {
+            if ((ListInfo.SearchesByLevel !== "") && (ListInfo.SearchesByLevel !== undefined)) {
                 SearchOptions.UserLevel = ListInfo.SearchesByLevel;
             }
             /** paging Logic */
@@ -118,9 +117,8 @@ const PagingUser = (ListInfo) => {
 
 };
 
-/** Delete User */
+/** Delete User return list value */
 const DeleteUser = (UserInfo) => {
-
     return new Promise((resolve, reject) => {
         if (UserInfo.id === "") {
             return resolve(false);
@@ -130,7 +128,15 @@ const DeleteUser = (UserInfo) => {
                 id: UserInfo.id
             }
         }).then(result => {
-            return resolve(result);
+            console.log('delete success result : ', result);
+            PagingUser({}).then(result => {
+                console.log('result paging delete : ', result);
+                return resolve(result);
+            }).catch(err => {
+                console.log('Dao Delete User Paging Error code ::: ', err.code);
+                console.log('Dao Delete User Paging Error ::: ', err);
+                return reject(err);
+            });
         }).catch(err => {
             console.log('Dao Delete User Error code ::: ', err.code);
             console.log('Dao Delete User Error ::: ', err);

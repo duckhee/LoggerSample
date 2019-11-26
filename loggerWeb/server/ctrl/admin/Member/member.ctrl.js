@@ -160,7 +160,7 @@ const DeleteDo = (req, res, next) => {
         console.log('result value : ', result);
         if (result) {
             console.log('delete success');
-            return res.json(true);
+            return res.json(result.value);
         } else {
             console.log('delete failed');
             return res.json(false);
