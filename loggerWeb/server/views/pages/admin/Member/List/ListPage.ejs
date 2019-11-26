@@ -150,7 +150,6 @@
 
         function DeleteMember(){
             $("#Delete").click(function(){
-                
                 let checkValue = [];
                 let checkingName = [];
                 $.each($('input[name="checkRow"]:checked'), function(){
@@ -207,6 +206,7 @@
                                 contentType:'application/json',
                                 data:ajaxValue,
                                 success:function(data){
+                                    $("input:checkbox[id='th_checkAll']").prop("checked", false);
                                     reloadingTable(data);
                                 },
                                 err:function(request, status, error){
