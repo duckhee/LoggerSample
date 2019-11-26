@@ -35,8 +35,6 @@ const ListPage = (req, res, next) => {
     const SearchName = req.param.searchByName || req.params.searchByName || req.query.searchByName || req.body.searchByName || "";
     const SearchOwner = req.param.searchByOwner || req.params.searchByOwner || req.query.searchByOwner || req.body.searchByOwner || "";
 
-    console.log('get param : ' + Page + ", " + SearchName + ", " + SearchOwner);
-
     /** Make Send Site Paging Dao */
     var PageInfo = {
         pages: Page,
@@ -46,6 +44,7 @@ const ListPage = (req, res, next) => {
     };
 
     AdminSiteDao.PagingSite(PageInfo).then(result => {
+        console.log("get pageing value : ", result);
         if (Number(Page) > result.pageNumber) {
             return res.redirect('/admin/Site/list?page=' + result.pageNumber);
         }
@@ -64,24 +63,43 @@ const ListPage = (req, res, next) => {
 
         return res.redirect('/admin');
     });
-    /*
-        var SampleSiteInfo = {
-            index: 1,
-            UserId: 'tester',
-            SiteName: 'testing site',
-            plotNumber: 1,
-            createdAt: Date.now(),
-            updatedAt: Date.now()
-        };
+};
 
-        var SampleSiteList = [SampleSiteInfo, SampleSiteInfo];
-        res.render('admin/SitePage/List/ListPage', {
-            login: TestingLoginData,
-            title: 'Admin Site List Page',
-            SiteInfoList: SampleSiteList,
-            _csrf: req.csrfToken()
-        });
-    */
+
+/** Admin Site Delete DO */
+const DeleteDo = (req, res, next) => {
+    let deleteValue = req.query.delete || req.body.delete || "";
+    let pages = req.param.page || req.params.page || req.query.page || req.body.page || "";
+    let SearchName = req.param.searchByName || req.params.searchByName || req.query.searchByName || req.body.searchByName || "";
+    let SearchOwner = req.param.searchByOwner || req.params.searchByOwner || req.query.searchByOwner || req.body.searchByOwner || "";
+
+    let DeleteJson = {};
+    if (pages !== "") {
+        DeleteJson.pages = pages;
+    }
+    if (SearchName !== "") {
+        DeleteJson.SearchesByName = SearchName;
+    }
+    if (SearchOwner !== "") {
+        DeleteJson.SearchesByOwner = SearchOwner;
+    }
+    if (deleteValue !== "") {
+        DeleteJson.id = deleteValue;
+    } else {
+        return res.json(false);
+    }
+    console.log('delete value : ', deleteValue);
+    AdminSiteDao.DeleteSite(DeleteJson).then(result => {
+        if (result) {
+            console.log('delete success');
+            return res.json(result.value);
+        } else {
+            console.log('delete failed');
+            return res.json(false);
+        }
+    }).catch(err => {
+        return res.json(false);
+    });
 };
 
 /** Admin Site Detail Page */
@@ -132,14 +150,6 @@ const ModifyPage = (req, res, next) => {
 const ModifyDo = (req, res, next) => {
 
 };
-
-/** Admin Site Delete DO */
-const DeleteDo = (req, res, next) => {
-    let deleteValue = req.query.delete || req.body.delete;
-    console.log('delete value : ', deleteValue);
-    res.json(deleteValue);
-};
-
 
 
 

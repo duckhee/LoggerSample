@@ -74,6 +74,11 @@ const PagingUser = (ListInfo) => {
             let PagingNum = ListInfo.pages;
             let offsetting = 0;
             let MaxPages = parseInt(AllMemberNumber / 10 + 1);
+            if (parseInt(AllMemberNumber % 10) !== 0) {
+                MaxPages = parseInt(AllMemberNumber / 10 + 1);
+            } else {
+                MaxPages = parseInt(AllMemberNumber / 10);
+            }
             console.log('user count ::: ', AllMemberNumber);
             console.log('Page Info : ', ListInfo);
             if (PagingNum > 1) {

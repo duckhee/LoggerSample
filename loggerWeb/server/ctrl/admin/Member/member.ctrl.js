@@ -35,10 +35,10 @@ const ListPage = (req, res, next) => {
 
     /** Member Dao Paging */
     AdminMemberDao.PagingUser(UserList).then(result => {
-        if (Number(page) > result.pageNumber) {
+        if (Number(Page) > result.pageNumber) {
             return res.redirect('/admin/Members/list?page=' + result.pageNumber);
         }
-        if ((Number(page) < 1) && (page !== "")) {
+        if ((Number(Page) < 1) && (Page !== "")) {
             return res.redirect('/admin/Members/list?page=' + 1);
         }
         return res.render('admin/Member/List/ListPage', {

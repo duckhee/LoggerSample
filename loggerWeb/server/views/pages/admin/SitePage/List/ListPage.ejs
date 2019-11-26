@@ -42,7 +42,7 @@
                                          <td>Update Date</td>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="site-tbody">
                                     <% if(SiteInfoList){
                                         SiteInfoList.forEach(item=>{ %>
                                             <tr>
@@ -129,6 +129,20 @@
             });
         }
 
+        function reloadingTable(data){
+            $("#site-tbody").empty();
+            let txt = "";
+            $.each(data, function(idx, obj){
+                txt += "<tr><td><input type='checkbox' name='checkRow' value="+obj.id+"></td>";
+                txt += "<td>"+obj.Owner+"</td>";
+                txt += "<td><a href='/admin/Site/detail?no='"+obj.id+"'>"+obj.name+"</a></td>";
+                txt += "<td>"+""+"</td>";
+                txt += "<td>"+new Date(obj.createdAt).getFullYear() + '-' + (new Date(obj.createdAt).getMonth()+1) + '-' + new Date(obj.createdAt).getDate()+":"+new Date(obj.createdAt).getHours()+":"+new Date(obj.createdAt).getMinutes()+"</td>";
+                txt += "<td>"+obj.updatedAt+"</td></tr>";
+            });
+            $("#site-tbody").append(txt);
+        }
+
         function DeleteSite(){
             $("#Delete").click(function(){
                 let checkValue = [];
@@ -150,6 +164,17 @@
                         showCancelButton:true
                     }).then(result=>{
                         if(result.value){
+                            let curURL = new URL(location.href);
+                            let pages = curURL.searchParams.get('page');
+                            let keyName = curURL.searchParams.get('searchByName');
+                            let keyOwner = curURL.searchParams.get('searchByOwner');
+                            if(pages === null){
+                                pages = "";
+                            }
+
+                            let ajaxValue = JSON.stringify({
+                                'delete':checkValue
+                            });
                             $.ajaxSetup({
                                 beforeSend: function(xhr) {
                                     xhr.setRequestHeader('Csrf-Token', "<%=_csrf%>");
@@ -164,7 +189,8 @@
                                     'delete':checkValue
                                 }),
                                 success:function(data){
-                                    console.log('delete success ', data);
+                                    $("input:checkbox[id='th_checkAll']").prop("checked", false);
+                                    reloadingTable(data);
                                 },
                                 err:function(request, status, error){
                                     console.log('code : ', request.status);

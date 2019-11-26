@@ -50,7 +50,13 @@ const PagingSite = (SiteInfo) => {
             let AllSiteNumber = result;
             let PagingNum = SiteInfo.pages;
             let offsetting = 0;
-            let MaxPages = parseInt(AllSiteNumber / 10 + 1);
+            let MaxPages;
+            if (parseInt(AllSiteNumber % 10) !== 0) {
+                MaxPages = parseInt(AllSiteNumber / 10 + 1);
+            } else {
+                MaxPages = parseInt(AllSiteNumber / 10);
+            }
+            console.log('site count ::: ', AllSiteNumber);
             console.log('max Pages : ', MaxPages);
             console.log('site page info : ', SiteInfo);
             if (PagingNum > 1) {
@@ -69,7 +75,9 @@ const PagingSite = (SiteInfo) => {
                 limit: 10,
                 include: [{ model: models.user }],
                 offset: offsetting,
-
+                order: [
+                    ['createdAt', 'DESC']
+                ]
             }).then(result => {
                 console.log('site paging value : ', result[0]);
                 let returnValue = {
