@@ -84,9 +84,15 @@ const PagingUser = (ListInfo) => {
             let SearchOptions = {};
             if ((ListInfo.SearchesByName) !== "" && (ListInfo.SearchesByName !== undefined)) {
                 SearchOptions.UserName = ListInfo.SearchesByName;
+                //let operation = models.Sequelize.Op.substring;
+                SearchOptions.UserName = {
+                    [models.Sequelize.Op.substring]: "%" + ListInfo.SearchesByName + "%"
+                };
             }
             if ((ListInfo.SearchesById !== "") && (ListInfo.SearchesById !== undefined)) {
-                SearchOptions.UserEmail = ListInfo.SearchesById;
+                SearchOptions.UserEmail = {
+                    [models.Sequelize.Op.substring]: "%" + ListInfo.SearchesById + "%"
+                };
             }
             if ((ListInfo.SearchesByLevel !== "") && (ListInfo.SearchesByLevel !== undefined)) {
                 SearchOptions.UserLevel = ListInfo.SearchesByLevel;
@@ -95,7 +101,10 @@ const PagingUser = (ListInfo) => {
             models.user.findAll({
                 where: SearchOptions,
                 limit: 10,
-                offset: offsetting
+                offset: offsetting,
+                order: [
+                    ['createdAt', 'DESC']
+                ]
             }).then(result => {
                 console.log('result value : ', result);
                 /** return value */
@@ -129,7 +138,7 @@ const DeleteUser = (UserInfo) => {
             }
         }).then(result => {
             console.log('delete success result : ', result);
-            PagingUser({}).then(result => {
+            PagingUser(UserInfo).then(result => {
                 console.log('result paging delete : ', result);
                 return resolve(result);
             }).catch(err => {
@@ -163,10 +172,26 @@ const EmailCheckUser = (Email) => {
     });
 };
 
+/** User Detail */
+const DetailUser = (UserInfo) => {
+    return new Promise((resolve, reject) => {
+        models.user.findOne({
+            where: {
+
+            }
+        }).then(result => {
+
+        }).catch(err => {
+
+        });
+    });
+};
+
 module.exports = {
     RegisteUser,
     ListUser,
     PagingUser,
     DeleteUser,
     EmailCheckUser,
+    DetailUser
 };

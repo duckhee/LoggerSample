@@ -63,6 +63,20 @@ const PagingUser = (UserInfo) => {
     });
 };
 
+/** User Last Login Update Time */
+const LastLogin = (UserId) => {
+    console.log("User ID ", UserId);
+    return new Promise((resolve, reject) => {
+        models.sequelize.query("update users set updatedAt=:update where UserEmail= :email", { replacements: { update: new Date(), email: UserId } }).then(result => {
+            return resolve(result);
+        }).catch(err => {
+            console.log('LastLogin Update time Error code ::: ', err.code);
+            console.log('LastLogin Update time Error ::: ', err);
+            return reject(err);
+        });
+    });
+};
+
 /** Login User */
 const LoginUser = (UserInfo) => {
     console.log('User Info : ', UserInfo);
@@ -71,15 +85,18 @@ const LoginUser = (UserInfo) => {
             where: {
                 UserEmail: UserInfo.email
             }
-        }).then(result => {
-            if (!bcrypt.compareSync(UserInfo.password, result.dataValues.UserPassword)) {
+        }).then(LoginUser => {
+            if (!bcrypt.compareSync(UserInfo.password, LoginUser.dataValues.UserPassword)) {
                 console.log('compare password not match : ');
                 return resolve(false);
             } else {
-                console.log('password match : ');
-                return resolve(result.dataValues);
+                /** Last Login Update (now value is updatedAt need to change columns?) */
+                LastLogin(LoginUser.dataValues.UserEmail).then(result => {
+                    return resolve(LoginUser.dataValues);
+                }).catch(err => {
+                    return reject(err);
+                });
             }
-
         }).catch(err => {
             console.log('Dao Login User Error code ::: ', err.code);
             console.log('Dao Login User Error ::: ', err);
@@ -111,6 +128,7 @@ const EmailCheckUser = (Email) => {
     });
 };
 
+
 module.exports = {
     RegisteUser,
     ListUser,
@@ -118,4 +136,5 @@ module.exports = {
     LoginUser,
     LogoutUser,
     EmailCheckUser,
+
 };

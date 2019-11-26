@@ -49,7 +49,7 @@
                                             <tr>
                                                 <td><input type="checkbox" name="checkRow" value="<%=item.id%>"></td>
                                                 <td><%=item.UserEmail%></td>
-                                                <td><a href="/admin/Members/detail?no=<%=item.index%>"><%=item.UserName%></a></td>
+                                                <td><a href="/admin/Members/detail?no=<%=item.id%>"><%=item.UserName%></a></td>
                                                 <td><%=item.UserLevel%></td>
                                                 <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
                                                 <td><%=item.updatedAt%></td>
@@ -170,6 +170,31 @@
                         showCancelButton:true
                     }).then(result=>{
                         if(result.value){
+                            
+                            let curURL = new URL(location.href);
+                            let pages = curURL.searchParams.get('page');
+                            let keyId = curURL.searchParams.get('searchById');
+                            let keyName = curURL.searchParams.get('searchByName');
+                            let keyLevel = curURL.searchParams.get('searchByLevel');
+                            if(pages === null){
+                                pages = "";
+                            }
+                            if(keyId === null){
+                                keyId = "";
+                            }
+                            if(keyName === null){
+                                keyName = "";
+                            }
+                            if(keyLevel === null){
+                                keyLevel  = "";
+                            }
+                            let ajaxValue = JSON.stringify({
+                                    'delete':checkValue,
+                                    'page':pages,
+                                    'searchById':keyId,
+                                    'searchByName':keyName,
+                                    'searchByLevel':keyLevel
+                            });
                             $.ajaxSetup({
                                 beforeSend: function(xhr) {
                                     xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
@@ -180,9 +205,7 @@
                                 type:'post',
                                 dataType:'json',
                                 contentType:'application/json',
-                                data:JSON.stringify({
-                                    'delete':checkValue
-                                }),
+                                data:ajaxValue,
                                 success:function(data){
                                     reloadingTable(data);
                                 },

@@ -46,7 +46,6 @@ module.exports = (sequelize, DataTypes) => {
             },
         }
     }, {
-
         /**
          * getter and setter method function make here.
          * getter this.colum
@@ -93,6 +92,9 @@ module.exports = (sequelize, DataTypes) => {
             },
             SetUserLevel(level) {
                 this.setDataValue('UserLevel', level);
+            },
+            SetLastTime(date) {
+                this.setDataValue('updatedAt', date);
             }
         },
         instanceMethods: {
@@ -121,6 +123,7 @@ module.exports = (sequelize, DataTypes) => {
      * hasOne is target make foreignKey
      * belongsTo is source make foreignKey
      */
+
     user.associate = function(models) {
         // associations can be defined here
         /** User have Site Many */

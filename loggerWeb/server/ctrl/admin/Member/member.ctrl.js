@@ -109,13 +109,19 @@ const ProfilePage = (req, res, next) => {
 
 /** Admin Member DetailPage */
 const DetailPage = (req, res, next) => {
-    let no = req.param.no || req.params.no || req.query.no;
+    let no = req.param.no || req.params.no || req.query.no || req.body.no || "";
+
     console.log('member index no ::: ', no);
     let SampleMemberInfo = {
         UserEmail: 'test@co.kr',
         UserName: 'test',
         UserLevel: '5'
     };
+
+    if (no === "") {
+        console.log('not user select');
+        return res.redirect('/admin/Members/list');
+    }
 
     res.render('admin/Member/Detail/DetailPage', {
         login: TestingLoginData,
@@ -144,11 +150,29 @@ const ModifyDo = (req, res, next) => {
 /** Admin Member Delete Do */
 const DeleteDo = (req, res, next) => {
     let deleteValue = req.param.delete || req.params.delete || req.body.delete || req.query.delete || "";
-    let DeletPages = req.param.page || req.params.page || req.query.page || req.body.page || "";
+    let pages = req.param.page || req.params.page || req.query.page || req.body.page || "";
+    let SearchName = req.param.searchByName || req.params.searchByName || req.query.searchByName || req.body.searchByName || "";
+    let SearchId = req.param.searchById || req.params.searchById || req.query.searchById || req.body.searchById || "";
+    let SearchLevel = req.param.searchByLevel || req.params.searchByLevel || req.query.searchByLevel || req.body.searchByLevel || "";
+
+    console.log('key word : ' + SearchName + ", " + SearchId + ', ' + SearchLevel);
     let DeleteJson = {};
 
     /** User Session get */
     console.log('user Session : ', req.session);
+    if (pages !== "") {
+        DeleteJson.pages = pages;
+    }
+    if (SearchName !== "") {
+        DeleteJson.SearchesByName = SearchName;
+    }
+    if (SearchId !== "") {
+        DeleteJson.SearchesById = SearchId;
+    }
+
+    if (SearchLevel !== "") {
+        DeleteJson.SearchesByLevel = SearchLevel;
+    }
 
     if (deleteValue !== "") {
         DeleteJson.id = deleteValue;

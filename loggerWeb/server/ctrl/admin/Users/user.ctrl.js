@@ -50,7 +50,7 @@ const LoginDo = (req, res, next) => {
                 email: result.UserEmail,
                 level: result.UserLevel,
             };
-            console.log('result : ', Number(result.UserLevel));
+            console.log('result User Level : ', Number(result.UserLevel));
             if (Number(result.UserLevel) < 3) {
                 console.log('admin user : ', Number(result.UserLevel));
                 return res.redirect('/admin');
