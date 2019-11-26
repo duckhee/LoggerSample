@@ -120,8 +120,11 @@ const PagingUser = (ListInfo) => {
                 return reject(err);
             });
 
+        }).catch(err => {
+            console.log('Dao Paging Count User Error code ::: ', err.code);
+            console.log('Dao Paging Count User Error ::: ', err);
+            return reject(err);
         });
-
     });
 
 };
@@ -139,7 +142,7 @@ const DeleteUser = (UserInfo) => {
         }).then(result => {
             console.log('delete success result : ', result);
             PagingUser(UserInfo).then(result => {
-                console.log('result paging delete : ', result);
+                console.log('user delete done and show paging :', result);
                 return resolve(result);
             }).catch(err => {
                 console.log('Dao Delete User Paging Error code ::: ', err.code);
