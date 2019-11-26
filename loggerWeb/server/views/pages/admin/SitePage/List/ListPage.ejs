@@ -46,11 +46,11 @@
                                     <% if(SiteInfoList){
                                         SiteInfoList.forEach(item=>{ %>
                                             <tr>
-                                                <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
-                                                <td><%=item.UserId%></td>
-                                                <td><a href="/admin/Site/detail?no=<%=item.index%>"><%=item.SiteName%></a></td>
+                                                <td><input type="checkbox" name="checkRow" value="<%=item.dataValues.id%>"></td>
+                                                <td><%=item.dataValues.Owner%></td>
+                                                <td><a href="/admin/Site/detail?no=<%=item.index%>"><%=item.dataValues.name%></a></td>
                                                 <td><%=item.plotNumber%></td>
-                                                <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
+                                                <td><%=new Date(item.dataValues.createdAt).getFullYear() + '-' + (new Date(item.dataValues.createdAt).getMonth()+1) + '-' + new Date(item.dataValues.createdAt).getDate()%></td>
                                                 <td><%=item.updatedAt%></td>
                                             </tr>
                                     <%});

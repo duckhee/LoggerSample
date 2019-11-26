@@ -23,12 +23,8 @@ const ListPage = (req, res, next) => {
     const SearchName = req.param.searchByName || req.params.searchByName || req.query.searchByName || req.body.searchByName || "";
     const SearchId = req.param.searchById || req.params.searchById || req.query.searchById || req.body.searchById || "";
     const SearchLevel = req.param.searchByLevel || req.params.searchByLevel || req.query.searchByLevel || req.body.searchByLevel || "";
-    /** Get page Info  */
-    var page = req.param('page');
-    /** Get Keyword Info */
-    var keyword = req.param('keyword');
-    /** Index page Number */
-    var pageNumber = 1;
+
+
     /** Make Send Member Paging Dao */
     let UserList = {
         pages: Page,

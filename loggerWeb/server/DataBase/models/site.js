@@ -32,26 +32,26 @@ module.exports = (sequelize, DataTypes) => {
          * }
          * }
          */
-        getterMethods:{
+        getterMethods: {
             //Write methods here
             /** Getter Method */
-            GetName(){
+            GetName() {
                 return this.name;
             },
-            GetOwner(){
+            GetOwner() {
                 return this.Owner;
             },
-            GetModelToString(){
+            GetModelToString() {
                 return this.name + ', ' + this.Owner;
             }
         },
-        setterMethods:{
+        setterMethods: {
             //Write methods here
             /** Setter Method */
-            SetName(name){
+            SetName(name) {
                 this.setDataValue('name', name);
             },
-            SetOwner(owner){
+            SetOwner(owner) {
                 this.setDataValue('Owner', owner);
             }
         },
@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
         /** User have Site Many */
         site.belongsTo(models.user, {
             foreignKeyConstraint: true,
-            foreignKey: 'UserEmail',
+            foreignKey: 'Owner',
             allowNull: false,
             onDelete: 'CASCADE'
         });

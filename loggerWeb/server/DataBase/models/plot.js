@@ -38,37 +38,37 @@ module.exports = (sequelize, DataTypes) => {
          * }
          * }
          */
-        getterMethods:{
+        getterMethods: {
             //Write methods here
             /** Getter Method */
-            GetPlotName(){
+            GetPlotName() {
                 return this.PlotName;
             },
-            GetOwner(){
+            GetOwner() {
                 return this.Owner;
             },
-            GetSiteIdx(){
+            GetSiteIdx() {
                 return this.SiteIdx;
             }
         },
-        setterMethods:{
+        setterMethods: {
             //Write methods here
             /** Setter Method */
-            SetPlotName(name){
+            SetPlotName(name) {
                 this.setDataValue('PlotName', name);
             },
-            SetOwner(owner){
+            SetOwner(owner) {
                 this.setDataValue('Owner', owner);
             },
-            SetSiteIdx(idx){
+            SetSiteIdx(idx) {
                 this.setDataValue('SiteIdx', idx);
             }
         },
-        hooks:{
-            beforeCreate:function(plot, options){
+        hooks: {
+            beforeCreate: function(plot, options) {
 
             },
-            afterCreate:function(plot, options){
+            afterCreate: function(plot, options) {
 
             }
         }
@@ -78,14 +78,14 @@ module.exports = (sequelize, DataTypes) => {
         /** User have Plot Many */
         plot.belongsTo(models.user, {
             foreignKeyConstraint: true,
-            foreignKey: 'UserEmail',
+            foreignKey: 'Owner',
             allowNull: false,
             onDelete: 'CASCADE'
         });
         /** Site have Plot Many */
         plot.belongsTo(models.site, {
             foreignKeyConstraint: true,
-            foreignKey: 'id',
+            foreignKey: 'SiteIdx',
             allowNull: false,
             onDelete: 'CASCADE'
         });

@@ -67,12 +67,11 @@ const PagingSite = (SiteInfo) => {
             models.site.findAll({
                 where: SearchOptions,
                 limit: 10,
+                include: [{ model: models.user }],
                 offset: offsetting,
-                order: [
-                    'createdAt', 'DESC'
-                ]
+
             }).then(result => {
-                console.log('site paging value : ', result);
+                console.log('site paging value : ', result[0]);
                 let returnValue = {
                     offset: offsetting,
                     value: result,

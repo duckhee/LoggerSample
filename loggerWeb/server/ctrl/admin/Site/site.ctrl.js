@@ -1,3 +1,7 @@
+/** Data Access Object */
+const Dao = require('../../../dao/admin/Site/index.dao');
+const AdminSiteDao = Dao();
+
 //TODO Session Checking
 //TOdo Delte data just Testing
 var TestingLoginData = {
@@ -27,35 +31,57 @@ const CreateDo = (req, res, next) => {
 /** Admin Site List Page */
 const ListPage = (req, res, next) => {
     /** Get Page Info */
-    var page = req.param('page');
-    var keyword = req.param('keyword');
+    const Page = req.param.page || req.params.page || req.query.page || 0;
+    const SearchName = req.param.searchByName || req.params.searchByName || req.query.searchByName || req.body.searchByName || "";
+    const SearchOwner = req.param.searchByOwner || req.params.searchByOwner || req.query.searchByOwner || req.body.searchByOwner || "";
 
-    /** Index page Number */
-    var pageNumber = 1;
-    /** Make Send Meber Paging Dao */
+    console.log('get param : ' + Page + ", " + SearchName + ", " + SearchOwner);
+
+    /** Make Send Site Paging Dao */
     var PageInfo = {
-        page: page,
-        pageNumber: pageNumber,
-        keyword: keyword
+        pages: Page,
+        SearchName: SearchName,
+        SearchOwner: SearchOwner
+
     };
 
-    var SampleSiteInfo = {
-        index: 1,
-        UserId: 'tester',
-        SiteName: 'testing site',
-        plotNumber: 1,
-        createdAt: Date.now(),
-        updatedAt: Date.now()
-    };
+    AdminSiteDao.PagingSite(PageInfo).then(result => {
+        if (Number(Page) > result.pageNumber) {
+            return res.redirect('/admin/Site/list?page=' + result.pageNumber);
+        }
+        if ((Number(Page) < 1) && (Page !== "")) {
+            return res.redirect('/admin/Site/list?page=' + 1);
+        }
+        return res.render('admin/SitePage/List/ListPage', {
+            login: TestingLoginData,
+            title: 'Admin Site List Page',
+            SiteInfoList: result.value,
+            SiteAllPage: result.offset,
+            _csrf: req.csrfToken()
+        });
+    }).catch(err => {
+        console.log('error code : ', err);
 
-    var SampleSiteList = [SampleSiteInfo, SampleSiteInfo];
-    res.render('admin/SitePage/List/ListPage', {
-        login: TestingLoginData,
-        title: 'Admin Site List Page',
-        SiteInfoList: SampleSiteList,
-        _csrf: req.csrfToken()
+        return res.redirect('/admin');
     });
+    /*
+        var SampleSiteInfo = {
+            index: 1,
+            UserId: 'tester',
+            SiteName: 'testing site',
+            plotNumber: 1,
+            createdAt: Date.now(),
+            updatedAt: Date.now()
+        };
 
+        var SampleSiteList = [SampleSiteInfo, SampleSiteInfo];
+        res.render('admin/SitePage/List/ListPage', {
+            login: TestingLoginData,
+            title: 'Admin Site List Page',
+            SiteInfoList: SampleSiteList,
+            _csrf: req.csrfToken()
+        });
+    */
 };
 
 /** Admin Site Detail Page */
