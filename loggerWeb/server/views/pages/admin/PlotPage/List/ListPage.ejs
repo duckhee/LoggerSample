@@ -49,7 +49,7 @@
                                             <tr>
                                                 <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
                                                 <td><a href="/admin/Plot/detail?no=<%=item.index%>"><%=item.PlotName%></a></td>
-                                                <td><%=item.SiteName%></td>
+                                                <td><%=item.dataValues.site.dataValues.name%></td>
                                                 <td><%=item.DeviceNumber%></td>
                                                 <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
                                                 <td><%=item.updatedAt%></td>

@@ -26,7 +26,7 @@ const ListPage = (req, res, next) => {
 
 
     /** Make Send Member Paging Dao */
-    let UserList = {
+    let UserListJson = {
         pages: Page,
         SearchesByName: SearchName,
         SearchesById: SearchId,
@@ -34,11 +34,20 @@ const ListPage = (req, res, next) => {
     };
 
     /** Member Dao Paging */
-    AdminMemberDao.PagingUser(UserList).then(result => {
+    AdminMemberDao.PagingUser(UserListJson).then(result => {
         if (Number(Page) > result.pageNumber) {
             return res.redirect('/admin/Members/list?page=' + result.pageNumber);
         }
         if ((Number(Page) < 1) && (Page !== "")) {
+            if (result.value.length === 0) {
+                return res.render('admin/Member/List/ListPage', {
+                    login: TestingLoginData,
+                    UserInfoList: result.value,
+                    UserAllPage: result.offset,
+                    title: 'Admin Member List Page',
+                    _csrf: req.csrfToken()
+                });
+            }
             return res.redirect('/admin/Members/list?page=' + 1);
         }
         return res.render('admin/Member/List/ListPage', {

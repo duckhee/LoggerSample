@@ -17,7 +17,7 @@ module.exports = {
         for (let i = 0; i < 100; i++) {
             let site = {
                 Owner: 'admin@co.kr',
-                name: 'testing' + i,
+                name: 'SiteTesting' + i,
                 createdAt: dumpTime,
                 updatedAt: dumpTime
             };

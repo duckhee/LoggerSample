@@ -1,3 +1,6 @@
+const Dao = require('../../../dao/admin/Plot/index.dao');
+const AdminPlotDao = Dao();
+
 //TODO Session Checking
 //TOdo Delte data just Testing
 var TestingLoginData = {
@@ -27,33 +30,28 @@ const CreateDo = (req, res, next) => {
 
 /** Admin Plot List Page */
 const ListPage = (req, res, next) => {
-    /** Get Page Info */
-    var page = req.param('page');
-    var keyword = req.param('keyword');
+    const Page = req.param.page || req.params.page || req.query.page || 0;
+    const SearchSiteName = req.param.searchBySiteName || req.params.searchBySiteName || req.query.searchBySiteName || req.body.searchBySiteName || "";
+    const SearchPlotName = req.param.searchByPlotName || req.params.searchByPlotName || req.query.searchByPlotName || req.body.searchByPlotName || "";
 
-    /** Index page Number */
-    var pageNumber = 1;
-    /** Make Send Meber Paging Dao */
-    var PageInfo = {
-        page: page,
-        pageNumber: pageNumber,
-        keyword: keyword
+    /** Make Send Plot Paging Dao */
+    let PlotListJson = {
+        pages: Page,
+        SearchesBySiteName: SearchSiteName,
+        SearchesByPlotName: SearchPlotName
     };
 
-    var SamplePlotInfo = {
-        index: 1,
-        SiteName: 'testing site',
-        PlotName: 'Test',
-        DeviceNumber: 1,
-        createdAt: Date.now(),
-        updatedAt: Date.now()
-    };
-    var SamplePlotList = [SamplePlotInfo, SamplePlotInfo];
-    res.render('admin/PlotPage/List/ListPage', {
-        login: TestingLoginData,
-        title: 'Admin Plot List Page',
-        PlotInfoList: SamplePlotList,
-        _csrf: req.csrfToken()
+    AdminPlotDao.PagingPlot(PlotListJson).then(result => {
+        return res.render('admin/PlotPage/List/ListPage', {
+            login: TestingLoginData,
+            title: 'Admin Plot List Page',
+            PlotInfoList: result.value,
+            _csrf: req.csrfToken()
+        });
+    }).catch(err => {
+        console.log('Ctrl Plot List Page Error code ::: ', err.code);
+        console.log('Ctrl Plot List Page Error ::: ', err);
+        return res.redirect('/admin');
     });
 };
 

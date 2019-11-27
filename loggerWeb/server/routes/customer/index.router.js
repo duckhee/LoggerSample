@@ -19,7 +19,7 @@ module.exports = (app, csurfMiddleWare) => {
     /** index router */
     app.use('/', router);
     /** User Management Router */
-    app.use('/', UserRouter);
+    app.use('/', UserRouter(csurfMiddleWare));
     /** Device Router */
     DeviceRouter(app);
 };

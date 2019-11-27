@@ -4,7 +4,6 @@ const user = require('../../../../DataBase/models/user');
 /** Password security module */
 const bcrypt = require('bcrypt-nodejs');
 
-
 /** Registe User */
 const RegisteUser = (UserInfo, callback) => {
     /** User Model Make */
@@ -110,12 +109,12 @@ const PagingUser = (ListInfo) => {
                 order: [
                     ['createdAt', 'DESC']
                 ]
-            }).then(result => {
-                console.log('result value : ', result);
+            }).then(Members => {
+                console.log('result value : ', Members);
                 /** return value */
                 let returnValue = {
                     offset: offsetting,
-                    value: result,
+                    value: Members,
                     pageNumber: MaxPages
                 };
                 return resolve(returnValue);

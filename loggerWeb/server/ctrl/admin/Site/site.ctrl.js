@@ -25,7 +25,26 @@ const CreatePage = (req, res, next) => {
 
 /** Admin Site Create Do */
 const CreateDo = (req, res, next) => {
-    res.redirect('/admin/Site/list');
+    /** Get Parameter */
+    const SiteOwner = req.param.SiteOwnerId || req.params.SiteOwnerId || req.query.SiteOwnerId || req.body.SiteOwnerId || "";
+    const SiteName = req.param.SiteName || req.params.SiteName || req.query.SiteName || req.body.SiteName || "";
+    /** checking parameter */
+    console.log('get parameter : ' + SiteOwner + ", " + SiteName);
+    let CreateJson = {
+        name: SiteName,
+        owner: SiteOwner
+    };
+
+    /** Create Site Dao */
+    AdminSiteDao.CreateSite(CreateJson).then(result => {
+        console.log('site ctrl get result : ', result);
+        return res.redirect('/admin/Site/list');
+    }).catch(err => {
+        console.log('Site Create Error code ::: ', err.code);
+        console.log('Site Create Error ::: ', err);
+        return res.redirect('/admin/Site/create');
+    });
+
 };
 
 /** Admin Site List Page */
@@ -44,11 +63,19 @@ const ListPage = (req, res, next) => {
     };
 
     AdminSiteDao.PagingSite(PageInfo).then(result => {
-        console.log("get pageing value : ", result);
         if (Number(Page) > result.pageNumber) {
             return res.redirect('/admin/Site/list?page=' + result.pageNumber);
         }
         if ((Number(Page) < 1) && (Page !== "")) {
+            if (result.value.length === 0) {
+                return res.render('admin/SitePage/List/ListPage', {
+                    login: TestingLoginData,
+                    title: 'Admin Site List Page',
+                    SiteInfoList: result.value,
+                    SiteAllPage: result.offset,
+                    _csrf: req.csrfToken()
+                });
+            }
             return res.redirect('/admin/Site/list?page=' + 1);
         }
         return res.render('admin/SitePage/List/ListPage', {

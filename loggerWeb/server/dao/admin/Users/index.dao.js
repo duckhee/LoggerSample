@@ -6,12 +6,12 @@ const configDatabase = require('../../../../config/config.json');
 /** Admin get User Dao */
 const UserDao = () => {
     if (configDatabase.database === 'mysql') {
-        console.log('mysql db setting');
+        console.log('Admin User Mysql Setting');
         const MysqlUserDao = require('./mysql/users.dao');
 
         return MysqlUserDao;
     } else if (configDatabase.database === 'mongodb') {
-        console.log('mongo db setting');
+        console.log('Admin User mongoDB Setting');
         const MongoDBUserDao = require('./mongoDB/users.dao');
 
         return MongoDBUserDao;

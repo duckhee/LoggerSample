@@ -79,6 +79,7 @@ module.exports = (sequelize, DataTypes) => {
         plot.belongsTo(models.user, {
             foreignKeyConstraint: true,
             foreignKey: 'Owner',
+            targetKey: 'UserEmail',
             allowNull: false,
             onDelete: 'CASCADE'
         });
@@ -86,6 +87,7 @@ module.exports = (sequelize, DataTypes) => {
         plot.belongsTo(models.site, {
             foreignKeyConstraint: true,
             foreignKey: 'SiteIdx',
+            targetKey: 'id',
             allowNull: false,
             onDelete: 'CASCADE'
         });

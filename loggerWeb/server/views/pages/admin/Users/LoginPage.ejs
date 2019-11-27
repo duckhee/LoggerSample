@@ -72,13 +72,18 @@
         <script>
             function LogIn(){
                 $("#LoginDo").click(function(){
-                    console.log('Login Btn Click');
                     document.loginInfo.action = "/admin/User/login";
                     document.loginInfo.method = "post";
                     document.loginInfo.submit();
                 });
+                $(":input").keydown(function(key){
+                    if(key.keyCode === 13){
+                        document.loginInfo.action = "/admin/User/login";
+                        document.loginInfo.method = "post";
+                        document.loginInfo.submit();
+                    }
+                });
             }
-
             $(function(){
                 $('#rememberPass').iCheck({
                     checkboxClass: 'icheckbox_square-blue',

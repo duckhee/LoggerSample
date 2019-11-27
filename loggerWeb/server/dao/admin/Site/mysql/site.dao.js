@@ -1,6 +1,7 @@
 const models = require('../../../../DataBase/models/index');
 const site = require('../../../../DataBase/models/site');
 
+
 /** Create Site */
 const CreateSite = (SiteInfo) => {
     return new Promise((resolve, reject) => {
@@ -73,16 +74,25 @@ const PagingSite = (SiteInfo) => {
             models.site.findAll({
                 where: SearchOptions,
                 limit: 10,
-                include: [{ model: models.user }],
                 offset: offsetting,
                 order: [
                     ['createdAt', 'DESC']
-                ]
-            }).then(result => {
-                console.log('site paging value : ', result[0]);
+                ],
+                /*
+                include: [{
+                    model: models.plot,
+                    attributes: [
+                        [models.sequelize.fn('count', '*'), 'count']
+                    ],
+                }]
+                */
+            }).then(Sites => {
+
+                console.log('site paging value : ', Sites);
+
                 let returnValue = {
                     offset: offsetting,
-                    value: result,
+                    value: Sites,
                     pageNumber: MaxPages
                 };
                 return resolve(returnValue);

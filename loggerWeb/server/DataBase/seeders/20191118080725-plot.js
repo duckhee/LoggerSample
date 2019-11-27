@@ -16,7 +16,7 @@ module.exports = {
         let DumpTime = new Date();
         for (let i = 0; i < 100; i++) {
             let plot = {
-                PlotName: 'testing' + i,
+                PlotName: 'PlotTesting' + i,
                 Owner: 'admin@co.kr',
                 SiteIdx: 1,
                 createdAt: DumpTime,

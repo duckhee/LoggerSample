@@ -14,21 +14,23 @@
                         </div>
                         <!--./box header-->
                         <div class="box-body">
-                           <form class="form-horizontal">
+                           <form id="create" name="create" class="form-horizontal">
+                                <input type="hidden" id="_csrf" name="_csrf" value ="<%=_csrf%>">
                                 <div class="form-group">
-                                    <label for="SiteOwnerId" class="col-sm-2 control-label">Site Owner Id</label>
+                                    <label for="SiteOwnerId" class="col-sm-2 control-label">Site Owner Email</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="SiteOwnerId" placeholder="Site Owner Id ...">
+                                        <input type="text" class="form-control" name="SiteOwnerId" id="SiteOwnerId" placeholder="Site Owner Id ...">
                                     </div>
                                     <div class="col-sm-4">
-                                        <button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-user" style="margin-right:10px;"></i>Id Check</button>
+                                        <input type="hidden" id="IdCheck" value>
+                                        <button type="button" id="checkingOwner" class="btn btn-default btn-block"><i class="fa fa-fw fa-user" style="margin-right:10px;"></i>Email Check</button>
                                     </div>
                                 </div>
                                 <!--./form-group-->
                                 <div class="form-group">
                                     <label for="SiteName" class="col-sm-2 control-label">Site Name</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="SiteName" placeholder="Site Name ...">
+                                        <input type="text" class="form-control" name="SiteName" id="SiteName" placeholder="Site Name ...">
                                     </div>
                                     <div class="col-sm-2">
                                         <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-inbox"></i>Site Name Check</button>-->
@@ -42,7 +44,7 @@
                         <div class="box-footer">
                             <div class='pull-right'>
                                 <button type="button" class="btn btn-flat btn-danger"><i class="fa fa-fw fa-times" style="margin-right:10px;"></i>Cancel</button>
-                                <button type="button" class="btn btn-flat btn-primary"><i class="fa fa-fw fa-save" style="margin-right:10px;"></i>Create</button>
+                                <button type="button" id="create" class="btn btn-flat btn-primary"><i class="fa fa-fw fa-save" style="margin-right:10px;"></i>Create</button>
                             </div>
                         </div>
                         <!--./box-footer-->
@@ -57,5 +59,162 @@
        <!--/.wrapper-->
        <% include ../../../../partials/admin/footerScript.ejs %>
     </body>
+
+    <script>
+        /** custom Alert Message */
+        function AlertMsg(data, type){
+            Swal.fire({
+                title:"Site Create Msg",
+                type:type,
+                text:data,
+                showCancelButton:true
+            }).then(result=>{
+                if(result.value){
+
+                }else{
+
+                }
+            });
+        }
+        /** Email checking */
+        function validateEmail(email) {
+            var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            return re.test(email);
+        }
+        function IdCheck(){
+            $("#checkingOwner").click(function(){
+                let getId = $("#SiteOwnerId").val();
+                console.log('get ID : ', getId);
+                if(!$("#SiteOwnerId").val()){
+                    Swal.fire({
+                        title:'Site Owner Not Empty',
+                        type:'warning'
+                    });
+                    return false;
+                }
+
+                if(getId.indexOf(' ') >= 0){
+                    Swal.fire({
+                        title:'Owner Email Not Current Type',
+                        type:"warning"
+                    });
+                    return false;
+                }
+
+                if(validateEmail(getId))
+                {
+                    /** Email type */
+                    console.log('get id checking', getId);
+                    /** Setting csrf Token */
+                    $.ajaxSetup({
+                        beforeSend:function(xhr){
+                            xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                        }
+                    });
+                    /** Ajax Send id Check */
+                    $.ajax({
+                        url:'/admin/Members/userEmail-check',
+                        type:'post',
+                        contentType:'application/json',
+                        data:JSON.stringify({
+                            'email':getId
+                        }),
+                        success:function(data){
+                            console.log('Email check success value : ', data);
+                            if(data == 1){
+                                console.log('have user');
+                                $("#IdCheck").val(true);
+                                Swal.fire({
+                                    title:'Success',
+                                    type:'success'
+                                });
+                                return true;
+                            }else if(data === "-1"){
+                                console.log('server error');
+                                Swal.fire({
+                                    title:'Create Error',
+                                    type:'warning',
+                                    text:'Retry few minute later'
+                                });
+                                return false;
+                            }else{
+                                Swal.fire({
+                                    title:'Not have User',
+                                    type:'warning',
+                                    text:'first Make User\r\ngo to Registe Page',
+                                    showCancelButton:true
+                                }).then(result=>{
+                                    if(result.value){
+                                        location.href = "/admin/Members/registe";
+                                    }
+                                    return false;
+                                });
+                            }
+                        }
+                    })
+
+                }else{
+                    /** Not Email Type */
+                    Swal.fire({
+                        title:'not Email Type',
+                        type:'warning'
+                    });
+                    $("#SiteOwnerId").focus();
+                    $("#SiteOwnerId").select();
+                    return false;
+                }
+
+            });
+        }
+
+        function CreateChecking(){
+            let owner = $("#SiteOwnerId").val();
+            let name = $("#SiteName").val();
+            let IdFlag = $("#IdCheck").val();
+
+            if(IdFlag !== "true"){
+                return false;
+            }
+            if(owner === ""){
+                return false;
+            }
+            if(name === ""){
+                return false;
+            }
+            console.log('checking parameter : '+ owner+ ", "+ name);
+            return true;
+
+        }
+        function OwnerCheck(){
+            if($("#IdCheck").val() === "true"){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function Create(){
+            $("#create").click(function(){
+                if(CreateChecking()){
+                    document.create.method="post";
+                    document.create.actin="/admin/Site/create";
+                    document.create.submit();
+                }
+            });
+
+            $(":input").keydown(function(key){
+                if(key.keyCode === 13){
+                    if(CreateChecking()){
+                        document.create.method="post";
+                        document.create.actin="/admin/Site/create";
+                        document.create.submit();
+                    }
+                }
+            });
+        }
+        $(document).ready(function(){
+            IdCheck();
+            Create();
+        });
+    </script>
   
 </html>
