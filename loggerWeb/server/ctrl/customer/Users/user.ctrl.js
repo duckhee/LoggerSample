@@ -11,7 +11,9 @@ const LoginPage = (req, res, next) => {
 };
 /** Customer User Login Do */
 const LoginDo = (req, res, next) => {
-
+    const Id = req.body.userId || req.query.userId || "";
+    console.log("id : ", Id);
+    return res.redirect('/');
 };
 /** Customer User LogOut Do */
 const LogOutDo = (req, res, next) => {
