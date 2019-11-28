@@ -12,6 +12,9 @@ var https = require('https');
 var os = require('os');
 var fs = require('fs');
 
+/** Testing */
+var DeviceTypeTest = require('../config/config.json');
+
 /**
  * Get port from environment and store in Express.
  */

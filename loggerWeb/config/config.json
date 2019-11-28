@@ -2,5 +2,9 @@
     "database": "mysql",
     "mysql": true,
     "mongoDB": false,
-    "supportDevice": ["DataTracker", "ecolog", "HikVision"]
+    "supportDevice": {
+        "DataTracker": true,
+        "ecolog": true,
+        "HikVision": true
+    }
 }

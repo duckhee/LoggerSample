@@ -1,17 +1,8 @@
-/** get Support Device */
-const ConfigFile = require('../../../../../config/config.json');
 /** Device Model */
 const models = require('../../../../DataBase/models/index');
 const device = require('../../../../DataBase/models/device');
-
-/** Device Type Array */
-const DeviceTypes = ConfigFile.supportDevice;
-
-/** Raw Device */
-const RawDevice = (Type) => {
-
-};
-
+/** Device Detail Middle Connection */
+const MiddleConnection = require('./device.select.interface');
 
 /** Create Device */
 const CreateDevice = (DeviceInfo) => {
