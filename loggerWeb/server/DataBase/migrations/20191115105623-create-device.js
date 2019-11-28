@@ -36,6 +36,9 @@ module.exports = {
                 defaultValue: 'null',
                 allowNull: false,
             },
+            FTPFolder: {
+                type: Sequelize.STRING,
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

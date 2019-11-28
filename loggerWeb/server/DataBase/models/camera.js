@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
             values: ['null', 'hikvision'],
             defaultValue: 'null',
             allowNull: false
+        },
+        FTPFolder: {
+            type: DataTypes.STRING,
         }
     }, {
         /**

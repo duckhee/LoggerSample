@@ -27,11 +27,11 @@ const UserRouter = (csurfMiddleWare) => {
     /**
      * Login Get Router
      */
-    router.get('/login', CustomerUserCtrl.LoginPage);
+    router.get('/login', csurfMiddleWare, CustomerUserCtrl.LoginPage);
     /**
      * Login Post Router
      */
-    router.post('/login', CustomerUserCtrl.LoginDo);
+    router.post('/login', csurfMiddleWare, CustomerUserCtrl.LoginDo);
 
     /**
      * LogOut Post Router

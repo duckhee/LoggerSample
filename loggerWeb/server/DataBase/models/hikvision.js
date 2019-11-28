@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         HikVisionPw: {
             type: DataTypes.STRING
+        },
+        FTPFolder: {
+            type: DataTypes.STRING
         }
     }, {
         /**
@@ -37,43 +40,43 @@ module.exports = (sequelize, DataTypes) => {
          * }
          * }
          */
-        getterMethods:{
+        getterMethods: {
             //Write methods here
             /** Getter Method */
-            GetCameraIdx(){
+            GetCameraIdx() {
                 return this.CameraIdx;
             },
-            GetModelName(){
+            GetModelName() {
                 return this.modelName;
             },
-            GetHikVisionId(){
+            GetHikVisionId() {
                 return this.HikVisionId;
             },
-            GetHikVisionPw(){
+            GetHikVisionPw() {
                 return this.HikVisionPw;
             }
         },
-        setterMethods:{
+        setterMethods: {
             //Write methods here
             /** Getter Method */
-            SetCameraIdx(idx){
+            SetCameraIdx(idx) {
                 this.setDataValue('CameraIdx', idx);
             },
-            SetModelName(name){
+            SetModelName(name) {
                 this.setDataValue('modelName', name);
             },
-            SetHikVisionId(id){
+            SetHikVisionId(id) {
                 this.setDataValue('HikVisionId', id);
             },
-            SetHikVisionPw(pw){
+            SetHikVisionPw(pw) {
                 this.setDataValue('HikVisionPw', pw);
             }
         },
-        hooks:{
-            beforeCreate:function(hikvision, options){
+        hooks: {
+            beforeCreate: function(hikvision, options) {
 
             },
-            afterCreate:function(hikvision, options){
+            afterCreate: function(hikvision, options) {
 
             }
         }

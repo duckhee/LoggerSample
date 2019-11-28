@@ -5,7 +5,9 @@ const MainPage = (req, res, next) => {
 /** Customer User Login Page */
 const LoginPage = (req, res, next) => {
     //TODO session Check need
-    res.render('CustomerPages/Users/Login/LoginPage');
+    res.render('CustomerPages/Users/Login/LoginPage', {
+        _csrf: req.csrfToken(),
+    });
 };
 /** Customer User Login Do */
 const LoginDo = (req, res, next) => {

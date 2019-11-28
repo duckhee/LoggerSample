@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
             values: ['null', 'DataTracker', 'ecolog', 'HikVision'],
             defaultValue: 'null',
             allowNull: false
+        },
+        FTPFolder: {
+            type: DataTypes.STRING,
         }
     }, {
         /**

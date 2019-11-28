@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
         DataTrackerPw: {
             type: DataTypes.STRING
         },
+        FTPFolder: {
+            type: DataTypes.STRING,
+        }
 
     }, {});
     DataTracker.associate = function(models) {

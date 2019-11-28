@@ -6,5 +6,18 @@
         "DataTracker": true,
         "ecolog": true,
         "HikVision": true
+    },
+    "mail": {
+        "flag": false,
+        "mailer": {
+            "service": "",
+            "host": "",
+            "secure": "",
+            "port": "587",
+            "auth": {
+                "user": "",
+                "password": ""
+            }
+        }
     }
 }
