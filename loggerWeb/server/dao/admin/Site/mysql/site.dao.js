@@ -195,8 +195,8 @@ const SiteNameCheck = (SiteName) => {
         }).then(result => {
             return resolve(result);
         }).catch(err => {
-            console.log('checking Site Name Error code ::: ', err.code);
-            console.log('checking Site Name Error ::: ', err);
+            console.log('Dao Checking Site Name Error code ::: ', err.code);
+            console.log('Dao Checking Site Name Error ::: ', err);
             return reject(err);
         })
     });

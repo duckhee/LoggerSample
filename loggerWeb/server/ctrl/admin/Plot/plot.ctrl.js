@@ -126,6 +126,14 @@ const DeleteDo = (req, res, next) => {
 
 };
 
+/** Admin Plot Name Check */
+const NameCheck = (req, res, next) => {
+    console.log('Plot Name Check');
+    const PlotName = req.body.plotName || req.query.plotName || req.param.plotName || req.params.plotName || "";
+    console.log("Plot Name : ", PlotName);
+
+};
+
 
 module.exports = {
     MainPage,
@@ -135,5 +143,6 @@ module.exports = {
     DetailPage,
     ModifyPage,
     ModifyDo,
-    DeleteDo
+    DeleteDo,
+    NameCheck
 };

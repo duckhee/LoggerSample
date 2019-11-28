@@ -162,6 +162,22 @@ const DeletePlot = (PlotInfo) => {
     });
 };
 
+/** Plot Name Check */
+const PlotNameCheck = (PlotName) => {
+    return new Promise((resolve, reject) => {
+        models.plot.count({
+            where: {
+                PlotName: PlotName
+            }
+        }).then(result => {
+            return resolve(result);
+        }).catch(err => {
+            console.log('Dao Checking Plot Name Error code ::: ', err.code);
+            console.log('Dao Checking Plot Name Error ::: ', err);
+            return reject(err);
+        });
+    });
+};
 
 
 module.exports = {
@@ -171,5 +187,6 @@ module.exports = {
     DetailPlot,
     ModifyPlot,
     SearchPlot,
-    DeletePlot
+    DeletePlot,
+    PlotNameCheck
 };

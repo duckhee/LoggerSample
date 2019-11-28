@@ -196,6 +196,20 @@ const NameCheck = (req, res, next) => {
     console.log('Site Name check');
     const SiteName = req.body.siteName || req.query.siteName || req.param.siteName || req.params.siteName || "";
     console.log('site Name : ', SiteName);
+    AdminSiteDao.SiteNameCheck(SiteName).then(result => {
+        console.log('Site Name Check : ', result);
+        if (result === 0) {
+            console.log('Not Have Site');
+            return res.json(0);
+        } else {
+            console.log('Have Site');
+            return res.json(1);
+        }
+    }).catch(err => {
+        console.log('Dao Checking Site Name Error code ::: ', err.code);
+        console.log('Dao Checking Site Name Error ::: ', err);
+        return res.json('-1');
+    });
 };
 
 
