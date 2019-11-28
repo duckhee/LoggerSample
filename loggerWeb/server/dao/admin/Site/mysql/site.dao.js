@@ -78,18 +78,18 @@ const PagingSite = (SiteInfo) => {
                 order: [
                     ['createdAt', 'DESC']
                 ],
-                /*
-                include: [{
+
+                include: {
                     model: models.plot,
+                    group: 'SiteIdx',
+                    /*
                     attributes: [
                         [models.sequelize.fn('count', '*'), 'count']
                     ],
-                }]
-                */
+                    */
+                }
             }).then(Sites => {
-
-                console.log('site paging value : ', Sites);
-
+                /** Return Value */
                 let returnValue = {
                     offset: offsetting,
                     value: Sites,
