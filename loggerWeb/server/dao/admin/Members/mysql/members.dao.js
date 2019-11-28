@@ -170,11 +170,11 @@ const EmailCheckUser = (Email) => {
                 UserEmail: Email
             }
         }).then(result => {
-            resolve(result);
+            return resolve(result);
         }).catch(err => {
             console.log('check Email Dao Error code ::: ', err.code);
             console.log('check Email Dao Error ::: ', err);
-            reject(err);
+            return reject(err);
         });
     });
 };

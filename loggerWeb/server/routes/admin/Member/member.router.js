@@ -25,11 +25,12 @@ const MemberRouter = (csurfMiddleWare) => {
     router.get('/detail', MemberCtrl.DetailPage);
     /** Member Profile Page */
     router.get('/profile', MemberCtrl.ProfilePage);
+
+    /** Not Yet Setting */
     /** Registe Member UserId Check */
     router.get('/userId-check', (req, res, next) => {
         res.json('IdCheck');
     });
-
     /** Registe Member UserName Check */
     router.get('/userName-check', (req, res, next) => {
         res.json('NameCheck');

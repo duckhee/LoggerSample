@@ -131,32 +131,45 @@ const DeleteDo = (req, res, next) => {
 
 /** Admin Site Detail Page */
 const DetailPage = (req, res, next) => {
-    let no = req.param.no || req.params.no || req.query.no;
+    let no = req.param.no || req.params.no || req.query.no || "";
     console.log('parameter index ::: ', no);
-    var SampleDeviceInfo = {
-        DeviceName: 'Testing',
-        Type: 'Data Tracker'
-    };
-    var PlotDeviceArray = [SampleDeviceInfo, SampleDeviceInfo];
-    var PlotDetailInfo = {
-        PlotName: 'Test Plot',
-        DeviceInfo: PlotDeviceArray
-    };
-    var PlotDetailArray = [PlotDetailInfo, PlotDetailInfo];
-    //TODO Sample Data 
-    var SampleSiteDetailInfo = {
-        Name: 'Testing',
-        PlotNumber: 5,
-        PlotDetailInfo: PlotDetailArray
+    let DetailJson = {
+        id: no
     };
 
+    /** Detail Site Dao */
+    AdminSiteDao.DetailSite(DetailJson).then(result => {
+        console.log('result : ', result.dataValues.plots);
+        var SampleDeviceInfo = {
+            DeviceName: 'Testing',
+            Type: 'Data Tracker'
+        };
+        var PlotDeviceArray = [SampleDeviceInfo, SampleDeviceInfo];
+        var PlotDetailInfo = {
+            PlotName: 'Test Plot',
+            DeviceInfo: PlotDeviceArray
+        };
+        var PlotDetailArray = [PlotDetailInfo, PlotDetailInfo];
+        //TODO Sample Data 
+        var SampleSiteDetailInfo = {
+            Name: 'Testing',
+            PlotNumber: 5,
+            PlotDetailInfo: PlotDetailArray
+        };
+        res.render('admin/SitePage/Detail/DetailPage', {
+            login: TestingLoginData,
+            title: 'Admin Site Detail page',
+            SiteDetailInfo: result,
+            _csrf: req.csrfToken()
+        });
 
-    res.render('admin/SitePage/Detail/DetailPage', {
-        login: TestingLoginData,
-        title: 'Admin Site Detail page',
-        SiteDetailInfo: SampleSiteDetailInfo,
-        _csrf: req.csrfToken()
+    }).catch(err => {
+        console.log('Admin Ctrl Detail Page Error code ::: ', err.code);
+        console.log('Admin Ctrl Detail Page Error ::: ', err);
+        return res.redirect('/admin/Site/list');
     });
+
+
 };
 
 /** Admin Site Edit Page */
@@ -178,6 +191,12 @@ const ModifyDo = (req, res, next) => {
 
 };
 
+/** Admin Site Name Check */
+const NameCheck = (req, res, next) => {
+    console.log('Site Name check');
+    const SiteName = req.body.siteName || req.query.siteName || req.param.siteName || req.params.siteName || "";
+    console.log('site Name : ', SiteName);
+};
 
 
 module.exports = {
@@ -188,5 +207,6 @@ module.exports = {
     DetailPage,
     ModifyPage,
     ModifyDo,
-    DeleteDo
+    DeleteDo,
+    NameCheck
 };

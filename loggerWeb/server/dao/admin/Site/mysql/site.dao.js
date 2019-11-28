@@ -145,12 +145,26 @@ const DetailSite = (SiteInfo) => {
         }
         models.site.findOne({
             where: {
+                id: SiteInfo.id
+            },
+            include: [{
+                model: models.plot,
+                order: [
+                    [
+                        'createdAt', 'DESC'
+                    ]
+                ],
+                include: {
+                    model: models.device,
 
-            }
+                }
+            }]
         }).then(result => {
-
+            return resolve(result);
         }).catch(err => {
-
+            console.log('Dao Detail Site Error code ::: ', err.code);
+            console.log('Dao Detail Site Error ::: ', err);
+            return reject(err);
         });
     });
 };
@@ -162,10 +176,29 @@ const ModifySite = (SiteInfo) => {
     });
 };
 
+
 /** Search Site  */
 const SearchSite = (SiteInfo) => {
     return new Promise((resolve, reject) => {
 
+    });
+};
+
+
+/** Site Name Check */
+const SiteNameCheck = (SiteName) => {
+    return new Promise((resolve, reject) => {
+        models.site.count({
+            where: {
+                name: SiteName
+            }
+        }).then(result => {
+            return resolve(result);
+        }).catch(err => {
+            console.log('checking Site Name Error code ::: ', err.code);
+            console.log('checking Site Name Error ::: ', err);
+            return reject(err);
+        })
     });
 };
 
@@ -176,5 +209,6 @@ module.exports = {
     DetailSite,
     ModifySite,
     DeleteSite,
-    SearchSite
+    SearchSite,
+    SiteNameCheck
 };

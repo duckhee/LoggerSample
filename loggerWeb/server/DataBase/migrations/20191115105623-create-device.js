@@ -23,10 +23,12 @@ module.exports = {
             },
             Latitude: {
                 type: Sequelize.STRING,
+                defaultValue: '0',
                 allowNull: false,
             },
             Longitude: {
                 type: Sequelize.STRING,
+                defaultValue: '0',
                 allowNull: false,
             },
             DeviceType: {

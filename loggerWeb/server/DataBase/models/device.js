@@ -16,10 +16,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         Latitude: {
             type: DataTypes.STRING,
+            defaultValue: '0',
             allowNull: false,
         },
         Longitude: {
             type: DataTypes.STRING,
+            defaultValue: '0',
             allowNull: false,
         },
         DeviceType: {
@@ -45,19 +47,19 @@ module.exports = (sequelize, DataTypes) => {
          * }
          * }
          */
-        getterMethods:{
+        getterMethods: {
             //Write methods here
             /** Getter Method */
         },
-        setterMethods:{
+        setterMethods: {
 
         },
-        hooks:{
-            beforeCreate:function(device, options){
+        hooks: {
+            beforeCreate: function(device, options) {
 
             },
-            afterCreate:function(device, options){
-                
+            afterCreate: function(device, options) {
+
             }
         }
     });
@@ -66,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
         /** Plot have many Device */
         device.belongsTo(models.plot, {
             foreignKeyConstraint: true,
-            foreignKey: 'UserEmail',
+            foreignKey: 'id',
             allowNull: false,
             onDelete: 'CASCADE'
         });

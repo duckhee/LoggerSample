@@ -43,14 +43,14 @@
                                          <td>Update Date</td>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="plot-tbody">
                                     <% if(PlotInfoList){
                                         PlotInfoList.forEach(item=>{ %>
                                             <tr>
-                                                <td><input type="checkbox" name="checkRow" value="<%=item.index%>"></td>
-                                                <td><a href="/admin/Plot/detail?no=<%=item.index%>"><%=item.PlotName%></a></td>
+                                                <td><input type="checkbox" name="checkRow" value="<%=item.id%>"></td>
+                                                <td><a href="/admin/Plot/detail?no=<%=item.id%>"><%=item.PlotName%></a></td>
                                                 <td><%=item.dataValues.site.dataValues.name%></td>
-                                                <td><%=item.DeviceNumber%></td>
+                                                <td><span class="badge bg-light-blue"><%=item.devices.length%></span></td>
                                                 <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
                                                 <td><%=item.updatedAt%></td>
                                             </tr>
@@ -130,6 +130,20 @@
             });
         }
 
+        function reloadingTable(data){
+            $("#plot-tbody").empty();
+            let txt = "";
+            $.each(data, function(idx, obj){
+                txt += "<tr><td><input type='checkbox' name='checkRow' value="+obj.id+"></td>";
+                txt += "<td><a href='/admin/Site/detail?no='"+obj.id+"'>"+obj.PlotName+"</a></td>";
+                txt += "<td>"+obj.site.name+"</td>";
+                txt += "<td>"+'<span class="badge bg-light-blue">'+obj.devices.length+"</span></td>";
+                txt += "<td>"+new Date(obj.createdAt).getFullYear() + '-' + (new Date(obj.createdAt).getMonth()+1) + '-' + new Date(obj.createdAt).getDate()+":"+new Date(obj.createdAt).getHours()+":"+new Date(obj.createdAt).getMinutes()+"</td>";
+                txt += "<td>"+obj.updatedAt+"</td></tr>";
+            });
+            $("#plot-tbody").append(txt);
+        }
+
         function DeletePlot(){
             $("#Delete").click(function(){
                 let checkValue = [];
@@ -140,17 +154,26 @@
                 });
                 if(checkValue.length === 0){
                     Swal.fire({
-                        title:'Check delete user first',
+                        title:'Check delete Plot first',
                         type:'warning'
                     });
                 }else{
                     Swal.fire({
-                        title:'Are you Sure Delete User?',
+                        title:'Are you Sure Delete Plot?',
                         type:'question',
                         html:'<p style="font-size:20px;">'+checkingName+'</p>',
                         showCancelButton:true
                     }).then(result=>{
+                        console.log('get value : ', checkValue);
                         if(result.value){
+                            let curURL = new URL(location.href);
+                            let pages = curURL.searchParams.get('page');
+                            let keyName = curURL.searchParams.get('searchByName');
+                            let keyOwner = curURL.searchParams.get('searchByOwner');
+                            if(pages === null){
+                                pages = "";
+                            }
+
                             $.ajaxSetup({
                                 beforeSend: function(xhr) {
                                     xhr.setRequestHeader('Csrf-Token', "<%=_csrf%>");
@@ -166,6 +189,7 @@
                                 }),
                                 success:function(data){
                                     console.log('delete success ', data);
+                                    reloadingTable(data);
                                 },
                                 err:function(request, status, error){
                                     console.log('code : ', request.status);

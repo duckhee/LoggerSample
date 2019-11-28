@@ -73,8 +73,9 @@ const PagingPlot = (PlotInfo) => {
                     ['createdAt', 'DESC']
                 ],
                 include: [{
-                    model: models.site
-                }]
+                    model: models.site,
+
+                }, { model: models.device, group: 'PlotIdx' }]
             }).then(Plots => {
                 console.log('Plot Info :: ', Plots);
                 //console.log('Plot Info :: ', Plots[0].dataValues.site.dataValues);
@@ -136,12 +137,27 @@ const SearchPlot = (PlotInfo) => {
 /** Plot Delete */
 const DeletePlot = (PlotInfo) => {
     return new Promise((resolve, reject) => {
+        if (PlotInfo.id === "") {
+            return reject(false);
+        }
         models.plot.destroy({
-
+            where: {
+                id: PlotInfo.id
+            }
         }).then(result => {
-
+            console.log('delete plot success result : ', result);
+            PagingPlot(PlotInfo).then(result => {
+                console.log('site delete done and show paging : ', result);
+                return resolve(result);
+            }).catch(err => {
+                console.log('Dao Delete Paging Plot Error code ::: ', err.code);
+                console.log('Dao Delete Paging Plot Error ::: ', err);
+                return reject(err);
+            });
         }).catch(err => {
-
+            console.log('Dao Delete Plot Error code ::: ', err.code);
+            console.log('Dao Delete Plot Error code ::: ', err);
+            return reject(err);
         });
     });
 };

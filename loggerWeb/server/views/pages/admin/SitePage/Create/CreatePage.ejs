@@ -78,13 +78,12 @@
         }
         /** Email checking */
         function validateEmail(email) {
-            var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            let re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
             return re.test(email);
         }
         function IdCheck(){
             $("#checkingOwner").click(function(){
                 let getId = $("#SiteOwnerId").val();
-                console.log('get ID : ', getId);
                 if(!$("#SiteOwnerId").val()){
                     Swal.fire({
                         title:'Site Owner Not Empty',

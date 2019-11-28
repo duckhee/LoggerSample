@@ -99,9 +99,31 @@ const ModifyDo = (req, res, next) => {
 
 /** Admin Plot Delete Do */
 const DeleteDo = (req, res, next) => {
-    let deleteValue = req.query.delete || req.body.delete;
-    console.log('delete data : ', deleteValue);
-    res.json(deleteValue);
+    let deleteValue = req.query.delete || req.body.delete || "";
+    let pages = req.query.page || req.body.page || "";
+
+    let DeleteJson = {};
+    if (pages !== "") {
+        DeleteJson.pages = pages;
+    }
+    if (deleteValue !== "") {
+        DeleteJson.id = deleteValue;
+    } else {
+        return res.json(false);
+    }
+    AdminPlotDao.DeletePlot(DeleteJson).then(result => {
+        if (result) {
+            console.log('result : ', result);
+            return res.json(result.value);
+        } else {
+            console.log('delete failed');
+            return res.json(false);
+        }
+    }).catch(err => {
+        console.log('delete plot ctrl error : ', err);
+        return res.json(false);
+    });
+
 };
 
 

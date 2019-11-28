@@ -20,6 +20,8 @@ const SiteRouter = (csurfMiddleWare) => {
     router.post('/modify', csurfMiddleWare, AdminSiteCtrl.ModifyDo);
     /** Admin Site Delete Do */
     router.post('/delete', csurfMiddleWare, AdminSiteCtrl.DeleteDo);
+    /** Admin Site Name Check */
+    router.post('/siteName-check', csurfMiddleWare, AdminSiteCtrl.NameCheck);
     /** return router */
     return router;
 };
