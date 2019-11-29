@@ -82,8 +82,16 @@ const PagingDevice = (DeviceInfo) => {
                             model: models.site
                         }
                     }
-                }).then(result => {
-
+                }).then(Device => {
+                    console.log('Plot Info :: ', Device);
+                    //console.log('Plot Info :: ', Plots[0].dataValues.site.dataValues);
+                    /** return value */
+                    let returnValue = {
+                        offset: offsetting,
+                        value: Device,
+                        pageNumber: MaxPages
+                    };
+                    return resolve(returnValue);
                 }).catch(err => {
                     console.log('Dao Device Paging Error code ::: ', err.code);
                     console.log('Dao Device Paging Error ::: ', err);
