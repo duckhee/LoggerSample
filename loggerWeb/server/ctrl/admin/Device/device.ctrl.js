@@ -16,14 +16,7 @@ const AdminDeviceDao = Dao();
  * FileType
  */
 
- /** Empty Check */
- function EmptyCheck(data){
-     if(data === ""){
-         return true;
-     }else{
-         return false;
-     }
- }
+
 
 //TODO Session Checking
 //TOdo Delte data just Testing
@@ -46,6 +39,14 @@ const CreatePage = (req, res, next) => {
 };
 /** Admin Device Create Do */
 const CreateDo = (req, res, next) => {
+     /** Empty Check */
+ function EmptyCheck(data){
+    if(data === ""){
+        return true;
+    }else{
+        return false;
+    }
+}
     /** Get Parameter */
     const OwnerEmail = req.body.SiteOwnerId || req.query.SiteOwnerId || req.param.SiteOwnerId || req.params.SiteOwnerId || '';
     const SiteID = req.body.SiteSelect || req.query.SiteSelect || req.param.SiteSelect || req.params.SiteSelect || '';
