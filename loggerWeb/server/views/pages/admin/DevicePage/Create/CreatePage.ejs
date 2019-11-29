@@ -40,8 +40,8 @@
                                         <input type="text" class="form-control" name="SiteOwnerId" id="SiteOwnerId" placeholder="Site Owner Id ...">
                                     </div>
                                     <div class="col-sm-4">
-                                        <button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-user" style="margin-right:10px;"></i>Id Check</button>
-                                        <input type="hidden" id="IdCheck" value="0">
+                                        <button type="button" id="OwnerIdBtn" name="OwnerIdBtn" class="btn btn-default btn-block"><i class="fa fa-fw fa-user" style="margin-right:10px;"></i>Id Check</button>
+                                        <input type="hidden" id="OwnerId" value>
                                     </div>
                                 </div>
                                 <!--./form-group-->
@@ -52,7 +52,8 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <input type="hidden" id="SiteCheck" value>
-                                        <button class="btn btn-default btn-block"><i class="fa fa-inbox" style="margin-right:5px;"></i>Site Name Check</button>
+                                        <input type="hidden" id="SiteId" value>
+                                        <button type="button" id="SiteNameIdBtn" name="SiteNameIdBtn" class="btn btn-default btn-block"><i class="fa fa-inbox" style="margin-right:5px;"></i>Site Name Check</button>
                                     </div>
                                     <div class="col-sm-3">
                                         <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-inbox" style="margin-right:5px;"></i>Site Name Check</button>-->
@@ -66,7 +67,8 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <input type="hidden" id="PlotCheck" value>
-                                        <button class="btn btn-default btn-block"><i class="fa fa-folder" style="margin-right:5px;"></i>Plot Name Check</button>
+                                        <input type="hidden" id="PlotId" value>
+                                        <button type="button" name="PlotNameIdBtn" id="PlotNameIdBtn" class="btn btn-default btn-block"><i class="fa fa-folder" style="margin-right:5px;"></i>Plot Name Check</button>
                                     </div>
                                     <div class="col-sm-3">
                                         <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-folder" style="margin-right:5px;"></i>Plot Name Check</button>-->
@@ -234,6 +236,7 @@
         $(document).ready(function(){
             $("#deviceType").change(function(){
                 let value = this.value;
+                console.log(value);
                 if(value === 'DataTracker'){
                     $(".ecolog").css('display', 'none');
                     $(".HikVision").css('display', 'none');
