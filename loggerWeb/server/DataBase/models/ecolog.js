@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'id'
             },
             onDelete: 'CASCADE'
-        }
+        },
+        FileFormat:{
+            type:DataTypes.STRING
+        },
     }, {});
     ecolog.associate = function(models) {
         // associations can be defined here

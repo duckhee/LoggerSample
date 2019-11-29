@@ -7,9 +7,13 @@ const CreateRaw = (Info) => {
     console.log('hikvision RawDao');
     return new Promise((resolve, reject) => {
         models.hikvision.create({
-
+            DeviceIdx:Info.DeviceIdx,
+           HikVisionIp:Info.IP,
+           HikVisionId:Info.ID,
+           HikVisionPw:Info.PW,
+           FTPFolder:Info.Path
         }).then(result=>{
-
+            return resolve(result);
         }).catch(err=>{
             console.log("Raw Dao Device hikvision Create Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Create Error ::: ", err);

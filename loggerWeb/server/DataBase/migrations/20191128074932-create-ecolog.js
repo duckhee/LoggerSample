@@ -20,6 +20,9 @@ module.exports = {
             FTPFolder: {
                 type: Sequelize.STRING
             },
+            FileFormat:{
+                type:Sequelize.STRING
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

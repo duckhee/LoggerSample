@@ -27,11 +27,16 @@ module.exports = {
                 },
                 onDelete: 'CASCADE'
             },
-            */
+            
             ModelName: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            */
+           HikVisionIp:{
+                type:Sequelize.STRING,
+                allowNull:false
+           },
             HikVisionId: {
                 type: Sequelize.STRING
             },

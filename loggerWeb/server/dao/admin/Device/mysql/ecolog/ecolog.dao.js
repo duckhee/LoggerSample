@@ -6,10 +6,11 @@ const CreateRaw = (Info) => {
     console.log('ecolog RawDao');
     return new Promise((resolve, reject) => {
         models.ecolog.create({
-            FTPFolder:Info,
-            DeviceIdx:Info
+            FTPFolder:Info.Path,
+            DeviceIdx:Info.DeviceIdx,
+            FileFormat:Info.FileType
         }).then(result=>{
-
+            return resolve(result);
         }).catch(err=>{
             console.log("Raw Dao Device ecolog  Create Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog  Create Error ::: ", err);
