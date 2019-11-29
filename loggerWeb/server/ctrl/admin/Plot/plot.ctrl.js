@@ -168,6 +168,19 @@ const NameCheck = (req, res, next) => {
     console.log('Plot Name Check');
     const PlotName = req.body.plotName || req.query.plotName || req.param.plotName || req.params.plotName || "";
     console.log("Plot Name : ", PlotName);
+    AdminPlotDao.PlotNameCheck(PlotName).then(result => {
+        if (result.length === 0) {
+            console.log('Not Have Plot');
+            return res.json(0);
+        } else {
+            console.log('Have Plot');
+            return res.json(result);
+        }
+    }).catch(err => {
+        console.log('Admin Ctrl Name Check Plot Error code ::: ', err.code);
+        console.log('Admin Ctrl Name Check Plot Error ::: ', err);
+        return res.json('-1');
+    });
 
 };
 

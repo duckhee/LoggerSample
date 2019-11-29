@@ -205,24 +205,302 @@
     </body>
     <script>
         let TypeDevice = (function(){
-            let _deviceType = [ 'DataTracker', 'ecolog','HikVision' ];
+            const _deviceType = { 'DataTracker':true, 'ecolog':true,'HikVision':true };
             return {
                 getType:function(){
                     return _deviceType;
                 }
             }
         }());
+         /** Email checking */
+        function validateEmail(email) {
+            let re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            return re.test(email);
+        }
+
+        /** select check */
+        function selectChecking(){
+            let value = TypeDevice.getType();
+            let deviceType = $("#deviceType").val();
+            if(value[deviceType]){
+                return true;
+            }else{
+                Swal.fire({
+                    title:'Select Device Type',
+                    type:'warning',
+                });
+                return false;
+            }
+        }
+
+        /** Owner Id Check */
+        function OwnerCheck(){
+            $("#OwnerIdBtn").click(function(){
+                console.log('id check');
+                let OwnerValue = $("#SiteOwnerId").val();
+                console.log("Owner Value : ", OwnerValue);
+                if(OwnerValue === ""){
+                    Swal.fire({
+                        title:"not Owner id Not empty",
+                        type:'warning'
+                    });
+                    return false;
+                }
+                if(OwnerValue.indexOf(' ') !== -1){
+                    Swal.fire({
+                        title:"not Owner id Not have space value",
+                        type:'warning'
+                    });
+                    return false;
+                }
+                if(!validateEmail(OwnerValue)){
+                    Swal.fire({
+                        title:"not Owner Email Type",
+                        type:'warning'
+                    });
+                    return false;
+                }
+                $.ajaxSetup({
+                    beforeSend:function(xhr){
+                        xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                    }
+                })
+                $.ajax({
+                    url:'/admin/Members/userEmail-check',
+                    type:'post',
+                    contentType:'application/json',
+                    data:JSON.stringify({
+                        'email':OwnerValue
+                    }),
+                    success:function(data){
+                        console.log('Email check success value : ', data);
+                        if(data == 1){
+                            console.log('have user');
+                            $("#OwnerId").val(true);
+                            Swal.fire({
+                                title:'Success',
+                                type:'success'
+                            });
+                            return true;
+                        }else if(data === "-1"){
+                            console.log('server error');
+                            Swal.fire({
+                                title:'Create Error',
+                                type:'warning',
+                                text:'Retry few minute later'
+                            });
+                            return false;
+                        }else{
+                            Swal.fire({
+                                title:'Not have User',
+                                type:'warning',
+                                text:'first Make User\r\ngo to Registe Page',
+                                showCancelButton:true
+                            }).then(result=>{
+                                if(result.value){
+                                    location.href = "/admin/Members/registe";
+                                }
+                                return false;
+                            });
+                        }
+                    }
+                });
+            });
+
+        }
+
+        /** Owner Id Flag check */
+        function OwnerIdFlagCheck(){
+            let IDFlag = $("OwnerId").val();
+            let SiteOwner = $("#SiteOwnerId").val();
+            if(IDFlag !== "true"){
+                return false;
+            }
+            return true;
+        }
+
+        /** Site Name Check */
+        function SiteNameCheck(){
+            $("#SiteNameIdBtn").click(function(){
+                let getSiteValue = $("#SiteName").val();
+                let getSiteId = $("#SiteId").val();
+                console.log("SiteNameIdBtn");
+                console.log('get site value :', getSiteValue );
+                if(!getSiteValue){
+                    Swal.fire({
+                        title:'not Site Name Empty',
+                        type:'warning'
+                    });
+                    return false;
+                }
+                console.log(getSiteValue.indexOf(' '));
+                if((getSiteValue.indexOf(' ') > -1) || (getSiteValue.indexOf(' ') == 0)){
+                    Swal.fire({
+                        title:'not Site Name not have space',
+                        type:'warning'
+                    });
+                    return false;
+                }
+
+                $.ajaxSetup({
+                    beforeSend:function(xhr){
+                        xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                    }
+                });
+                $.ajax({
+                    url:'/admin/Site/siteName-check',
+                    type:'post',
+                    dataType:'json',
+                    contentType:'application/json',
+                    data:JSON.stringify({
+                        'siteName':getSiteValue,
+                        'SiteCheckId':getSiteId
+                    }),
+                    success:function(data){
+                        console.log('Site Name Check success ', data);
+                        if(data === 0){
+                            Swal.fire({
+                                title:'Not have Site',
+                                type:'warning',
+                                text:'create Site page',
+                                showCancelButton:true,
+                            }).then(result=>{
+                                if(result.value){
+                                    location.href = "/admin/Site/create";
+                                }
+                                return false;
+                            })
+                        }else if(data === '-1'){
+                            Swal.fire({
+                                type:'warning',
+                                title:'RETRY'
+                            });
+                            return false;
+                        }else{
+                            console.log('data length : ', data.length);
+                            if(data.length > 1){
+                                let options = {};
+                                data.forEach(item=>{
+                                    let MakeDate = new Date(item.createdAt).getFullYear() + "-"+(new Date(item.createdAt).getMonth()+1) + "-"+new Date(item.createdAt).getDate() + " : " + new Date(item.createdAt).getHours() + " : " + new Date(item.createdAt).getMinutes();
+                                    options[item.id] = "Owner Email : "+item.user.UserEmail + ", Site Name :  " +item.name + ', Create Time : ' + MakeDate;
+                                });
+                                let check = Swal.fire({
+                                    title: 'Select Site',
+                                    input: 'select',
+                                    inputOptions: options,
+                                    showCancelButton: true,
+                                    inputValidator: (value) => {
+                                        return new Promise((resolve) => {
+                                        $("#SiteCheck").val(true);
+                                        $("#SiteId").val(value)
+                                        resolve();
+                                        });
+                                    }
+                                })
+                                if(check){
+                                    return true;
+                                }
+                            }else if(data.length === 1){
+                                console.log(data[0].id);
+                                Swal.fire({
+                                    title:'Site Name check success',
+                                    type:'success',
+                                });
+                                $("#SiteCheck").val(true);
+                                $("#SiteId").val(data[0].id);
+                                return true;
+                            }else{
+                                Swal.fire({
+                                    type:'warning',
+                                    title:'RETRY'
+                                });
+                                return false;
+                            }
+                        }
+                    },
+                    err:function(request, status, error){
+                        console.log('code : ', request.status);
+                        console.log('message : ', request.responseText);
+                        console.log('status : ', status);
+                        console.log('error ::: ', error);
+                        return false;
+                    }
+                });
+            });
+        }
+
+        /** Site Name Flag Check */
+        function SiteNameFlagCheck(){
+            let SiteNameFlag = $("#SiteCheck").val();
+            if(SiteNameFlag !== "true"){
+                return false;
+            }
+            return true;
+        }
+
+        /** Plot Name Check */
+        function PlotNameCheck(){
+            $("#PlotNameIdBtn").click(function(){
+                let getPlotName = $("#PlotName").val();
+                let getPlotId = $("#PlotId").val();
+                if(!getPlotName){
+                    Swal.fire({
+                        title:'Not Empty Plot Name',
+                        type:'warning'
+                    });
+                    return false;
+                }
+
+                if(getPlotName.indexOf(' ') > -1 || getPlotName.indexOf(' ' ) == 0){
+                    Swal.fire({
+                        title:'Plot Name not have space',
+                        type:'warning'
+                    });
+                    return false;
+                }
+                $.ajaxSetup({
+                    beforeSend:function(xhr){
+                        xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                    }
+                });
+                $.ajax({
+                    url:'/admin/Plot/plotName-check',
+                    type:'post',
+                    dataType:'json',
+                    contentType:'application/json',
+                    data:JSON.stringify({
+                        "plotName":getPlotName,
+                        "plotId":getPlotId
+                    }),
+                    success:function(data){
+                        console.log(data);
+                    },
+                    err:function(request, status, error){
+                        console.log('code : ', request.status);
+                        console.log('message : ', request.responseText);
+                        console.log('status : ', status);
+                        console.log('error ::: ', error);
+                        return false;
+                    }
+                })
+            });
+        }
+
+        /** Plot Name Flag Check */
+        function PlotNameFlagCheck(){
+
+        }
+
+        /** function Detail Value Check */
+        function DeviceRawCheck(){
+
+        }
 
         function Create(){
             $("#Create").click(function(){
                 let value = TypeDevice.getType();
-                console.log(value);
                 let deviceType = $("#deviceType").val();
-                if(deviceType === value[0]){
-
-                }else if(deviceType === value[1]){
-                    
-                }else if(deviceType === value[2]){
+                if(value[deviceType]){
 
                 }else{
                     Swal.fire({
@@ -232,6 +510,7 @@
                 }
             });
         }
+
 
         $(document).ready(function(){
             $("#deviceType").change(function(){
@@ -255,6 +534,9 @@
                     $(".HikVision").css('display', 'none');
                 }
             });
+            OwnerCheck();
+            SiteNameCheck();
+            PlotNameCheck();
             Create();
         });
     </script>

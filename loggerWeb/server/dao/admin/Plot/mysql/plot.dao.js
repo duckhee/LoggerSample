@@ -182,9 +182,18 @@ const DeletePlot = (PlotInfo) => {
 /** Plot Name Check */
 const PlotNameCheck = (PlotName) => {
     return new Promise((resolve, reject) => {
-        models.plot.count({
+        models.plot.findAll({
             where: {
                 PlotName: PlotName
+            },
+            attributes: ['id', 'PlotName', 'createdAt'],
+            include: {
+                model: models.site,
+                attributes: ['name', 'id'],
+                include: {
+                    model: models.user,
+                    attributes: ['UserEmail']
+                }
             }
         }).then(result => {
             return resolve(result);

@@ -239,7 +239,8 @@
                         if(data.length > 1){
                             let options = {};
                             data.forEach(item=>{
-                                options[item.id] = item.name + '\t' + item.createdAt
+                                let MakeDate = new Date(item.createdAt).getFullYear() + "-"+(new Date(item.createdAt).getMonth()+1) + "-"+new Date(item.createdAt).getDate() + " : " + new Date(item.createdAt).getHours() + " : " + new Date(item.createdAt).getMinutes();
+                                options[item.id] = "Owner Email : "+item.user.UserEmail + ", Site Name :  " +item.name + ', Create Time : ' + MakeDate;
                             });
 
                             let check = Swal.fire({

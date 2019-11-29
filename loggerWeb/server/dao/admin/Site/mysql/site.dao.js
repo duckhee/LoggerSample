@@ -205,7 +205,7 @@ const SiteNameCheck = (SiteName) => {
             console.log('Dao Checking Site Name Error code ::: ', err.code);
             console.log('Dao Checking Site Name Error ::: ', err);
             return reject(err);
-        })
+        });
     });
 };
 

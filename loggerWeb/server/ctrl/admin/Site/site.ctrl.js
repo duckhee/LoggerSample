@@ -182,7 +182,6 @@ const NameCheck = (req, res, next) => {
     const SiteName = req.body.siteName || req.query.siteName || req.param.siteName || req.params.siteName || "";
     console.log('site Name : ', SiteName);
     AdminSiteDao.SiteNameCheck(SiteName).then(result => {
-
         if (result.length === 0) {
             console.log('Not Have Site');
             return res.json(0);

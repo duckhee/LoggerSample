@@ -21,6 +21,8 @@ const PlotRouter = (csurfMiddleWare) => {
     router.post('/modify', csurfMiddleWare, AdminPlotCtrl.ModifyDo);
     /** Admin Plot Delete Do */
     router.post('/delete', csurfMiddleWare, AdminPlotCtrl.DeleteDo);
+    /** Admin Plot Name Check */
+    router.post('/plotName-check', csurfMiddleWare, AdminPlotCtrl.NameCheck);
     /** return router */
     return router;
 };
