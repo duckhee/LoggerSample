@@ -180,6 +180,7 @@ const DeletePlot = (PlotInfo) => {
 };
 
 /** Plot Name Check */
+/*
 const PlotNameCheck = (PlotName) => {
     return new Promise((resolve, reject) => {
         models.plot.findAll({
@@ -207,7 +208,7 @@ const PlotNameCheck = (PlotName) => {
         });
     });
 };
-
+*/
 
 module.exports = {
     CreatePlot,
@@ -217,5 +218,5 @@ module.exports = {
     ModifyPlot,
     SearchPlot,
     DeletePlot,
-    PlotNameCheck
+    //PlotNameCheck
 };

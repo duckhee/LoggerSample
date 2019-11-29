@@ -30,22 +30,20 @@
                                 <div class="form-group">
                                     <label for="SiteName" class="col-sm-2 control-label">Site Name</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" name="SiteName" id="SiteName" placeholder="Site Name ...">
-                                        <!--
-                                        <select class="form-control">
-                                            <option>option 1</option>
-                                            <option>option 2</option>
-                                            <option>option 3</option>
-                                            <option>option 4</option>
-                                            <option>option 5</option>
+                                        <!--<input type="text" class="form-control" name="SiteName" id="SiteName" placeholder="Site Name ..."> -->
+                                        
+                                        <select name="SiteCheckId" id="siteValue" class="form-control" disabled>
+                                            <option value>Select options ...</option>
                                         </select>
-                                        -->
+                                        
                                     </div>
+                                   <!--
                                     <div class="col-sm-4">
                                         <input type="hidden" id="SiteFlag" value>
                                         <input type="hidden" name="SiteCheckId" id="SiteCheckId" value>
                                         <button type="button" id="checkingSite" class="btn btn-default btn-block"><i class="fa fa-fw fa-inbox" style="margin-right:10px;"></i>Site Name Check</button>
                                     </div>
+                                    -->
                                     <div class="col-sm-2">
                                         <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-inbox" style="margin-right:5px;"></i>Site Name Check</button>-->
                                     </div>
@@ -127,7 +125,7 @@
                 }
             });
             $.ajax({
-                url:'/admin/Members/userEmail-check',
+                url:'/admin/Site/siteName-check',
                 type:'post',
                 dataType:'json',
                 contentType:'application/json',
@@ -136,21 +134,7 @@
                 }),
                 success:function(data){
                     console.log('Email check success ', data);
-                    if(data === 1){
-                        $("#IdFlag").val(true);
-                        Swal.fire({
-                            title:'Id Check Success',
-                            type:'success'
-                        });
-                        return true;
-                    }else if(data === '-1'){
-                       Swal.fire({
-                            title:'RETRY',
-                            type:'warning'
-                        });
-                        return false;
-
-                    }else{
+                    if(data === 0){
                          Swal.fire({
                             title:'Not Have User',
                             text:'go to Make User',
@@ -162,6 +146,24 @@
                             }
                             return false;
                         });
+                    }else if(data === '-1'){
+                       Swal.fire({
+                            title:'RETRY',
+                            type:'warning'
+                        });
+                        return false;
+                    }else{
+                        let SelectValue = "";
+                        console.log('data : ', data);
+                        $("#siteValue").empty();
+                        SelectValue = "<option value>Select options ...</option>";
+                        data.forEach(item=>{
+                            let MakeDate = new Date(item.createdAt).getFullYear() + "-"+(new Date(item.createdAt).getMonth()+1) + "-"+new Date(item.createdAt).getDate() + " : " + new Date(item.createdAt).getHours() + " : " + new Date(item.createdAt).getMinutes();
+                            SelectValue += "<option value="+item.id+">Site Name : "+item.name + ", Create Time : "+MakeDate+"</span></option>"
+                        });
+                        $("#siteValue").prop('disabled', false);
+                        $("#siteValue").append(SelectValue);
+                        $("#IdFlag").val(true);
                     }
                 },
                 err:function(request, status, error){
@@ -175,128 +177,7 @@
             return true;
         })
     }
-    /** Site Name check */
-    function SiteCheck(){
-        $("#checkingSite").click(function(){
-            let getIdFlag = $("#IdFlag").val();
-            let getSite = $("#SiteName").val();
-            let SiteCheckId = $("#SiteCheckId").val();
-            
-            if(getIdFlag !== 'true'){
-                Swal.fire({
-                    title:'First Id Check',
-                    type:'warning'
-                });
-                return false;
-            }
-            
-            
-            /** Null value check */
-            if(!getSite){
-                Swal.fire({
-                    title:'Site Name Not Empty',
-                    type:'warning'
-                });
-                return false;
-            }
-
-            /** Space value check */
-            if(getSite.indexOf(' ') !== -1){
-                Swal.fire({
-                    title:"Site Name couldn't Have space value",
-                    type:'warning'
-                });
-                return false;
-            }
-
-            $.ajaxSetup({
-                beforeSend:function(xhr){
-                    xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
-                }
-            });
-            $.ajax({
-                url:'/admin/Site/siteName-check',
-                type:'post',
-                dataType:'json',
-                contentType:'application/json',
-                data:JSON.stringify({
-                    'siteName':getSite,
-                    'SiteCheckId':SiteCheckId
-                }),
-                success:function(data){
-                    console.log('Site Name Check success ', data);
-                    if(data === 0){
-                        Swal.fire({
-                            title:'Not have Site',
-                            type:'warning',
-                            text:'create Site page',
-                            showCancelButton:true,
-                        }).then(result=>{
-                            if(result.value){
-                                location.href = "/admin/Site/create";
-                            }
-                            return false;
-                        })
-                    }else if(data === '-1'){
-                         Swal.fire({
-                            type:'warning',
-                            title:'RETRY'
-                        });
-                        return false;
-                    }else{
-                        console.log('data length : ', data.length);
-                        if(data.length > 1){
-                            let options = {};
-                            data.forEach(item=>{
-                                let MakeDate = new Date(item.createdAt).getFullYear() + "-"+(new Date(item.createdAt).getMonth()+1) + "-"+new Date(item.createdAt).getDate() + " : " + new Date(item.createdAt).getHours() + " : " + new Date(item.createdAt).getMinutes();
-                                options[item.id] = "Owner Email : "+item.user.UserEmail + ", Site Name :  " +item.name + ', Create Time : ' + MakeDate;
-                            });
-
-                            let check = Swal.fire({
-                                title: 'Select Site',
-                                input: 'select',
-                                inputOptions: options,
-                                showCancelButton: true,
-                                inputValidator: (value) => {
-                                return new Promise((resolve) => {
-                                    $("#SiteFlag").val(true);
-                                    $("#SiteCheckId").val(value)
-                                    resolve();
-                                    });
-                                }
-                            })
-                            if(check){
-                                return true;
-                            }
-                        }else if(data.length === 1){
-                            console.log(data[0].id);
-                            Swal.fire({
-                                title:'Site Name check success',
-                                type:'success',
-                            });
-                            $("#SiteFlag").val(true);
-                            $("#SiteCheckId").val(data[0].id);
-                            return true;
-                        }else{
-                            Swal.fire({
-                                type:'warning',
-                                title:'RETRY'
-                            });
-                            return false;
-                        }
-                       
-                    }
-                },
-                err:function(request, status, error){
-                    console.log('code : ', request.status);
-                    console.log('message : ', request.responseText);
-                    console.log('status : ', status);
-                    console.log('error ::: ', error);
-                    return false;
-                }
-            });
-        });
-    }
+    
     /** Id Check flag get */
     function IdCheckFlag(){
         let flag = $("#IdFlag").val();
@@ -308,38 +189,66 @@
         }
     }
 
-    /** Site Check flag get */
-    function SiteCheckFlag(){
-        let flag = $("#SiteFlag").val();
-        console.log('id check flag ', flag);
-        let CheckingSite =$("#SiteCheckId").val();
-        if($("#SiteFlag").val() === "true"){
-            return true;
-        }else{
+    function PlotNameCheck(){
+        let NameValue = $("#PlotName").val();
+        if(!NameValue){
+            Swal.fire({
+                title:'Not Empty Plot Name',
+                type:'warning'
+            });
             return false;
         }
+        if(NameValue === ""){
+            Swal.fire({
+                title:'Not Empty Plot Name',
+                type:'warning'
+            });
+            return false;
+        }
+        if((NameValue.indexOf(' ') === 0) || NameValue.indexOf(' ') > 0){
+            Swal.fire({
+                title:'Not Plot Name space value',
+                type:'warning'
+            });
+            return false;
+        }
+        return true;
     }
 
     /** Plot Create */
     function PlotCreate(){
-
         $("#create").click(function(){
-            let IdFlags = IdCheckFlag();
-            let SiteFlags = SiteCheckFlag();
-            console.log(IdFlags);
-            console.log(SiteFlags);
-            if((IdFlags) && (SiteFlags)){
+            let SiteFlags = $("#siteValue option:selected").val();
+            console.log('flag : ',SiteFlags);
+            if(!IdCheckFlag()){
+                Swal.fire({
+                    title:'Id Check First',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(!PlotNameCheck()){
+                return false;
+            }
+            
+            if(SiteFlags){
+                console.log('created');
                 document.createPlot.method = "post";
                 document.createPlot.action = "/admin/Plot/create";
                 document.createPlot.submit();
+            }else{
+                Swal.fire({
+                    title:'Select Site',
+                    type:'warning'
+                });
+                return false;
             }
-        })
+        });
     }
 
     /** Owner Check */
     $(document).ready(function(){
         IdCheck();
-        SiteCheck();
         PlotCreate();
         <%if(message.length > 0){%>
             Swal.fire({

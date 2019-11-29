@@ -186,18 +186,21 @@ const SearchSite = (SiteInfo) => {
 
 
 /** Site Name Check */
-const SiteNameCheck = (SiteName) => {
+const SiteNameCheck = (UserEmail) => {
     return new Promise((resolve, reject) => {
         models.site.findAll({
-            where: {
-                name: SiteName,
-            },
+            // where: {
+            //     name: SiteName,
+            // },
             attributes: ['id', 'name', 'createdAt'],
             include: [{
                 model: models.user,
                 attributes: [
                     'UserEmail'
-                ]
+                ],
+                where: {
+                    UserEmail: UserEmail
+                }
             }, {
                 model: models.plot,
                 attributes: ['id', 'PlotName', 'createdAt']

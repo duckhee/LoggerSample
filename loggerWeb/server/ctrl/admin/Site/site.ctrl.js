@@ -179,19 +179,19 @@ const ModifyDo = (req, res, next) => {
 /** Admin Site Name Check */
 const NameCheck = (req, res, next) => {
     console.log('Site Name check');
-    const SiteName = req.body.siteName || req.query.siteName || req.param.siteName || req.params.siteName || "";
-    console.log('site Name : ', SiteName);
-    AdminSiteDao.SiteNameCheck(SiteName).then(result => {
+    const UserEmail = req.body.email || req.query.email || req.param.email || req.params.email || "";
+    console.log('site Name : ', UserEmail);
+    AdminSiteDao.SiteNameCheck(UserEmail).then(result => {
         if (result.length === 0) {
-            console.log('Not Have Site');
+            console.log('Not Have User');
             return res.json(0);
         } else {
-            console.log('Have Site');
+            console.log('Have User');
             return res.json(result);
         }
     }).catch(err => {
-        console.log('Dao Checking Site Name Error code ::: ', err.code);
-        console.log('Dao Checking Site Name Error ::: ', err);
+        console.log('Dao Checking Site User Email Error code ::: ', err.code);
+        console.log('Dao Checking Site User Email Error ::: ', err);
         return res.json('-1');
     });
 };
