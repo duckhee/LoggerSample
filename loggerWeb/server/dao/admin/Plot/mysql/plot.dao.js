@@ -54,7 +54,7 @@ const PagingPlot = (PlotInfo) => {
             let AllPlotNumber = result;
             let PagingNum = PlotInfo.pages;
             let offsetting = 0;
-            let MaxPages = parseInt(AllPlotNumber / 10 + 1);
+            let MaxPages;
             if (parseInt(AllPlotNumber % 10) !== 0) {
                 MaxPages = parseInt(AllPlotNumber / 10 + 1);
             } else {
