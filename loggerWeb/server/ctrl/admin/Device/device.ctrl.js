@@ -52,7 +52,8 @@ const CreateDo = (req, res, next) => {
     const EcologPath = req.body.ecologFTPFolder || req.query.ecologFTPFolder || req.param.ecologFTPFolder || req.params.ecologFTPFolder || "";
     const EcologType = req.body.ecologFileType || req.query.ecologFileType || req.param.ecologFileType || req.params.ecologFileType || "";
     const HikvisionIP = req.body.hikvisionIp || req.query.hikvisionIp || req.param.hikvisionIp || req.params.hikvisionIp || "";
-
+    const HikvisionID = req.body.hikvisionID || req.query.hikvisionID || req.param.hikvisionID || req.params.hikvisionID || "";
+    const HikvisionPW = req.body.hikVisionPw || req.query.hikVisionPw || req.param.hikVisionPw || req.params.hikVisionPw || "";
     /** Device Type Mapping */
 
     console.log("parameter device Create : " + OwnerEmail + ", " + SiteID + ', ' + PlotID);
