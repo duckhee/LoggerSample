@@ -36,8 +36,8 @@
                                     <tr>
                                         <td style="width:10px;"><input type="checkbox" name="th_checkAll" id="th_checkAll" onclick="allCheck();"></td>
                                          
-                                         <td>Plot Name</td>
                                          <td>Site Name</td>
+                                         <td>Plot Name</td>
                                          <td>Device Number</td>
                                          <td>Create Date</td>
                                          <td>Update Date</td>
@@ -48,8 +48,8 @@
                                         PlotInfoList.forEach(item=>{ %>
                                             <tr>
                                                 <td><input type="checkbox" name="checkRow" value="<%=item.id%>"></td>
-                                                <td><a href="/admin/Plot/detail?no=<%=item.id%>"><%=item.PlotName%></a></td>
                                                 <td><%=item.dataValues.site.dataValues.name%></td>
+                                                <td><a href="/admin/Plot/detail?no=<%=item.id%>"><%=item.PlotName%></a></td>
                                                 <td><span class="badge bg-light-blue"><%=item.devices.length%></span></td>
                                                 <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()%></td>
                                                 <td><%=item.updatedAt%></td>
@@ -135,8 +135,8 @@
             let txt = "";
             $.each(data, function(idx, obj){
                 txt += "<tr><td><input type='checkbox' name='checkRow' value="+obj.id+"></td>";
-                txt += "<td><a href='/admin/Site/detail?no='"+obj.id+"'>"+obj.PlotName+"</a></td>";
                 txt += "<td>"+obj.site.name+"</td>";
+                txt += "<td><a href='/admin/Site/detail?no='"+obj.id+"'>"+obj.PlotName+"</a></td>";
                 txt += "<td>"+'<span class="badge bg-light-blue">'+obj.devices.length+"</span></td>";
                 txt += "<td>"+new Date(obj.createdAt).getFullYear() + '-' + (new Date(obj.createdAt).getMonth()+1) + '-' + new Date(obj.createdAt).getDate()+":"+new Date(obj.createdAt).getHours()+":"+new Date(obj.createdAt).getMinutes()+"</td>";
                 txt += "<td>"+obj.updatedAt+"</td></tr>";
