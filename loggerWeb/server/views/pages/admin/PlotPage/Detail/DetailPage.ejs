@@ -18,21 +18,22 @@
                                     <div class='form-group'>
                                         <label for='' class='col-xs-2 control-label'>Plot Name</label>
                                         <div class='col-xs-4'>
-                                            <input class='form-control' value='<%=PlotDetailInfo.PlotName%>' disabled>
+                                            <input class='form-control' value='<%=PlotDetailInfo.dataValues.PlotName%>' disabled>
                                         </div>
                                     </div>
                                     <!--./form-group-->
                                     <div class='form-group'>
                                         <label for='' class='col-xs-2 control-label'>Device Number</label>
                                         <div class='col-xs-4'>
-                                            <input class='form-control' value='<%=PlotDetailInfo.DeviceNumber%>' disabled>
+                                            <input class='form-control' value='<%=PlotDetailInfo.dataValues.devices.length%>' disabled>
                                         </div>
                                     </div>
                                     <!--./form-group-->
-                                    <%PlotDetailInfo.DeviceInfo.forEach(Device=>{%>
+                                    <%if(PlotDetailInfo.dataValues.devices){
+                                        PlotDetailInfo.dataValues.devices.forEach(Device=>{%>
                                         <div class='box box-default'>
                                             <div class='box-header with-border'>
-                                                <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style='margin-right:10px;'></i><%=Device.DeviceName%></h3>
+                                                <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style='margin-right:10px;'></i><%=Device.name%></h3>
                                                 <div class='box-tools pull-right'>
                                                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                                 </div>
@@ -66,7 +67,7 @@
                                             </div>
                                             <!--./box-body-->
                                         </div>
-                                <%});}%>
+                                <%});}}%>
                             </div>
                         </div>
                         <!--./box-body-->

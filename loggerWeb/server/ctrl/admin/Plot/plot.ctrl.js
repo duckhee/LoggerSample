@@ -88,26 +88,32 @@ const ListPage = (req, res, next) => {
 
 /** Admin Plot Detail page */
 const DetailPage = (req, res, next) => {
-    let no = req.param.no || req.params.no || req.query.no;
+    let no = req.param.no || req.params.no || req.query.no || "";
     console.log('parameter index ::: ', no);
-    var DeviceSampleData = {
-        DeviceName: 'testingDevice',
-        DeviceType: 'data-tracker',
-        Latitude: '23.00',
-        Longitude: '12.00'
+    if (no === "") {
+        req.flash('message', "Not Null Plot Selecter");
+        return res.redirect('/admin/Plot/list');
+    }
+    let DetailJson = {
+        id: no
     };
-    var DeviceSampleArray = [DeviceSampleData, DeviceSampleData];
-    var PlotSampleData = {
-        PlotName: 'Plot Testing',
-        DeviceNumber: 2,
-        DeviceInfo: DeviceSampleArray
-    };
-    res.render('admin/PlotPage/Detail/DetailPage', {
-        login: TestingLoginData,
-        title: 'Admin Plot Detail Page',
-        PlotDetailInfo: PlotSampleData,
-        _csrf: req.csrfToken()
+
+    AdminPlotDao.DetailPlot(DetailJson).then(result => {
+        console.log('Detail Value ', result);
+
+        return res.render('admin/PlotPage/Detail/DetailPage', {
+            login: TestingLoginData,
+            title: 'Admin Plot Detail Page',
+            PlotDetailInfo: result,
+            _csrf: req.csrfToken()
+        });
+    }).catch(err => {
+        console.log("Admin Plot Ctrl Detail Error code ::: ", err.code);
+        console.log("Admin Plot Ctrl Detail Error ::: ", err);
+        return res.redirect('/admin/Plot/list');
     });
+
+
 };
 
 /** Admin Plot Modify Page */

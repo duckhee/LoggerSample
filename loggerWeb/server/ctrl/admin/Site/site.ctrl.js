@@ -140,23 +140,8 @@ const DetailPage = (req, res, next) => {
     /** Detail Site Dao */
     AdminSiteDao.DetailSite(DetailJson).then(result => {
         console.log('result : ', result.dataValues.plots);
-        var SampleDeviceInfo = {
-            DeviceName: 'Testing',
-            Type: 'Data Tracker'
-        };
-        var PlotDeviceArray = [SampleDeviceInfo, SampleDeviceInfo];
-        var PlotDetailInfo = {
-            PlotName: 'Test Plot',
-            DeviceInfo: PlotDeviceArray
-        };
-        var PlotDetailArray = [PlotDetailInfo, PlotDetailInfo];
-        //TODO Sample Data 
-        var SampleSiteDetailInfo = {
-            Name: 'Testing',
-            PlotNumber: 5,
-            PlotDetailInfo: PlotDetailArray
-        };
-        res.render('admin/SitePage/Detail/DetailPage', {
+
+        return res.render('admin/SitePage/Detail/DetailPage', {
             login: TestingLoginData,
             title: 'Admin Site Detail page',
             SiteDetailInfo: result,

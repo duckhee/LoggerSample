@@ -28,7 +28,7 @@ const CountPlot = () => {
             console.log('Dao Counter Plot Error code ::: ', err.code);
             console.log('Dao Counter Plot Error ::: ', err);
             return reject(err);
-        })
+        });
     });
 };
 
@@ -106,12 +106,25 @@ const PagingPlot = (PlotInfo) => {
 /** Plot Detail */
 const DetailPlot = (PlotInfo) => {
     return new Promise((resolve, reject) => {
+        if (PlotInfo.id === "") {
+            return reject(false);
+        }
         models.plot.findOne({
-
+            where: {
+                id: PlotInfo.id
+            },
+            include: [{
+                model: models.device,
+                order: [
+                    ['createdAt', 'DESC']
+                ],
+            }]
         }).then(result => {
-
+            return resolve(result);
         }).catch(err => {
-
+            console.log('Dao Detail Plot Error code ::: ', err.code);
+            console.log('Dao Detail Plot Error ::: ', err);
+            return reject(err);
         });
     });
 };
