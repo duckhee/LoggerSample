@@ -8,6 +8,17 @@ const RawType = ConfigFile.supportDevice;
 /** Device Detail Middle Connection */
 const RawConnection = require('./device.select.interface');
 
+/**
+ * Raw Value is 
+ * DeviceID
+ * IP
+ * ID
+ * PW
+ * Path
+ * FileType
+ */
+
+
 /** Create Device */
 const CreateDevice = (DeviceInfo) => {
     return new Promise((resolve, reject) => {

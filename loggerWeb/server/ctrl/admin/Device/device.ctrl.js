@@ -1,14 +1,28 @@
 /** Device Dao */
 const Dao = require('../../../dao/admin/Device/index.dao');
 const AdminDeviceDao = Dao();
+
+/**
+ * Raw Value is 
+ * name
+ * PlotIdx
+ * DeviceType
+ * Lat
+ * Lon
+ * IP
+ * ID
+ * PW
+ * Path
+ * FileType
+ */
+
+
 //TODO Session Checking
 //TOdo Delte data just Testing
 var TestingLoginData = {
     userId: 'test',
     name: 'tester'
 };
-/** Device Type Array */
-const DeviceTypes = [];
 
 /** Admin Device Main Page */
 const MainPage = (req, res, next) => {
@@ -24,9 +38,22 @@ const CreatePage = (req, res, next) => {
 };
 /** Admin Device Create Do */
 const CreateDo = (req, res, next) => {
+    /** Get Parameter */
     const OwnerEmail = req.body.SiteOwnerId || req.query.SiteOwnerId || req.param.SiteOwnerId || req.params.SiteOwnerId || '';
     const SiteID = req.body.SiteSelect || req.query.SiteSelect || req.param.SiteSelect || req.params.SiteSelect || '';
     const PlotID = req.body.PlotSelect || req.query.PlotSelect || req.param.PlotSelect || req.params.PlotSelect || "";
+    const DeviceName = req.body.DeviceName || req.query.DeviceName || req.param.DeviceName || req.params.DeviceName || "";
+    const DeviceType = req.body.deviceType || req.query.deviceType || req.param.deviceType || req.params.deviceType || "";
+    const DeviceLat = req.body.lat || req.query.lat || req.param.lat || req.params.lat || '';
+    const DataTrackerIP = req.body.dataTrackerIP || req.query.dataTrackerIP || req.param.dataTrackerIP || req.params.dataTrackerIP || "";
+    const DataTrackerID = req.body.dataTrackerID || req.query.dataTrackerID || req.param.dataTrackerID || req.params.dataTrackerID || "";
+    const DataTrackerPW = req.body.dataTrackerPw || req.query.dataTrackerPw || req.param.dataTrackerPw || req.params.dataTrackerPw || "";
+    const DataTrackerFolder = req.body.dataTrackerFolder || req.query.dataTrackerFolder || req.param.dataTrackerFolder || req.params.dataTrackerFolder || "";
+    const EcologPath = req.body.ecologFTPFolder || req.query.ecologFTPFolder || req.param.ecologFTPFolder || req.params.ecologFTPFolder || "";
+    const EcologType = req.body.ecologFileType || req.query.ecologFileType || req.param.ecologFileType || req.params.ecologFileType || "";
+    const HikvisionIP = req.body.hikvisionIp || req.query.hikvisionIp || req.param.hikvisionIp || req.params.hikvisionIp || "";
+
+    /** Device Type Mapping */
 
     console.log("parameter device Create : " + OwnerEmail + ", " + SiteID + ', ' + PlotID);
     res.redirect('/admin/Device/list');
