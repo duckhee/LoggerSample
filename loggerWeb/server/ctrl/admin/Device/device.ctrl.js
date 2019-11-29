@@ -105,7 +105,15 @@ const CreateDo = (req, res, next) => {
 
 
     console.log("parameter device Create : " + OwnerEmail + ", " + SiteID + ', ' + PlotID+', '+DeviceName+", "+DeviceType+", "+DeviceLat+", "+DeviceLon+", "+GetIP+", "+GetID+", "+GetPW+", "+FolderPath+", "+FileType);
-    res.redirect('/admin/Device/list');
+    AdminDeviceDao.CreateDevice(DeviceJson).then(result=>{
+        console.log("Device Create Success");
+        return res.redirect('/admin/Device/list');
+    }).catch(err=>{
+        console.log("Admin Device Ctrl Create page Error code ::: ", err.code);
+        console.log("Admin Device Ctrl Create page Error ::: ", err);
+        return  res.redirect('/admin/Device/create');
+    })
+    
 };
 /** Admin Device List Page */
 const ListPage = (req, res, next) => {
