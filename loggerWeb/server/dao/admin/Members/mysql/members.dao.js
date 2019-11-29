@@ -67,6 +67,7 @@ const ListUser = (UserInfo) => {
 /** Paging user */
 const PagingUser = (ListInfo) => {
     return new Promise((resolve, reject) => {
+
         /** Count All User first */
         CountUser().then(result => {
             let AllMemberNumber = result;
