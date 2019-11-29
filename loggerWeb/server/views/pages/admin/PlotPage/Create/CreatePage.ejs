@@ -14,14 +14,15 @@
                         </div>
                         <!--./box header-->
                         <div class="box-body">
-                           <form class="form-horizontal">
+                           <form id="createPlot" name="createPlot"class="form-horizontal">
+                                <input type="hidden" id="_csrf" name="_csrf" value ="<%=_csrf%>">
                                 <div class="form-group">
                                     <label for="PlotOwnerId" class="col-sm-2 control-label">Site Owner Id</label>
                                     <div class="col-sm-4">
                                         <input type="text"  name="PlotOwnerId" id="PlotOwnerId" class="form-control" id="SiteOwnerId" placeholder="Site Owner Id ...">
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="hidden" id="IdCheck" value>
+                                        <input type="hidden" id="IdFlag" value>
                                         <button type="button" id="checkingOwner" class="btn btn-default btn-block"><i class="fa fa-fw fa-user" style="margin-right:10px;"></i>Id Check</button>
                                     </div>
                                 </div>
@@ -32,7 +33,8 @@
                                         <input type="text" class="form-control" name="SiteName" id="SiteName" placeholder="Site Name ...">
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="hidden" id="SiteCheck" value>
+                                        <input type="hidden" id="SiteFlag" value>
+                                        <input type="hidden" name="SiteCheckId" id="SiteCheckId" value>
                                         <button type="button" id="checkingSite" class="btn btn-default btn-block"><i class="fa fa-fw fa-inbox" style="margin-right:10px;"></i>Site Name Check</button>
                                     </div>
                                     <div class="col-sm-2">
@@ -84,8 +86,9 @@
     }
     /** Owner Checking */
     function IdCheck(){
-        $("#").click(function(){
-            let getId = $("#").val();
+        $("#checkingOwner").click(function(){
+            let getId = $("#PlotOwnerId").val();
+            /** Empty Check */
             if(!getId){
                 Swal.fire({
                     title:'Plot Owner Not Empty',
@@ -93,10 +96,247 @@
                 });
                 return false;
             }
+            /** Space Value Check */
+            if(getId.indexOf(' ') !== -1){
+                Swal.fire({
+                    title:'Not Use Space Value',
+                    type:'warning'
+                });
+                return false;
+            }
+            /** Email Type Check */
+            if(!validateEmail(getId)){
+                Swal.fire({
+                    title:'Not Email',
+                    type:'warning'
+                });
+                return false;
+            }
+            $.ajaxSetup({
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                }
+            });
+            $.ajax({
+                url:'/admin/Members/userEmail-check',
+                type:'post',
+                dataType:'json',
+                contentType:'application/json',
+                data:JSON.stringify({
+                    'email':getId
+                }),
+                success:function(data){
+                    console.log('Email check success ', data);
+                    if(data === 1){
+                        $("#IdFlag").val(true);
+                        Swal.fire({
+                            title:'Id Check Success',
+                            type:'success'
+                        });
+                        return true;
+                    }else if(data === '-1'){
+                       Swal.fire({
+                            title:'RETRY',
+                            type:'warning'
+                        });
+                        return false;
+
+                    }else{
+                         Swal.fire({
+                            title:'Not Have User',
+                            text:'go to Make User',
+                            type:'warning',
+                            showCancelButton:true
+                        }).then(result=>{
+                            if(result.value){
+                                location.href='/admin/Members/create';
+                            }
+                            return false;
+                        });
+                    }
+                },
+                err:function(request, status, error){
+                    console.log('code : ', request.status);
+                    console.log('message : ', request.responseText);
+                    console.log('status : ', status);
+                    console.log('error ::: ', error);
+                    return false;
+                }
+            })
+            return true;
+        })
+    }
+    /** Site Name check */
+    function SiteCheck(){
+        $("#checkingSite").click(function(){
+            let getIdFlag = $("#IdFlag").val();
+            let getSite = $("#SiteName").val();
+            let SiteCheckId = $("#SiteCheckId").val();
+            /*
+            if(getIdFlag !== 'true'){
+                Swal.fire({
+                    title:'First Id Check',
+                    type:'warning'
+                });
+                return false;
+            }
+            */
+            
+            /** Null value check */
+            if(!getSite){
+                Swal.fire({
+                    title:'Site Name Not Empty',
+                    type:'warning'
+                });
+                return false;
+            }
+
+            /** Space value check */
+            if(getSite.indexOf(' ') !== -1){
+                Swal.fire({
+                    title:"Site Name couldn't Have space value",
+                    type:'warning'
+                });
+                return false;
+            }
+
+            $.ajaxSetup({
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                }
+            });
+            $.ajax({
+                url:'/admin/Site/siteName-check',
+                type:'post',
+                dataType:'json',
+                contentType:'application/json',
+                data:JSON.stringify({
+                    'siteName':getSite,
+                    'SiteCheckId':SiteCheckId
+                }),
+                success:function(data){
+                    console.log('Site Name Check success ', data);
+                    if(data === 0){
+                        Swal.fire({
+                            title:'Not have Site',
+                            type:'warning',
+                            text:'create Site page',
+                            showCancelButton:true,
+                        }).then(result=>{
+                            if(result.value){
+                                location.href = "/admin/Site/create";
+                            }
+                            return false;
+                        })
+                    }else if(data === '-1'){
+                         Swal.fire({
+                            type:'warning',
+                            title:'RETRY'
+                        });
+                        return false;
+                    }else{
+                        console.log('data length : ', data.length);
+                        if(data.length > 1){
+                            let options = {};
+                            data.forEach(item=>{
+                                options[item.id] = item.name + '\t' + item.createdAt
+                            });
+
+                            let check = Swal.fire({
+                                title: 'Select Site',
+                                input: 'select',
+                                inputOptions: options,
+                                showCancelButton: true,
+                                inputValidator: (value) => {
+                                return new Promise((resolve) => {
+                                    $("#SiteFlag").val(true);
+                                    $("#SiteCheckId").val(value)
+                                    resolve();
+                                    });
+                                }
+                            })
+                            if(check){
+                                return true;
+                            }
+                        }else if(data.length === 1){
+                            console.log(data[0].id);
+                            Swal.fire({
+                                title:'Site Name check success',
+                                type:'success',
+                            });
+                            $("#SiteFlag").val(true);
+                            $("#SiteCheckId").val(data[0].id);
+                            return true;
+                        }else{
+                            Swal.fire({
+                                type:'warning',
+                                title:'RETRY'
+                            });
+                            return false;
+                        }
+                       
+                    }
+                },
+                err:function(request, status, error){
+                    console.log('code : ', request.status);
+                    console.log('message : ', request.responseText);
+                    console.log('status : ', status);
+                    console.log('error ::: ', error);
+                    return false;
+                }
+            });
+        });
+    }
+    /** Id Check flag get */
+    function IdCheckFlag(){
+        let flag = $("#IdFlag").val();
+        console.log('id check flag ', flag);
+        if($("#IdFlag").val() === "true"){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /** Site Check flag get */
+    function SiteCheckFlag(){
+        let flag = $("#SiteFlag").val();
+        console.log('id check flag ', flag);
+        let CheckingSite =$("#SiteCheckId").val();
+        if($("#SiteFlag").val() === "true"){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /** Plot Create */
+    function PlotCreate(){
+
+        $("#create").click(function(){
+            let IdFlags = IdCheckFlag();
+            let SiteFlags = SiteCheckFlag();
+            console.log(IdFlags);
+            console.log(SiteFlags);
+            if((IdFlags) && (SiteFlags)){
+                document.createPlot.method = "post";
+                document.createPlot.action = "/admin/Plot/create";
+                document.createPlot.submit();
+            }
         })
     }
 
     /** Owner Check */
-
+    $(document).ready(function(){
+        IdCheck();
+        SiteCheck();
+        PlotCreate();
+        <%if(message.length > 0){%>
+            Swal.fire({
+                title:"<%=message%>",
+                type:'warning'
+            });
+        <%}%>
+    });
     </script>
 </html>

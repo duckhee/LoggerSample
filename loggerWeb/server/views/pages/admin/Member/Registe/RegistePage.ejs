@@ -97,7 +97,7 @@
                 //$("#userEmail").select();
                 return false;
             }
-            if(IdVal.indexOf(' ') >= 0){
+            if(IdVal.indexOf(' ') !== -1){
                 AlertMessage("Not INPUT SPACE FORMAT", "", 'warning');
                 $("#userEmail").focus();
                 //$("#userEmail").select();
@@ -132,6 +132,11 @@
                 $("#userPw").focus();
                 return false;
             }
+            if(PwVal.indexOf(' ') !== -1){
+                AlertMessage("User Password couldn't Use space value", "", "warning");
+                $("userPw").focus();
+                return false;
+            }
             if(PwVal !== CPwVal){
                 AlertMessage("User Password Confirm not match", "", "warning");
                 $("#userConfirmPw").val("");
@@ -150,9 +155,15 @@
                 $("#userName").focus();
                 $("#userName").select();
                 return false;
-            }else{
-                return true;
             }
+            if(NameVal.indexOf(' ') !== -1){
+                AlertMessage("User Name couldn't use space value", "", "warning");
+                $("#userName").focus();
+                $("#userName").select();
+                return false;
+            }
+            return true;
+            
         }
         function EmailCheck(){
             $("#EmailCheck").click(function(){

@@ -5,11 +5,15 @@ const plot = require('../../../../DataBase/models/plot');
 const CreatePlot = (PlotInfo) => {
     return new Promise((resolve, reject) => {
         models.plot.create({
-
+            PlotName: PlotInfo.name,
+            Owner: PlotInfo.owner,
+            SiteIdx: PlotInfo.siteIdx
         }).then(result => {
-
+            return resolve(result);
         }).catch(err => {
-
+            console.log('Dao Plot Create Error code ::: ', err.code);
+            console.log('Dao Plot Create Error ::: ', err);
+            return reject(err);
         });
     });
 };

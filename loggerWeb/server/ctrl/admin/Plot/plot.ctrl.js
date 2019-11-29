@@ -19,12 +19,43 @@ const CreatePage = (req, res, next) => {
     res.render('admin/PlotPage/Create/CreatePage', {
         login: TestingLoginData,
         title: 'Admin Plot Create page',
-        _csrf: req.csrfToken()
+        _csrf: req.csrfToken(),
+        message: req.flash()
     });
 };
 
 /** Admin Plot Create Do */
 const CreateDo = (req, res, next) => {
+    const PlotOwner = req.param.PlotOwnerId || req.params.PlotOwnerId || req.body.PlotOwnerId || req.query.PlotOwnerId || "";
+    const PlotSite = req.param.SiteName || req.params.SiteName || req.body.SiteName || req.query.SiteName || "";
+    const PlotName = req.param.PlotName || req.params.PlotName || req.body.PlotName || req.query.PlotName || "";
+    const SiteIdx = req.param.SiteCheckId || req.params.SiteCheckId || req.body.SiteCheckId || req.query.SiteCheckId || '';
+    console.log('get parameter : ', PlotOwner + ', ' + PlotSite + ', ' + PlotName + ', ' + SiteIdx);
+    /** Make Create Plot Json */
+    if (PlotOwner == "") {
+        req.flash("Msg", "Plot Owner Not Empty");
+        return res.redirect('/admin/Plot/create');
+    }
+    if (SiteIdx === "") {
+        req.flash("Msg", "Plot Site Not Empty");
+        return res.redirect('/admin/Plot/create');
+    }
+    if (PlotName === "") {
+        req.flash("Msg", "Plot Name Not Empty");
+        return res.redirect('/admin/Plot/create');
+    }
+    let CreateJson = {
+        owner: PlotOwner,
+        siteIdx: SiteIdx,
+        name: PlotName
+    };
+    AdminPlotDao.CreatePlot(CreateJson).then(result => {
+        return res.redirect('/admin/Plot/list');
+    }).catch(err => {
+        console.log('Admin Ctrl Create Plot Error code ::: ', err.code);
+        console.log('Admin Ctrl Create Plot Error ::: ', err);
+        return res.redirect('/admin/Plot/create');
+    });
 
 };
 

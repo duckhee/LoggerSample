@@ -188,9 +188,16 @@ const SearchSite = (SiteInfo) => {
 /** Site Name Check */
 const SiteNameCheck = (SiteName) => {
     return new Promise((resolve, reject) => {
-        models.site.count({
+        models.site.findAll({
             where: {
-                name: SiteName
+                name: SiteName,
+            },
+            attributes: ['id', 'name', 'createdAt'],
+            include: {
+                model: models.user,
+                attributes: [
+                    'UserEmail'
+                ]
             }
         }).then(result => {
             return resolve(result);

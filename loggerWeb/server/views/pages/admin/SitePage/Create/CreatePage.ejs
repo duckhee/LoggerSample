@@ -44,7 +44,7 @@
                         <div class="box-footer">
                             <div class='pull-right'>
                                 <button type="button" class="btn btn-flat btn-danger"><i class="fa fa-fw fa-times" style="margin-right:10px;"></i>Cancel</button>
-                                <button type="button" id="create" class="btn btn-flat btn-primary"><i class="fa fa-fw fa-save" style="margin-right:10px;"></i>Create</button>
+                                <button type="button" id="createBtn" class="btn btn-flat btn-primary"><i class="fa fa-fw fa-save" style="margin-right:10px;"></i>Create</button>
                             </div>
                         </div>
                         <!--./box-footer-->
@@ -192,7 +192,8 @@
             }
         }
         function Create(){
-            $("#create").click(function(){
+            $("#createBtn").click(function(){
+                console.log('create button click');
                 if(CreateChecking()){
                     document.create.method="post";
                     document.create.actin="/admin/Site/create";
