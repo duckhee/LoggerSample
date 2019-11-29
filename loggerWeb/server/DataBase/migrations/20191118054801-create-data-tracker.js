@@ -23,6 +23,10 @@ module.exports = {
                 allowNull: false,
             },
             */
+           DataTrackerIP:{
+            type:Sequelize.STRING,
+            allowNull:false
+       },
             DataTrackerId: {
                 type: Sequelize.STRING
             },

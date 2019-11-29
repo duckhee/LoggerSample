@@ -7,7 +7,8 @@ const CreateRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.DataTracker.create({
             /** Create Data Tracker */
-            DeviceIdx:Info.IP,
+            DeviceIdx:Info.DeviceIdx,
+            DataTrackerIP:Info.IP,
             DataTrackerId:Info.ID,
             DataTrackerPw:Info.PW,
             FTPFolder:Info

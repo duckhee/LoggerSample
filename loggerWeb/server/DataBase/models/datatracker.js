@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         */
+       DataTrackerIP:{
+            type:DataTypes.STRING,
+            allowNull:false
+       },
         DataTrackerId: {
             type: DataTypes.STRING,
         },
