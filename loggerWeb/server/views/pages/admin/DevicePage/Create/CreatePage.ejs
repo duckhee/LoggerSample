@@ -48,12 +48,15 @@
                                 <div class="form-group">
                                     <label for="SiteName" class="col-sm-2 control-label">Site Name</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="SiteName" placeholder="Site Name ...">
+                                        <!--<input type="text" class="form-control" id="SiteName" placeholder="Site Name ...">-->
+                                        <select class='form-control' id="SiteSelect" disabled>
+                                            <option>Selected...</option>
+                                        </select>
                                     </div>
                                     <div class="col-sm-4">
                                         <input type="hidden" id="SiteCheck" value>
                                         <input type="hidden" id="SiteId" value>
-                                        <button type="button" id="SiteNameIdBtn" name="SiteNameIdBtn" class="btn btn-default btn-block"><i class="fa fa-inbox" style="margin-right:5px;"></i>Site Name Check</button>
+                                        <!-- <button type="button" id="SiteNameIdBtn" name="SiteNameIdBtn" class="btn btn-default btn-block"><i class="fa fa-inbox" style="margin-right:5px;"></i>Site Name Check</button> -->
                                     </div>
                                     <div class="col-sm-3">
                                         <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-inbox" style="margin-right:5px;"></i>Site Name Check</button>-->
@@ -63,12 +66,15 @@
                                 <div class="form-group">
                                     <label for="PlotName" class="col-sm-2 control-label">Plot Name</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="PlotName" placeholder="Plot Name ...">
+                                        <!--<input type="text" class="form-control" id="PlotName" placeholder="Plot Name ...">-->
+                                        <select class="form-control" id="PlotSelect" disabled>
+                                            <option>Selected...</option>
+                                        </select>
                                     </div>
                                     <div class="col-sm-4">
                                         <input type="hidden" id="PlotCheck" value>
                                         <input type="hidden" id="PlotId" value>
-                                        <button type="button" name="PlotNameIdBtn" id="PlotNameIdBtn" class="btn btn-default btn-block"><i class="fa fa-folder" style="margin-right:5px;"></i>Plot Name Check</button>
+                                        <!-- <button type="button" name="PlotNameIdBtn" id="PlotNameIdBtn" class="btn btn-default btn-block"><i class="fa fa-folder" style="margin-right:5px;"></i>Plot Name Check</button> -->
                                     </div>
                                     <div class="col-sm-3">
                                         <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-folder" style="margin-right:5px;"></i>Plot Name Check</button>-->
@@ -213,6 +219,8 @@
             }
         }());
 
+        let ResultValue;
+
         /** space Check */
         function SpaceCheck(Id){
             let testing =  $(Id).val();
@@ -278,7 +286,7 @@
                     }
                 })
                 $.ajax({
-                    url:'/admin/Members/userEmail-check',
+                    url:'/admin/site/siteName-check',
                     type:'post',
                     contentType:'application/json',
                     data:JSON.stringify({
@@ -286,9 +294,20 @@
                     }),
                     success:function(data){
                         console.log('Email check success value : ', data);
-                        if(data == 1){
+                        if(data.length !== 0){
                             console.log('have user');
+                            $("#SiteSelect").empty();
                             $("#OwnerId").val(true);
+                            let SiteText = '';
+                            SiteText += "<option value>Select options ...</option>";
+                            data.forEach(item=>{
+                                let MakeDate = new Date(item.createdAt).getFullYear() + "-"+(new Date(item.createdAt).getMonth()+1) + "-"+new Date(item.createdAt).getDate() + " : " + new Date(item.createdAt).getHours() + " : " + new Date(item.createdAt).getMinutes();
+                                SiteText += "<option value="+item.id+">Site Name : "+item.name+", Create Time : "+MakeDate+"</option>";
+                            })
+                            console.log('value : '+SiteText);
+                            $("#SiteSelect").prop('disabled', false);
+                            $("#SiteSelect").append(SiteText);
+                            ResultValue = data;
                             Swal.fire({
                                 title:'Success',
                                 type:'success'
@@ -319,6 +338,33 @@
                 });
             });
 
+        }
+
+        /** Site Check change */
+        function SiteSelected(){
+            $("#SiteSelect").change(function(data){
+                console.log('all data : ', ResultValue);
+                let selectValue = this.value;
+                console.log('data', this.value);
+                let PlotsIdx = ResultValue.findIndex((item, idx)=>{
+                     console.log('test : ',item.id);
+                     console.log('aa : ',this.value);
+                    return (item.id == selectValue);
+                });
+                console.log('Testing : ',PlotsIdx);
+                console.log("Testing :: ", ResultValue[PlotsIdx]);
+                $("#PlotSelect").empty();
+                let PlotText = "";
+                PlotText += "<option value>Select options ...</option>";
+                ResultValue[PlotsIdx].plots.forEach(items=>{
+                    let MakeDate = new Date(items.createdAt).getFullYear() + "-"+(new Date(items.createdAt).getMonth()+1) + "-"+new Date(items.createdAt).getDate() + " : " + new Date(items.createdAt).getHours() + " : " + new Date(items.createdAt).getMinutes();
+                    PlotText += "<option value="+items.id+">Plot Name : "+items.PlotName+", Create Time : "+MakeDate+"</option>";
+                });
+                console.log("Plot Text : ", PlotText);
+                $("#PlotSelect").prop("disabled", false);
+                $("#PlotSelect").append(PlotText);
+
+            });
         }
 
         /** Owner Id Flag check */
@@ -639,20 +685,7 @@
                 });
                 return false;
             }
-            if(!SpaceCheck("#SiteName")){
-                Swal.fire({
-                    title:'Site Name Not have space value',
-                    type:'warning'
-                });
-                return false;
-            }
-            if(!SpaceCheck("#PlotName")){
-                Swal.fire({
-                    title:'Plot Name Not have space value',
-                    type:'warning'
-                });
-                return false;
-            }
+            
             if(!SpaceCheck("#DeviceName")){
                 Swal.fire({
                     title:'Device Name Not have space value',
@@ -690,7 +723,7 @@
 
         function Create(){
             $("#Create").click(function(){
-                selectChecking();
+                //selectChecking();
                 if(DeviceValueCheck()){
                     console.log('create');
                     if(DeviceRawCheck()){
@@ -729,6 +762,7 @@
             });
             OwnerCheck();
             SiteNameCheck();
+            SiteSelected();
             PlotNameCheck();
             Create();
         });
