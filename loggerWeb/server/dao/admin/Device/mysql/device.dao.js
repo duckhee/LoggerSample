@@ -16,6 +16,7 @@ const RawConnection = require('./device.select.interface');
  * PW
  * Path
  * FileType
+ * DeviceIdx
  */
 
 
@@ -24,14 +25,15 @@ const CreateDevice = (DeviceInfo) => {
     return new Promise((resolve, reject) => {
         models.device.create({
             /** Create Device Columns */
-            name: '',
-            PlotIdx: '',
-            DeviceType: '',
-            Latitude: '',
-            Longitude: '',
-            FTPFolder: ''
+            name: DeviceInfo.name,
+            PlotIdx: DeviceInfo.PlotIdx,
+            DeviceType: DeviceInfo.DeviceType,
+            Latitude: DeviceInfo.Lat,
+            Longitude: DeviceInfo.Lon,
+            FTPFolder: DeviceInfo.Path
         }).then(DeviceResult => {
-            RawConnection[DeviceType].CreateRaw().then(RawResult => {
+            DeviceInfo.DeviceIdx = DeviceResult.id;
+            RawConnection[DeviceType].CreateRaw(DeviceInfo).then(RawResult => {
                 console.log('Dao create Raw Device Success ::: ', RawResult);
             }).catch(err => {
                 console.log('Raw Dao Device Create Error code ::: ', err.code);

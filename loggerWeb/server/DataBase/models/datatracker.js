@@ -10,10 +10,12 @@ module.exports = (sequelize, DataTypes) => {
             },
             onDelete: 'CASCADE'
         },
+        /*
         ModelName: {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        */
         DataTrackerId: {
             type: DataTypes.STRING,
         },

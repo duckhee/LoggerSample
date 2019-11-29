@@ -7,11 +7,16 @@ const CreateRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.DataTracker.create({
             /** Create Data Tracker */
-
+            DeviceIdx:Info.IP,
+            DataTrackerId:Info.ID,
+            DataTrackerPw:Info.PW,
+            FTPFolder:Info
         }).then(result => {
-
+            return resolve(result);
         }).catch(err => {
-
+            console.log("Raw Dao Device Data Tracker Create Error code ::: ", err.code);
+            console.log("Raw Dao Device Data Tracker Create Error ::: ", err);
+            return reject(err);
         });
     });
 };
@@ -22,12 +27,14 @@ const DeleteRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.DataTracker.destroy({
             where: {
-
+                id:Info
             }
         }).then(result => {
-
+            return resolve(result);
         }).catch(err => {
-
+            console.log("Raw Dao Device Data Tracker Delete Error code ::: ", err.code);
+            console.log("Raw Dao Device Data Tracker Delete Error ::: ", err);
+            return reject(err);
         });
     });
 };
@@ -43,7 +50,9 @@ const DetailRaw = (Info) => {
         }).then(result => {
 
         }).catch(err => {
-
+            console.log("Raw Dao Device Data Tracker Detail Error code ::: ", err.code);
+            console.log("Raw Dao Device Data Tracker Detail Error ::: ", err);
+            return reject(err);
         });
     });
 };
@@ -60,8 +69,18 @@ const ModifyRaw = (Info) => {
         }).then(result => {
 
         }).catch(err => {
-
+            console.log("Raw Dao Device Data Tracker Update Error code ::: ", err.code);
+            console.log("Raw Dao Device Data Tracker Update Error ::: ", err);
+            return reject(err);
         });
+    });
+};
+
+/** List Data Tracker */
+const ListRaw = (Info)=>{
+    console.log('Data Tracker RawDao');
+    return new Promise((resolve, reject)=>{
+
     });
 };
 
@@ -74,7 +93,9 @@ const PagingRaw = (Info) => {
         }).then(result => {
 
         }).catch(err => {
-
+            console.log("Raw Dao Device Data Tracker Page List Error code ::: ", err.code);
+            console.log("Raw Dao Device Data Tracker Page List Error ::: ", err);
+            return reject(err);
         });
     });
 };
@@ -84,5 +105,6 @@ module.exports = {
     DeleteRaw,
     DetailRaw,
     ModifyRaw,
+    ListRaw,
     PagingRaw,
 };

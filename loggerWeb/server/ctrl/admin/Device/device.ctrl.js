@@ -16,6 +16,14 @@ const AdminDeviceDao = Dao();
  * FileType
  */
 
+ /** Empty Check */
+ function EmptyCheck(data){
+     if(data === ""){
+         return true;
+     }else{
+         return false;
+     }
+ }
 
 //TODO Session Checking
 //TOdo Delte data just Testing
@@ -45,18 +53,57 @@ const CreateDo = (req, res, next) => {
     const DeviceName = req.body.DeviceName || req.query.DeviceName || req.param.DeviceName || req.params.DeviceName || "";
     const DeviceType = req.body.deviceType || req.query.deviceType || req.param.deviceType || req.params.deviceType || "";
     const DeviceLat = req.body.lat || req.query.lat || req.param.lat || req.params.lat || '';
-    const DataTrackerIP = req.body.dataTrackerIP || req.query.dataTrackerIP || req.param.dataTrackerIP || req.params.dataTrackerIP || "";
-    const DataTrackerID = req.body.dataTrackerID || req.query.dataTrackerID || req.param.dataTrackerID || req.params.dataTrackerID || "";
-    const DataTrackerPW = req.body.dataTrackerPw || req.query.dataTrackerPw || req.param.dataTrackerPw || req.params.dataTrackerPw || "";
-    const DataTrackerFolder = req.body.dataTrackerFolder || req.query.dataTrackerFolder || req.param.dataTrackerFolder || req.params.dataTrackerFolder || "";
-    const EcologPath = req.body.ecologFTPFolder || req.query.ecologFTPFolder || req.param.ecologFTPFolder || req.params.ecologFTPFolder || "";
-    const EcologType = req.body.ecologFileType || req.query.ecologFileType || req.param.ecologFileType || req.params.ecologFileType || "";
-    const HikvisionIP = req.body.hikvisionIp || req.query.hikvisionIp || req.param.hikvisionIp || req.params.hikvisionIp || "";
-    const HikvisionID = req.body.hikvisionID || req.query.hikvisionID || req.param.hikvisionID || req.params.hikvisionID || "";
-    const HikvisionPW = req.body.hikVisionPw || req.query.hikVisionPw || req.param.hikVisionPw || req.params.hikVisionPw || "";
+    const DeviceLon = req.body.lon || re.query.lon || req.param.lon || req.params.lon || "";
+    const GetIP = req.body.IP || req.query.IP || req.param.IP || req.params.IP || "";
+    const GetID = req.body.ID || req.query.ID || req.param.ID || req.params.ID || "";
+    const GetPW = req.body.Pw || req.query.Pw || req.param.Pw || req.params.Pw || "";
+    const FolderPath = req.body.Folderpath || req.query.Folderpath || req.param.Folderpath || req.params.Folderpath || "";
+    const FileType = req.body.Filetype || req.query.Filetype || req.param.Filetype || req.params.Filetype || "";
+    
     /** Device Type Mapping */
+    let DeviceJson = {};
 
-    console.log("parameter device Create : " + OwnerEmail + ", " + SiteID + ', ' + PlotID);
+    /*
+    if(!EmptyCheck(OwnerEmail)){
+        DeviceJson.UserEmail = OwnerEmail;
+    }
+    if(!EmptyCheck(SiteID)){
+        DeviceJson.SiteID = SiteID;
+    }
+    */
+    if(!EmptyCheck(PlotID)){
+        DeviceJson.PlotIdx = PlotID;
+    }
+    if(!EmptyCheck(DeviceName)){
+        DeviceJson.name = DeviceName;
+    }
+    if(!EmptyCheck(DeviceType)){
+        DeviceJson.DeviceType = DeviceType;
+    }
+    if(!EmptyCheck(DeviceLat)){
+        DeviceJson.Lat = DeviceLat;
+    }
+    if(!EmptyCheck(DeviceLon)){
+        DeviceJson.Lon = DeviceLon;
+    }
+    if(!EmptyCheck(GetIP)){
+        DeviceJson.IP = GetIP;
+    }
+    if(!EmptyCheck(GetID)){
+        DeviceJson.ID = GetID;
+    }
+    if(!EmptyCheck(GetPW)){
+        DeviceJson.PW = GetPW;
+    }
+    if(!EmptyCheck(FolderPath)){
+        DeviceJson.Path = FolderPath;
+    }
+    if(!EmptyCheck(FileType)){
+        DeviceJson.FileType = FileType;
+    }
+
+
+    console.log("parameter device Create : " + OwnerEmail + ", " + SiteID + ', ' + PlotID+', '+DeviceName+", "+DeviceType+", "+DeviceLat+", "+DeviceLon+", "+GetIP+", "+GetID+", "+GetPW+", "+FolderPath+", "+FileType);
     res.redirect('/admin/Device/list');
 };
 /** Admin Device List Page */
