@@ -22,11 +22,14 @@ module.exports = (sequelize, DataTypes) => {
         },
         FTPFolder: {
             type: DataTypes.STRING,
-        }
+        },
+
 
     }, {});
     DataTracker.associate = function(models) {
         // associations can be defined here
+
+        /** Device has One DataTracker */
         DataTracker.belongsTo(models.device, {
             foreignKeyConstraint: true,
             foreignKey: 'id',

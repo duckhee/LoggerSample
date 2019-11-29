@@ -8,6 +8,16 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            DeviceIdx: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: {
+                    model: 'devices',
+                    key: 'id'
+                },
+                onDelete: 'CASCADE'
+            },
+            /*
             CameraIdx: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
@@ -17,6 +27,7 @@ module.exports = {
                 },
                 onDelete: 'CASCADE'
             },
+            */
             ModelName: {
                 type: Sequelize.STRING,
                 allowNull: false,

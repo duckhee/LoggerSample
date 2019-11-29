@@ -1,6 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     const hikvision = sequelize.define('hikvision', {
+        /*
         CameraIdx: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -10,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             onDelete: 'CASCADE'
         },
+        */
         modelName: {
             type: DataTypes.STRING,
             allowNull: false
@@ -22,6 +24,13 @@ module.exports = (sequelize, DataTypes) => {
         },
         FTPFolder: {
             type: DataTypes.STRING
+        },
+        DeviceIdx: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'device',
+                key: 'id'
+            }
         }
     }, {
         /**
@@ -83,7 +92,8 @@ module.exports = (sequelize, DataTypes) => {
     });
     hikvision.associate = function(models) {
         // associations can be defined here
-        hikvision.belongsTo(models.camera, {
+        /** Device has One HikVision */
+        hikvision.belongsTo(models.device, {
             foreignKeyConstraint: true,
             foreignKey: 'id',
             allowNull: false,

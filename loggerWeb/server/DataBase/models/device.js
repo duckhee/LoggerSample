@@ -75,6 +75,21 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             onDelete: 'CASCADE'
         });
+        /** Device Has One Data Tracker */
+        device.hasOne(models.DataTracker, {
+            foreignKey: 'DeviceIdx',
+            targetKey: 'id'
+        });
+        /** Device Has One ecolog  */
+        device.hasOne(models.ecolog, {
+            foreignKey: 'DeviceIdx',
+            targetKey: 'id'
+        });
+        /** Device Has One HikVision Camera  */
+        device.hasOne(models.hikvision, {
+            foreignKey: 'DeviceIdx',
+            targetKey: 'id'
+        });
     };
     return device;
 };

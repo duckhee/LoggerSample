@@ -32,7 +32,7 @@
                         </div>
                         <!--./box header-->
                         <div class="box-body">
-                           <form class="form-horizontal">
+                           <form name="DeviceCreate" class="form-horizontal">
                                 <input type="hidden" id="_csrf" name="_csrf" value ="<%=_csrf%>">
                                 <div class="form-group">
                                     <label for="SiteOwnerId" class="col-sm-2 control-label">Site Owner Id</label>
@@ -49,7 +49,7 @@
                                     <label for="SiteName" class="col-sm-2 control-label">Site Name</label>
                                     <div class="col-sm-4">
                                         <!--<input type="text" class="form-control" id="SiteName" placeholder="Site Name ...">-->
-                                        <select class='form-control' id="SiteSelect" disabled>
+                                        <select class='form-control' name="SiteSelect" id="SiteSelect" disabled>
                                             <option>Selected...</option>
                                         </select>
                                     </div>
@@ -67,7 +67,7 @@
                                     <label for="PlotName" class="col-sm-2 control-label">Plot Name</label>
                                     <div class="col-sm-4">
                                         <!--<input type="text" class="form-control" id="PlotName" placeholder="Plot Name ...">-->
-                                        <select class="form-control" id="PlotSelect" disabled>
+                                        <select class="form-control" name="PlotSelect" id="PlotSelect" disabled>
                                             <option>Selected...</option>
                                         </select>
                                     </div>
@@ -117,7 +117,7 @@
                                     </div>
                                 </div>
                                 <!--./form-group-->
-                                <div class="DataTracker">
+                                <div name="DType" class="DataTracker">
                                     <div class='form-group'>
                                         <label for='dataTrackerIP' class='col-sm-2 control-label'>Data Tracker IP</label>
                                         <div class='col-sm-4'>
@@ -128,62 +128,62 @@
                                     <div class="form-group">
                                         <label for="dataTrackerID" class="col-sm-2 control-label">Data Tracker ID</label>
                                         <div class='col-sm-4'>
-                                            <input type="text" class="form-control" id="dataTrackerID" placeholder="Data Tracker WEB dEX4 id...">
+                                            <input type="text" class="form-control" name="dataTrackerID" id="dataTrackerID" placeholder="Data Tracker WEB dEX4 id...">
                                         </div>
                                     </div>
                                     <!--./form-group-->
                                     <div class="form-group">
                                         <label for='dataTrackerPw' class='col-sm-2 control-label'>Data Tracker Password</label>
                                         <div class='col-sm-4'>
-                                            <input type='password' class='form-control' id="dataTrackerPw" placeholder="Data Tracker WEB dEX4 password ...">
+                                            <input type='password' class='form-control' name="dataTrackerPw" id="dataTrackerPw" placeholder="Data Tracker WEB dEX4 password ...">
                                         </div>
                                     </div>
                                     <!--./form-group-->
                                     <div class="form-group">
                                         <label for='dataTrackerFolder' class='col-sm-2 control-label'>Data Tracker FTP Folder Name</label>
                                         <div class='col-sm-4'>
-                                            <input class='form-control' id='dataTrackerFolder' placeholder="Data Tracker FTP Folder Name...">
+                                            <input class='form-control' name="dataTrackerFolder" id='dataTrackerFolder' placeholder="Data Tracker FTP Folder Name...">
                                         </div>
                                     </div>
                                     <!--./form-group-->
                                 </div>
                                 <!--./data-tracker-->
-                                <div class="ecolog">
+                                <div name="DType" class="ecolog">
                                     <div class='form-group'>
                                         <label for='ecologFTPFolder' class='control-label col-sm-2'>ecolog FTP Folder Name</label>
                                         <div class='col-sm-4'>
-                                            <input class='form-control' id="ecologFTPFolder" placeholder="FTP Folder Name...">
+                                            <input class='form-control' name="ecologFTPFolder" id="ecologFTPFolder" placeholder="FTP Folder Name...">
                                         </div>
                                     </div>
                                     <!--./form-group-->
                                     <div class='form-group'>
                                         <label for='ecologFileType' class='control-label col-sm-2'>ecolog File Type</label>
                                         <div class='col-sm-4'>
-                                            <input class='form-control' id="ecologFileType" placeholder='ecolog File Type...'>
+                                            <input class='form-control' name="ecologFileType" id="ecologFileType" placeholder='ecolog File Type...'>
                                         </div>
                                     </div>
                                     <!--./form-group-->
                                 </div>
                                 <!--./ecolog-->
-                                <div class="HikVision">
+                                <div name="DType" class="HikVision">
                                     <div class='form-group'>
                                         <label for='hikvisionIp' class='col-sm-2 control-label'>HikVision Camera IP</label>
                                         <div class='col-sm-4'>
-                                            <input class='form-control' id="hikvisionIp" placeholder="Input Camera IP...">
+                                            <input class='form-control' name="hikvisionIp" id="hikvisionIp" placeholder="Input Camera IP...">
                                         </div>
                                     </div>
                                     <!--./form-group-->
                                     <div class='form-group'>
                                         <label for='hikvisionID' class='col-sm-2 control-label'>HikVision Camera ID</label>
                                         <div class='col-sm-4'>
-                                            <input class='form-control' id="hikvisionID" placeholder="Input Camera Login ID...">
+                                            <input class='form-control' name="hikvisionID" id="hikvisionID" placeholder="Input Camera Login ID...">
                                         </div>
                                     </div>
                                     <!--./form-group-->
                                     <div class='form-group'>
                                         <label for='hikVisionPw' class='col-sm-2 control-label'>HikVision Camera Password</label>
                                         <div class='col-sm-4'>
-                                            <input class='form-control' id="hikVisionPw" placeholder='Input Camera Login Password...'>
+                                            <input type="password" class='form-control' name="hikVisionPw" id="hikVisionPw" placeholder='Input Camera Login Password...'>
                                         </div>
                                     </div>
                                     <!--./form-group-->
@@ -241,8 +241,8 @@
         /** select check */
         function selectChecking(){
             let value = TypeDevice.getType();
-            let deviceType = $("#deviceType").val();
-            if(value[deviceType]){
+            let deviceTypes = $("#deviceType").val();
+            if(value[deviceTypes]){
                 return true;
             }else{
                 Swal.fire({
@@ -356,6 +356,9 @@
                 $("#PlotSelect").empty();
                 let PlotText = "";
                 PlotText += "<option value>Select options ...</option>";
+                if(!ResultValue[PlotsIdx]){
+                    return $("#PlotSelect").prop('disabled', true);
+                }
                 ResultValue[PlotsIdx].plots.forEach(items=>{
                     let MakeDate = new Date(items.createdAt).getFullYear() + "-"+(new Date(items.createdAt).getMonth()+1) + "-"+new Date(items.createdAt).getDate() + " : " + new Date(items.createdAt).getHours() + " : " + new Date(items.createdAt).getMinutes();
                     PlotText += "<option value="+items.id+">Plot Name : "+items.PlotName+", Create Time : "+MakeDate+"</option>";
@@ -379,273 +382,12 @@
             return false;
         }
 
-        /** Site Name Check */
-        function SiteNameCheck(){
-            $("#SiteNameIdBtn").click(function(){
-                let getSiteValue = $("#SiteName").val();
-                let getSiteId = $("#SiteId").val();
-                console.log("SiteNameIdBtn");
-                console.log('get site value :', getSiteValue );
-                if(!OwnerIdFlagCheck()){
-                    Swal.fire({
-                        title:'Owner Check First',
-                        type:'warning'
-                    });
-                    return false;
-                }
-                if(!getSiteValue){
-                    Swal.fire({
-                        title:'not Site Name Empty',
-                        type:'warning'
-                    });
-                    return false;
-                }
-                console.log(getSiteValue.indexOf(' '));
-                if((getSiteValue.indexOf(' ') > -1) || (getSiteValue.indexOf(' ') == 0)){
-                    Swal.fire({
-                        title:'not Site Name not have space',
-                        type:'warning'
-                    });
-                    return false;
-                }
-
-                $.ajaxSetup({
-                    beforeSend:function(xhr){
-                        xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
-                    }
-                });
-                $.ajax({
-                    url:'/admin/Site/siteName-check',
-                    type:'post',
-                    dataType:'json',
-                    contentType:'application/json',
-                    data:JSON.stringify({
-                        'siteName':getSiteValue,
-                        'SiteCheckId':getSiteId
-                    }),
-                    success:function(data){
-                        console.log('Site Name Check success ', data);
-                        if(data === 0){
-                            Swal.fire({
-                                title:'Not have Site',
-                                type:'warning',
-                                text:'create Site page',
-                                showCancelButton:true,
-                            }).then(result=>{
-                                if(result.value){
-                                    location.href = "/admin/Site/create";
-                                }
-                                return false;
-                            })
-                        }else if(data === '-1'){
-                            Swal.fire({
-                                type:'warning',
-                                title:'RETRY'
-                            });
-                            return false;
-                        }else{
-                            console.log('data length : ', data.length);
-                            if(data.length > 1){
-                                let options = {};
-                                data.forEach(item=>{
-                                    let MakeDate = new Date(item.createdAt).getFullYear() + "-"+(new Date(item.createdAt).getMonth()+1) + "-"+new Date(item.createdAt).getDate() + " : " + new Date(item.createdAt).getHours() + " : " + new Date(item.createdAt).getMinutes();
-                                    options[item.id] = "Owner Email : "+item.user.UserEmail + ", Site Name :  " +item.name + ', Create Time : ' + MakeDate;
-                                });
-                                let check = Swal.fire({
-                                    title: 'Select Site',
-                                    input: 'select',
-                                    inputOptions: options,
-                                    showCancelButton: true,
-                                    inputValidator: (value) => {
-                                        return new Promise((resolve) => {
-                                        $("#SiteCheck").val(true);
-                                        $("#SiteId").val(value)
-                                        resolve();
-                                        });
-                                    }
-                                })
-                                if(check){
-                                    return true;
-                                }
-                            }else if(data.length === 1){
-                                console.log(data[0].id);
-                                Swal.fire({
-                                    title:'Site Name check success',
-                                    type:'success',
-                                });
-                                $("#SiteCheck").val(true);
-                                $("#SiteId").val(data[0].id);
-                                return true;
-                            }else{
-                                Swal.fire({
-                                    type:'warning',
-                                    title:'RETRY'
-                                });
-                                return false;
-                            }
-                        }
-                    },
-                    err:function(request, status, error){
-                        console.log('code : ', request.status);
-                        console.log('message : ', request.responseText);
-                        console.log('status : ', status);
-                        console.log('error ::: ', error);
-                        return false;
-                    }
-                });
-            });
-        }
-
-        /** Site Name Flag Check */
-        function SiteNameFlagCheck(){
-            let SiteNameFlag = $("#SiteCheck").val();
-            let SiteIdFlag = $("#SiteId").val();
-            if((SiteNameFlag === "true") &&(SiteIdFlag !== "")){
-                return true;
-            }
-            return false;
-        }
-
-        /** Plot Name Check */
-        function PlotNameCheck(){
-            $("#PlotNameIdBtn").click(function(){
-                let getPlotName = $("#PlotName").val();
-                let getPlotId = $("#PlotId").val();
-                let getSiteId =$("#SiteId").val();
-                if(!OwnerIdFlagCheck()){
-                    Swal.fire({
-                        title:'Owner Check First',
-                        type:'warning'
-                    });
-                    return false;
-                }
-                if(!SiteNameFlagCheck()){
-                    Swal.fire({
-                        title:'Site Check First',
-                        type:'warning'
-                    });
-                    return false;
-                }
-                if(!getPlotName){
-                    Swal.fire({
-                        title:'Not Empty Plot Name',
-                        type:'warning'
-                    });
-                    return false;
-                }
-
-                if(getPlotName.indexOf(' ') > -1 || getPlotName.indexOf(' ' ) == 0){
-                    Swal.fire({
-                        title:'Plot Name not have space',
-                        type:'warning'
-                    });
-                    return false;
-                }
-                $.ajaxSetup({
-                    beforeSend:function(xhr){
-                        xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
-                    }
-                });
-                $.ajax({
-                    url:'/admin/Plot/plotName-check',
-                    type:'post',
-                    dataType:'json',
-                    contentType:'application/json',
-                    data:JSON.stringify({
-                        "plotName":getPlotName,
-                        "plotId":getPlotId,
-                        "siteId":getSiteId
-                    }),
-                    success:function(data){
-                        if(data === 0){
-                            $("#SiteId").val("");
-                            Swal.fire({
-                                title:'Not have plot',
-                                type:'warning',
-                                text:'Create Site page',
-                                showCancelButton:true
-                            }).then(result=>{
-                                if(result.value){
-                                    location.href = "/admin/Plot/create";
-                                }
-                                return false;
-                            })
-                        }else if(data === "-1"){
-                            Swal.fire({
-                                type:'warning',
-                                title:'RETRY'
-                            });
-                            return false;
-                        }else{
-                            console.log('data length : ',data.length);
-                            if(data.length > 1){
-                                let options = {};
-                                data.forEach(item =>{
-                                    let MakeDate = new Date(item.createdAt).getFullYear() + "-"+(new Date(item.createdAt).getMonth()+1) + "-"+new Date(item.createdAt).getDate() + " : " + new Date(item.createdAt).getHours() + " : " + new Date(item.createdAt).getMinutes();
-                                    options[item.id] = "Owner Email : " + item.site.user.UserEmail + ", Site Name : "+item.site.name+", Plot Name : "+item.PlotName + ", Create Time : "+MakeDate;
-                                });
-
-                                let check = Swal.fire({
-                                    title:"Select Plot",
-                                    input:'select',
-                                    inputOptions:options,
-                                    showCancelButton:true,
-                                    inputValidator:(value)=>{
-                                        return new Promise(resolve=>{
-                                            $("#PlotCheck").val(true);
-                                            $("#PlotId").val(value);
-                                            resolve();
-                                        });
-                                    }
-                                });
-                                if(check){
-                                    return true;
-                                }
-                            }else if(data.length === 1){
-                                console.log(data[0].id);
-                                Swal.fire({
-                                    title:'Plot Name Check success',
-                                    type:'success',
-                                });
-                                $("#PlotCheck").val(true);
-                                $("#PlotId").val(data[0].id);
-                                return true;
-                            }else{
-                                Swal.fire({
-                                    title:'RETRY',
-                                    type:'warning'
-                                });
-                                return false;
-                            }
-                        }
-                        
-                    },
-                    err:function(request, status, error){
-                        console.log('code : ', request.status);
-                        console.log('message : ', request.responseText);
-                        console.log('status : ', status);
-                        console.log('error ::: ', error);
-                        return false;
-                    }
-                });
-            });
-        }
-
-        /** Plot Name Flag Check */
-        function PlotNameFlagCheck(){
-            let PlotFlag = $("#PlotCheck").val();
-            let PlotNameFlag = $("#PlotId").val();
-            if((PlotFlag === "true") || PlotNameFlag !== ""){
-                return true;
-            }
-            return false;
-        }
 
         /** function Device Wrong Check */
         function DeviceValueCheck(){
             let OwnerId = $("#SiteOwnerId").val();
-            let SiteName = $("#SiteName").val();
-            let PlotName = $("#PlotName").val();
+            let SiteName = $("#SiteSelect option:selected").val();
+            let PlotName = $("#PlotSelect option:selected").val();
             let DeviceName = $("#DeviceName").val();
             let latitude = $("#lat").val();
             let longitude = $("#lon").val();
@@ -659,14 +401,14 @@
             }
             if(SiteName === ""){
                 Swal.fire({
-                    title:"Site Name Not Empty",
+                    title:"Site Name Not Select",
                     type:'warning'
                 });
                 return false;
             }
             if(PlotName === ""){
                 Swal.fire({
-                    title:'Plot Name Not Empty',
+                    title:'Plot Name Not Select',
                     type:'warning'
                 });
                 return false;
@@ -685,7 +427,6 @@
                 });
                 return false;
             }
-            
             if(!SpaceCheck("#DeviceName")){
                 Swal.fire({
                     title:'Device Name Not have space value',
@@ -696,43 +437,100 @@
             return true;
         }
 
+        /** null check */
+        function ValueNull(value){
+            if(value === ""){
+                console.log('value is ', value);
+                return true;
+            }
+            if(!value){
+                console.log('value is ', value);
+                return true;
+            }
+            return false;
+        }
+
+        
+
         /** function Detail Value Check */
         function DeviceRawCheck(){
-            let TypeValue = TypeDevice.getType().Types;
             let DeviceType = $("#deviceType option:selected").val();
-            console.log('value type : ', DeviceType);
-            TypeValue.forEach(item=>{
-                if(item === "DataTracker"){
+                if(DeviceType === "DataTracker"){
+                    console.log('value type : ', DeviceType);
                     let DataTrackerIP = $("#dataTrackerIP").val();
                     let DataTrackerID = $("#dataTrackerID").val();
                     let DataTrackerPw = $("#dataTrackerPw").val();
                     let DataTrackerPath = $("#dataTrackerFolder").val();
+                    if(ValueNull(DataTrackerIP)){
+                        Swal.fire({
+                            title:"Input DataTracker IP",
+                            type:'warning'
+                        });
+                        return false;
+                    }
+                    if(ValueNull(DataTrackerPath)){
+                        Swal.fire({
+                            title:'Input Data Tracker FTP Server Path',
+                            type:'warning'
+                        });
+                        return false;
+                    }
+                    if(!ValueNull(dataTrackerID) && (dataTrackerID.indexOf(' ') !== 0) && (dataTrackerID.indexOf(' ') !== -1)){
+                        if(ValueNull(DataTrackerPw)){
+                            Swal.fire({
+                                title:'Input Data Tracker Password',
+                                type:'warning'
+                            });
+                            return false;
+                        }
+                    }
+                    return true;
                 }
-                if(item === "ecolog"){
+                if(DeviceType === "ecolog"){
+                    console.log('value type : ', DeviceType);
                     let EcologPath = $("#ecologFTPFolder").val();
                     let EcologFile = $("#ecologFileType").val();
+                    return true;
                 }
-                if(item === "HikVision"){
+                if(DeviceType === "HikVision"){
+                    console.log('value type : ', DeviceType);
                     let HikVisionIp = $("#hikvisionIp").val();
                     let HikVisionId = $("#hikvisionID").val();
                     let HikVisionPw = $("#hikVisionPw").val();
+
+                    if(ValueNull(HikVisionIp)){
+                        Swal.fire({
+                            title:'Input HikVision Ip',
+                            type:'warning',
+                        });
+                        return false;
+                    }
+                    if(ValueNull(HikVisionId)){
+                        Swal.fire({
+                            title:'Input HikVision Id',
+                            type:'warning'
+                        });
+                        return false;
+                    }
+                    if(ValueNull(HikVisionPw)){
+                        Swal.fire({
+                            title:'Input HikVision Password',
+                            type:'warning'
+                        });
+                        return false;
+                    }
+                    return true;
                 }
-            })
-            return true;
         }
 
         function Create(){
             $("#Create").click(function(){
                 //selectChecking();
-                if(DeviceValueCheck()){
+                if(DeviceValueCheck() && selectChecking() && DeviceRawCheck()){
                     console.log('create');
-                    if(DeviceRawCheck()){
-                        console.log('create');
-                    }else{
-                        console.log('not create');
-                    }
-                }else{
-                    console.log('not create');
+                    document.DeviceCreate.action = "/admin/Device/create";
+                    document.DeviceCreate.method = "post";
+                    document.DeviceCreate.submit();
                 }
             });
         }
@@ -761,9 +559,7 @@
                 }
             });
             OwnerCheck();
-            SiteNameCheck();
             SiteSelected();
-            PlotNameCheck();
             Create();
         });
     </script>

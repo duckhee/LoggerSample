@@ -4,9 +4,6 @@ const ConfigFile = require('../../../../../config/config.json');
 const DeviceTypes = ConfigFile.supportDevice;
 
 
-
-
-
 /** Dao Device Support Json Type */
 const RawConnection = {
     "DataTracker": function() {
@@ -29,17 +26,17 @@ const RawConnection = {
 /** Dao Device Support Function Type  */
 const RawDevice = (Type) => {
 
-    if (DeviceTypes[Type] && Type === 'DataTracker') {
+    if (DeviceTypes[Type] === 'DataTracker') {
         console.log("Set Data-Tracker Dao");
         const DataTrackerDao = require('./DataTracker/datatracker.dao');
         return DataTrackerDao;
     }
-    if (DeviceTypes[Type] && Type === "ecolog") {
+    if (DeviceTypes[Type] === "ecolog") {
         console.log("Set Ecolog Dao");
         const EcologDao = require('./ecolog/ecolog.dao');
         return EcologDao;
     }
-    if (DeviceTypes[Type] && Type === "HikVision") {
+    if (DeviceTypes[Type] === "HikVision") {
         console.log("Set HikVision Dao");
         const HikVisionDao = require("./HikVision/HikVision.dao");
         return HikVisionDao;
@@ -49,7 +46,7 @@ const RawDevice = (Type) => {
 
     } else {
         console.log('Failed Connection Dao Device Type : ', Type);
-        throw new Error("Not Support Device ", Type);
+        return new Error("Not Support Device ", Type);
     }
 };
 

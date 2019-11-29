@@ -1,3 +1,6 @@
+/** Device Dao */
+const Dao = require('../../../dao/admin/Device/index.dao');
+const AdminDeviceDao = Dao();
 //TODO Session Checking
 //TOdo Delte data just Testing
 var TestingLoginData = {
@@ -21,21 +24,25 @@ const CreatePage = (req, res, next) => {
 };
 /** Admin Device Create Do */
 const CreateDo = (req, res, next) => {
+    const OwnerEmail = req.body.SiteOwnerId || req.query.SiteOwnerId || req.param.SiteOwnerId || req.params.SiteOwnerId || '';
+    const SiteID = req.body.SiteSelect || req.query.SiteSelect || req.param.SiteSelect || req.params.SiteSelect || '';
+    const PlotID = req.body.PlotSelect || req.query.PlotSelect || req.param.PlotSelect || req.params.PlotSelect || "";
+
+    console.log("parameter device Create : " + OwnerEmail + ", " + SiteID + ', ' + PlotID);
     res.redirect('/admin/Device/list');
 };
 /** Admin Device List Page */
 const ListPage = (req, res, next) => {
     /** Get Page Info */
-    var page = req.param('page');
-    var keyword = req.param('keyword');
+
 
     /** Index page Number */
     var pageNumber = 1;
     /** Make Send Meber Paging Dao */
     var PageInfo = {
-        page: page,
+        page: 1,
         pageNumber: pageNumber,
-        keyword: keyword
+        keyword: 'keyword'
     };
 
     var SampleDeviceInfo = {
