@@ -205,13 +205,25 @@
     </body>
     <script>
         let TypeDevice = (function(){
-            const _deviceType = { 'DataTracker':true, 'ecolog':true,'HikVision':true };
+            const _deviceType = { 'Types':['DataTracker', 'ecolog', 'HikVision'],'DataTracker':true, 'ecolog':true,'HikVision':true };
             return {
                 getType:function(){
                     return _deviceType;
                 }
             }
         }());
+
+        /** space Check */
+        function SpaceCheck(Id){
+            let testing =  $(Id).val();
+            console.log("index ", testing);
+            if(($(Id).val().indexOf(' ') > -1) || $(Id).val().indexOf(' ') === 0){
+                
+                return false;
+            }
+            return true;
+        }
+
          /** Email checking */
         function validateEmail(email) {
             let re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
@@ -311,12 +323,14 @@
 
         /** Owner Id Flag check */
         function OwnerIdFlagCheck(){
-            let IDFlag = $("OwnerId").val();
+            let IDFlag = $("#OwnerId").val();
             let SiteOwner = $("#SiteOwnerId").val();
-            if(IDFlag !== "true"){
-                return false;
+            console.log("ID FLAG", IDFlag+", "+SiteOwner);
+            if(IDFlag === "true"){
+                console.log("ID FLAG !!", IDFlag+", "+SiteOwner);
+                return true;
             }
-            return true;
+            return false;
         }
 
         /** Site Name Check */
@@ -326,6 +340,13 @@
                 let getSiteId = $("#SiteId").val();
                 console.log("SiteNameIdBtn");
                 console.log('get site value :', getSiteValue );
+                if(!OwnerIdFlagCheck()){
+                    Swal.fire({
+                        title:'Owner Check First',
+                        type:'warning'
+                    });
+                    return false;
+                }
                 if(!getSiteValue){
                     Swal.fire({
                         title:'not Site Name Empty',
@@ -432,10 +453,11 @@
         /** Site Name Flag Check */
         function SiteNameFlagCheck(){
             let SiteNameFlag = $("#SiteCheck").val();
-            if(SiteNameFlag !== "true"){
-                return false;
+            let SiteIdFlag = $("#SiteId").val();
+            if((SiteNameFlag === "true") &&(SiteIdFlag !== "")){
+                return true;
             }
-            return true;
+            return false;
         }
 
         /** Plot Name Check */
@@ -443,6 +465,21 @@
             $("#PlotNameIdBtn").click(function(){
                 let getPlotName = $("#PlotName").val();
                 let getPlotId = $("#PlotId").val();
+                let getSiteId =$("#SiteId").val();
+                if(!OwnerIdFlagCheck()){
+                    Swal.fire({
+                        title:'Owner Check First',
+                        type:'warning'
+                    });
+                    return false;
+                }
+                if(!SiteNameFlagCheck()){
+                    Swal.fire({
+                        title:'Site Check First',
+                        type:'warning'
+                    });
+                    return false;
+                }
                 if(!getPlotName){
                     Swal.fire({
                         title:'Not Empty Plot Name',
@@ -470,10 +507,72 @@
                     contentType:'application/json',
                     data:JSON.stringify({
                         "plotName":getPlotName,
-                        "plotId":getPlotId
+                        "plotId":getPlotId,
+                        "siteId":getSiteId
                     }),
                     success:function(data){
-                        console.log(data);
+                        if(data === 0){
+                            $("#SiteId").val("");
+                            Swal.fire({
+                                title:'Not have plot',
+                                type:'warning',
+                                text:'Create Site page',
+                                showCancelButton:true
+                            }).then(result=>{
+                                if(result.value){
+                                    location.href = "/admin/Plot/create";
+                                }
+                                return false;
+                            })
+                        }else if(data === "-1"){
+                            Swal.fire({
+                                type:'warning',
+                                title:'RETRY'
+                            });
+                            return false;
+                        }else{
+                            console.log('data length : ',data.length);
+                            if(data.length > 1){
+                                let options = {};
+                                data.forEach(item =>{
+                                    let MakeDate = new Date(item.createdAt).getFullYear() + "-"+(new Date(item.createdAt).getMonth()+1) + "-"+new Date(item.createdAt).getDate() + " : " + new Date(item.createdAt).getHours() + " : " + new Date(item.createdAt).getMinutes();
+                                    options[item.id] = "Owner Email : " + item.site.user.UserEmail + ", Site Name : "+item.site.name+", Plot Name : "+item.PlotName + ", Create Time : "+MakeDate;
+                                });
+
+                                let check = Swal.fire({
+                                    title:"Select Plot",
+                                    input:'select',
+                                    inputOptions:options,
+                                    showCancelButton:true,
+                                    inputValidator:(value)=>{
+                                        return new Promise(resolve=>{
+                                            $("#PlotCheck").val(true);
+                                            $("#PlotId").val(value);
+                                            resolve();
+                                        });
+                                    }
+                                });
+                                if(check){
+                                    return true;
+                                }
+                            }else if(data.length === 1){
+                                console.log(data[0].id);
+                                Swal.fire({
+                                    title:'Plot Name Check success',
+                                    type:'success',
+                                });
+                                $("#PlotCheck").val(true);
+                                $("#PlotId").val(data[0].id);
+                                return true;
+                            }else{
+                                Swal.fire({
+                                    title:'RETRY',
+                                    type:'warning'
+                                });
+                                return false;
+                            }
+                        }
+                        
                     },
                     err:function(request, status, error){
                         console.log('code : ', request.status);
@@ -482,31 +581,125 @@
                         console.log('error ::: ', error);
                         return false;
                     }
-                })
+                });
             });
         }
 
         /** Plot Name Flag Check */
         function PlotNameFlagCheck(){
+            let PlotFlag = $("#PlotCheck").val();
+            let PlotNameFlag = $("#PlotId").val();
+            if((PlotFlag === "true") || PlotNameFlag !== ""){
+                return true;
+            }
+            return false;
+        }
 
+        /** function Device Wrong Check */
+        function DeviceValueCheck(){
+            let OwnerId = $("#SiteOwnerId").val();
+            let SiteName = $("#SiteName").val();
+            let PlotName = $("#PlotName").val();
+            let DeviceName = $("#DeviceName").val();
+            let latitude = $("#lat").val();
+            let longitude = $("#lon").val();
+            console.log('device value : ' + OwnerId+", " +SiteName+", "+PlotName + ", " + DeviceName+', '+latitude+', '+longitude);
+            if(OwnerId === ""){
+                Swal.fire({
+                    title:'Not Owner Id Not Empty',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(SiteName === ""){
+                Swal.fire({
+                    title:"Site Name Not Empty",
+                    type:'warning'
+                });
+                return false;
+            }
+            if(PlotName === ""){
+                Swal.fire({
+                    title:'Plot Name Not Empty',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(DeviceName === ""){
+                Swal.fire({
+                    title:'Device Name Not Empty',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(!SpaceCheck("#SiteOwnerId")){
+                Swal.fire({
+                    title:'Owner Id Not have space value',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(!SpaceCheck("#SiteName")){
+                Swal.fire({
+                    title:'Site Name Not have space value',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(!SpaceCheck("#PlotName")){
+                Swal.fire({
+                    title:'Plot Name Not have space value',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(!SpaceCheck("#DeviceName")){
+                Swal.fire({
+                    title:'Device Name Not have space value',
+                    type:'warning'
+                });
+                return false;
+            }
+            return true;
         }
 
         /** function Detail Value Check */
         function DeviceRawCheck(){
-
+            let TypeValue = TypeDevice.getType().Types;
+            let DeviceType = $("#deviceType option:selected").val();
+            console.log('value type : ', DeviceType);
+            TypeValue.forEach(item=>{
+                if(item === "DataTracker"){
+                    let DataTrackerIP = $("#dataTrackerIP").val();
+                    let DataTrackerID = $("#dataTrackerID").val();
+                    let DataTrackerPw = $("#dataTrackerPw").val();
+                    let DataTrackerPath = $("#dataTrackerFolder").val();
+                }
+                if(item === "ecolog"){
+                    let EcologPath = $("#ecologFTPFolder").val();
+                    let EcologFile = $("#ecologFileType").val();
+                }
+                if(item === "HikVision"){
+                    let HikVisionIp = $("#hikvisionIp").val();
+                    let HikVisionId = $("#hikvisionID").val();
+                    let HikVisionPw = $("#hikVisionPw").val();
+                }
+            })
+            return true;
         }
 
         function Create(){
             $("#Create").click(function(){
-                let value = TypeDevice.getType();
-                let deviceType = $("#deviceType").val();
-                if(value[deviceType]){
-
+                selectChecking();
+                if(DeviceValueCheck()){
+                    console.log('create');
+                    if(DeviceRawCheck()){
+                        console.log('create');
+                    }else{
+                        console.log('not create');
+                    }
                 }else{
-                    Swal.fire({
-                        title:'Select Device Type',
-                        type:'warning',
-                    });
+                    console.log('not create');
                 }
             });
         }
@@ -526,7 +719,7 @@
                     $(".ecolog").css('display', 'block');
                 }else if(value === 'HikVision'){
                     $(".DataTracker").css('display', 'none');
-                    $(".EcoLog").css('display', 'none');
+                    $(".ecolog").css('display', 'none');
                     $(".HikVision").css('display', 'block');
                 }else{
                     $(".DataTracker").css('display', 'none');

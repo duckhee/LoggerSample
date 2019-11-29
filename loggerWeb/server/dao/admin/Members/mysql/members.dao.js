@@ -165,10 +165,10 @@ const DeleteUser = (UserInfo) => {
 /** User Email Check */
 const EmailCheckUser = (Email) => {
     return new Promise((resolve, reject) => {
-        models.user.count({
+        models.user.findAll({
             where: {
                 UserEmail: Email
-            }
+            },
         }).then(result => {
             return resolve(result);
         }).catch(err => {

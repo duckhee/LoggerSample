@@ -207,7 +207,6 @@ const EmailCheck = (req, res, next) => {
     console.log('user Email : ', UserEmail);
     AdminMemberDao.EmailCheckUser(UserEmail).then(result => {
         console.log('Email Check : ', result);
-
         if (result === 0) {
             console.log('not have user email');
             res.json(0);

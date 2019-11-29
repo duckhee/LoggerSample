@@ -184,12 +184,15 @@ const PlotNameCheck = (PlotName) => {
     return new Promise((resolve, reject) => {
         models.plot.findAll({
             where: {
-                PlotName: PlotName
+                PlotName: PlotName.name
             },
             attributes: ['id', 'PlotName', 'createdAt'],
             include: {
                 model: models.site,
                 attributes: ['name', 'id'],
+                where: {
+                    id: PlotName.SiteIdx
+                },
                 include: {
                     model: models.user,
                     attributes: ['UserEmail']

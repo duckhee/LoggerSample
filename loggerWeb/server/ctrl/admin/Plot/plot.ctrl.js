@@ -167,8 +167,19 @@ const DeleteDo = (req, res, next) => {
 const NameCheck = (req, res, next) => {
     console.log('Plot Name Check');
     const PlotName = req.body.plotName || req.query.plotName || req.param.plotName || req.params.plotName || "";
-    console.log("Plot Name : ", PlotName);
-    AdminPlotDao.PlotNameCheck(PlotName).then(result => {
+    const SiteId = req.body.siteId || req.query.siteId || req.param.siteId || req.params.siteId || "";
+    console.log("Plot Name : ", PlotName + ", SiteId : " + SiteId);
+    if (PlotName === "") {
+        return res.json('-1');
+    }
+    if (SiteId === "") {
+        return res.json('-1');
+    }
+    let CheckJson = {
+        name: PlotName,
+        SiteIdx: SiteId
+    };
+    AdminPlotDao.PlotNameCheck(CheckJson).then(result => {
         if (result.length === 0) {
             console.log('Not Have Plot');
             return res.json(0);

@@ -193,13 +193,17 @@ const SiteNameCheck = (SiteName) => {
                 name: SiteName,
             },
             attributes: ['id', 'name', 'createdAt'],
-            include: {
+            include: [{
                 model: models.user,
                 attributes: [
                     'UserEmail'
                 ]
-            }
+            }, {
+                model: models.plot,
+                attributes: ['id', 'PlotName', 'createdAt']
+            }]
         }).then(result => {
+            console.log('result : ', result)
             return resolve(result);
         }).catch(err => {
             console.log('Dao Checking Site Name Error code ::: ', err.code);

@@ -31,6 +31,15 @@
                                     <label for="SiteName" class="col-sm-2 control-label">Site Name</label>
                                     <div class="col-sm-4">
                                         <input type="text" class="form-control" name="SiteName" id="SiteName" placeholder="Site Name ...">
+                                        <!--
+                                        <select class="form-control">
+                                            <option>option 1</option>
+                                            <option>option 2</option>
+                                            <option>option 3</option>
+                                            <option>option 4</option>
+                                            <option>option 5</option>
+                                        </select>
+                                        -->
                                     </div>
                                     <div class="col-sm-4">
                                         <input type="hidden" id="SiteFlag" value>
@@ -172,7 +181,7 @@
             let getIdFlag = $("#IdFlag").val();
             let getSite = $("#SiteName").val();
             let SiteCheckId = $("#SiteCheckId").val();
-            /*
+            
             if(getIdFlag !== 'true'){
                 Swal.fire({
                     title:'First Id Check',
@@ -180,7 +189,7 @@
                 });
                 return false;
             }
-            */
+            
             
             /** Null value check */
             if(!getSite){
