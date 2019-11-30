@@ -3,7 +3,7 @@ const DataTracker = require('../../../../../DataBase/models/datatracker');
 
 /** Create Data Tracker */
 const CreateRaw = (Info) => {
-    console.log('Data Tracker RawDao');
+    console.log('Data Tracker RawDao', Info);
     return new Promise((resolve, reject) => {
         models.DataTracker.create({
             /** Create Data Tracker */
@@ -11,7 +11,7 @@ const CreateRaw = (Info) => {
             DataTrackerIP: Info.IP,
             DataTrackerId: Info.ID,
             DataTrackerPw: Info.PW,
-            FTPFolder: Info
+            FTPFolder: Info.Path
         }).then(result => {
             return resolve(result);
         }).catch(err => {

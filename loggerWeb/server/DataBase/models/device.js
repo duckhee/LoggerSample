@@ -71,7 +71,8 @@ module.exports = (sequelize, DataTypes) => {
         /** Plot have many Device */
         device.belongsTo(models.plot, {
             foreignKeyConstraint: true,
-            foreignKey: 'id',
+            foreignKey: 'PlotIdx',
+            targetKey: 'id',
             allowNull: false,
             onDelete: 'CASCADE'
         });

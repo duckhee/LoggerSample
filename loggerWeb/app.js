@@ -38,9 +38,16 @@ app.set('view engine', 'ejs');
 /** security helmet middleware */
 app.disable('x-power-by');
 app.use(helmet());
+/** Security cache */
 app.use(helmet.noCache());
+/** Security xx filtering */
 app.use(helmet.xssFilter());
+/** Security */
 app.use(helmet.frameguard());
+/** Security */
+app.use(helmet.hidePoweredBy());
+/** Security */
+app.use(helmet.noSniff());
 
 app.use(logger('dev'));
 app.use(express.json());

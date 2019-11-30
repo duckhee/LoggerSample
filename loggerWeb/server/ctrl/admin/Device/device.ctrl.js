@@ -54,7 +54,7 @@ const CreateDo = (req, res, next) => {
     const DeviceName = req.body.DeviceName || req.query.DeviceName || req.param.DeviceName || req.params.DeviceName || "";
     const DeviceType = req.body.deviceType || req.query.deviceType || req.param.deviceType || req.params.deviceType || "";
     const DeviceLat = req.body.lat || req.query.lat || req.param.lat || req.params.lat || '';
-    const DeviceLon = req.body.lon || re.query.lon || req.param.lon || req.params.lon || "";
+    const DeviceLon = req.body.lon || req.query.lon || req.param.lon || req.params.lon || "";
     const GetIP = req.body.IP || req.query.IP || req.param.IP || req.params.IP || "";
     const GetID = req.body.ID || req.query.ID || req.param.ID || req.params.ID || "";
     const GetPW = req.body.Pw || req.query.Pw || req.param.Pw || req.params.Pw || "";
@@ -87,17 +87,18 @@ const CreateDo = (req, res, next) => {
     if (!EmptyCheck(DeviceLon)) {
         DeviceJson.Lon = DeviceLon;
     }
+    /** Todo Fix */
     if (!EmptyCheck(GetIP)) {
-        DeviceJson.IP = GetIP;
+        DeviceJson.IP = GetIP[0];
     }
     if (!EmptyCheck(GetID)) {
-        DeviceJson.ID = GetID;
+        DeviceJson.ID = GetID[0];
     }
     if (!EmptyCheck(GetPW)) {
-        DeviceJson.PW = GetPW;
+        DeviceJson.PW = GetPW[0];
     }
     if (!EmptyCheck(FolderPath)) {
-        DeviceJson.Path = FolderPath;
+        DeviceJson.Path = FolderPath[0];
     }
     if (!EmptyCheck(FileType)) {
         DeviceJson.FileType = FileType;
@@ -118,11 +119,31 @@ const CreateDo = (req, res, next) => {
 /** Admin Device List Page */
 const ListPage = (req, res, next) => {
     /** Get Page Info */
+    const Page = req.param.page || req.params.page || req.query.page || req.body.page || 0;
 
+    /** Make Send Device Paging Dao */
+    let DeviceJson = {
+        pages: Page
+    };
     /** Device Dao Paging */
-    AdminDeviceDao.PagingDevice().then(result => {
+    AdminDeviceDao.PagingDevice(DeviceJson).then(result => {
         console.log('result value : ', result);
-        return render('admin/DevicePage/List/ListPage', {
+        if (Number(Page) > result.PageNumber) {
+            return res.redirect('/admin/Device/list?page=' + result.pageNumber);
+        }
+        if ((Number(Page) < 1) && (Page == "")) {
+            if (result.value.length === 0) {
+                return res.render('admin/DevicePage/List/ListPage', {
+                    login: TestingLoginData,
+                    title: 'Admin Device List Page',
+                    DeviceInfoList: result.value,
+                    DeviceAllPage: result.offset,
+                    _csrf: req.csrfToken()
+                });
+            }
+            return res.redirect('/admin/Device/list?page=' + 1);
+        }
+        return res.render('admin/DevicePage/List/ListPage', {
             login: TestingLoginData,
             title: 'Admin Device List Page',
             DeviceInfoList: result.value,
@@ -135,33 +156,6 @@ const ListPage = (req, res, next) => {
         return res.redirect('/admin');
     });
 
-
-    /** Index page Number */
-    var pageNumber = 1;
-    /** Make Send Meber Paging Dao */
-    var PageInfo = {
-        page: 1,
-        pageNumber: pageNumber,
-        keyword: 'keyword'
-    };
-
-    var SampleDeviceInfo = {
-        index: 1,
-        SiteName: 'Test site',
-        PlotName: 'Test plot',
-        DeviceName: 'Testing Device',
-        DeviceType: 'Data-tracker',
-        createdAt: Date.now(),
-        updatedAt: Date.now()
-    };
-
-    var SampleDeviceList = [SampleDeviceInfo, SampleDeviceInfo];
-    res.render('admin/DevicePage/List/ListPage', {
-        login: TestingLoginData,
-        title: 'Admin Device List Page',
-        DeviceInfoList: SampleDeviceList,
-        _csrf: req.csrfToken()
-    });
 
 };
 /** Admin Device Modify Page */

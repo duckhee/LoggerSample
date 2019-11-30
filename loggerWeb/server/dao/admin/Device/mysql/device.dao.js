@@ -22,6 +22,7 @@ const RawConnection = require('./device.select.interface');
 
 /** Create Device */
 const CreateDevice = (DeviceInfo) => {
+    console.log("insert Device Value : ", DeviceInfo);
     return new Promise((resolve, reject) => {
         models.device.create({
             /** Create Device Columns */
@@ -33,8 +34,11 @@ const CreateDevice = (DeviceInfo) => {
             FTPFolder: DeviceInfo.Path
         }).then(DeviceResult => {
             DeviceInfo.DeviceIdx = DeviceResult.id;
-            RawConnection[DeviceType].CreateRaw(DeviceInfo).then(RawResult => {
+            /** Raw Create Device Value */
+            console.log(`${DeviceInfo.DeviceType} Insert Value ${RawConnection[DeviceInfo.DeviceType]()}`);
+            RawConnection[DeviceInfo.DeviceType]().CreateRaw(DeviceInfo).then(RawResult => {
                 console.log('Dao create Raw Device Success ::: ', RawResult);
+                return resolve(RawResult);
             }).catch(err => {
                 console.log('Raw Dao Device Create Error code ::: ', err.code);
                 console.log('Raw Dao Device Create Error ::: ', err);
@@ -96,7 +100,7 @@ const PagingDevice = (DeviceInfo) => {
                         }
                     }
                 }).then(Device => {
-                    console.log('Plot Info :: ', Device);
+                    console.log('Plot Info :: ', Device[0]);
                     //console.log('Plot Info :: ', Plots[0].dataValues.site.dataValues);
                     /** return value */
                     let returnValue = {

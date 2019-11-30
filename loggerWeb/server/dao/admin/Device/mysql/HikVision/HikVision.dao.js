@@ -7,14 +7,14 @@ const CreateRaw = (Info) => {
     console.log('hikvision RawDao');
     return new Promise((resolve, reject) => {
         models.hikvision.create({
-            DeviceIdx:Info.DeviceIdx,
-           HikVisionIp:Info.IP,
-           HikVisionId:Info.ID,
-           HikVisionPw:Info.PW,
-           FTPFolder:Info.Path
-        }).then(result=>{
+            DeviceIdx: Info.DeviceIdx,
+            HikVisionIp: Info.IP,
+            HikVisionId: Info.ID,
+            HikVisionPw: Info.PW,
+            FTPFolder: Info.Path
+        }).then(result => {
             return resolve(result);
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device hikvision Create Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Create Error ::: ", err);
             return reject(err);
@@ -28,9 +28,9 @@ const DeleteRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.hikvision.destroy({
 
-        }).then(result=>{
+        }).then(result => {
 
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device hikvision Delete Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Delete Error ::: ", err);
             return reject(err);
@@ -44,9 +44,9 @@ const DetailRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.hikvision.findOne({
 
-        }).then(result=>{
+        }).then(result => {
 
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device hikvision Detail Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Detail Error ::: ", err);
             return reject(err);
@@ -60,11 +60,11 @@ const ModifyRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.hikvision.update({
 
-        },{
+        }, {
 
-        }).then(result=>{
+        }).then(result => {
 
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device hikvision Update Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Update Error ::: ", err);
             return reject(err);
@@ -73,14 +73,14 @@ const ModifyRaw = (Info) => {
 };
 
 /** List Data Tracker */
-const ListRaw = (Info)=>{
+const ListRaw = (Info) => {
     console.log('hikvision RawDao');
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
         models.hikvision.findAll({
 
-        }).then(result=>{
+        }).then(result => {
 
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device hikvision List Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision List Error ::: ", err);
             return reject(err);
@@ -94,9 +94,9 @@ const PagingRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.hikvision.findAll({
 
-        }).then(result=>{
+        }).then(result => {
 
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device hikvision Page List Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Page List Error ::: ", err);
             return reject(err);
@@ -111,5 +111,5 @@ module.exports = {
     ModifyRaw,
     ListRaw,
     PagingRaw,
-    
+
 };
