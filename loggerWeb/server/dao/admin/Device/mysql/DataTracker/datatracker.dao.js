@@ -7,11 +7,11 @@ const CreateRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.DataTracker.create({
             /** Create Data Tracker */
-            DeviceIdx:Info.DeviceIdx,
-            DataTrackerIP:Info.IP,
-            DataTrackerId:Info.ID,
-            DataTrackerPw:Info.PW,
-            FTPFolder:Info
+            DeviceIdx: Info.DeviceIdx,
+            DataTrackerIP: Info.IP,
+            DataTrackerId: Info.ID,
+            DataTrackerPw: Info.PW,
+            FTPFolder: Info
         }).then(result => {
             return resolve(result);
         }).catch(err => {
@@ -28,7 +28,7 @@ const DeleteRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.DataTracker.destroy({
             where: {
-                id:Info
+                id: Info
             }
         }).then(result => {
             return resolve(result);
@@ -78,12 +78,13 @@ const ModifyRaw = (Info) => {
 };
 
 /** List Data Tracker */
-const ListRaw = (Info)=>{
+const ListRaw = (Info) => {
     console.log('Data Tracker RawDao');
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
 
     });
 };
+
 
 /** List Data Tracker */
 const PagingRaw = (Info) => {

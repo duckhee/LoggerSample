@@ -39,14 +39,14 @@ const CreatePage = (req, res, next) => {
 };
 /** Admin Device Create Do */
 const CreateDo = (req, res, next) => {
-     /** Empty Check */
- function EmptyCheck(data){
-    if(data === ""){
-        return true;
-    }else{
-        return false;
+    /** Empty Check */
+    function EmptyCheck(data) {
+        if (data === "") {
+            return true;
+        } else {
+            return false;
+        }
     }
-}
     /** Get Parameter */
     const OwnerEmail = req.body.SiteOwnerId || req.query.SiteOwnerId || req.param.SiteOwnerId || req.params.SiteOwnerId || '';
     const SiteID = req.body.SiteSelect || req.query.SiteSelect || req.param.SiteSelect || req.params.SiteSelect || '';
@@ -60,7 +60,7 @@ const CreateDo = (req, res, next) => {
     const GetPW = req.body.Pw || req.query.Pw || req.param.Pw || req.params.Pw || "";
     const FolderPath = req.body.Folderpath || req.query.Folderpath || req.param.Folderpath || req.params.Folderpath || "";
     const FileType = req.body.Filetype || req.query.Filetype || req.param.Filetype || req.params.Filetype || "";
-    
+
     /** Device Type Mapping */
     let DeviceJson = {};
 
@@ -72,52 +72,68 @@ const CreateDo = (req, res, next) => {
         DeviceJson.SiteID = SiteID;
     }
     */
-    if(!EmptyCheck(PlotID)){
+    if (!EmptyCheck(PlotID)) {
         DeviceJson.PlotIdx = PlotID;
     }
-    if(!EmptyCheck(DeviceName)){
+    if (!EmptyCheck(DeviceName)) {
         DeviceJson.name = DeviceName;
     }
-    if(!EmptyCheck(DeviceType)){
+    if (!EmptyCheck(DeviceType)) {
         DeviceJson.DeviceType = DeviceType;
     }
-    if(!EmptyCheck(DeviceLat)){
+    if (!EmptyCheck(DeviceLat)) {
         DeviceJson.Lat = DeviceLat;
     }
-    if(!EmptyCheck(DeviceLon)){
+    if (!EmptyCheck(DeviceLon)) {
         DeviceJson.Lon = DeviceLon;
     }
-    if(!EmptyCheck(GetIP)){
+    if (!EmptyCheck(GetIP)) {
         DeviceJson.IP = GetIP;
     }
-    if(!EmptyCheck(GetID)){
+    if (!EmptyCheck(GetID)) {
         DeviceJson.ID = GetID;
     }
-    if(!EmptyCheck(GetPW)){
+    if (!EmptyCheck(GetPW)) {
         DeviceJson.PW = GetPW;
     }
-    if(!EmptyCheck(FolderPath)){
+    if (!EmptyCheck(FolderPath)) {
         DeviceJson.Path = FolderPath;
     }
-    if(!EmptyCheck(FileType)){
+    if (!EmptyCheck(FileType)) {
         DeviceJson.FileType = FileType;
     }
 
 
-    console.log("parameter device Create : " + OwnerEmail + ", " + SiteID + ', ' + PlotID+', '+DeviceName+", "+DeviceType+", "+DeviceLat+", "+DeviceLon+", "+GetIP+", "+GetID+", "+GetPW+", "+FolderPath+", "+FileType);
-    AdminDeviceDao.CreateDevice(DeviceJson).then(result=>{
+    console.log("parameter device Create : " + OwnerEmail + ", " + SiteID + ', ' + PlotID + ', ' + DeviceName + ", " + DeviceType + ", " + DeviceLat + ", " + DeviceLon + ", " + GetIP + ", " + GetID + ", " + GetPW + ", " + FolderPath + ", " + FileType);
+    AdminDeviceDao.CreateDevice(DeviceJson).then(result => {
         console.log("Device Create Success");
         return res.redirect('/admin/Device/list');
-    }).catch(err=>{
+    }).catch(err => {
         console.log("Admin Device Ctrl Create page Error code ::: ", err.code);
         console.log("Admin Device Ctrl Create page Error ::: ", err);
-        return  res.redirect('/admin/Device/create');
-    })
-    
+        return res.redirect('/admin/Device/create');
+    });
+
 };
 /** Admin Device List Page */
 const ListPage = (req, res, next) => {
     /** Get Page Info */
+
+    /** Device Dao Paging */
+    AdminDeviceDao.PagingDevice().then(result => {
+        console.log('result value : ', result);
+        return render('admin/DevicePage/List/ListPage', {
+            login: TestingLoginData,
+            title: 'Admin Device List Page',
+            DeviceInfoList: result.value,
+            DeviceAllPage: result.offset,
+            _csrf: req.csrfToken()
+        });
+    }).catch(err => {
+        console.log('Ctrl Admin Device Error code ::: ', err.code);
+        console.log('Ctrl Admin Device Error ::: ', err);
+        return res.redirect('/admin');
+    });
 
 
     /** Index page Number */
