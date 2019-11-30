@@ -123,6 +123,16 @@ const PagingDevice = (DeviceInfo) => {
     });
 };
 
+/** Device Insert Name Value */
+const NameColumnsDevice = () => {
+
+};
+
+/** Device Get Data Value */
+const ValueColumnsDevice = () => {
+
+};
+
 module.exports = {
     CreateDevice,
     PagingDevice

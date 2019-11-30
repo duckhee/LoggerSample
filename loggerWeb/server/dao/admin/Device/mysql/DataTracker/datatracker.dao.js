@@ -66,6 +66,7 @@ const ModifyRaw = (Info) => {
             /** Update Value */
 
         }, {
+            /** Search Value */
 
         }).then(result => {
 
@@ -81,7 +82,15 @@ const ModifyRaw = (Info) => {
 const ListRaw = (Info) => {
     console.log('Data Tracker RawDao');
     return new Promise((resolve, reject) => {
+        models.DataTracker.findAll({
 
+        }).then(result => {
+
+        }).catch(err => {
+            console.log("Raw Dao Device Data Tracker List Error code ::: ", err.code);
+            console.log("Raw Dao Device Data Tracker List Error ::: ", err);
+            return reject(err);
+        });
     });
 };
 
