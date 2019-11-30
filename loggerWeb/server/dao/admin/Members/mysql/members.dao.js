@@ -166,7 +166,7 @@ const DeleteUser = (UserInfo) => {
 /** User Email Check */
 const EmailCheckUser = (Email) => {
     return new Promise((resolve, reject) => {
-        models.user.findAll({
+        models.user.count({
             where: {
                 UserEmail: Email
             },
