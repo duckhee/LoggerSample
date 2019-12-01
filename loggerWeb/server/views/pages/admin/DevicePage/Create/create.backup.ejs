@@ -121,6 +121,86 @@ x<!DOCTYPE html>
                                 <!--./form-group-->
                                 <div name="DeType" id="DeType">
                                 </div>
+                                <!-- ./DType is detail view -->
+                                <div name="DType" class="DataTracker">
+                                    <div class='form-group'>
+                                        <label for='dataTrackerIP' class='col-sm-2 control-label'>Data Tracker IP</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="IP" id="dataTrackerIP" placeholder="Data Tracker IP...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class="form-group">
+                                        <label for="dataTrackerID" class="col-sm-2 control-label">Data Tracker ID</label>
+                                        <div class='col-sm-4'>
+                                            <input type="text" class="form-control" name="ID" id="dataTrackerID" placeholder="Data Tracker WEB dEX4 id...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class="form-group">
+                                        <label for='dataTrackerPw' class='col-sm-2 control-label'>Data Tracker Password</label>
+                                        <div class='col-sm-4'>
+                                            <input type='password' class='form-control' name="Pw" id="dataTrackerPw" placeholder="Data Tracker WEB dEX4 password ...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class="form-group">
+                                        <label for='dataTrackerFolder' class='col-sm-2 control-label'>Data Tracker FTP Folder Name</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="Folderpath" id='dataTrackerFolder' placeholder="Data Tracker FTP Folder Name...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                </div>
+                                <!--./data-tracker-->
+                                <div name="DType" class="ecolog">
+                                    <div class='form-group'>
+                                        <label for='ecologFTPFolder' class='control-label col-sm-2'>ecolog FTP Folder Name</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="Folderpath" id="ecologFTPFolder" placeholder="FTP Folder Name...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='ecologFileType' class='control-label col-sm-2'>ecolog File Type</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="Filetype" id="ecologFileType" placeholder='ecolog File Type...'>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                </div>
+                                <!--./ecolog-->
+                                <div name="DType" class="HikVision">
+                                    <div class='form-group'>
+                                        <label for='hikvisionIp' class='col-sm-2 control-label'>HikVision Camera IP</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="IP" id="hikvisionIp" placeholder="Input Camera IP...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='hikvisionID' class='col-sm-2 control-label'>HikVision Camera ID</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="ID" id="hikvisionID" placeholder="Input Camera Login ID...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='hikVisionPw' class='col-sm-2 control-label'>HikVision Camera Password</label>
+                                        <div class='col-sm-4'>
+                                            <input type="password" class='form-control' name="Pw" id="hikVisionPw" placeholder='Input Camera Login Password...'>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                     <div class='form-group'>
+                                        <label for='hikVisionPw' class='col-sm-2 control-label'>HikVision Camera FTP Folder</label>
+                                        <div class='col-sm-4'>
+                                            <input type="text" class='form-control' name="Folderpath" id="hikVisionFolder" placeholder='Input Camera Login Password...'>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                </div>
+                                <!--./hikvision-->
                            </form>
                         </div>
                         <!--./box body-->
@@ -530,9 +610,11 @@ x<!DOCTYPE html>
                     +"<div class='col-sm-4'>"
                     +"<input type='text' class='form-control' name='Folderpath' id='hikVisionFolder' placeholder='Input HikVision Camera FTP Path ...'>"
                     +"</div>";
+                }else{
+                    
                 }
+
                 $("#DeType").append(text);
-                return true;
             })
         }
 
@@ -550,6 +632,7 @@ x<!DOCTYPE html>
 
 
         $(document).ready(function(){
+          
             MakeDetailSelect();
             OwnerCheck();
             SiteSelected();

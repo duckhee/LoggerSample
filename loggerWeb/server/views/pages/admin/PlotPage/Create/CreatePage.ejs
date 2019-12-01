@@ -135,6 +135,12 @@
                 success:function(data){
                     console.log('Email check success ', data);
                     if(data === 0){
+                        Swal.fire({
+                            title:'Not have user or Not have site',
+                            type:'warning'
+                        });
+                        return false;
+                        /*
                          Swal.fire({
                             title:'Not Have User',
                             text:'go to Make User',
@@ -146,6 +152,7 @@
                             }
                             return false;
                         });
+                        */
                     }else if(data === '-1'){
                        Swal.fire({
                             title:'RETRY',
