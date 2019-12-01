@@ -89,16 +89,16 @@ const CreateDo = (req, res, next) => {
     }
     /** Todo Fix */
     if (!EmptyCheck(GetIP)) {
-        DeviceJson.IP = GetIP[0];
+        DeviceJson.IP = GetIP;
     }
     if (!EmptyCheck(GetID)) {
-        DeviceJson.ID = GetID[0];
+        DeviceJson.ID = GetID;
     }
     if (!EmptyCheck(GetPW)) {
-        DeviceJson.PW = GetPW[0];
+        DeviceJson.PW = GetPW;
     }
     if (!EmptyCheck(FolderPath)) {
-        DeviceJson.Path = FolderPath[0];
+        DeviceJson.Path = FolderPath;
     }
     if (!EmptyCheck(FileType)) {
         DeviceJson.FileType = FileType;

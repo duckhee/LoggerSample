@@ -16,6 +16,7 @@ const DeviceRouter = (csurfMiddleWare) => {
     /** Admin Device Detail page */
     router.get('/detail', csurfMiddleWare, AdminDeviceCtrl.DetailPage);
     /** return router */
+    //router.get('/getData');
     return router;
 };
 

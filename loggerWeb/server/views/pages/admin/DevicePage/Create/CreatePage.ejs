@@ -389,7 +389,19 @@ x<!DOCTYPE html>
             return false;
         }
 
-        
+
+        function IPCheck(value){
+            let ipExp = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+            if(ipExp.test(value) == true){
+                return true;
+            }else{
+                Swal.fire({
+                    title:"Not IP Put in IP Address(IPv4)",
+                    type:'warning'
+                });
+                return false;
+            }
+        }
 
         /** function Detail Value Check */
         function DeviceRawCheck(){
@@ -422,6 +434,9 @@ x<!DOCTYPE html>
                             });
                             return false;
                         }
+                    }
+                    if(!IPCheck(DataTrackerIP)){
+                        return false;
                     }
                     return true;
                 }
@@ -458,6 +473,9 @@ x<!DOCTYPE html>
                         });
                         return false;
                     }
+                    if(!IPCheck(HikVisionIp)){
+                        return false;
+                    }
                     return true;
                 }
         }
@@ -472,7 +490,7 @@ x<!DOCTYPE html>
                     "<div class='form-group'>"+
                     "<label for='dataTrackerIP' class='col-sm-2 control-label'>Data Tracker IP</label>"
                     +"<div class='col-sm-4'>"
-                    +"<input type='text' name='IP' id='dataTrackerIP' class='form-control' placeholder='Input Data Tracker IP ...'>"
+                    +"<input type='text' name='IP' id='dataTrackerIP' class='form-control' placeholder='(xxx.xxx.xxx.xxx)Input Data Tracker IP ...'>"
                     +"</div>"
                     +"</div>"
                     +"<div class='form-group'>"
