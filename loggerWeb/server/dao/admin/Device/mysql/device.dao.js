@@ -100,7 +100,7 @@ const PagingDevice = (DeviceInfo) => {
                         }
                     }
                 }).then(Device => {
-                    console.log('Plot Info :: ', Device[0]);
+                    console.log('Device Info :: ', Device[0]);
                     //console.log('Plot Info :: ', Plots[0].dataValues.site.dataValues);
                     /** return value */
                     let returnValue = {
@@ -123,6 +123,31 @@ const PagingDevice = (DeviceInfo) => {
     });
 };
 
+/** Delete Device */
+const DeleteDevice = (DeviceInfo) => {
+    return new Promise((resolve, reject) => {
+        models.device.destroy({
+            where: {
+                id: DeviceInfo.id
+            }
+        }).then(DeleteResult => {
+            console.log('Device delete done and delete result : ', DeleteResult);
+            PagingDevice(DeviceInfo).then(result => {
+                console.log("Device Delete Paging result value :: ", result);
+                return resolve(result);
+            }).catch(err => {
+                console.log("Dao Delete Device Paging Error code ::: ", err.code);
+                console.log("Dao Delete Device Paging Error ::: ", err);
+                return reject(err);
+            });
+        }).catch(err => {
+            console.log('Dao Delete Device Error code ::: ', err.code);
+            console.log('Dao Delete Device Error ::: ', err);
+            return reject(err);
+        });
+    });
+};
+
 /** Device Insert Name Value */
 const NameColumnsDevice = () => {
 
@@ -135,5 +160,6 @@ const ValueColumnsDevice = () => {
 
 module.exports = {
     CreateDevice,
-    PagingDevice
+    PagingDevice,
+    DeleteDevice
 };

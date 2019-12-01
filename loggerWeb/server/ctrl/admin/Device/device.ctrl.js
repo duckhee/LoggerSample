@@ -196,7 +196,32 @@ const DetailPage = (req, res, next) => {
 
 /** Admin Device Delete Do */
 const DeleteDo = (req, res, next) => {
+    const deleteValue = req.query.delete || req.body.delete || "";
+    const Page = req.param.page || req.params.page || req.body.page || req.query.page || "";
 
+    let DeleteJson = {};
+    if (Page !== "") {
+        DeleteJson.pages = pages;
+    }
+
+    if (deleteValue !== "") {
+        DeleteJson.id = deleteValue;
+    } else {
+        return res.json(false);
+    }
+
+    console.log('get parameter : ', DeleteJson);
+
+    AdminDeviceDao.DeleteDevice(DeleteJson).then(result => {
+        if (result) {
+            console.log('delete value : ', result);
+            return res.json(result);
+        } else {
+            return res.json(false);
+        }
+    }).catch(err => {
+        return res.json(false);
+    });
 };
 
 
