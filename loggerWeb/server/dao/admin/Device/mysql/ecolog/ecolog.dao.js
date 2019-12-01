@@ -6,12 +6,12 @@ const CreateRaw = (Info) => {
     console.log('ecolog RawDao');
     return new Promise((resolve, reject) => {
         models.ecolog.create({
-            FTPFolder:Info.Path,
-            DeviceIdx:Info.DeviceIdx,
-            FileFormat:Info.FileType
-        }).then(result=>{
+            FTPFolder: Info.Path,
+            DeviceIdx: Info.DeviceIdx,
+            FileFormat: Info.FileType
+        }).then(result => {
             return resolve(result);
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device ecolog  Create Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog  Create Error ::: ", err);
             return reject(err);
@@ -24,10 +24,12 @@ const DeleteRaw = (Info) => {
     console.log('ecolog RawDao');
     return new Promise((resolve, reject) => {
         models.ecolog.destroy({
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
+        }).then(result => {
 
-        }).then(result=>{
-
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device ecolog  Delete Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog  Delete Error ::: ", err);
             return reject(err);
@@ -40,10 +42,12 @@ const DetailRaw = (Info) => {
     console.log('ecolog RawDao');
     return new Promise((resolve, reject) => {
         models.ecolog.findOne({
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
+        }).then(result => {
 
-        }).then(result=>{
-
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device ecolog  Detail Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog  Detail Error ::: ", err);
             return reject(err);
@@ -57,11 +61,13 @@ const ModifyRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.ecolog.update({
 
-        },{
+        }, {
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
+        }).then(result => {
 
-        }).then(result=>{
-
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device ecolog Page Update Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog Page Update Error ::: ", err);
             return reject(err);
@@ -70,14 +76,16 @@ const ModifyRaw = (Info) => {
 };
 
 /** List Data Tracker */
-const ListRaw = (Info)=>{
+const ListRaw = (Info) => {
     console.log('ecolog RawDao');
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
         models.ecolog.findAll({
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
+        }).then(result => {
 
-        }).then(result=>{
-
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device ecolog List Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog List Error ::: ", err);
             return reject(err);
@@ -91,9 +99,9 @@ const PagingRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.ecolog.findAll({
 
-        }).then(result=>{
+        }).then(result => {
 
-        }).catch(err=>{
+        }).catch(err => {
             console.log("Raw Dao Device ecolog Page List Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog Page List Error ::: ", err);
             return reject(err);

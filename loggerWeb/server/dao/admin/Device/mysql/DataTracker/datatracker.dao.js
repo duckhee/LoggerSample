@@ -28,7 +28,7 @@ const DeleteRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.DataTracker.destroy({
             where: {
-                id: Info
+                DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
             return resolve(result);
@@ -46,7 +46,7 @@ const DetailRaw = (Info) => {
     return new Promise((resolve, reject) => {
         models.DataTracker.findOne({
             where: {
-
+                DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
 
@@ -67,7 +67,9 @@ const ModifyRaw = (Info) => {
 
         }, {
             /** Search Value */
-
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
         }).then(result => {
 
         }).catch(err => {
@@ -83,7 +85,9 @@ const ListRaw = (Info) => {
     console.log('Data Tracker RawDao');
     return new Promise((resolve, reject) => {
         models.DataTracker.findAll({
-
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
         }).then(result => {
 
         }).catch(err => {

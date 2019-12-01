@@ -107,12 +107,12 @@
                 $("input[name=checkRow]").prop("checked", false);
             }
         }
-        function CreateMember(){
-            $("#Create").click(function(){
+        function CreateDevice(){
+            $("#create").click(function(){
                 location.href = "/admin/Device/create";
             });
         }
-        function EditMember(){
+        function EditDevice(){
             $("#Edit").click(function(){
                 let checkValue = [];
                 $.each($('input[name="checkRow"]:checked'), function(){
@@ -134,7 +134,7 @@
             });
         }
 
-        function DeleteMember(){
+        function DeleteDevice(){
             $("#Delete").click(function(){
                 let checkValue = [];
                 let checkingName = [];
@@ -185,9 +185,9 @@
         }
 
         $(document).ready(function(){
-            CreateMember();
-            EditMember();
-            DeleteMember();
+            CreateDevice();
+            EditDevice();
+            DeleteDevice();
             
         })
     </script>

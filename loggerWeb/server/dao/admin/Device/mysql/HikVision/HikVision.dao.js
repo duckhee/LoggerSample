@@ -27,7 +27,9 @@ const DeleteRaw = (Info) => {
     console.log('hikvision RawDao');
     return new Promise((resolve, reject) => {
         models.hikvision.destroy({
-
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
         }).then(result => {
 
         }).catch(err => {
@@ -43,7 +45,9 @@ const DetailRaw = (Info) => {
     console.log('hikvision RawDao');
     return new Promise((resolve, reject) => {
         models.hikvision.findOne({
-
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
         }).then(result => {
 
         }).catch(err => {
@@ -61,7 +65,9 @@ const ModifyRaw = (Info) => {
         models.hikvision.update({
 
         }, {
-
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
         }).then(result => {
 
         }).catch(err => {
@@ -77,7 +83,9 @@ const ListRaw = (Info) => {
     console.log('hikvision RawDao');
     return new Promise((resolve, reject) => {
         models.hikvision.findAll({
-
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
         }).then(result => {
 
         }).catch(err => {
@@ -93,7 +101,9 @@ const PagingRaw = (Info) => {
     console.log('hikvision RawDao');
     return new Promise((resolve, reject) => {
         models.hikvision.findAll({
-
+            where: {
+                DeviceIdx: Info.DeviceIdx
+            }
         }).then(result => {
 
         }).catch(err => {
