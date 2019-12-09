@@ -155,12 +155,16 @@ const DetailDevice = (no) => {
             where: {
                 id: no
             },
-            include: {
+            include: [{
                 model: models.plot,
                 include: {
                     model: models.site
                 }
-            }
+            }, {
+                model: models.DeviceColumns
+            }, {
+                model: models.DeviceColumnData
+            }]
         }).then(Device => {
             console.log('Device Detail done and Result : ', Device);
             let RawJson = {
