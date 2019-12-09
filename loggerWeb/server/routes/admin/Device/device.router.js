@@ -15,6 +15,8 @@ const DeviceRouter = (csurfMiddleWare) => {
     router.get('/list', csurfMiddleWare, AdminDeviceCtrl.ListPage);
     /** Admin Device Detail page */
     router.get('/detail', csurfMiddleWare, AdminDeviceCtrl.DetailPage);
+    /** Admin Device Detail And Show Graph */
+    //router.get('/graph', csurfMiddleWare);
     /** Admin Device delete Do */
     router.post('/delete', csurfMiddleWare, AdminDeviceCtrl.DeleteDo);
     /** return router */

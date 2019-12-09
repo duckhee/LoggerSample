@@ -148,6 +148,35 @@ const DeleteDevice = (DeviceInfo) => {
     });
 };
 
+/** Detail Show Device Value */
+const DetailDevice = (no) => {
+    return new Promise((resolve, reject) => {
+        models.device.findOne({
+            where: {
+                id: no
+            },
+            include: {
+                model: models.plot,
+                include: {
+                    model: models.site
+                }
+            }
+        }).then(result => {
+            console.log('Device Detail done and Result : ', result);
+            return resolve(result);
+        }).catch(err => {
+            console.log('Dao Detail Device Error code ::: ', err.code);
+            console.log('Dao Detail Device Error ::: ', err);
+            return reject(err);
+        })
+    });
+};
+
+/** Detail Show Device and Device Graph */
+const DetailGraphDevice = () => {
+
+};
+
 /** Device Insert Name Value */
 const NameColumnsDevice = () => {
 
@@ -161,5 +190,7 @@ const ValueColumnsDevice = () => {
 module.exports = {
     CreateDevice,
     PagingDevice,
-    DeleteDevice
+    DeleteDevice,
+    DetailDevice,
+    DetailGraphDevice
 };

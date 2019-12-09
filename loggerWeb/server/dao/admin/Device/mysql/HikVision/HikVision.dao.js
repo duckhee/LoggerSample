@@ -13,6 +13,7 @@ const CreateRaw = (Info) => {
             HikVisionPw: Info.PW,
             FTPFolder: Info.Path
         }).then(result => {
+            console.log('Raw Dao Device hikvision Create');
             return resolve(result);
         }).catch(err => {
             console.log("Raw Dao Device hikvision Create Error code ::: ", err.code);
@@ -31,7 +32,7 @@ const DeleteRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device hikvision Delete');
         }).catch(err => {
             console.log("Raw Dao Device hikvision Delete Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Delete Error ::: ", err);
@@ -49,7 +50,7 @@ const DetailRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device hikvision Detail');
         }).catch(err => {
             console.log("Raw Dao Device hikvision Detail Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Detail Error ::: ", err);
@@ -69,7 +70,7 @@ const ModifyRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device hikvision Update');
         }).catch(err => {
             console.log("Raw Dao Device hikvision Update Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Update Error ::: ", err);
@@ -87,7 +88,7 @@ const ListRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device hikvision List');
         }).catch(err => {
             console.log("Raw Dao Device hikvision List Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision List Error ::: ", err);
@@ -105,7 +106,7 @@ const PagingRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device hikvision Paging');
         }).catch(err => {
             console.log("Raw Dao Device hikvision Page List Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Page List Error ::: ", err);

@@ -10,6 +10,7 @@ const CreateRaw = (Info) => {
             DeviceIdx: Info.DeviceIdx,
             FileFormat: Info.FileType
         }).then(result => {
+            console.log('Raw Dao Device ecolog Create');
             return resolve(result);
         }).catch(err => {
             console.log("Raw Dao Device ecolog  Create Error code ::: ", err.code);
@@ -28,7 +29,7 @@ const DeleteRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device ecolog Delete');
         }).catch(err => {
             console.log("Raw Dao Device ecolog  Delete Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog  Delete Error ::: ", err);
@@ -46,7 +47,7 @@ const DetailRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device ecolog Detail');
         }).catch(err => {
             console.log("Raw Dao Device ecolog  Detail Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog  Detail Error ::: ", err);
@@ -66,7 +67,7 @@ const ModifyRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device ecolog Update');
         }).catch(err => {
             console.log("Raw Dao Device ecolog Page Update Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog Page Update Error ::: ", err);
@@ -84,7 +85,7 @@ const ListRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device ecolog List');
         }).catch(err => {
             console.log("Raw Dao Device ecolog List Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog List Error ::: ", err);
@@ -100,7 +101,7 @@ const PagingRaw = (Info) => {
         models.ecolog.findAll({
 
         }).then(result => {
-
+            console.log('Raw Dao Device ecolog Paging');
         }).catch(err => {
             console.log("Raw Dao Device ecolog Page List Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog Page List Error ::: ", err);

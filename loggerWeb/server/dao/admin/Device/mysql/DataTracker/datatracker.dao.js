@@ -13,6 +13,7 @@ const CreateRaw = (Info) => {
             DataTrackerPw: Info.PW,
             FTPFolder: Info.Path
         }).then(result => {
+            console.log('Raw Dao Device Data Tracker Create');
             return resolve(result);
         }).catch(err => {
             console.log("Raw Dao Device Data Tracker Create Error code ::: ", err.code);
@@ -31,6 +32,7 @@ const DeleteRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
+            console.log('Raw Dao Device Data Tracker Delete');
             return resolve(result);
         }).catch(err => {
             console.log("Raw Dao Device Data Tracker Delete Error code ::: ", err.code);
@@ -49,7 +51,8 @@ const DetailRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device Data Tracker Detail');
+            return resolve(result);
         }).catch(err => {
             console.log("Raw Dao Device Data Tracker Detail Error code ::: ", err.code);
             console.log("Raw Dao Device Data Tracker Detail Error ::: ", err);
@@ -71,7 +74,7 @@ const ModifyRaw = (Info) => {
                 DeviceIdx: Info.DeviceIdx
             }
         }).then(result => {
-
+            console.log('Raw Dao Device Data Tracker Update');
         }).catch(err => {
             console.log("Raw Dao Device Data Tracker Update Error code ::: ", err.code);
             console.log("Raw Dao Device Data Tracker Update Error ::: ", err);
@@ -87,9 +90,9 @@ const ListRaw = (Info) => {
         models.DataTracker.findAll({
             where: {
                 DeviceIdx: Info.DeviceIdx
-            }
+            },
         }).then(result => {
-
+            console.log('Raw Dao Device Data Tracker List');
         }).catch(err => {
             console.log("Raw Dao Device Data Tracker List Error code ::: ", err.code);
             console.log("Raw Dao Device Data Tracker List Error ::: ", err);
@@ -106,7 +109,7 @@ const PagingRaw = (Info) => {
         models.DataTracker.findAll({
 
         }).then(result => {
-
+            console.log('Raw Dao Device Data Tracker Paging');
         }).catch(err => {
             console.log("Raw Dao Device Data Tracker Page List Error code ::: ", err.code);
             console.log("Raw Dao Device Data Tracker Page List Error ::: ", err);
