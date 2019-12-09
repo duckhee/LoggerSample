@@ -59,3 +59,9 @@ typings/
 
 # next.js build output
 .next
+
+#remove config file
+config/config.json
+
+#remove sample data folder
+sampleData/

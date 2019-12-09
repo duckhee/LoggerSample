@@ -66,6 +66,9 @@ typings/
 #remove sample data folder
 sampleData/
 
+#remove config file
+config/config.json
+
 #sample Testing Expo example
 app/expo-sample/*
 #app/expo-sample/instargram-cline/*
