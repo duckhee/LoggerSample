@@ -1,6 +1,9 @@
 const models = require('../../../../../DataBase/models/index');
 const DataTracker = require('../../../../../DataBase/models/datatracker');
 
+/** DataTracker Root Path */
+const RootPath = "/DataTracker";
+
 /** Create Data Tracker */
 const CreateRaw = (Info) => {
     console.log('Data Tracker RawDao', Info);

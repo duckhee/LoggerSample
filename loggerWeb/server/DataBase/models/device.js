@@ -91,6 +91,18 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'DeviceIdx',
             targetKey: 'id'
         });
+
+        /** Device Has Many Device Columns Value */
+        device.hasMany(models.DeviceColumns, {
+            foreignKey: 'deviceIdx',
+            targetKey: 'id'
+        });
+
+        /** Device Has Many Device Columns Value */
+        device.hasMany(models.DeviceColumnData, {
+            foreignKey: 'deviceIdx',
+            targetKey: 'id'
+        });
     };
     return device;
 };

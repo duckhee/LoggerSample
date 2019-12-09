@@ -11,12 +11,19 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'CASCADE'
         },
         columnValue: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         }
     }, {});
     DeviceColumnData.associate = function(models) {
         // associations can be defined here
-
+        /** Device has many Device Name Columns */
+        DeviceColumnData.belongsTo(models.device, {
+            foreignKeyConstraint: true,
+            foreignKey: 'id',
+            allowNull: false,
+            onDelete: 'CASCADE'
+        });
     };
     return DeviceColumnData;
 };

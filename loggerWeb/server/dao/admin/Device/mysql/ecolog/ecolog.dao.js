@@ -1,6 +1,9 @@
 const models = require('../../../../../DataBase/models/index');
 const ecolog = require('../../../../../DataBase/models/ecolog');
 
+/** ecolog Root Path */
+const RootPath = "/ecolog";
+
 /** Create ecolog */
 const CreateRaw = (Info) => {
     console.log('ecolog RawDao');

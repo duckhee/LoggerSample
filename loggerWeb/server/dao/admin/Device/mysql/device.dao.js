@@ -161,20 +161,45 @@ const DetailDevice = (no) => {
                     model: models.site
                 }
             }
-        }).then(result => {
-            console.log('Device Detail done and Result : ', result);
-            return resolve(result);
+        }).then(Device => {
+            console.log('Device Detail done and Result : ', Device);
+            let RawJson = {
+                DeviceIdx: Device.id
+            };
+            RawConnection[Device.DeviceType]().DetailRaw(RawJson).then(RawDevice => {
+                console.log('Device Raw Detail Show Result : ', RawDevice);
+                Device.RawValue = RawDevice;
+                console.log('add Device Value : ', Device);
+                return resolve(Device);
+            }).catch(err => {
+                console.log('Dao Detail Device Error code ::: ', err.code);
+                console.log('Dao Detail Device Error ::: ', err);
+                return reject(err);
+            });
         }).catch(err => {
             console.log('Dao Detail Device Error code ::: ', err.code);
             console.log('Dao Detail Device Error ::: ', err);
             return reject(err);
-        })
+        });
     });
 };
 
 /** Detail Show Device and Device Graph */
 const DetailGraphDevice = () => {
-
+    return new Promise((resolve, reject) => {
+        models.device.findOne({
+            where: {
+                id: no
+            }
+        }).then(result => {
+            //console.log('Device Detail Device Graph Done and Result : ', result);
+            //return resolve(result);
+        }).catch(err => {
+            console.log('Dao Detail Device Graph Error code ::: ', err.code);
+            console.log('Dao Detail Device Graph Error ::: ', err);
+            return reject(err);
+        });
+    });
 };
 
 /** Device Insert Name Value */

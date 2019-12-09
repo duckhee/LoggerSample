@@ -67,10 +67,10 @@ module.exports = (sequelize, DataTypes) => {
         });
 
         /** camera have Many Hikvision */
-        camera.hasMany(models.hikvision, {
-            foreignKey: 'CameraIdx',
-            targetKey: 'id'
-        });
+        // camera.hasMany(models.hikvision, {
+        //     foreignKey: 'CameraIdx',
+        //     targetKey: 'id'
+        // });
     };
     return camera;
 };

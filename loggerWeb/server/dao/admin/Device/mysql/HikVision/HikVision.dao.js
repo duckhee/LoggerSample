@@ -1,6 +1,8 @@
 const models = require('../../../../../DataBase/models/index');
 const hikvision = require('../../../../../DataBase/models/hikvision');
 
+/** HikVision Root Path */
+const RootPath = "/hikvision";
 
 /** Create hikvision */
 const CreateRaw = (Info) => {
@@ -51,6 +53,7 @@ const DetailRaw = (Info) => {
             }
         }).then(result => {
             console.log('Raw Dao Device hikvision Detail');
+            return resolve(result);
         }).catch(err => {
             console.log("Raw Dao Device hikvision Detail Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision Detail Error ::: ", err);
