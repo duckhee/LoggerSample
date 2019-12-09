@@ -184,7 +184,8 @@ const NameCheck = (req, res, next) => {
     AdminSiteDao.SiteNameCheck(UserEmail).then(result => {
         if (result.length === 0) {
             console.log('Not Have User');
-            return res.json(0);
+
+            return res.redirect(307, '/admin/Members/userEmail-check');
         } else {
             console.log('Have User');
             return res.json(result);

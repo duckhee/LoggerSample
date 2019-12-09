@@ -159,7 +159,20 @@
                             type:'warning'
                         });
                         return false;
-                    }else{
+                    }else if(data == '1'){
+                            Swal.fire({
+                                title:'Not have Site',
+                                text:'Go to Create Site',
+                                type:'warning',
+                                showCancelButton:true
+                            }).then(result=>{
+                                if(result.value){
+                                    location.href="/admin/Site/create"
+                                }
+                            });
+                            return false;
+                        }
+                    else{
                         let SelectValue = "";
                         console.log('data : ', data);
                         $("#siteValue").empty();

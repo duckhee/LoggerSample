@@ -260,7 +260,20 @@ x<!DOCTYPE html>
                                 text:'Retry few minute later'
                             });
                             return false;
-                        }else{
+                        }else if(data == '1'){
+                            Swal.fire({
+                                title:'Not have Site',
+                                text:'Go to Create Site',
+                                type:'warning',
+                                showCancelButton:true
+                            }).then(result=>{
+                                if(result.value){
+                                    location.href="/admin/Site/create"
+                                }
+                            });
+                            return false;
+                        }
+                        else{
                             Swal.fire({
                                 title:'Not have User',
                                 type:'warning',
