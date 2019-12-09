@@ -189,6 +189,7 @@
                                 }),
                                 success:function(data){
                                     console.log('delete success ', data);
+                                    $("input:checkbox[id='th_checkAll']").prop("checked", false);
                                     reloadingTable(data);
                                 },
                                 err:function(request, status, error){
