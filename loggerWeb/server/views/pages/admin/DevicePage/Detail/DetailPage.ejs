@@ -197,7 +197,8 @@
                             </div>
                             <!--./box-header-->
                             <div class="box-body">
-                            
+                                <div id="graph"style="height:300px;">
+                                </div>
                             </div>
                             <!--./box-body-->
                         </div>
@@ -213,6 +214,13 @@
        <!--/.wrapper-->
        <% include ../../../../partials/admin/footerScript.ejs %>
        <% include ../../../../partials/admin/chartScript.ejs %>
+       <script>
+            console.log("<%=JSON.stringify(DeviceInfo.DeviceColumns[0])%>");
+            console.log("<%=JSON.stringify(DeviceInfo.DeviceColumnData[0])%>");
+            /** Make Chart */
+            let chart = MakeAreaChart("graph");
+            
+       </script>
     </body>
   
 </html>

@@ -1,8 +1,7 @@
 'use strict';
 /** File Reader Module */
 const fs = require('fs');
-const DataTrackerSamplePath = process.cwd() + '/../SampleData/SampleData/DataTrackerSample';
-const EcologSamplePath = process.cwd() + '/../SampleData/SampleData/EcologSample/ecolog';
+const DataTrackerSamplePath = process.cwd() + '/SampleData/DataTrackerSample';
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
@@ -26,6 +25,7 @@ module.exports = {
             let DataList = DataTrackerSamplePath + '/' + items;
             console.log('File Data List : ' + DataList);
             try {
+                let RealPath = DataTrackerSamplePath + '/' + items;
                 let FileData = fs.readFileSync(DataList, 'utf-8');
                 let SplitData = FileData.split('\r\n');
                 let AllDataNumber = SplitData.length;
@@ -42,7 +42,7 @@ module.exports = {
                 throw err;
             }
         });
-
+        return queryInterface.bulkInsert('DeviceColumns', DumpDataTracker);
         /** Sample Folder Data Insert (EcoLog MIS File) */
     },
 

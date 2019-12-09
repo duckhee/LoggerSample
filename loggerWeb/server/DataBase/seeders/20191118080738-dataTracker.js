@@ -24,7 +24,7 @@ module.exports = {
             updatedAt: DumpTime
         };
         Dump.push(DataTracker);
-        queryInterface.bulkInsert('DataTracker', Dump);
+        return queryInterface.bulkInsert('DataTrackers', Dump);
     },
 
     down: (queryInterface, Sequelize) => {

@@ -1,4 +1,7 @@
 'use strict';
+/** File Reader Module */
+const fs = require('fs');
+const DataTrackerSamplePath = process.cwd() + '/SampleData/DataTrackerSample';
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
@@ -20,11 +23,13 @@ module.exports = {
         DataTrackerFileList.forEach(items => {
             let DataList = DataTrackerSamplePath + '/' + items;
             console.log('File Data List : ' + DataList);
+            let RealPath = DataTrackerSamplePath + '/' + items;
             try {
                 let FileData = fs.readFileSync(DataList, 'utf-8');
                 let SplitData = FileData.split('\r\n');
                 let AllDataNumber = SplitData.length;
                 let ValueColumns = SplitData.splice(1, AllDataNumber);
+                console.log('get Data : ', ValueColumns);
                 ValueColumns.forEach(itemValues => {
                     let DataTrackerSample = {
                         deviceIdx: 1,
@@ -32,6 +37,7 @@ module.exports = {
                         createdAt: DumpDataTime,
                         updatedAt: DumpDataTime
                     };
+                    console.log('data : ', DataTrackerSample);
                     DumpDataTracker.push(DataTrackerSample);
                 });
             } catch (err) {

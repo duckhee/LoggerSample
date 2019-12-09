@@ -44,11 +44,22 @@ var DefaultOptions = {
 
 //function Make Chart (Area)
 function MakeAreaChart(GetQuerySelectorId, titleText, options) {
+    var option;
+    var charts;
+    console.log(options);
+    if ((options === undefined) || (options === null)) {
+        option = DefaultOptions;
+    } else {
+        option = options;
+    }
+    if (titleText === undefined || titleText === null) {
 
-    options.title.text = titleText;
-    let chart = new ApexCharts(GetQuerySelectorId, options);
-    chart.render();
-    return chart;
+    } else {
+        option.title.text = titleText;
+    }
+    charts = new ApexCharts(document.querySelector("#" + GetQuerySelectorId), option);
+    charts.render();
+    return charts;
 }
 
 //function Update Series

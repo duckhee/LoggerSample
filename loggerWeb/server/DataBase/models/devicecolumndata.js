@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'CASCADE'
         },
         columnValue: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         }
     }, {});
