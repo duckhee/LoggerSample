@@ -59,7 +59,7 @@ const CreateDo = (req, res, next) => {
     const GetID = req.body.ID || req.query.ID || req.param.ID || req.params.ID || "";
     const GetPW = req.body.Pw || req.query.Pw || req.param.Pw || req.params.Pw || "";
     const FolderPath = req.body.Folderpath || req.query.Folderpath || req.param.Folderpath || req.params.Folderpath || "";
-    const FileType = req.body.Filetype || req.query.Filetype || req.param.Filetype || req.params.Filetype || "";
+    const FileType = req.body.ecologFileType || req.query.ecologFileType || req.param.ecologFileType || req.params.ecologFileType || "";
 
     /** Device Type Mapping */
     let DeviceJson = {};

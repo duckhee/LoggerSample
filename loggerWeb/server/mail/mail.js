@@ -7,5 +7,11 @@ const FindPw = (EmailAddress) => {
     return RandomKey;
 };
 
+/** Report Use Mail */
+const ReportMail = (EmailAddress) => {
 
-module.exports = FindPw;
+};
+
+module.exports = {
+    FindPw
+};

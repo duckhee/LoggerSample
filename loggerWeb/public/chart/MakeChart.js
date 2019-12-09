@@ -1,47 +1,51 @@
-//function Make Chart (Area)
-function MakeAreaChart(GetQuerySelectorId, titleText) {
-    let options = {
-        chart: {
-            height: 350,
-            type: 'area',
-            stacked: false,
-            event: {
-                selection: function (chart, e) {
-                    console.log(new Date(e.xaxis.min));
-                }
-            },
-        },
-        title: {
-            text: titleText
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth'
-        },
-        series: [],
-        fill: {
-            type: 'gradient',
-            gradient: {
-                opacityFrom: 0.6,
-                opacityTo: 0.8,
+//Default Chart Options
+var DefaultOptions = {
+    chart: {
+        height: 350,
+        type: 'area',
+        stacked: false,
+        event: {
+            selection: function(chart, e) {
+                console.log(new Date(e.xaxis.min));
             }
         },
-        legend: {
-            position: 'bottom',
-            horizontalAlign: 'left',
-
-        },
-        xaxis: {
-            type: 'datetime',
-        },
-        tooltip: {
-            x: {
-                format: 'yy/MM/dd HH:mm'
-            },
+    },
+    title: {
+        text: "Graph"
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        curve: 'smooth'
+    },
+    series: [],
+    fill: {
+        type: 'gradient',
+        gradient: {
+            opacityFrom: 0.6,
+            opacityTo: 0.8,
         }
+    },
+    legend: {
+        position: 'bottom',
+        horizontalAlign: 'left',
+
+    },
+    xaxis: {
+        type: 'datetime',
+    },
+    tooltip: {
+        x: {
+            format: 'yy/MM/dd HH:mm'
+        },
     }
+};
+
+//function Make Chart (Area)
+function MakeAreaChart(GetQuerySelectorId, titleText, options) {
+
+    options.title.text = titleText;
     let chart = new ApexCharts(GetQuerySelectorId, options);
     chart.render();
     return chart;

@@ -70,6 +70,125 @@
                         <!--./box-footer-->
                    </div>
                    <!--./box-->
+                   <!-- device Type Detail -->
+                   <%if((DeviceInfo.DeviceType == "DataTracker") && DeviceInfo.RawValue){%>
+                    <div class="box box-primary">
+                        <div class="box-header  with-border">
+                            <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style="margin-right:10px;"></i>DataTracker Detail</h3>
+                            <div class='box-tools pull-right'>
+                                <button type="button" class='btn btn-box-tool' data-widget="collapse"><i class='fa fa-minus'></i></button>
+                            </div>
+                        </div>
+                        <!--./box-header-->
+                        <div class="box-body">
+                            <div class='form-horizontal'>
+                                <div class="form-group">
+                                    <label for="" class="control-label col-xs-2">Data Tracker IP</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" value="<%=DeviceInfo.RawValue.DataTrackerIP %>" disabled>
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="" class="control-label col-xs-2">Data Tracker ID</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" value="<%=DeviceInfo.RawValue.DataTrackerId %>" disabled>
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="" class="control-label col-xs-2">Data Tracker FTPFolder</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" value="<%=DeviceInfo.RawValue.FTPFolder %>" disabled>
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--./box-->
+                   <%}else if(DeviceInfo.DeviceType == "ecolog"){%>
+                   <div class="box box-primary">
+                        <div class="box-header  with-border">
+                            <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style="margin-right:10px;"></i>ecolog Detail</h3>
+                            <div class='box-tools pull-right'>
+                                <button type="button" class='btn btn-box-tool' data-widget="collapse"><i class='fa fa-minus'></i></button>
+                            </div>
+                        </div>
+                        <!--./box-header-->
+                        <div class="box-body">
+                            <div class='form-horizontal'>
+                                <div class="form-group">
+                                    <label for="" class="control-label col-xs-2">FTP Folder</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" disabled value="<%=DeviceInfo.RawValue.FTPFolder%>">
+                                    </div>
+                                </div>
+                                <!-- ./form-group -->
+                                <div class="form-group">
+                                    <label for="" class="control-label col-xs-2">File Type</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" disabled value="<%=DeviceInfo.RawValue.FileFormat%>">
+                                    </div>
+                                </div>
+                                <!-- ./form-group -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--./box-->
+                   <%} else if(DeviceInfo.DeviceType == "HikVision"){%>
+                   <div class="box box-primary">
+                        <div class="box-header  with-border">
+                            <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style="margin-right:10px;"></i>HikVision Detail</h3>
+                            <div class='box-tools pull-right'>
+                                <button type="button" class='btn btn-box-tool' data-widget="collapse"><i class='fa fa-minus'></i></button>
+                            </div>
+                        </div>
+                        <!--./box-header-->
+                        <div class="box-body">
+                            <div class='form-horizontal'>
+                                <div class="form-group">
+                                    <label for="" class="col-xs-2 control-label">HikVision IP</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" disabled value="<%=DeviceInfo.RawValue.HikVisionIp%>">
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="" class="col-xs-2 control-label">HikVision ID</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" disabled value="<%=DeviceInfo.RawValue.HikVisionId%>">
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="" class="col-xs-2 control-label">FTP Folder</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" disabled value="<%=DeviceInfo.RawValue.FTPFolder%>">
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--./box-->
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Camera Image</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class='btn btn-box-tool' data-widget="collapse"><i class='fa fa-minus'></i></button>
+                            </div>
+                        </div>
+                        <!-- ./box-header-->
+                        <div class="box-body">
+                        
+                        </div>
+                    </div>
+                    <!--./show img-->
+                   <%}else{%>
+                   <%}%>
+                   <!-- ./device Type Detail -->
+                   <%if(DeviceInfo.DeviceColumns.length !== 0){%>
                    <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title"><i class="fa fa-line-chart" style="margin-right:10px;"></i>Device Graph</h3>
@@ -83,6 +202,7 @@
                             <!--./box-body-->
                         </div>
                    </div>
+                   <%}%>
                    <!--./bod graph-->
                 </div>
                 <!--/.content-->
@@ -92,6 +212,7 @@
        </div>
        <!--/.wrapper-->
        <% include ../../../../partials/admin/footerScript.ejs %>
+       <% include ../../../../partials/admin/chartScript.ejs %>
     </body>
   
 </html>

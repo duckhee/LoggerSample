@@ -51,6 +51,7 @@ const DetailRaw = (Info) => {
             }
         }).then(result => {
             console.log('Raw Dao Device ecolog Detail');
+            return resolve(result);
         }).catch(err => {
             console.log("Raw Dao Device ecolog  Detail Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog  Detail Error ::: ", err);

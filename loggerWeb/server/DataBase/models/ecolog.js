@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
             },
             onDelete: 'CASCADE'
         },
-        FileFormat:{
-            type:DataTypes.STRING
+        FileFormat: {
+            type: DataTypes.STRING
         },
     }, {});
     ecolog.associate = function(models) {
@@ -21,7 +21,10 @@ module.exports = (sequelize, DataTypes) => {
 
         /** Device has One ecolog */
         ecolog.belongsTo(models.device, {
-
+            foreignKeyConstraint: true,
+            foreignKey: 'id',
+            allowNull: false,
+            onDelete: 'CASCADE'
         });
     };
     return ecolog;
