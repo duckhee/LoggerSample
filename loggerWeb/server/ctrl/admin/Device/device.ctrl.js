@@ -128,28 +128,38 @@ const ListPage = (req, res, next) => {
     /** Device Dao Paging */
     AdminDeviceDao.PagingDevice(DeviceJson).then(result => {
         console.log('result value : ', result);
-        if (Number(Page) > result.PageNumber) {
+
+        if (Number(Page) > result.pageNumber) {
             return res.redirect('/admin/Device/list?page=' + result.pageNumber);
         }
-        if ((Number(Page) < 1) && (Page == "")) {
+        if ((Number(Page) < 1) && (Page !== "")) {
             if (result.value.length === 0) {
                 return res.render('admin/DevicePage/List/ListPage', {
                     login: TestingLoginData,
-                    title: 'Admin Device List Page',
+                    title: 'Admin Plot List Page',
                     DeviceInfoList: result.value,
-                    DeviceAllPage: result.offset,
+                    DeviceAllPage: result.pageNumber,
+                    curPage: Page,
                     _csrf: req.csrfToken()
                 });
             }
-            return res.redirect('/admin/Device/list?page=' + 1);
+            return res.redirect('/admin/Device/list?page=1');
+        }
+        if (parseInt(Page) < result.pageNumber - 3) {
+
+            console.log('testing ');
+        } else {
+            console.log('testing failed');
         }
         return res.render('admin/DevicePage/List/ListPage', {
             login: TestingLoginData,
             title: 'Admin Device List Page',
             DeviceInfoList: result.value,
-            DeviceAllPage: result.offset,
+            DeviceAllPage: result.pageNumber,
+            curPage: Page,
             _csrf: req.csrfToken()
         });
+
     }).catch(err => {
         console.log('Ctrl Admin Device Error code ::: ', err.code);
         console.log('Ctrl Admin Device Error ::: ', err);

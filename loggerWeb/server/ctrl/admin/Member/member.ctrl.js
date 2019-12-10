@@ -35,6 +35,7 @@ const ListPage = (req, res, next) => {
 
     /** Member Dao Paging */
     AdminMemberDao.PagingUser(UserListJson).then(result => {
+
         if (Number(Page) > result.pageNumber) {
             return res.redirect('/admin/Members/list?page=' + result.pageNumber);
         }
@@ -43,7 +44,8 @@ const ListPage = (req, res, next) => {
                 return res.render('admin/Member/List/ListPage', {
                     login: TestingLoginData,
                     UserInfoList: result.value,
-                    UserAllPage: result.offset,
+                    UserAllPage: result.pageNumber,
+                    curPage: Page,
                     title: 'Admin Member List Page',
                     _csrf: req.csrfToken()
                 });
@@ -53,7 +55,8 @@ const ListPage = (req, res, next) => {
         return res.render('admin/Member/List/ListPage', {
             login: TestingLoginData,
             UserInfoList: result.value,
-            UserAllPage: result.offset,
+            UserAllPage: result.pageNumber,
+            curPage: Page,
             title: 'Admin Member List Page',
             _csrf: req.csrfToken()
         });

@@ -73,8 +73,9 @@ const ListPage = (req, res, next) => {
     };
 
     AdminPlotDao.PagingPlot(PlotListJson).then(result => {
+        console.log("Plot Result : ", result);
         if (Number(Page) > result.pageNumber) {
-            return res.redirect('/admin/Plot/list?page=', result.pageNumber);
+            return res.redirect('/admin/Plot/list?page=' + result.pageNumber);
         }
         if ((Number(Page) < 1) && (Page !== "")) {
             if (result.value.length === 0) {
@@ -82,6 +83,8 @@ const ListPage = (req, res, next) => {
                     login: TestingLoginData,
                     title: 'Admin Plot List Page',
                     PlotInfoList: result.value,
+                    PlotAllPage: result.pageNumber,
+                    curPage: Page,
                     _csrf: req.csrfToken()
                 });
             }
@@ -91,6 +94,8 @@ const ListPage = (req, res, next) => {
             login: TestingLoginData,
             title: 'Admin Plot List Page',
             PlotInfoList: result.value,
+            PlotAllPage: result.pageNumber,
+            curPage: Page,
             _csrf: req.csrfToken()
         });
     }).catch(err => {

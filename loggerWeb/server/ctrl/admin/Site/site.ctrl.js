@@ -72,7 +72,8 @@ const ListPage = (req, res, next) => {
                     login: TestingLoginData,
                     title: 'Admin Site List Page',
                     SiteInfoList: result.value,
-                    SiteAllPage: result.offset,
+                    SiteAllPage: result.pageNumber,
+                    curPage: Page,
                     _csrf: req.csrfToken()
                 });
             }
@@ -82,7 +83,8 @@ const ListPage = (req, res, next) => {
             login: TestingLoginData,
             title: 'Admin Site List Page',
             SiteInfoList: result.value,
-            SiteAllPage: result.offset,
+            SiteAllPage: result.pageNumber,
+            curPage: Page,
             _csrf: req.csrfToken()
         });
     }).catch(err => {

@@ -89,6 +89,7 @@ const PagingPlot = (PlotInfo) => {
                     value: Plots,
                     pageNumber: MaxPages
                 };
+                console.log('return Plot Value : ', returnValue);
                 return resolve(returnValue);
             }).catch(err => {
                 console.log('Dao Paging Plot Error code ::: ', err.code);
