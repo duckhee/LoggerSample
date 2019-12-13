@@ -1,5 +1,9 @@
+const models = require('./models/index');
+const DeviceColumns = require('./models/devicecolumndata');
+const DeviceColumnData = require('./models/devicecolumndata');
+
 const fs = require('fs');
-const RootPath = process.cwd() + "/../SampleData" + '/DataTrackerSample';
+const RootPath = process.cwd() + "/SampleData" + '/DataTrackerSample';
 let fileList = fs.readdirSync(RootPath);
 
 console.log(fileList);
@@ -7,7 +11,11 @@ console.log(fileList);
 let DumpDataTracker = [];
 let DumpDataTrackerName = [];
 let DumpDataTrackerValue = [];
-
+let DumpTime = new Date();
+/**
+ * Testing Device Id : 201
+ * 
+ */
 
 fileList.forEach(items => {
     try {
@@ -21,10 +29,37 @@ fileList.forEach(items => {
         console.log(fileData);
         console.log('Data Value Line : ', AllDataNumber);
         console.log("Value Name : ", AllData);
-
+        let DumpName = {
+            deviceIdx: 201,
+            columns: DataName,
+            createdAt: DumpTime,
+            updatedAt: DumpTime
+        };
+        AllData.forEach(values => {
+            let DumpValue = {
+                deviceIdx: 201,
+                columnValue: values,
+                createdAt: DumpTime,
+                updatedAt: DumpTime
+            };
+            DumpDataTrackerValue.push(DumpValue);
+        });
+        DumpDataTrackerName.push(DumpName);
 
         //break;
     } catch (err) {
         console.log('Error ::: ', err);
     }
+});
+
+models.DeviceColumns.bulkCreate(DumpDataTrackerName).then(result => {
+    console.log('name Success ::: ', result);
+    models.DeviceColumnData.bulkCreate(DumpDataTrackerValue).then(result => {
+        console.log('value Success ::: ', result);
+        process.exit(1);
+    }).catch(err => {
+        throw err;
+    });
+}).catch(err => {
+    throw err;
 });

@@ -6,7 +6,7 @@ function MakeAreaChart(GetQuerySelectorId, titleText) {
             type: 'area',
             stacked: false,
             event: {
-                selection: function (chart, e) {
+                selection: function(chart, e) {
                     console.log(new Date(e.xaxis.min));
                 }
             },
@@ -49,6 +49,7 @@ function MakeAreaChart(GetQuerySelectorId, titleText) {
 
 //function Update Series
 function UpdateSeries(NamesArray, DataArray, chart) {
+
     let Series = new Array();
     for (let i in NamesArray) {
         let ReturnJson = {

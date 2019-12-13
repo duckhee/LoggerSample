@@ -158,23 +158,29 @@ const DetailDevice = (no) => {
             },
             include: [{
                 model: models.plot,
+                attributes: ['PlotName'],
                 include: {
-                    model: models.site
+                    model: models.site,
+                    attributes: ['name'],
                 }
             }, {
-                model: models.DeviceColumns
+                model: models.DeviceColumns,
+                attributes: ['columns']
             }, {
-                model: models.DeviceColumnData
+                model: models.DeviceColumnData,
+                attributes: ['columnValue']
             }]
         }).then(Device => {
-            console.log('Device Detail done and Result : ', Device);
+
             let RawJson = {
                 DeviceIdx: Device.id
             };
             RawConnection[Device.DeviceType]().DetailRaw(RawJson).then(RawDevice => {
                 console.log('Device Raw Detail Show Result : ', RawDevice);
                 Device.RawValue = RawDevice;
-                console.log('add Device Value : ', Device);
+
+
+                console.log('add Device Value : ', Device.DeviceColumns[0].dataValues);
                 return resolve(Device);
             }).catch(err => {
                 console.log('Dao Detail Device Error code ::: ', err.code);
@@ -190,15 +196,23 @@ const DetailDevice = (no) => {
 };
 
 /** Detail Show Device and Device Graph */
-const DetailGraphDevice = () => {
+const DetailGraphDevice = (no) => {
     return new Promise((resolve, reject) => {
         models.device.findOne({
             where: {
                 id: no
-            }
+            },
+            attributes: ['name'],
+            include: [{
+                model: models.DeviceColumns,
+                attributes: ['columns']
+            }, {
+                model: models.DeviceColumnData,
+                attributes: ['columnValue']
+            }]
         }).then(result => {
             //console.log('Device Detail Device Graph Done and Result : ', result);
-            //return resolve(result);
+            return resolve(result);
         }).catch(err => {
             console.log('Dao Detail Device Graph Error code ::: ', err.code);
             console.log('Dao Detail Device Graph Error ::: ', err);

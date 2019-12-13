@@ -3,6 +3,8 @@ const router = express.Router();
 
 /** Admin Device Controller */
 const AdminDeviceCtrl = require('../../../ctrl/admin/Device/device.ctrl');
+/** Admin Device Json Controller */
+const AdminDeviceJsonCtrl = require('../../../ctrl/admin/Device/Data.Json.ctrl');
 
 const DeviceRouter = (csurfMiddleWare) => {
     /** Admin Device Main Page */
@@ -20,7 +22,7 @@ const DeviceRouter = (csurfMiddleWare) => {
     /** Admin Device delete Do */
     router.post('/delete', csurfMiddleWare, AdminDeviceCtrl.DeleteDo);
     /** return router */
-    //router.get('/getData');
+    router.get('/getData', AdminDeviceJsonCtrl.ListAllData);
     return router;
 };
 

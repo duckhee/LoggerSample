@@ -191,7 +191,7 @@ const DetailPage = (req, res, next) => {
         return res.redirect('/admin/Device/list');
     }
     AdminDeviceDao.DetailDevice(no).then(result => {
-        console.log('Device Detail Page Info : ', result);
+        //console.log('Device Detail Page Info : ', result);
         res.render('admin/DevicePage/Detail/DetailPage', {
             login: TestingLoginData,
             title: 'Admin Device Detail Page',
@@ -201,25 +201,10 @@ const DetailPage = (req, res, next) => {
     }).catch(err => {
         console.log('Ctrl Admin Device Detail Page Error code ::: ', err.code);
         console.log('Ctrl Admin Device Detail Page Error ::: ', err);
-        return res.json(0);
-        //return res.redirect('/admin/Device/list');
+        //return res.json(0);
+        return res.redirect('/admin/Device/list');
     });
-    /*
-        var DeviceSampleInfo = {
-            SiteName: 'test',
-            PlotName: 'Plot',
-            DeviceName: 'Testing Device',
-            DeviceLatitude: '20.00',
-            DeviceLongitude: '10.00'
-        };
 
-        res.render('admin/DevicePage/Detail/DetailPage', {
-            login: TestingLoginData,
-            title: 'Admin Device Detail Page',
-            DeviceInfo: DeviceSampleInfo,
-            _csrf: req.csrfToken()
-        });
-    */
 };
 
 /** Admin Device Detail And Show Graph */
