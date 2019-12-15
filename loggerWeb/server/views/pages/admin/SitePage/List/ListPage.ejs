@@ -49,7 +49,7 @@
                                                 <td><input type="checkbox" name="checkRow" value="<%=item.dataValues.id%>"></td>
                                                 <td><a href="/admin/Site/detail?no=<%=item.id%>"><%=item.dataValues.name%></a></td>
                                                 <td><%=item.dataValues.Owner%></td>
-                                                <td><span class="badge bg-light-blue"><%=item.plots.length%></span></td>
+                                                <td style='text-align:center;'><span class="badge bg-light-blue"><%=item.plots.length%></span></td>
                                                 <td><%=new Date(item.dataValues.createdAt).getFullYear() + '-' + (new Date(item.dataValues.createdAt).getMonth()+1) + '-' + new Date(item.dataValues.createdAt).getDate()%></td>
                                                 <td><%=item.updatedAt%></td>
                                             </tr>
@@ -170,7 +170,7 @@
                 txt += "<tr><td><input type='checkbox' name='checkRow' value="+obj.id+"></td>";
                 txt += "<td><a href='/admin/Site/detail?no='"+obj.id+"'>"+obj.name+"</a></td>";
                 txt += "<td>"+obj.Owner+"</td>";
-                txt += "<td>"+'<span class="badge bg-light-blue">'+obj.plots.length+"</span></td>";
+                txt += "<td style='text-align:center;'>"+'<span class="badge bg-light-blue">'+obj.plots.length+"</span></td>";
                 txt += "<td>"+new Date(obj.createdAt).getFullYear() + '-' + (new Date(obj.createdAt).getMonth()+1) + '-' + new Date(obj.createdAt).getDate()+":"+new Date(obj.createdAt).getHours()+":"+new Date(obj.createdAt).getMinutes()+"</td>";
                 txt += "<td>"+obj.updatedAt+"</td></tr>";
             });

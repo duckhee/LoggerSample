@@ -217,31 +217,15 @@
        <% include ../../../../partials/admin/chartScript.ejs %>
        <script>
             
-            let Testing = "<%=DeviceInfo.DeviceColumns[0].dataValues.columns%>".split(",");
-            
-            
             //console.log('Testing Value : ', TestingData);
             /** Make Chart */
             let chart = MakeAreaChart("graph");
-            let name = Testing;
-            let data = [generateDayWiseTimeSeries(new Date('11 Feb 2017 GMT').getTime(), 20, {
-            min: 10,
-            max: 60
-          }),generateDayWiseTimeSeries(new Date('11 Feb 2017 GMT').getTime(), 20, {
-            min: 10,
-            max: 60
-          }),generateDayWiseTimeSeries(new Date('11 Feb 2017 GMT').getTime(), 20, {
-            min: 10,
-            max: 60
-          })];
-          /** Update Chart Data */
-          //UpdateSeries(name, data, chart);
-            
+          
           /** New Update */
-          //UpdateChart(name, data, chart);
           AjaxTest(201).then(result=>{
-              //console.log('Promise', result);
-              UpdateChart(result.DeviceColumns[0].columns.split(","), result.DeviceColumnData, chart);
+              console.log('Promise', result);
+              InsertChart(result,chart);
+              //UpdateChart(result.DeviceColumns[0].columns.split(","), result.DeviceColumnData, chart);
           }).catch(err=>{
               console.log('failed');
           });

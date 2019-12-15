@@ -95,13 +95,13 @@ function MakeNameJson(Names) {
     return new Promise((resolve, reject) => {
         for (let i in Names) {
             let DataJson = {};
-            
+
             DataJson.name = Names[i];
             DataJson.data = [];
             if (parseInt(i) !== 0)
                 Series.push(DataJson);
         }
-        if (Series.length === Names.length-1){
+        if (Series.length === Names.length - 1) {
             //console.log("Data JSON : ", Series);
             return resolve(Series);
         }
@@ -109,33 +109,33 @@ function MakeNameJson(Names) {
 }
 
 /** Make Chart Data */
-function MakeDataJson(Names, Data){
+function MakeDataJson(Names, Data) {
     console.log('Names : ', Names);
     console.log("data length : ", Data.length);
     var Time;
-    return new Promise((resolve, reject)=>{
-        for(let i=0; i < Data.length;i++){
+    return new Promise((resolve, reject) => {
+        for (let i = 0; i < Data.length; i++) {
             let SplitData = Data[i].columnValue.split(',');
-            
+
             //console.log('Split Data : ', SplitData);
-            for(let i2 in SplitData){
-                if(i2 == 0){
+            for (let i2 in SplitData) {
+                if (i2 == 0) {
                     Time = new Date(SplitData[0]).getTime();
-                }else{
+                } else {
                     let ChartData = parseFloat(SplitData[i2]);
-                    if(isNaN(ChartData)){
+                    if (isNaN(ChartData)) {
                         ChartData = null;
                     }
                     //console.log("Time : ", Time+", Data : ", ChartData);
-                    Names[i2-1].data.push([Time, ChartData]);
+                    Names[i2 - 1].data.push([Time, ChartData]);
                 }
-                
+
             }
 
         }
 
         return resolve(Names);
-        
+
     });
 }
 
@@ -146,26 +146,26 @@ function UpdateChart(NamesArray, DataArray, chart) {
     MakeNameJson(NamesArray).then(NameJson => {
         console.log('success');
         console.log('NameJson : ', NameJson);
-        MakeDataJson(NameJson, DataArray).then(result=>{
+        MakeDataJson(NameJson, DataArray).then(result => {
             console.log('testing success');
-            console.log("Data Testing : ", result);
-            console.log("Data Test : ", result.length);
+
             //chart.appendSeries(result);
-            for(let i in result){
+            for (let i in result) {
+                console.log('Data Test : ', result[i]);
                 chart.appendSeries(result[i]);
                 //chart.toggleSeries(result[i].name);
             }
-            for(let i in result){
+            for (let i in result) {
                 chart.toggleSeries(result[i].name);
             }
             console.log('done');
-        }).catch(err=>{
+        }).catch(err => {
             console.log('Error : ', err);
             console.log('test failed');
         });
     }).catch(err => {
         console.log('failed');
-        
+
     });
 }
 
@@ -204,4 +204,16 @@ function AjaxTest(no) {
 /** Ajax Data Parsing */
 function AjaxDataParsing(data) {
 
+}
+
+/** Function Insert data if make chart data make server side */
+function InsertChart(data, chart) {
+    for (let i in data) {
+        //console.log('Data Test : ', data[i]);
+        chart.appendSeries(data[i]);
+        //chart.toggleSeries(result[i].name);
+    }
+    for (let i in data) {
+        chart.toggleSeries(data[i].name);
+    }
 }

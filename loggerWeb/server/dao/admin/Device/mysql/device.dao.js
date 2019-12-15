@@ -208,7 +208,8 @@ const DetailGraphDevice = (no) => {
                 attributes: ['columns']
             }, {
                 model: models.DeviceColumnData,
-                attributes: ['columnValue']
+                attributes: ['columnValue'],
+
             }]
         }).then(result => {
             //console.log('Device Detail Device Graph Done and Result : ', result);
