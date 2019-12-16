@@ -77,7 +77,7 @@ const LogOutDo = (req, res, next) => {
     const SessionInfo = req.session.UserLogin;
     if (SessionInfo) {
         req.session.destroy(() => {
-            console.log('session delete', res.session.UserLogin);
+            console.log('session delete');
             res.clearCookie('secreteKeyWon');
             res.redirect('/');
         });

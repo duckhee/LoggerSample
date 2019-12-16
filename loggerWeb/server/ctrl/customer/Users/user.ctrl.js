@@ -51,10 +51,11 @@ const LoginDo = (req, res, next) => {
 };
 /** Customer User LogOut Do */
 const LogOutDo = (req, res, next) => {
+    console.log('Login Session : ', req.session.UserLogin);
     const SessionInfo = req.session.UserLogin;
     if (SessionInfo) {
         req.session.destroy(() => {
-            console.log('session delete', res.session.UserLogin);
+            console.log('session delete');
             res.clearCookie('secreteKeyWon');
             res.redirect('/');
         });
