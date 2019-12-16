@@ -1,5 +1,9 @@
 const models = require('../../../../../DataBase/models/index');
 const DataTracker = require('../../../../../DataBase/models/datatracker');
+/** Name Insert Dao */
+const NameColumnDao = require('./dataTracker.name.dao');
+/** Data Insert Dao */
+const DataColumnsDao = require('./dataTracker.value.dao');
 
 /** DataTracker Root Path */
 const RootPath = "/DataTracker";
@@ -120,6 +124,8 @@ const PagingRaw = (Info) => {
         });
     });
 };
+
+/** Insert Data Value Raw */
 
 module.exports = {
     CreateRaw,

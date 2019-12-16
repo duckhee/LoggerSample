@@ -163,12 +163,6 @@ const DetailDevice = (no) => {
                     model: models.site,
                     attributes: ['name'],
                 }
-            }, {
-                model: models.DeviceColumns,
-                attributes: ['columns']
-            }, {
-                model: models.DeviceColumnData,
-                attributes: ['columnValue']
             }]
         }).then(Device => {
 
@@ -180,7 +174,7 @@ const DetailDevice = (no) => {
                 Device.RawValue = RawDevice;
 
 
-                console.log('add Device Value : ', Device.DeviceColumns[0].dataValues);
+                //console.log('add Device Value : ', Device.DeviceColumns[0].dataValues);
                 return resolve(Device);
             }).catch(err => {
                 console.log('Dao Detail Device Error code ::: ', err.code);
@@ -223,12 +217,12 @@ const DetailGraphDevice = (no) => {
 };
 
 /** Device Insert Name Value */
-const NameColumnsDevice = () => {
+const InsertNameColumnsDevice = () => {
 
 };
 
 /** Device Get Data Value */
-const ValueColumnsDevice = () => {
+const InsertDataColumnsDevice = () => {
 
 };
 
