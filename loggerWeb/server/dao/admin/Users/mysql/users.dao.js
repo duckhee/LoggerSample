@@ -1,7 +1,7 @@
 const models = require('../../../../DataBase/models/index');
 const user = require('../../../../DataBase/models/user');
 /** Password Make */
-var bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-nodejs');
 
 /** Registe User */
 const RegisteUser = (UserInfo) => {

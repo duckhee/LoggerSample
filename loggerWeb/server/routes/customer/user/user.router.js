@@ -3,9 +3,7 @@ const router = express.Router();
 
 const CustomerUserCtrl = require("../../../ctrl/customer/Users/user.ctrl");
 
-const UserRouter = (csurfMiddleWare) => {
-
-
+const UserRouter = (app, csurfMiddleWare) => {
 
     router.get("/", CustomerUserCtrl.MainPage);
 

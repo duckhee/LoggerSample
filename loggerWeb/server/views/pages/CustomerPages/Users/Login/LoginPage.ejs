@@ -4,7 +4,7 @@
         <title>Login Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--===============================================================================================-->	
+<!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="/static/customer/img/logo.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/static/login/vendor/bootstrap/css/bootstrap.min.css">
@@ -35,7 +35,7 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('/static/MainView/img/bg-masthead.jpg');">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<form class="login100-form validate-form" id="loginForm" method="post" action="/login">
+				<form class="login100-form validate-form" name="loginForm" id="loginForm">
 					<span class="login100-form-title p-b-49">
 						Login
 						
@@ -62,12 +62,13 @@
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn" id="loginDo">
+							<button type="button" class="login100-form-btn" id="loginDo">
 								Login
 							</button>
 						</div>
 					</div>
 
+					<!--
 					<div class="txt1 text-center p-t-54 p-b-20">
 						<span>
 							Or Sign Up Using
@@ -97,14 +98,13 @@
 							Sign Up
 						</a>
 					</div>
+
+					-->
 				</form>
 			</div>
 		</div>
 	</div>
-	
 
-	<div id="dropDownSelect1"></div>
-	
 <!--===============================================================================================-->
 	<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -123,23 +123,77 @@
 <!-- sweetalert2 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
 <!--===============================================================================================-->
-<script src="/static/login/js/main.js"></script>
+<!--<script src="/static/login/js/main.js"></script>-->
 <script>
-    function checking(){
+
+
+	function EmailCheck(id){
+		var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+		return re.test(id);
+	}
+
+    function IDCheck(){
         let id = $("#userId").val();
-        let pw = $("#userPw").val();
-        let flag = false;
-        if(!id){
-
-        }else if(!pw){
-
-        }else{
-            this.flag = true;
-        }
-        return this.flag;
-    }
-    $(document).ready(function(){
         
+		if(id === null || id===""){
+			Swal.fire({
+				type:'warning',
+				title:'Input Email'
+			});
+			return false;
+		}
+        if(EmailCheck(id)){
+			return true;
+		}else{
+			Swal.fire({
+				type:'warning',
+				title:'Input Email Type'
+			});
+			return false;
+		}
+        return false;
+    }
+
+	function PwCheck(){
+		let pw = $("#userPw").val();
+
+		if(pw === null || pw === ""){
+			Swal.fire({
+				type:'warning',
+				title:'Input Password'
+			});
+			return false;
+		}
+		return true;
+	}
+
+	function checking(){
+		let idFlag = IDCheck();
+		let pwFlag = PwCheck();
+		if(idFlag && pwFlag){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function LoginSend(){
+		document.loginForm.action = "/login";
+		document.loginForm.method = "post";
+		document.loginForm.submit();
+	}
+    $(document).ready(function(){
+        $("#loginDo").click(function(){
+			let flag = checking();
+			if(flag){
+				LoginSend();
+			}
+		});
+		<%if(msg.length > 0){%>
+			Swal.fire({
+				type:'warning',
+				title:"<%=msg%>"
+			});
+		<%}%>
     });
 </script>
 </body>
