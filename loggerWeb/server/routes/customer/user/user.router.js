@@ -44,12 +44,12 @@ const UserRouter = (app, csurfMiddleWare) => {
     /**
      * Modify Get Router
      */
-    router.get('/Modify', CustomerUserCtrl.ModifyPage);
+    router.get('/Modify', csurfMiddleWare, CustomerUserCtrl.ModifyPage);
 
     /**
      * Modify Post Router
      */
-    router.post('/Modify', CustomerUserCtrl.ModifyDo);
+    router.post('/Modify', csurfMiddleWare, CustomerUserCtrl.ModifyDo);
 
     return router;
 

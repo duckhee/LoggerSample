@@ -21,5 +21,5 @@ module.exports = (app, csurfMiddleWare) => {
     /** User Management Router */
     app.use('/', UserRouter(app, csurfMiddleWare));
     /** Device Router */
-    DeviceRouter(app);
+    DeviceRouter(app, csurfMiddleWare);
 };
