@@ -42,6 +42,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             onDelete: 'CASCADE'
         });
+        /** DataTracker has One DataTracker columns(name) */
+        DataTracker.hasOne(models.DataTrackerColumns, {
+            foreignKey: 'dataTrackerIdx',
+            targetKey: 'id'
+        });
     };
     return DataTracker;
 };
