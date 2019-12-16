@@ -2,6 +2,16 @@
 const Dao = require('../../../dao/admin/Device/index.dao');
 const AdminDeviceDao = Dao();
 
+/** Insert Data */
+const InsertData = (req, res, next) => {
+
+};
+
+/** File Insert Data */
+const InsertFileData = (req, res, next) => {
+
+};
+
 /** Select Last Ten Data */
 const ListTenData = (req, res, next) => {
     let no = req.param.no || req.params.no || req.query.no || "";
@@ -19,9 +29,12 @@ const ListAllData = (req, res, next) => {
         return res.json(0);
     }
     AdminDeviceDao.DetailGraphDevice(no).then(result => {
-        //console.log('data is : ', result);
+        console.log('data is : ', result);
         //console.log('detail data json end ');
         //console.log('Name Array : ', result.DeviceColumns[0].dataValues.columns);
+        if (result.DeviceColumns.length == 0) {
+            return res.json(null);
+        }
         let Names = result.DeviceColumns[0].dataValues.columns;
         let NamesSplit = Names.split(',');
         let dataOrigin = result.DeviceColumnData;
@@ -65,6 +78,8 @@ const ListAllData = (req, res, next) => {
         return res.json(0);
     });
 };
+
+
 
 module.exports = {
     ListAllData

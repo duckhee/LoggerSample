@@ -190,8 +190,8 @@
                    <%}else{%>
                    <%}%>
                    <!-- ./device Type Detail -->
-                   <%if(DeviceInfo.DeviceColumns){%>
-                   <%if(DeviceInfo.DeviceColumns.length !== 0){%>
+                   
+                   
                    <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title"><i class="fa fa-line-chart" style="margin-right:10px;"></i>Device Graph</h3>
@@ -209,7 +209,7 @@
                             <!--./box-body-->
                         </div>
                    </div>
-                   <%}}%>
+                   
                    <!--./bod graph-->
                 </div>
                 <!--/.content-->
@@ -227,7 +227,7 @@
             let chart = MakeAreaChart("graph");
           
           /** New Update */
-          AjaxTest(201).then(result=>{
+          AjaxTest(<%=DeviceInfo.dataValues.id%>).then(result=>{
               console.log('Promise', result);
               InsertChart(result,chart);
               //UpdateChart(result.DeviceColumns[0].columns.split(","), result.DeviceColumnData, chart);

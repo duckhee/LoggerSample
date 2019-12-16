@@ -191,7 +191,7 @@ const DetailPage = (req, res, next) => {
         return res.redirect('/admin/Device/list');
     }
     AdminDeviceDao.DetailDevice(no).then(result => {
-        console.log('Device Detail Page Info : ', result);
+        console.log('Device Detail Page Info : ', result.dataValues.id);
         res.render('admin/DevicePage/Detail/DetailPage', {
             login: TestingLoginData,
             title: 'Admin Device Detail Page',
