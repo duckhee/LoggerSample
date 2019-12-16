@@ -32,7 +32,11 @@ const LoginDo = (req, res, next) => {
 
     UserDao.LoginUser(LoginJson).then(result => {
         if (result !== false) {
-
+            req.session.UserLogin = {
+                name: result.UserName,
+                email: result.UserEmail,
+                level: result.UserLevel,
+            };
             return res.json(result);
         } else {
             req.flash('loginMsg', 'Not Match Email or Password');
@@ -47,7 +51,16 @@ const LoginDo = (req, res, next) => {
 };
 /** Customer User LogOut Do */
 const LogOutDo = (req, res, next) => {
-
+    const SessionInfo = req.session.UserLogin;
+    if (SessionInfo) {
+        req.session.destroy(() => {
+            console.log('session delete', res.session.UserLogin);
+            res.clearCookie('secreteKeyWon');
+            res.redirect('/');
+        });
+    } else {
+        return res.redirect('/login');
+    }
 };
 /** Customer User Profile Page */
 const ProfilePage = (req, res, next) => {

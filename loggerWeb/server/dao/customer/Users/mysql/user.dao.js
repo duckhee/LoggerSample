@@ -18,6 +18,7 @@ const LastLogin = (UserId) => {
     });
 };
 
+/** LogIn User */
 const LoginUser = (UserInfo) => {
     return new Promise((resolve, reject) => {
         models.user.findOne({
@@ -49,6 +50,7 @@ const LoginUser = (UserInfo) => {
         });
     });
 };
+
 
 
 module.exports = {

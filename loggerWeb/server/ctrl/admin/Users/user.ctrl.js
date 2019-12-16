@@ -82,7 +82,7 @@ const LogOutDo = (req, res, next) => {
             res.redirect('/');
         });
     } else {
-
+        return res.redirect('/admin/User/login');
     }
 };
 

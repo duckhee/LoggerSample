@@ -34,9 +34,7 @@ const UserRouter = (app, csurfMiddleWare) => {
     /**
      * LogOut Post Router
      */
-    router.post('/logout', (req, res, next) => {
-
-    });
+    router.post('/logout', CustomerUserCtrl.LogOutDo);
 
     /**
      * Profile Get Router
