@@ -128,6 +128,33 @@ const EmailCheckUser = (Email) => {
     });
 };
 
+/** User Device LanLat */
+const UserAllDeviceLatLan = (Email) => {
+    return new Promise((resolve, reject) => {
+        models.user.findOne({
+            where: Email,
+            include: {
+                model: models.site,
+                attributes: ['name'],
+                include: {
+                    model: models.plot,
+                    attributes: ['PlotName'],
+                    include: {
+                        model: models.device,
+                        attributes: ['Latitude', 'Longitude']
+                    }
+                }
+            }
+        }).then(result => {
+            console.log('device gps : ', result);
+            return resolve(result);
+        }).catch(err => {
+            console.log('Device Lan Lat Get Use Email Error code ::: ', err.code);
+            console.log('Device Lan Lat Get Use Email Error ::: ', err);
+            return reject(err);
+        });
+    });
+};
 
 module.exports = {
     RegisteUser,
@@ -136,5 +163,5 @@ module.exports = {
     LoginUser,
     LogoutUser,
     EmailCheckUser,
-
+    UserAllDeviceLatLan
 };

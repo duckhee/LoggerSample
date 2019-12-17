@@ -226,10 +226,28 @@ const InsertDataColumnsDevice = () => {
 
 };
 
+/** Device All GPS Info */
+const GPSAllDevice = () => {
+    return new Promise((resolve, reject) => {
+        models.device.find({
+            attributes: ['Latitude', 'Longitude']
+        }).then(result => {
+            console.log('get Info All Device GPS ::: ', result);
+            return resolve(result);
+        }).catch(err => {
+            console.log('Dao GPS Device Info Error code ::: ', err.code);
+            console.log('Dao GPS Device Info Error ::: ', err);
+            return reject(err);
+        });
+    });
+};
+
 module.exports = {
     CreateDevice,
     PagingDevice,
     DeleteDevice,
     DetailDevice,
-    DetailGraphDevice
+    DetailGraphDevice,
+    GPSAllDevice
+
 };

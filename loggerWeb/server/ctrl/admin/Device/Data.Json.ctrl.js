@@ -79,8 +79,22 @@ const ListAllData = (req, res, next) => {
     });
 };
 
+/** select Device LangLat */
+const ListAllDeviceLangLat = (req, res, next) => {
+    const email = req.query.email || req.body.email || "";
+    return res.json(email);
+};
+/** select Device LangLat */
+const UserAllDeviceLangLat = (req, res, next) => {
+    const email = req.query.email || req.body.email || "";
+    return res.json(email);
+};
+
+
 
 
 module.exports = {
-    ListAllData
+    ListAllData,
+    ListAllDeviceLangLat,
+    UserAllDeviceLangLat
 };

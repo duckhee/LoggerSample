@@ -258,11 +258,25 @@
 
     <script>
         var mapContainer = document.getElementById("world-map-markers");
-        mapOption = {
-            center:new kakao.maps.LatLng(37.335887, 126.584063),
-            level:40
+        var mapOption = {
+            center:new kakao.maps.LatLng(36.2683, 127.6358),
+            level:14
         }
         var map = new kakao.maps.Map(mapContainer, mapOption);
+        /** Make Cluster */
+        var clusterer = new kakao.maps.MarkerClusterer({
+            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+            minLevel: 10 // 클러스터 할 최소 지도 레벨 
+        });
+        $.get('http://apis.map.kakao.com/download/web/data/chicken.json', function(data){
+            let marker = $(data.positions).map(function(i, position){
+                return new kakao.maps.Marker({
+                    position:new kakao.maps.LatLng(position.lat, position.lng)
+                });
+            });
+            clusterer.addMarkers(markers);
+        });
     </script>
     
   </body>
