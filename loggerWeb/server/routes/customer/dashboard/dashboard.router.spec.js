@@ -18,7 +18,13 @@ module.exports = (request, should, app) => {
     /** Post Test */
     describe('POST', () => {
         it('1) Test', done => {
+            request(app)
+                .post('')
+                .send({})
+                .expect(200)
+                .end((err, res) => {
 
+                });
         });
     });
 };

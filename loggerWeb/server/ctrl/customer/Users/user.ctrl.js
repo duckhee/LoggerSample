@@ -37,7 +37,14 @@ const LoginDo = (req, res, next) => {
                 email: result.UserEmail,
                 level: result.UserLevel,
             };
-            return res.json(result);
+            req.session.UserLogin = {
+                name: result.UserName,
+                email: result.UserEmail,
+                level: result.UserLevel,
+            };
+            return res.render('CustomerPages/afterIndex', {
+
+            });
         } else {
             req.flash('loginMsg', 'Not Match Email or Password');
             return res.redirect('/login');

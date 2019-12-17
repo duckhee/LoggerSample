@@ -90,7 +90,7 @@ module.exports = (request, should, app) => {
                     } else {
                         done();
                     }
-                })
+                });
         });
     });
 };

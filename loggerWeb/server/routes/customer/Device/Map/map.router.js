@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 /** Customer Map Controller */
-const CustomerMapCtrl = require('../../../../ctrl/customer/Device/Map/map.ctrl');
+const CustomerMapCtrl = require('../../../../ctrl/customer/map/map.ctrl');
 
 /** Map router Main */
 router.get("/", CustomerMapCtrl.MainPage);
