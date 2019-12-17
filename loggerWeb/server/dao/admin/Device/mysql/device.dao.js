@@ -233,7 +233,7 @@ const InsertDataColumnsDevice = () => {
 const GPSAllDevice = () => {
     return new Promise((resolve, reject) => {
         models.device.findAll({
-            attributes: ['Latitude', 'Longitude']
+            attributes: ['Latitude', 'Longitude', 'name']
         }).then(result => {
             console.log('get Info All Device GPS ::: ', result);
             return resolve(result);

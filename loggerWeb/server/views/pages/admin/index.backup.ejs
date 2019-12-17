@@ -137,11 +137,88 @@
                                 <div class="box-body">
                                     <div class="row">
                                         <!-- col-md-8 -->
-                                        <div class="col-md-12">
+                                        <div class="col-md-8">
                                             <div id="world-map-markers" style="height: 420px;"></div>
                                         </div>
                                         <!-- /.col-md-8 -->
-                                        
+                                        <!-- col-md-4 -->
+                                        <div class="col-md-4">
+                                            <!--<p class="text-center">Test</p>-->
+                                            <!-- progress-group -->
+                                            <div class="progress-group">
+                                                <span class="progress-text">서울</span>
+                                                <span class="progress-number"><b>60</b>/100</span>
+
+                                                <div class="progress sm">
+                                                    <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+                                                </div>
+                                            </div>
+                                            <!-- /.progress-group -->
+                                            <!-- progress-group -->
+                                            <div class="progress-group">
+                                                <span class="progress-text">경기도</span>
+                                                <span class="progress-number"><b>10</b>/100</span>
+                                                <div class="progress sm">
+                                                    <div class="progress-bar progress-bar-red" style="width: 10%"></div>
+                                                </div>
+                                            </div>
+                                            <!-- /.progress-group -->
+                                            <!-- progress-group -->
+                                            <div class="progress-group">
+                                                <span calss="progress-text">강원도</span>
+                                                <span class="progress-number"><b>30</b>/100</span>
+                                                <div class="progress sm">
+                                                    <div class="progress-bar progress-bar-aqua" style="width:20%"></div>
+                                                </div>
+                                            </div>
+                                            <!-- /.progress-group -->
+                                            <!-- progress-group -->
+                                            <div class="progress-group">
+                                                <span calss="progress-text">충청남도</span>
+                                                <span class="progress-number"><b>30</b>/100</span>
+                                                <div class="progress sm">
+                                                    <div class="progress-bar progress-bar-aqua" style="width:20%"></div>
+                                                </div>
+                                            </div>
+                                            <!-- /.progress-group -->
+                                          
+                                            <!-- progress-group -->
+                                            <div class="progress-group">
+                                                <span calss="progress-text">전라남도</span>
+                                                <span class="progress-number"><b>20</b>/100</span>
+                                                <div class="progress sm">
+                                                    <div class="progress-bar progress-bar-green" style="width:30%"></div>
+                                                </div>
+                                            </div>
+                                            <!-- /.progress-group -->
+                                            <!-- progress-group -->
+                                            <div class="progress-group">
+                                                <span calss="progress-text">전라북도</span>
+                                                <span class="progress-number"><b>20</b>/100</span>
+                                                <div class="progress sm">
+                                                    <div class="progress-bar progress-bar-yellow" style="width:30%"></div>
+                                                </div>
+                                            </div>
+                                            <!-- /.progress-group -->
+                                            <!-- progress-group -->
+                                            <div class="progress-group">
+                                                <span calss="progress-text">경상남도</span>
+                                                <span class="progress-number"><b>30</b>/100</span>
+                                                <div class="progress sm">
+                                                    <div class="progress-bar progress-bar-aqua" style="width:20%"></div>
+                                                </div>
+                                            </div>
+                                            <!-- /.progress-group -->
+                                            <!-- progress-group -->
+                                            <div class="progress-group">
+                                                <span calss="progress-text">경상북도</span>
+                                                <span class="progress-number"><b>30</b>/100</span>
+                                                <div class="progress sm">
+                                                    <div class="progress-bar progress-bar-aqua" style="width:20%"></div>
+                                                </div>
+                                            </div>
+                                            <!-- /.progress-group -->
+                                        </div>
                                         <!-- /.col-md-4 -->
                                     </div>
                                     <!-- /.row end -->
@@ -183,7 +260,6 @@
     <!-- Kakao Map Change -->
 
     <script>
-       <%if(DeviceInfo){%>
         /** Deviec All GPS Info */
         var DeviceGPS = JSON.parse('<%-JSON.stringify(DeviceInfo)%>');
         console.log(DeviceGPS);
@@ -218,14 +294,7 @@
         markers.push(value);
     }
     clusterer.addMarkers(markers);
-<%}else{%>
-var mapContainer = document.getElementById("world-map-markers");
-        var mapOption = {
-            center:new kakao.maps.LatLng(36.2683, 127.6358),
-            level:14
-        }
-        var map = new kakao.maps.Map(mapContainer, mapOption);
-<%}%>
+
     </script>
     
   </body>

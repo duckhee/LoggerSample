@@ -36,6 +36,7 @@ const MainPage = (req, res, next) => {
         res.render('admin/index', {
             login: TestingLoginData,
             title: 'Admin Main Page',
+            DeviceInfo: null,
             message: req.flash('LoginMessage')
         });
         //res.redirect('/admin/login');
