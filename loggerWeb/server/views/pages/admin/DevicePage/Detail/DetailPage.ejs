@@ -225,15 +225,18 @@
             //console.log('Testing Value : ', TestingData);
             /** Make Chart */
             let chart = MakeAreaChart("graph");
-          
-          /** New Update */
-          AjaxTest(<%=DeviceInfo.dataValues.id%>).then(result=>{
-              console.log('Promise', result);
-              InsertChart(result,chart);
-              //UpdateChart(result.DeviceColumns[0].columns.split(","), result.DeviceColumnData, chart);
-          }).catch(err=>{
-              console.log('failed');
-          });
+            /*
+            let charData = JSON.parse('<%-JSON.stringify(DeviceInfo)%>');
+            console.log('char Data : ',charData);
+            */
+            /** New Update */
+            AjaxTest(<%=DeviceInfo.dataValues.id%>).then(result=>{
+                  console.log('Promise', result);
+                InsertChart(result,chart);
+                //UpdateChart(result.DeviceColumns[0].columns.split(","), result.DeviceColumnData, chart);
+            }).catch(err=>{
+                  console.log('failed');
+            });
        </script>
     </body>
   

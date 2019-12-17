@@ -239,7 +239,10 @@
                 </div>
             </div>
     
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=def2722a96dab30bb5441f914e98d2b1"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=def2722a96dab30bb5441f914e98d2b1&libraries=services,clusterer,drawing"></script>
+    
+
+
     
     <% include ../../partials/admin/footer.ejs %>
     </div>
@@ -257,6 +260,19 @@
     <!-- Kakao Map Change -->
 
     <script>
+        /** Deviec All GPS Info */
+        var DeviceGPS = JSON.parse('<%-JSON.stringify(DeviceInfo)%>');
+        console.log(DeviceGPS);
+        
+        let MarkArray = [];
+        for(let i in DeviceGPS){
+            let JsonData = {
+                lat:DeviceGPS[i].Latitude,
+                lng:DeviceGPS[i].Longitude
+            }
+            MarkArray.push(JsonData);
+        }
+        console.log(MarkArray);
         var mapContainer = document.getElementById("world-map-markers");
         var mapOption = {
             center:new kakao.maps.LatLng(36.2683, 127.6358),
@@ -264,19 +280,21 @@
         }
         var map = new kakao.maps.Map(mapContainer, mapOption);
         /** Make Cluster */
-        var clusterer = new kakao.maps.MarkerClusterer({
-            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
-            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
-            minLevel: 10 // 클러스터 할 최소 지도 레벨 
+          // 마커 클러스터러를 생성합니다 
+    var clusterer = new kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+        minLevel: 10 // 클러스터 할 최소 지도 레벨 
+    });
+    let markers = [];
+    for(let i in MarkArray){
+        let value = new kakao.maps.Marker({
+            position: new kakao.maps.LatLng(MarkArray[i].lat, MarkArray[i].lng)
         });
-        $.get('http://apis.map.kakao.com/download/web/data/chicken.json', function(data){
-            let marker = $(data.positions).map(function(i, position){
-                return new kakao.maps.Marker({
-                    position:new kakao.maps.LatLng(position.lat, position.lng)
-                });
-            });
-            clusterer.addMarkers(markers);
-        });
+        markers.push(value);
+    }
+    clusterer.addMarkers(markers);
+
     </script>
     
   </body>

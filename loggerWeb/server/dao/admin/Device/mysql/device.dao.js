@@ -156,6 +156,9 @@ const DetailDevice = (no) => {
             where: {
                 id: no
             },
+            attributes: [
+                'id', 'name', 'Latitude', 'Longitude', 'DeviceType', 'FTPFolder'
+            ],
             include: [{
                 model: models.plot,
                 attributes: ['PlotName'],
@@ -229,7 +232,7 @@ const InsertDataColumnsDevice = () => {
 /** Device All GPS Info */
 const GPSAllDevice = () => {
     return new Promise((resolve, reject) => {
-        models.device.find({
+        models.device.findAll({
             attributes: ['Latitude', 'Longitude']
         }).then(result => {
             console.log('get Info All Device GPS ::: ', result);
