@@ -25,9 +25,45 @@ const FileStat = (file) => {
         console.log('file Stat Check Error ::: ', err);
         return null;
     }
-}
+};
+
+/** Get File Data Name */
+const RawName = (file) => {
+    let Data = FileRaw(file);
+    if (Data) {
+        return Data[0];
+    }
+    return null;
+};
+
+/** Get File Data */
+const RawData = (file) => {
+    let Data = FileRaw(file);
+    if (Data) {
+        return Data.splice(0, 1);
+    }
+    return null;
+};
+
+
+
+
+const GetRawName = (file) => {
+    return {
+
+    };
+};
+
+const GetRawValue = (file) => {
+    return {
+
+    };
+};
 
 module.exports = {
     FileRaw,
-    FileStat
+    FileStat,
+    RawName,
+    RawData
+
 };
