@@ -44,20 +44,20 @@ dw.watchdog(option, function(ret, files, dirs) {
 
 
             /** Create file or Dir Check */
-        case "create":
-            for (let i in files) {
-                let getSize = GetFile.FileStat(files[i]).size;
+        case "change":
+            for (let i in files.cur) {
+                let getSize = GetFile.FileStat(files.cur[i]).size;
                 if (getSize == 0) {
                     console.log('File Size 0');
                     break B;
                 }
             }
 
-            console.log('root : ', RootFTP);
-            console.log('file Type : ', files.length);
-            let FileNameStart = files[0].lastIndexOf('/');
-            let FileName = files[0].substring(FileNameStart + 1, files[0].length);
-            let lastFilepath = files[0].substring(RootFTP.length, FileNameStart);
+            //console.log('root : ', RootFTP);
+            //console.log('file Type : ', files.cur.length);
+            let FileNameStart = files.cur[0].lastIndexOf('/');
+            let FileName = files.cur[0].substring(FileNameStart + 1, files.cur[0].length);
+            let lastFilepath = files.cur[0].substring(RootFTP.length, FileNameStart);
             console.log("Last Path : " + lastFilepath + ", " + FileName);
 
 
@@ -81,25 +81,26 @@ dw.watchdog(option, function(ret, files, dirs) {
             //TODO
             /** Get Device FTP Path and Type */
             Dao.FTPPath().then(result => {
-                if (files.length == 1) {
+                if (files.cur.length == 1) {
                     PathConfirm(lastFilepath, result).then(result => {
                         if (result) {
-                            console.log(files);
-
+                            console.log(files.cur);
+                            console.log('file Type : ', files.cur[0].split(".")[1]);
                             console.log('right device Info : ', result);
                         } else {
                             console.log('not Match');
                         }
                     });
                 } else {
-                    for (let i = 0; i < files.length; i++) {
+                    for (let i = 0; i < files.cur.length; i++) {
                         //TODO
                         /** Get File Last Path */
                         lastFilepath = files[i].substring(RootFTP.length, FileNameStart);
                         /** Path Check watchdog file and database FTP Path */
                         PathConfirm(lastFilepath, result).then(result => {
                             if (result) {
-                                console.log('file : ', files[i]);
+                                console.log('file : ', files.cur[i]);
+                                console.log('file : ', files.cur[i].split(".")[1]);
                                 console.log('right device Info : ', result);
                             } else {
                                 console.log('not Match');
@@ -110,7 +111,7 @@ dw.watchdog(option, function(ret, files, dirs) {
             }).catch(err => {
                 console.log('err');
             });
-            showlog(ret, files, dirs);
+            //showlog(ret, files, dirs);
             break;
 
 
@@ -120,7 +121,8 @@ dw.watchdog(option, function(ret, files, dirs) {
             showlog(ret, files, dirs);
             break;
             /** Chang file Or Dir */
-        case "change":
+        case "create":
+
             showlog(ret, files, dirs);
             break;
         default:
