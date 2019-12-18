@@ -61,6 +61,20 @@ const FTPPath = () => {
     });
 };
 
+/** Check Name Column */
+const ConfirmNameDB = () => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, con) => {
+            if (err) {
+                if (con) {
+                    con.release();
+                }
+                console.log("")
+            }
+        });
+    });
+};
+
 /** Insert Data Names */
 const InsertNameDB = (Insert) => {
     return new Promise((resolve, reject) => {
@@ -134,8 +148,8 @@ const InsertHikVisionDB = (Insert) => {
     });
 };
 
-/** Insert */
-const InsertRaw = (Insert) => {
+/** Insert Data */
+const InsertDataRaw = (Insert) => {
     let ReturnJson = {
         "DataTracker": InsertLoggerDB(Insert),
         "ecolog": InsertEcologDB(Insert),
@@ -144,9 +158,38 @@ const InsertRaw = (Insert) => {
     return ReturnJson;
 };
 
+const InsertNameLoggerDB = (Insert) => {
+    return new Promise((resolve, reject) => {
+
+    });
+};
+
+const InsertNameEcologDB = (Insert) => {
+    return new Promise((resolve, reject) => {
+
+    });
+};
+
+const InsertNameHikVisionDB = (Insert) => {
+    return new Promise((resolve, reject) => {
+
+    });
+};
+
+
+/** Insert Name */
+const InsertNameRaw = (Insert) => {
+    let ReturnJson = {
+        "DataTracker": InsertNameLoggerDB(Insert),
+        "ecolog": InsertNameEcologDB(Insert),
+        //"HikVision": InsertNameHikVisionDB(Insert)
+    };
+    return ReturnJson;
+};
+
 module.exports = {
     DBCheck,
     FTPPath,
     InsertDataDB,
-    InsertRaw
+    InsertDataRaw
 };

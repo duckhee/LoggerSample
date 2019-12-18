@@ -13,6 +13,8 @@ const fs = require('fs');
 const path = require('path');
 /** Get Database */
 const Dao = require('./database/mysql/db');
+/** File Function */
+const GetFile = require('./file/file');
 
 /** FTP Root Path */
 //const RootFTP = process.cwd() + "../Cloud";
@@ -28,15 +30,29 @@ const option = new Object();
 option.rootpath = "./test";
 option.timer = 1000;
 
+let fData = GetFile.FileRaw(process.cwd() + '/test/111');
+console.log("File Data : ", fData + ", length : " + fData.length);
 
 /** Watch Dog Program */
 dw.watchdog(option, function(ret, files, dirs) {
-    switch (ret) {
+    B: switch (ret) {
         case "init":
             showlog(ret, files, dirs);
             break;
+
+
+
+
             /** Create file or Dir Check */
         case "create":
+            for (let i in files) {
+                let getSize = GetFile.FileStat(files[i]).size;
+                if (getSize == 0) {
+                    console.log('File Size 0');
+                    break B;
+                }
+            }
+
             console.log('root : ', RootFTP);
             console.log('file Type : ', files.length);
             let FileNameStart = files[0].lastIndexOf('/');
@@ -47,20 +63,21 @@ dw.watchdog(option, function(ret, files, dirs) {
 
             //TODO
             /** File Type Not Setting */
-            if (files.length != 1) {
-                for (let i in files) {
-                    if (!ConfirmFormat(files[i])) {
-                        console.log('not file');
-                        break;
-                    }
-                }
-            } else {
-                if (!ConfirmFormat(files[0])) {
-                    console.log('not file');
-                    break;
-                }
-            }
-
+            /*
+                        if (files.length != 1) {
+                            for (let i in files) {
+                                if (!ConfirmFormat(files[i])) {
+                                    console.log('not file');
+                                    break;
+                                }
+                            }
+                        } else {
+                            if (!ConfirmFormat(files[0])) {
+                                console.log('not file');
+                                break;
+                            }
+                        }
+            */
             //TODO
             /** Get Device FTP Path and Type */
             Dao.FTPPath().then(result => {
@@ -95,6 +112,9 @@ dw.watchdog(option, function(ret, files, dirs) {
             });
             showlog(ret, files, dirs);
             break;
+
+
+
             /** Delete file or Dir  */
         case "delete":
             showlog(ret, files, dirs);
