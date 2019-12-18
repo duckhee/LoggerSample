@@ -6,10 +6,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define DB_HOST ""
-#define DB_USER ""
-#define DB_PASS ""
-#define DB_NAME ""
+#define DB_HOST "127.0.0.1"
+#define DB_USER "root"
+#define DB_PASS "won1228A!"
+#define DB_NAME "cloud_database_development"
 
 #define MAX_BUF 1024
 

@@ -1,0 +1,9 @@
+{
+    "host": "127.0.0.1",
+    "user": "root",
+    "password": "won1228A!",
+    "database": "cloud_database_development",
+    "port": 3306,
+    "timezone": "+09:00",
+    "connectionLimit": 10
+}

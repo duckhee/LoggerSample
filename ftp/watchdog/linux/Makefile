@@ -8,7 +8,7 @@ BUILDDIR = buildDir
 
 COBJS = $(addprefix ${BUILDDIR}/, $(SRC:.c=.o))
 
-CFLAGS = `pkg-config --cflags --libs mysql` -std=c99
+CFLAGS = `pkg-config --cflags --libs mysqlclient` -std=c99
 
 all: clean createdirs build
 

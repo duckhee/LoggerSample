@@ -1,3 +1,7 @@
+/** User Dao */
+const UDao = require('../../dao/admin/Users/index.dao');
+const AdminUserDao = UDao();
+
 /** Admin Get Device Info  */
 const Dao = require('../../dao/admin/Device/index.dao');
 const DeviceDao = Dao();
@@ -9,7 +13,9 @@ const MainPage = (req, res, next) => {
     /** TODO need to session Info */
     const LoginInfo = req.session.UserLogin;
     if (LoginInfo) {
+
         DeviceDao.GPSAllDevice().then(DeviceInfo => {
+
             return res.render('admin/index', {
                 login: LoginInfo,
                 DeviceInfo: DeviceInfo,
@@ -33,12 +39,15 @@ const MainPage = (req, res, next) => {
             userId: 'test',
             name: 'tester'
         };
-        res.render('admin/index', {
+
+        return res.render('admin/index', {
             login: TestingLoginData,
             title: 'Admin Main Page',
             DeviceInfo: null,
             message: req.flash('LoginMessage')
         });
+
+
         //res.redirect('/admin/login');
     }
 };

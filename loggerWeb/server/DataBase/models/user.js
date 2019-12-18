@@ -129,7 +129,7 @@ module.exports = (sequelize, DataTypes) => {
         /** User have Site Many */
         user.hasMany(models.site, {
             foreignKey: 'Owner',
-            targetKey: 'UserEmail'
+            targetKey: 'UserEmail',
         });
         /** User have Plot Many */
         user.hasMany(models.plot, {

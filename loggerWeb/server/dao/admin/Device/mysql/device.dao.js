@@ -175,8 +175,6 @@ const DetailDevice = (no) => {
             RawConnection[Device.DeviceType]().DetailRaw(RawJson).then(RawDevice => {
                 console.log('Device Raw Detail Show Result : ', RawDevice);
                 Device.RawValue = RawDevice;
-
-
                 //console.log('add Device Value : ', Device.DeviceColumns[0].dataValues);
                 return resolve(Device);
             }).catch(err => {

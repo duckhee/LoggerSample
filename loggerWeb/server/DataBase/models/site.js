@@ -70,8 +70,8 @@ module.exports = (sequelize, DataTypes) => {
         /** User have Site Many */
         site.belongsTo(models.user, {
             foreignKeyConstraint: true,
-            foreignKey: 'Owner',
             targetKey: 'UserEmail',
+            foreignKey: 'Owner',
             allowNull: false,
             onDelete: 'CASCADE'
         });

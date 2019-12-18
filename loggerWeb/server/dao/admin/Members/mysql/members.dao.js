@@ -180,20 +180,34 @@ const EmailCheckUser = (Email) => {
     });
 };
 
+
 /** User Detail */
-const DetailUser = (UserInfo) => {
+const DetailUser = (no) => {
+    console.log("User Idx : ", no);
     return new Promise((resolve, reject) => {
         models.user.findOne({
             where: {
-
+                id: no
+            },
+            include: {
+                model: models.site,
+                include: {
+                    model: models.plot,
+                    include: {
+                        model: models.device,
+                    }
+                },
             }
         }).then(result => {
-
+            return resolve(result);
         }).catch(err => {
-
+            console.log('Dao Detail User Error code ::: ', err.code);
+            console.log('Dao Detail User Error ::: ', err);
+            return reject(err);
         });
     });
 };
+
 
 module.exports = {
     RegisteUser,

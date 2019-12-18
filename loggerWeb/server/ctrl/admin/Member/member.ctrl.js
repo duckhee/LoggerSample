@@ -125,7 +125,11 @@ const DetailPage = (req, res, next) => {
         UserName: 'test',
         UserLevel: '5'
     };
+    AdminMemberDao.DetailUser(no).then(result => {
+        console.log(result);
+    }).catch(err => {
 
+    });
     if (no === "") {
         console.log('not user select');
         return res.redirect('/admin/Members/list');

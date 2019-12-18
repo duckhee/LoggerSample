@@ -63,6 +63,33 @@ const PagingUser = (UserInfo) => {
     });
 };
 
+/** User Detail Page */
+const DetailUser = (no) => {
+    console.log("User Idx : ", no);
+    return new Promise((resolve, reject) => {
+        models.user.findOne({
+            where: {
+                id: no
+            },
+            include: {
+                model: models.site,
+                include: {
+                    model: models.plot,
+                    include: {
+                        model: models.device,
+                    }
+                }
+            }
+        }).then(result => {
+            return resolve(result);
+        }).catch(err => {
+            console.log('Dao Detail User Error code ::: ', err.code);
+            console.log('Dao Detail User Error ::: ', err);
+            return reject(err);
+        });
+    });
+};
+
 /** User Last Login Update Time */
 const LastLogin = (UserId) => {
     console.log("User ID ", UserId);
@@ -129,22 +156,22 @@ const EmailCheckUser = (Email) => {
 };
 
 /** User Device LanLat */
-const UserAllDeviceLatLan = (Email) => {
+const UserAllDeviceLatLan = () => {
     return new Promise((resolve, reject) => {
-        models.user.findOne({
-            where: Email,
-            include: {
+        models.user.findAll({
+            attributes: ['UserEmail', 'id'],
+            include: [{
                 model: models.site,
-                attributes: ['name'],
+                //attributes: ['name'],
                 include: {
                     model: models.plot,
-                    attributes: ['PlotName'],
+                    //attributes: ['PlotName'],
                     include: {
                         model: models.device,
-                        attributes: ['Latitude', 'Longitude']
-                    }
+                        attributes: ['Latitude', 'Longitude'],
+                    },
                 }
-            }
+            }]
         }).then(result => {
             console.log('device gps : ', result);
             return resolve(result);
@@ -160,6 +187,7 @@ module.exports = {
     RegisteUser,
     ListUser,
     PagingUser,
+    DetailUser,
     LoginUser,
     LogoutUser,
     EmailCheckUser,
