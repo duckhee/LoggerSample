@@ -38,9 +38,10 @@ const InsertData = (files, result) => {
         if (Types) {
             for (let i in result) {
                 /**  */
-                if (GetFile.PathCheck(files, result[i].FTPFolder)) {
+                if (GetFile.PathCheck(GetFile.LastFileDirs(String(files)), result[i].FTPFolder)) {
                     let Names = GetFile.Raw(files, "name", String(Format));
                     console.log('name : ', Names + ", ID : ", result[i]);
+                    /*
                     Dao.CheckNameDB(result[i].id, result[i].DeviceType).then(result => {
                         console.log(result);
                         if (result.length == 0) {
@@ -64,6 +65,7 @@ const InsertData = (files, result) => {
                     }).catch(err => {
                         console.log(err);
                     });
+                    */
                 }
                 /** */
             }

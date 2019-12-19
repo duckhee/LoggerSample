@@ -33,7 +33,19 @@ const FileName = (_path) => {
 
 /** Get File Full Dirs */
 const FileDirs = (_path) => {
+    console.log('del : ', path.sep);
     return path.dirname(_path);
+};
+
+//TODO Check
+/** Get File Last Dirs */
+const LastFileDirs = (_path) => {
+    let _Fpath = path.dirname(_path);
+    /** Get os path delimiter */
+    let _del = path.sep;
+    let _LIdx = _Fpath.lastIndexOf(_del);
+    console.log('Full Path : ', _Fpath);
+    return _Fpath.slice(_LIdx + 1, _Fpath.length);
 };
 
 //TODO
@@ -41,7 +53,13 @@ const FileDirs = (_path) => {
  *  Return True False
  */
 const PathCheck = (_path, _cPath) => {
-    return String(_path).includes(_cPath);
+    let _flag = String(_path).includes(_cPath);
+    console.log('GET : ', _flag);
+    if (_flag == true) {
+        return true;
+    } else {
+        return null;
+    }
     //return _path.includes(_cPath);
 };
 
@@ -99,6 +117,8 @@ const RawValueMIS = (file) => {
 
 };
 
+//TODO 
+/** Make EcoLog File DataBase and Parser */
 const RawMIS = (file, value) => {
     let _raw = FileRaw(file);
     if (value == "name") {
@@ -153,7 +173,8 @@ module.exports = {
     CheckType,
     FileName,
     FileDirs,
+    LastFileDirs,
     PathCheck,
     GetFormat,
-    Raw
+    Raw,
 };
