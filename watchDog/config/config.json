@@ -18,7 +18,7 @@
         "jpg": true
     },
     "WatchDog": {
-        "rootpath": "",
+        "rootpath": "./test",
         "timer": 1000
     }
 }

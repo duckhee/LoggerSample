@@ -57,6 +57,7 @@ dw.watchdog(option, function(ret, files, dirs) {
             //console.log('file Type : ', files.cur.length);
             let FileNameStart = files.cur[0].lastIndexOf('/');
             let FileName = files.cur[0].substring(FileNameStart + 1, files.cur[0].length);
+
             let lastFilepath = files.cur[0].substring(RootFTP.length, FileNameStart);
             console.log("Last Path : " + lastFilepath + ", " + FileName + ", : " + path.basename(files.cur[0]));
             console.log('file test : ', path.extname(files.cur[0]));

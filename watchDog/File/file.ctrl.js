@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const _Type = require('../config/config.json').FileType;
 
+/** Log File Path */
+const _LogRoot = process.cwd() + '/log/';
 
 /** Get File Stat */
 const FileStat = (file) => {
@@ -17,8 +19,9 @@ const FileStat = (file) => {
 
 /** Check File Type */
 const CheckType = (type) => {
+    console.log('Type : ' + _Type + ", Get : " + type);
     if (_Type[type]) {
-        return true;
+        return _Type[type];
     }
     return null;
 };
@@ -37,25 +40,29 @@ const FileDirs = (_path) => {
  *  Return True False
  */
 const PathCheck = (_path, _cPath) => {
-    return _path.include(_cPath);
+    return String(_path).includes(_cPath);
+    //return _path.includes(_cPath);
 };
 
 /** Get File Format */
 const GetFormat = (_path) => {
-    let _format = path.extname(_path);
+    if (!_path) {
+        return null;
+    }
+    let _format = path.extname(String(_path));
     console.log('length : ', _format.length);
     if (_format.length == 0) {
         return null;
     }
-    return _format;
+    return _format.replace(',', '');
 };
 
 /** Get File Data */
 const FileRaw = (file) => {
     try {
-        let _ReadFile = fs.readFileSync(file, { encoding: 'utf-8' });
-        let ReadFile = _ReadFile.split('\r\n');
-        console.log(ReadFile);
+        let _ReadFile = fs.readFileSync(String(file), { encoding: 'utf-8' });
+        let ReadFile = String(_ReadFile).split('\r\n');
+        console.log('Read File : ', ReadFile);
         return ReadFile;
     } catch (err) {
         console.log('file Read Error code ::: ', err.code);
@@ -64,35 +71,90 @@ const FileRaw = (file) => {
     }
 };
 
-const RawNameCSV = () => {
+const RawNameCSV = (file) => {
+    let _raw = FileRaw(file);
+    return _raw[0];
+};
+
+const RawValueCSV = (file) => {
+    let _raw = FileRaw(file);
+    return _raw.splice(0, 1);
+};
+
+const RawCSV = (file, value) => {
+    let _raw = FileRaw(file);
+    if (value === "name") {
+        return _raw[0];
+    }
+    if (value === "data") {
+        _raw.splice(0, 1);
+        return _raw;
+    }
+};
+
+const RawNameMIS = (file) => {
 
 };
 
-const RawValueCSV = () => {
+const RawValueMIS = (file) => {
 
 };
 
-const RawNameMIS = () => {
+const RawMIS = (file, value) => {
+    let _raw = FileRaw(file);
+    if (value == "name") {
+        return "NEED TO XML PARSER";
+    }
+    if (value == "data") {
+        return "NEED TO XML PARSER";
+    }
+    return null;
+};
+
+const RawName = (file) => {
 
 };
 
-const RawValueMIS = () => {
+const RawValue = (file) => {
 
 };
 
-const RawName = () => {
-
+const Raw = (file, value, _type) => {
+    if (_type == "csv") {
+        return RawCSV(file, value);
+    }
+    if (_type == "MIS") {
+        return RawMIS(file, value);
+    }
+    return null;
 };
 
-const RawValue = () => {
-
+/** Log File Save */
+const Log = (err) => {
+    /** Save Log Text */
+    let LogTemplate = `\r\nCapture Error ${new Date.now()} - FTP Server Error : ${err.code}\r\n ${err}\r\n`;
+    try {
+        if (!fs.existsSync(_LogRoot + 'log/')) {
+            fs.mkdirSync(_LogRoot + 'log/', 755);
+        }
+        try {
+            let _LogName = _LogRoot + new Date.now() + '.txt';
+            fs.writeFileSync(_LogName, LogTemplate, { encoding: 'utf-8' });
+        } catch (e) {
+            throw new Error("Couldn't Making Log File");
+        }
+    } catch (e) {
+        throw new Error("Couldn't Create Log Folder");
+    }
 };
 
 module.exports = {
+    Log,
     FileStat,
     CheckType,
     FileName,
     FileDirs,
     PathCheck,
-    GetFormat
+    GetFormat,
+    Raw
 };
