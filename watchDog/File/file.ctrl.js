@@ -36,6 +36,7 @@ const FileDirs = (_path) => {
     return path.dirname(_path);
 };
 
+//TODO
 /** Check FTP Path and Fil Path
  *  Return True False
  */
@@ -50,7 +51,6 @@ const GetFormat = (_path) => {
         return null;
     }
     let _format = path.extname(String(_path));
-    console.log('length : ', _format.length);
     if (_format.length == 0) {
         return null;
     }
@@ -62,7 +62,6 @@ const FileRaw = (file) => {
     try {
         let _ReadFile = fs.readFileSync(String(file), { encoding: 'utf-8' });
         let ReadFile = String(_ReadFile).split('\r\n');
-        console.log('Read File : ', ReadFile);
         return ReadFile;
     } catch (err) {
         console.log('file Read Error code ::: ', err.code);

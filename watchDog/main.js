@@ -28,6 +28,49 @@ const _ArraySizeCheck = (files) => {
     return _rArray;
 };
 
+/** Insert Data */
+const InsertData = (files, result) => {
+    check = _ArraySizeCheck(files);
+    if (check) {
+        let Format = GetFile.GetFormat(files).replace(".", "");
+        let Types = GetFile.CheckType(Format);
+        /** File Format Check and File Type */
+        if (Types) {
+            for (let i in result) {
+                /**  */
+                if (GetFile.PathCheck(files, result[i].FTPFolder)) {
+                    let Names = GetFile.Raw(files, "name", String(Format));
+                    console.log('name : ', Names + ", ID : ", result[i]);
+                    Dao.CheckNameDB(result[i].id, result[i].DeviceType).then(result => {
+                        console.log(result);
+                        if (result.length == 0) {
+                            Dao.RawInsert(Names, "name", result[i].DeviceType).then(result => {
+                                Dao.RawInsert(Names, "data", result[i].DeviceType).then(result => {
+
+                                }).catch(err => {
+
+                                });
+                            }).catch(err => {
+
+                            });
+                        } else {
+                            console.log('Have Name Columns');
+                            Dao.RawInsert(Names, "data", result[i].DeviceType).then(result => {
+
+                            }).catch(err => {
+
+                            });
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
+                /** */
+            }
+        }
+    }
+};
+
 /** Array Data */
 const _GetArray = (ret, files, dirs) => {
     Dao.InitCheck().then(result => {
@@ -60,36 +103,10 @@ const _Get = (ret, files, dirs) => {
         console.log('files Type : ', typeof(files));
         switch (ret) {
             case "create":
-                check = _ArraySizeCheck(files);
-                if (check) {
-                    let Format = GetFile.GetFormat(files).replace(".", "");
-                    let Types = GetFile.CheckType(Format);
-                    /** File Format Check and File Type */
-                    if (Types) {
-                        for (let i in result) {
-                            if (GetFile.PathCheck(files, result[i].FTPFolder)) {
-                                let Names = GetFile.Raw(files, "name", String(Format));
-                                console.log('name : ', Names);
-                            }
-                        }
-                    }
-                }
+                InsertData(files, result);
                 break;
             case "change":
-                check = _ArraySizeCheck(files);
-                if (check) {
-                    let Format = GetFile.GetFormat(files).replace(".", "");
-                    console.log('Format : ', Format);
-                    let Types = GetFile.CheckType(Format);
-                    if (Types) {
-                        for (let i in result) {
-                            if (GetFile.PathCheck(files, result[i].FTPFolder)) {
-                                let Names = GetFile.Raw(files, "name", String(Format));
-                                console.log("name : ", Names);
-                            }
-                        }
-                    }
-                }
+                InsertData(files, result);
                 break;
         }
     }).catch(err => {

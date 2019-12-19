@@ -32,7 +32,7 @@ const InitCheck = () => {
 };
 
 const CheckDataTrackerNameDB = (_Insert) => {
-    let stmt = "SELECT id FROM  WHERE deviceId=";
+    let stmt = "SELECT id FROM DeviceColumns WHERE deviceIdx=?";
     return new Promise((resolve, reject) => {
         pool.getConnection((err, con) => {
             if (err) {
@@ -55,6 +55,14 @@ const CheckDataTrackerNameDB = (_Insert) => {
             });
         });
     });
+};
+
+/** Device Name Column Check */
+const CheckNameDB = (_Insert, _type) => {
+    if (_type == "DataTracker") {
+        return CheckDataTrackerNameDB(_Insert);
+    }
+    return null;
 };
 
 /** Data Tracker Name Insert */
@@ -184,25 +192,33 @@ const InsertValueDB = (_Insert) => {
 };
 
 /** Insert */
-const RawInsert = (_Insert, _type) => {
+const RawInsert = (_Insert, _type, DeviceType) => {
     if (_type == "name") {
-        let ReturnJson = {
-            "DataTracker": DataTrackerNameDB(_Insert),
-            "ecolog": EcoLogNameDB(_Insert)
-        };
-        return ReturnJson;
+        if (DeviceType == "DataTracker") {
+            return DataTrackerNameDB(_Insert);
+        }
+        if (DeviceType === "ecolog") {
+            return EcoLogNameDB(_Insert);
+        }
+
+        return null;
     }
     if (_type == "data") {
-        let ReturnJson = {
-            "DataTracker": DataTrackerValueDB(_Insert),
-            "ecolog": EcoLogValueDB(_Insert)
-        };
-        return ReturnJson;
+
+        if (DeviceType === "DataTracker") {
+            return DataTrackerValueDB(_Insert);
+        }
+        if (DeviceType === "ecolog") {
+            return EcoLogValueDB(_Insert);
+        }
+        return null;
     }
+    return null;
 };
 
 module.exports = {
     InitCheck,
+    CheckNameDB,
     InsertNameDB,
     InsertValueDB,
     RawInsert
