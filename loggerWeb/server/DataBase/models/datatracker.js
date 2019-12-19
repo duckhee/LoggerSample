@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         FTPFolder: {
             type: DataTypes.STRING,
+            unique: true
         },
 
 

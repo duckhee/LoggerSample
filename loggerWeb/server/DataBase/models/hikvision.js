@@ -17,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         */
-       HikVisionIp:{
-        type:DataTypes.STRING,
-        allowNull:false
-   },
+        HikVisionIp: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         HikVisionId: {
             type: DataTypes.STRING,
         },
@@ -28,7 +28,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         FTPFolder: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            unique: true
         },
         DeviceIdx: {
             type: DataTypes.INTEGER,

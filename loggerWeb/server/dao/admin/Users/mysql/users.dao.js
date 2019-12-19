@@ -159,7 +159,7 @@ const EmailCheckUser = (Email) => {
 const UserAllDeviceLatLan = () => {
     return new Promise((resolve, reject) => {
         models.user.findAll({
-            attributes: ['UserEmail', 'id'],
+            attributes: ['UserEmail'],
             include: [{
                 model: models.site,
                 //attributes: ['name'],

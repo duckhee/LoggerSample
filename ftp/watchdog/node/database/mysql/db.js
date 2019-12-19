@@ -69,7 +69,7 @@ const ConfirmNameDB = () => {
                 if (con) {
                     con.release();
                 }
-                console.log("")
+                console.log("Confirm ")
             }
         });
     });

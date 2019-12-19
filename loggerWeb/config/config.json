@@ -1,7 +1,7 @@
 {
     "database": "mysql",
     "mysql": true,
-    "mongoDB": false,
+    "mongoDB": null,
     "supportDevice": {
         "DataTracker": true,
         "ecolog": true,

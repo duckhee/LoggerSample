@@ -58,7 +58,9 @@ dw.watchdog(option, function(ret, files, dirs) {
             let FileNameStart = files.cur[0].lastIndexOf('/');
             let FileName = files.cur[0].substring(FileNameStart + 1, files.cur[0].length);
             let lastFilepath = files.cur[0].substring(RootFTP.length, FileNameStart);
-            console.log("Last Path : " + lastFilepath + ", " + FileName);
+            console.log("Last Path : " + lastFilepath + ", " + FileName + ", : " + path.basename(files.cur[0]));
+            console.log('file test : ', path.extname(files.cur[0]));
+            console.log(path.dirname(files.cur[0]));
 
 
             //TODO
@@ -86,6 +88,9 @@ dw.watchdog(option, function(ret, files, dirs) {
                         if (result) {
                             console.log(files.cur);
                             console.log('file Type : ', files.cur[0].split(".")[1]);
+                            if (GetFile.TypeCheck(files.cur[0].split(".")[1])) {
+                                console.log("file Type Check");
+                            }
                             console.log('right device Info : ', result);
                         } else {
                             console.log('not Match');

@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'CASCADE'
         },
         FileFormat: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            unique: true
         },
     }, {});
     ecolog.associate = function(models) {

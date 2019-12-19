@@ -13,7 +13,7 @@ const MainPage = (req, res, next) => {
     /** TODO need to session Info */
     const LoginInfo = req.session.UserLogin;
     if (LoginInfo) {
-
+        //AdminUserDao.UserAllDeviceLatLan().then(DeviceInfo => {
         DeviceDao.GPSAllDevice().then(DeviceInfo => {
 
             return res.render('admin/index', {
@@ -39,7 +39,11 @@ const MainPage = (req, res, next) => {
             userId: 'test',
             name: 'tester'
         };
+        AdminUserDao.UserAllDeviceLatLan().then(result => {
 
+        }).catch(err => {
+
+        });
         return res.render('admin/index', {
             login: TestingLoginData,
             title: 'Admin Main Page',

@@ -33,10 +33,10 @@ module.exports = {
                 allowNull: false,
             },
             */
-           HikVisionIp:{
-                type:Sequelize.STRING,
-                allowNull:false
-           },
+            HikVisionIp: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
             HikVisionId: {
                 type: Sequelize.STRING
             },
@@ -45,6 +45,7 @@ module.exports = {
             },
             FTPFolder: {
                 type: Sequelize.STRING,
+                unique: true
             },
             createdAt: {
                 allowNull: false,

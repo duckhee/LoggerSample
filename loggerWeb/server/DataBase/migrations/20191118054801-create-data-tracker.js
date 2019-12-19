@@ -23,10 +23,10 @@ module.exports = {
                 allowNull: false,
             },
             */
-           DataTrackerIP:{
-            type:Sequelize.STRING,
-            allowNull:false
-       },
+            DataTrackerIP: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
             DataTrackerId: {
                 type: Sequelize.STRING
             },
@@ -35,6 +35,7 @@ module.exports = {
             },
             FTPFolder: {
                 type: Sequelize.STRING,
+                unique: true
             },
             createdAt: {
                 allowNull: false,
