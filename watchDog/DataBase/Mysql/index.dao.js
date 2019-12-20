@@ -58,16 +58,17 @@ const CheckDataTrackerNameDB = (_Insert) => {
 };
 
 /** Device Name Column Check */
-const CheckNameDB = (_Insert, _type) => {
-    if (_type == "DataTracker") {
-        return CheckDataTrackerNameDB(_Insert);
-    }
-    return null;
+const CheckNameDB = () => {
+    let _return = {
+        "DataTracker": CheckDataTrackerNameDB
+    };
+    return _return;
 };
 
 /** Data Tracker Name Insert */
 const DataTrackerNameDB = (_Insert) => {
     let stmt = "INSERT INTO () VALUES()";
+    console.log("INSERT NAME COLUMNS");
     return new Promise((resolve, reject) => {
         pool.getConnection((err, con) => {
             if (err) {
@@ -78,7 +79,7 @@ const DataTrackerNameDB = (_Insert) => {
                 console.log("Dao DataTracker Name Insert Error ::: ", err);
                 return reject(err);
             }
-            con.query(stmt, (err, result, fields) => {
+            con.query(stmt, [_Insert.id, _Insert.nameColumns], (err, result, fields) => {
                 if (err) {
                     con.release();
                     console.log("Dao DataTracker Name Insert Query Error code ::: ", err.code);
@@ -129,8 +130,16 @@ const InsertNameDB = (_Insert) => {
     return ReturnJson;
 };
 
+/** INsert Data Array */
+const _MakeData = (_Insert) => {
+    return new Promise((resolve, reject) => {
+
+    });
+};
+
 const DataTrackerValueDB = (_Insert) => {
-    let stmt = "INSERT INTO () VALUES()";
+    let stmt = "INSERT INTO DeviceColumnData(deviceIdx, columnValue) VALUES(?,?)";
+    console.log("INSERT DATA COLUMNS");
     return new Promise((resolve, reject) => {
         pool.getConnection((err, con) => {
             if (err) {
@@ -141,7 +150,7 @@ const DataTrackerValueDB = (_Insert) => {
                 console.log("Dao DataTracker Value Insert Error ::: ", err);
                 return reject(err);
             }
-            con.query(stmt, (err, result, fields) => {
+            con.query(stmt, [_Insert.id, _Insert.dataColumns], (err, result, fields) => {
                 if (err) {
                     con.release();
                     console.log("Dao DataTracker Value Insert Query Error code ::: ", err.code);
@@ -192,13 +201,13 @@ const InsertValueDB = (_Insert) => {
 };
 
 /** Insert */
-const RawInsert = (_Insert, _type, DeviceType) => {
+const RawInsert = (_type, DeviceType) => {
     if (_type == "name") {
         if (DeviceType == "DataTracker") {
-            return DataTrackerNameDB(_Insert);
+            return DataTrackerNameDB;
         }
         if (DeviceType === "ecolog") {
-            return EcoLogNameDB(_Insert);
+            return EcoLogNameDB;
         }
 
         return null;
@@ -206,14 +215,16 @@ const RawInsert = (_Insert, _type, DeviceType) => {
     if (_type == "data") {
 
         if (DeviceType === "DataTracker") {
-            return DataTrackerValueDB(_Insert);
+            return DataTrackerValueDB;
         }
         if (DeviceType === "ecolog") {
-            return EcoLogValueDB(_Insert);
+            return EcoLogValueDB;
         }
         return null;
     }
     return null;
+
+
 };
 
 module.exports = {

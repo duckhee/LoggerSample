@@ -43,9 +43,11 @@ const LastFileDirs = (_path) => {
     let _Fpath = path.dirname(_path);
     /** Get os path delimiter */
     let _del = path.sep;
+    let _Return;
     let _LIdx = _Fpath.lastIndexOf(_del);
-    console.log('Full Path : ', _Fpath);
-    return _Fpath.slice(_LIdx + 1, _Fpath.length);
+    _Return = _Fpath.slice(_LIdx + 1, _Fpath.length);
+
+    return _Return;
 };
 
 //TODO
@@ -54,7 +56,6 @@ const LastFileDirs = (_path) => {
  */
 const PathCheck = (_path, _cPath) => {
     let _flag = String(_path).includes(_cPath);
-    console.log('GET : ', _flag);
     if (_flag == true) {
         return true;
     } else {
@@ -72,7 +73,7 @@ const GetFormat = (_path) => {
     if (_format.length == 0) {
         return null;
     }
-    return _format.replace(',', '');
+    return _format.replace('.', '');
 };
 
 /** Get File Data */
