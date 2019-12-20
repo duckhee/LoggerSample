@@ -68,7 +68,7 @@ const CheckNameDB = () => {
 /** Data Tracker Name Insert */
 const DataTrackerNameDB = (_Insert) => {
     let stmt = "INSERT INTO () VALUES()";
-    console.log("INSERT NAME COLUMNS");
+    console.log("INSERT NAME COLUMNS : ", _Insert);
     return new Promise((resolve, reject) => {
         pool.getConnection((err, con) => {
             if (err) {
@@ -132,34 +132,57 @@ const InsertNameDB = (_Insert) => {
 
 /** INsert Data Array */
 const _MakeData = (_Insert) => {
+    let _return = [];
     return new Promise((resolve, reject) => {
-
+        if (_Insert.dataColumns.length > 0) {
+            for (let i = 0; i < _Insert.dataColumns.length; i++) {
+                /** id Error  */
+                if (_Insert.dataColumns[i] !== "") {
+                    _return.push({ deviceIdx: parseInt(_Insert[0].id), columnValue: "" + _Insert.dataColumns[i] });
+                }
+            }
+            if (_return.length > 0) {
+                return resolve(_return);
+            }
+            return reject("_MakeData");
+        }
+        return reject("_MakeData");
     });
 };
 
 const DataTrackerValueDB = (_Insert) => {
-    let stmt = "INSERT INTO DeviceColumnData(deviceIdx, columnValue) VALUES(?,?)";
-    console.log("INSERT DATA COLUMNS");
+    let stmt = "INSERT INTO DeviceColumnData(deviceIdx, columnValue, createdAt , updatedAt) VALUES (?,?, now(), now())";
     return new Promise((resolve, reject) => {
-        pool.getConnection((err, con) => {
-            if (err) {
-                if (con) {
-                    con.release();
-                }
-                console.log("Dao DataTracker Value Insert Error code ::: ", err.code);
-                console.log("Dao DataTracker Value Insert Error ::: ", err);
-                return reject(err);
+        _MakeData(_Insert).then(_InsertData => {
+            console.log("INSERT DATA COLUMNS : ", _InsertData.length);
+            if (_InsertData.length > 0) {
+                pool.getConnection((err, con) => {
+                    if (err) {
+                        if (con) {
+                            con.release();
+                        }
+                        console.log("Dao DataTracker Value Insert Error code ::: ", err.code);
+                        console.log("Dao DataTracker Value Insert Error ::: ", err);
+                        return reject(err);
+                    }
+                    console.log("TEST");
+                    con.query(stmt, _InsertData, (err, result, fields) => {
+                        if (err) {
+                            con.release();
+                            console.log("Dao DataTracker Value Insert Query Error code ::: ", err.code);
+                            console.log("Dao DataTracker Value Insert Query Error ::: ", err);
+                            return reject(err);
+                        }
+                        con.release();
+                        console.log("SUCCESS : ", result);
+                        return resolve(result);
+                    });
+                });
             }
-            con.query(stmt, [_Insert.id, _Insert.dataColumns], (err, result, fields) => {
-                if (err) {
-                    con.release();
-                    console.log("Dao DataTracker Value Insert Query Error code ::: ", err.code);
-                    console.log("Dao DataTracker Value Insert Query Error ::: ", err);
-                    return reject(err);
-                }
-                con.release();
-                return resolve(result);
-            });
+            console.log("ERROR MAKE");
+            return reject("DataTrackerValueDB");
+        }).catch(err => {
+            return reject(err);
         });
     });
 };

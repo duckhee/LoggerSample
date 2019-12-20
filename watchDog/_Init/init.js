@@ -93,19 +93,26 @@ const _DirsCheck = (ret, files, DatabaseDirs) => {
 
 /** Database check and Insert  */
 const _InsertDB = (_Insert) => {
+    console.log("INSERT DB FUNCTION", _Insert.length);
     let CheckDao = Dao.CheckNameDB();
     return new Promise((resolve, reject) => {
         if (_Insert.length > 0) {
             for (let i = 0; i < _Insert.length; i++) {
+
                 if (_Insert[i].DeviceType) {
-                    console.log('_Insert[' + i + '].DeviceType', _Insert[i].DeviceType);
+                    console.log("LANGTH : " + _Insert.length + ', _Insert[' + i + '].DeviceType', _Insert[i].DeviceType);
                     CheckDao[_Insert[i].DeviceType](_Insert[i].id).then(result => {
-                        console.log("testing", result);
                         /** HAVE NAME COLUMNS */
                         if (result.length > 0) {
                             /** Get Database Insert data device Type */
                             let _DB = Dao.RawInsert("data", _Insert[i].DeviceType);
-                            /** Make Insert DB Data Array */
+                            _DB(_Insert).then(result => {
+                                console.log("INSERT RESULT : ", result);
+                                return resolve(true);
+                            }).catch(err => {
+                                console.log("ERROR INSERT DB");
+                                return reject(err);
+                            });
                         }
                         /** NOT HAVE NAME COLUMNS */
                         if (result.length == 0) {
@@ -113,12 +120,17 @@ const _InsertDB = (_Insert) => {
                         }
                         return reject("_InsertDB");
                     }).catch(err => {
+                        console.log(err);
                         return reject("_InsertDB");
                     });
+                } else {
+                    console.log('NOT TYPE : ', _Insert[i].DeviceType);
                 }
             }
+        } else {
+
+            return reject("_InsertDB");
         }
-        return reject("_InsertDB");
     });
 };
 
@@ -135,14 +147,17 @@ const _ReadInsert = (_Insert) => {
                 _Insert.dataColumns = data;
                 console.log('test : ', _Insert.length);
                 _InsertDB(_Insert).then(_InsertResult => {
-
+                    console.log(" INSERT DB : ", _InsertResult);
                 }).catch(err => {
+                    console.log("INSERT DB ERROR UP");
                     return reject(err);
                 });
             }
             if (_Return.length > 0) {
+                console.log('ERROR');
                 return resolve(_Return);
             }
+            console.log("RETURN VALUE : ", _Return);
             return reject("_ReadInsert");
         }
         return reject("_ReadInsert");
@@ -171,6 +186,7 @@ const _SelectCase = (ret, files, dirs) => {
                             console.log(result);
 
                         }).catch(err => {
+                            console.log(err);
                             console.log("INSERT ERROR");
                         });
                     }).catch(err => {
