@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "dir_watchdog": "^1.0.0",
     "mysql": "^2.17.1",
-    "mysql2": "^2.0.2"
+    "mysql2": "^2.0.2",
+    "sequelize": "^5.21.3"
   }
 }

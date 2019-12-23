@@ -8,6 +8,10 @@ const GetFile = require('../File/file.ctrl');
 const _Dao = require('../DataBase/index.dao');
 const Dao = _Dao();
 
+/** SEQUELIZE DAO */
+const _SDao = require('../DataBase/sequelize/Dao/index.dao');
+const SDao = _SDao();
+
 /** Check File Size and Check File Type(Format)  */
 const _SizeCheck = (ret, files, dirs) => {
     let _Return = [];
@@ -91,7 +95,7 @@ const _DirsCheck = (ret, files, DatabaseDirs) => {
     });
 };
 
-/** Database check and Insert  */
+/** TODO Database check and Insert  */
 const _InsertDB = (_Insert) => {
     console.log("INSERT DB FUNCTION", _Insert.length);
     let CheckDao = Dao.CheckNameDB();
@@ -100,10 +104,11 @@ const _InsertDB = (_Insert) => {
             for (let i = 0; i < _Insert.length; i++) {
 
                 if (_Insert[i].DeviceType) {
-                    console.log("LANGTH : " + _Insert.length + ', _Insert[' + i + '].DeviceType', _Insert[i].DeviceType);
+                    console.log("LENGTH : " + _Insert.length + ', _Insert[' + i + '].DeviceType', _Insert[i].DeviceType);
                     CheckDao[_Insert[i].DeviceType](_Insert[i].id).then(result => {
                         /** HAVE NAME COLUMNS */
                         if (result.length > 0) {
+                            console.log("RESULT TEST ID : ", _Insert[i].id);
                             /** Get Database Insert data device Type */
                             let _DB = Dao.RawInsert("data", _Insert[i].DeviceType);
                             _DB(_Insert).then(result => {
@@ -116,7 +121,13 @@ const _InsertDB = (_Insert) => {
                         }
                         /** NOT HAVE NAME COLUMNS */
                         if (result.length == 0) {
+                            /** Get Database Insert name device Type */
+                            let _DB = Dao.RawInsert("name", _Insert[i].DeviceType);
+                            _DB(_Insert).then(result => {
 
+                            }).catch(err => {
+
+                            });
                         }
                         return reject("_InsertDB");
                     }).catch(err => {
@@ -134,6 +145,52 @@ const _InsertDB = (_Insert) => {
     });
 };
 
+/** Database Check and Insert */
+const _SInsertDB = (_Insert) => {
+    console.log("INSERT DB FUNCTION", _Insert.length);
+    let _NameCheck = SDao.CheckNameColumns();
+    console.log("NAME CHECK : ", _NameCheck);
+    return new Promise((resolve, reject) => {
+        if (_Insert.length > 0) {
+            for (let i = 0; i < _Insert.length; i++) {
+                console.log("DEVICE TYPE : ", _Insert[i].DeviceType);
+                if (_Insert[i].DeviceType) {
+                    console.log("LENGTH : " + _Insert.length + ', _Insert[' + i + '].DeviceType', _Insert[i].DeviceType);
+                    _NameCheck[_Insert[i].DeviceType](_Insert).then(_NameCheckResult => {
+                        console.log("NAME CHECK RESULT : ", _NameCheckResult);
+                        /** HAVE NAME COLUMNS */
+                        if (_NameCheckResult.length > 0) {
+                            /** INSERT DATA COLUMNS */
+                            let _DataInsert = SDao.InsertDataColumns();
+                            _DataInsert[_Insert[i].DeviceType](_Insert).then(_InsertResult => {
+                                console.log("SUCCESS : ", _InsertResult);
+                                return resolve(_InsertResult);
+                            }).catch(err => {
+                                return reject(err);
+                            })
+                        }
+                        /** NOT HAVE NAME COLUMNS */
+                        if (result.length == 0) {
+                            /** INSERT NAME COLUMN AND DATA COLUMNS */
+                            let _NameInsert = SDao.InsertNameColumns();
+                            _NameInsert[_Insert[i].DeviceType](_Insert).then(_InsertNameResult => {
+
+                            }).catch(err => {
+                                return reject(err);
+                            })
+                        }
+                        return reject("_SInsertDB");
+                    }).catch(err => {
+                        return reject(err);
+                    });
+                }
+            }
+        } else {
+            return reject("_SInsertDB");
+        }
+    });
+};
+
 /** Read File And Insert */
 const _ReadInsert = (_Insert) => {
     let _Return = [];
@@ -146,12 +203,14 @@ const _ReadInsert = (_Insert) => {
                 let data = GetFile.Raw(_Insert[i].Insert, "data", format);
                 _Insert.dataColumns = data;
                 console.log('test : ', _Insert.length);
-                _InsertDB(_Insert).then(_InsertResult => {
+
+                _SInsertDB(_Insert).then(_InsertResult => {
                     console.log(" INSERT DB : ", _InsertResult);
                 }).catch(err => {
                     console.log("INSERT DB ERROR UP");
                     return reject(err);
                 });
+
             }
             if (_Return.length > 0) {
                 console.log('ERROR');
@@ -175,8 +234,28 @@ const _SelectCase = (ret, files, dirs) => {
             //break;
         case "change":
             ShowLog(ret, files, dirs);
+            /** DEVICE CHECK SIZE, TYPE, INSERT  */
             _SizeCheck(ret, files, dirs).then(_ConfirmFiles => {
                 console.log('Size and extend Check Array : ', _ConfirmFiles);
+                /** USE SEQUELIZE */
+                SDao.CheckDevice().then(_DeviceResult => {
+                    console.log("RESULT : ", _DeviceResult.length);
+                    /** DIR CHECK */
+                    _DirsCheck(ret, files, _DeviceResult).then(_DirResult => {
+                        console.log("DIR RESULT : ", _DirResult.length);
+                        _ReadInsert(_DirResult).then(_ReadResult => {
+                            console.log("READ INSERT RESULT : ", _ReadResult);
+                        }).catch(err => {
+                            console.log("READ INSERT ERROR : ", err);
+                        })
+                    }).catch(err => {
+                        console.log("DIR CHECK ERROR : ", err);
+                    });
+                }).catch(err => {
+                    console.log("DEVICE CHECK ERROR : ", err);
+                });
+
+                /*
                 Dao.InitCheck().then(_result => {
                     console.log(_result);
                     _DirsCheck(ret, files, _result).then(_PathCheck => {
@@ -195,6 +274,7 @@ const _SelectCase = (ret, files, dirs) => {
                 }).catch(err => {
                     console.log('DATABASE ERROR');
                 });
+                */
             }).catch(err => {
                 console.log('NOT HAVE FILE SIZE OR RIGHT FILE TYPE');
             });

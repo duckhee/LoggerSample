@@ -151,7 +151,7 @@ const _MakeData = (_Insert) => {
 };
 
 const DataTrackerValueDB = (_Insert) => {
-    let stmt = "INSERT INTO DeviceColumnData(deviceIdx, columnValue, createdAt , updatedAt) VALUES (?,?, now(), now())";
+    let stmt = "INSERT INTO `DeviceColumnData`(`deviceIdx`, `columnValue`, `createdAt`, `updatedAt`) VALUES (?,  now(), now())";
     return new Promise((resolve, reject) => {
         _MakeData(_Insert).then(_InsertData => {
             console.log("INSERT DATA COLUMNS : ", _InsertData.length);
