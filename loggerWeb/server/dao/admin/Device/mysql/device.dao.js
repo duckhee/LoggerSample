@@ -149,6 +149,7 @@ const DeleteDevice = (DeviceInfo) => {
     });
 };
 
+
 /** Detail Show Device Value */
 const DetailDevice = (no) => {
     return new Promise((resolve, reject) => {

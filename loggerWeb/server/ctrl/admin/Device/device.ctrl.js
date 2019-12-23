@@ -182,6 +182,24 @@ const ModifyPage = (req, res, next) => {
 const ModifyDo = (req, res, next) => {
 
 };
+
+//TODO
+/** Make Value Chart */
+const _ChartData = (no) => {
+    return new Promise((resolve, reject) => {
+        if (no === "") {
+            return reject("_ChartData");
+        }
+        AdminDeviceDao.DetailGraphDevice(no).then(result => {
+            console.log("GET GRAPH DATA : ", result);
+            if (result.DeviceColumns.length == 0) {
+                return reject("_ChartData");
+            }
+
+        });
+    });
+};
+
 /** Admin Device Detail Page */
 const DetailPage = (req, res, next) => {
     let no = req.param.no || req.params.no || req.query.no || "";

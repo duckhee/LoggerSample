@@ -120,7 +120,7 @@ function MakeDataJson(Names, Data) {
             //console.log('Split Data : ', SplitData);
             for (let i2 in SplitData) {
                 if (i2 == 0) {
-                    Time = new Date(SplitData[0]).getTime();
+                    Time = new Date(SplitData[0]);
                 } else {
                     let ChartData = parseFloat(SplitData[i2]);
                     if (isNaN(ChartData)) {
@@ -195,7 +195,6 @@ function AjaxTest(no) {
                 return reject(null);
             },
             success: function(data) {
-                console.log('get Data AJAX : ', data);
                 return resolve(data);
             }
         });
