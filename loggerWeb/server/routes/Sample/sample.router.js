@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
+/** Sample Main Router */
+const MainCtrl = require('../../ctrl/sample/index.ctrl');
 
-});
+router.get('/', MainCtrl.MainPage);
 
 router.get('/cell-one', (req, res, next) => {
 
@@ -21,12 +22,14 @@ router.get('/logger', (req, res, next) => {
 
 });
 
-router.get('/DeviceData', (req, res, next)=>{
+router.get('/DeviceData', (req, res, next) => {
 
 });
 
-router.get('/DeviceImage', (req, res, next)=>{
+router.get('/DeviceImage', (req, res, next) => {
 
 });
 
-module.exports = router;
+module.exports = (app, csurfMiddleware) => {
+    app.use('/sample', router);
+};

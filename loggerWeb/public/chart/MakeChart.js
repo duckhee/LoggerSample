@@ -42,6 +42,7 @@ var DefaultOptions = {
     }
 };
 
+
 //function Make Chart (Area)
 function MakeAreaChart(GetQuerySelectorId, titleText, options) {
     var option;
@@ -57,6 +58,15 @@ function MakeAreaChart(GetQuerySelectorId, titleText, options) {
         option.title.text = titleText;
     }
     charts = new ApexCharts(document.querySelector("#" + GetQuerySelectorId), option);
+    charts.render();
+    return charts;
+}
+
+//function Make Default Chart(Area)
+function _DefaultChart(_Name, _DataSeries) {
+    var options = DefaultOptions;
+    options.series = _DataSeries;
+    charts = new ApexCharts(document.querySelector("#" + _Name, options));
     charts.render();
     return charts;
 }
@@ -185,20 +195,21 @@ function generateDayWiseTimeSeries(baseval, count, yrange) {
 }
 
 /** Ajax Data Parsing */
-function AjaxTest(no) {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            type: 'GET',
-            url: '/admin/Device/getData?no=' + no,
-            dataType: 'json',
-            error: function() {
-                return reject(null);
-            },
-            success: function(data) {
-                return resolve(data);
-            }
-        });
+function AjaxTest(no, chart) {
+
+    $.ajax({
+        type: 'GET',
+        url: '/admin/Device/getData?no=' + no,
+        dataType: 'json',
+        error: function() {
+            //return reject(null);
+            console.log("AJAX ERROR");
+        },
+        success: function(data) {
+            InsertChart(data, chart);
+        }
     });
+
 }
 /** Ajax Data Parsing */
 function AjaxDataParsing(data) {

@@ -191,11 +191,48 @@ const _ChartData = (no) => {
             return reject("_ChartData");
         }
         AdminDeviceDao.DetailGraphDevice(no).then(result => {
-            console.log("GET GRAPH DATA : ", result);
+            //console.log("GET GRAPH DATA : ", result);
             if (result.DeviceColumns.length == 0) {
+                console.log("RESULT CHART NAME 0 : ", result.DeviceColumns);
                 return reject("_ChartData");
             }
+            let Names = result.DeviceColumns[0].dataValues.columns;
+            let NamesSplit = Names.split(',');
+            let dataOrigin = result.DeviceColumnData;
+            let dataArray = [];
+            for (let i in NamesSplit) {
+                let dataJson = {};
+                dataJson.name = NamesSplit[i];
+                dataJson.data = [];
+                if (Number(i) !== 0) {
+                    dataArray.push(dataJson);
+                }
+            }
+            console.log("DATA IS : ", result.DeviceColumnData.length);
+            for (let i = 0; i < dataOrigin.length; i++) {
+                //console.log('data origin : ', dataOrigin[i].dataValues.columnValue.split(','));
 
+                let splitData = dataOrigin[i].dataValues.columnValue.split(',');
+                let DataTime;
+                for (let i2 in splitData) {
+                    if (i2 == 0) {
+                        //console.log('get Time : ', splitData[i2]);
+                        DataTime = new Date(splitData[i2]); //.getTime();
+                    } else {
+                        let chartData = splitData[i2];
+                        let InsertData = parseFloat(chartData);
+                        if (isNaN(InsertData)) {
+                            InsertData = null;
+                        }
+                        dataArray[i2 - 1].data.push([DataTime, InsertData]);
+                        //console.log(chartData);
+                    }
+                }
+
+            }
+            return resolve(dataArray);
+        }).catch(err => {
+            return reject(err);
         });
     });
 };
@@ -210,12 +247,29 @@ const DetailPage = (req, res, next) => {
     }
     AdminDeviceDao.DetailDevice(no).then(result => {
         console.log('Device Detail Page Info : ', result.dataValues.id);
-        res.render('admin/DevicePage/Detail/DetailPage', {
+        console.log('NO : ', no);
+
+        _ChartData(no).then(chartResult => {
+            console.log("CHART DATA RESULT : ", chartResult);
+            res.render('admin/DevicePage/Detail/DetailPage', {
+                login: TestingLoginData,
+                title: 'Admin Device Detail Page',
+                DeviceInfo: result,
+                chartData: chartResult,
+                _csrf: req.csrfToken()
+            });
+        }).catch(err => {
+            console.log("ERROR CHART DATA");
+        });
+
+        /*
+        return res.render('admin/DevicePage/Detail/DetailPage', {
             login: TestingLoginData,
             title: 'Admin Device Detail Page',
             DeviceInfo: result,
             _csrf: req.csrfToken()
         });
+        */
     }).catch(err => {
         console.log('Ctrl Admin Device Detail Page Error code ::: ', err.code);
         console.log('Ctrl Admin Device Detail Page Error ::: ', err);

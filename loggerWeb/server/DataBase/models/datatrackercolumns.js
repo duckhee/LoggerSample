@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
                 model: 'DataTracker',
                 key: 'id'
             },
-            onDelete: 'CASCADE'
+            onDelete: 'CASCADE',
+            allowNull: false
         }
     }, {});
     DataTrackerColumns.associate = function(models) {

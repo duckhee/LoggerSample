@@ -29,7 +29,7 @@ const ListAllData = (req, res, next) => {
         return res.json(0);
     }
     AdminDeviceDao.DetailGraphDevice(no).then(result => {
-        console.log('data is : ', result);
+        //console.log('data is : ', result);
         //console.log('detail data json end ');
         //console.log('Name Array : ', result.DeviceColumns[0].dataValues.columns);
         if (result.DeviceColumns.length == 0) {
