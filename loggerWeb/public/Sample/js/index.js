@@ -14,7 +14,27 @@ $.Main.options = {
     /**TODO */
     enableControlHeaderNav: false,
     /** SideBar Control */
-    enableControlSideNav: true
+    sidebarPushMenu: true,
+    //Sidebar push menu toggle button selector
+    sidebarToggleSelector: "[data-toggle='offcanvas']",
+    //Sidebar push menu toggle button selector
+    controlSidebarOptions: {
+        //Which button should trigger the open/close event
+        toggleBtnSelector: "[data-toggle='control-sidebar']",
+        //The sidebar selector
+        selector: ".control-sidebar",
+        //Enable slide over content
+        slide: true
+    },
+    //The standard screen sizes that bootstrap uses.
+    //If you change these in the variables.less file, change
+    //them here too.
+    screenSizes: {
+        xs: 480,
+        sm: 768,
+        md: 992,
+        lg: 1200
+    }
 };
 
 $.Main.headerNav = function(menu) {
@@ -50,8 +70,36 @@ $.Main.tree = function(menu) {
         });
 };
 
-$.Main.sideCtrl = function(menu) {
-    var _this = this;
+/* ControlSidebar()
+ * ==========
+ * Adds the push menu functionality to the sidebar.
+ *
+ * @type Function
+ * @usage: $.Main.pushMenu("[data-toggle='offcanvas']")
+ */
+$.Main.controlSidebar = {
+    //instantiate the object
+    activate: function(toggleBtn) {
+        //GEt the screen sizes
+        var screenSizes = $.Main.options.screenSizes;
+
+        //Enable sidebar toggle
+        $(document).on('click', toggleBtn, function(e) {
+            e.preventDefault();
+            console.log('sidebar control');
+            //Enable sidebar push menu
+            //sidebar-collapse wrapper-collapse
+            //main-sidebar wrapper
+            if ($(".main-sidebar").hasClass("sidebar-collapse")) {
+                $(".main-sidebar").removeClass('sidebar-collapse');
+                $(".wrapper").removeClass('wrapper-collapse');
+
+            } else {
+                $(".main-sidebar").addClass('sidebar-collapse');
+                $(".wrapper").addClass('wrapper-collapse');
+            }
+        });
+    }
 
 };
 
@@ -61,7 +109,7 @@ $(function() {
     if (options.enableControlTreeView) {
         $.Main.tree(".main-sidebar");
     }
-    if (options.enableControlSideNav) {
-        $.Main.sideCtrl(".menu-control");
+    if (options.sidebarPushMenu) {
+        $.Main.controlSidebar.activate(options.sidebarToggleSelector);
     }
 });

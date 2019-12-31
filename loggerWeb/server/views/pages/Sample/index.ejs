@@ -20,12 +20,17 @@
                     <a class="logo" href="#main">C&amp;H <span>Cloud</span></a>
                 </div>
                 <!--./logo-->
-                <div class="LoginWrapper">
-                    <div class="info">
-                        Login Info
+                <div class="LoginWrapper dropdown dropleft">
+                    <div class="login-info" data-toggle="dropdown">
+                        <span>Login Info</span>
                         <i class="fas fa-user" style="margin-left:10px;font-size:20px;"></i>
                     </div>
                     <!--./login info -->
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Logout</a>
+                    </div>
+                    <!--./dropdown login info-->
                 </div>
                 <!--./logo header-->
             </div>
@@ -56,7 +61,7 @@
                         <i class="fas fa-bars"></i>
                     </div>
                     <!--./mobile menu-->
-                    <div class="info">
+                    <div class="question-info">
                         <i class="fas fa-question-circle" style="margin-right:15px;font-size:25px;"></i>
                     </div>
                     <!--./info-->
@@ -111,7 +116,7 @@
         <div class="content-wrapper">
             <div class="content-header-wrapper">
                 <div class="content-header">
-                    <button class='btn menu-control' data-toggle="" role="button"><i class="fas fa-angle-left"></i></button>
+                    <button class='btn menu-control' data-toggle="offcanvas" role="button"><i class="fas fa-angle-left"></i></button>
                     <div class='btn-group'>
                         <button class="btn btn-outline-dark btn-sm"><i class="fas fa-grip-horizontal" style="margin-right:10px;"></i>Dash Board</button>
                         <button class="btn btn-outline-dark btn-sm active"><i class="fas fa-map-marker-alt" style="margin-right:10px;"></i>Map</button>
@@ -121,7 +126,9 @@
                 </div>
             </div>
             <div class="content">
-                <h1>Content</h1>
+                <div class='map'>
+                    SHOW MAP
+                </div>
             </div>
         </div>
     </div>
@@ -138,6 +145,5 @@
     <script src="https://kit.fontawesome.com/785affb790.js" crossorigin="anonymous"></script>
     <!-- Main Javascript -->
     <script src="/example/js/index.js"></script>
-
 </body>
 </html>
