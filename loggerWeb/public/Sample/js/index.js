@@ -12,7 +12,9 @@ $.Main.options = {
     /** middle menu enable */
     enableControlActionBarView: true,
     /**TODO */
-    enableControlHeaderNav: false
+    enableControlHeaderNav: false,
+    /** SideBar Control */
+    enableControlSideNav: true
 };
 
 $.Main.headerNav = function(menu) {
@@ -48,11 +50,18 @@ $.Main.tree = function(menu) {
         });
 };
 
+$.Main.sideCtrl = function(menu) {
+    var _this = this;
+
+};
+
 $(function() {
     'use strict';
     var options = $.Main.options;
     if (options.enableControlTreeView) {
         $.Main.tree(".main-sidebar");
-
+    }
+    if (options.enableControlSideNav) {
+        $.Main.sideCtrl(".menu-control");
     }
 });
