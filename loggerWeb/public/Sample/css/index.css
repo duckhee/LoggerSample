@@ -136,9 +136,9 @@ body {
 .headerNav>.headerWrapper>.header-menu-wrapper>.menu-wrapper>.mobile-menu {
     /* float: left; */
     /* display: inline-block; */
-    padding:20px;
-    color:#ffffff;
-    display: none;  
+    padding: 20px;
+    color: #ffffff;
+    display: none;
 }
 
 
@@ -258,10 +258,7 @@ body {
     .wrapper>.content-wrapper>.content-header-wrapper>.content-header>.menu-control {
         float: left;
     }
-
-
-/** Mobile Wrapper */
-
+    /** Mobile Wrapper */
     .wrapper {
         padding-left: 0;
         margin-left: 0;
@@ -269,20 +266,14 @@ body {
         height: calc(100% - 105px);
         position: absolute;
     }
-
-
-/** Mobile Header Menu Controller */
-
-.headerNav>.headerWrapper>.header-menu-wrapper>.menu-wrapper>.mobile-menu {
-    
-    display: inline-block; 
-    padding:20px;
-    color:#ffffff;
- 
+    /** Mobile Header Menu Controller */
+    .headerNav>.headerWrapper>.header-menu-wrapper>.menu-wrapper>.mobile-menu {
+        display: inline-block;
+        padding: 20px;
+        color: #ffffff;
     }
-
     .headerNav>.headerWrapper>.header-menu-wrapper>.menu-wrapper>.header-menu {
-        display:none;
+        display: none;
         padding: 20px;
         color: #ffffff;
         font-weight: 700;
@@ -291,4 +282,3 @@ body {
         cursor: pointer;
     }
 }
-
