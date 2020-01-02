@@ -16,7 +16,6 @@ body {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    /* overflow-y : hidden; */
 }
 
 
@@ -276,7 +275,7 @@ body {
 
 .wrapper>.content-wrapper>.content {
     /* margin-left: 10px; */
-    width: calc(100%);
+    width: calc(100% - 260px);
     height: 100%;
     position: absolute;
     display: block;
@@ -289,7 +288,7 @@ body {
 
 .wrapper>.content-wrapper>.content>.map {
     /* clear: both; */
-    width: calc(100% - 260px);
+    width: calc(100%);
     position: absolute;
     display: block;
     height: calc(100%);
@@ -300,17 +299,6 @@ body {
 
 
 /** List Panel */
-
-.wrapper>.content-wrapper>.content>.list {
-    /* clear: both; */
-    width: calc(100% - 260px);
-    position: absolute;
-    display: block;
-    height: calc(100%);
-    height: -moz-calc(100%);
-    height: -webkit-calc(100%);
-    /* height: 800px; */
-}
 
 .panel {
     padding-top: 13px;
@@ -379,15 +367,6 @@ body {
     }
     /** Map View */
     .wrapper>.content-wrapper>.content>.map {
-        width: calc(100%);
-        position: absolute;
-        display: block;
-        height: calc(100%);
-        height: -moz-calc(100%);
-        height: -webkit-calc(100%);
-    }
-    /** List View */
-    .wrapper>.content-wrapper>.content>.list {
         width: calc(100%);
         position: absolute;
         display: block;
