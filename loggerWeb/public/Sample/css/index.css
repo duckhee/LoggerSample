@@ -16,6 +16,7 @@ body {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
+    /* overflow-y : hidden; */
 }
 
 
@@ -177,7 +178,7 @@ body {
 
 .main-sidebar {
     width: 260px;
-    height: calc(100% - 105px);
+    height: calc(100% - 105px + 55px);
     position: absolute;
     float: left;
     background-color: rgb(248, 248, 248);
@@ -270,8 +271,62 @@ body {
 
 /** Content */
 
+
+/* background color body #efefef */
+
 .wrapper>.content-wrapper>.content {
-    margin-left: 10px;
+    /* margin-left: 10px; */
+    width: calc(100%);
+    height: 100%;
+    position: absolute;
+    display: block;
+    height: calc(100%);
+    background-color: #efefef;
+}
+
+
+/** Map View */
+
+.wrapper>.content-wrapper>.content>.map {
+    /* clear: both; */
+    width: calc(100% - 260px);
+    position: absolute;
+    display: block;
+    height: calc(100%);
+    height: -moz-calc(100%);
+    height: -webkit-calc(100%);
+    /* height: 800px; */
+}
+
+
+/** List Panel */
+
+.wrapper>.content-wrapper>.content>.list {
+    /* clear: both; */
+    width: calc(100% - 260px);
+    position: absolute;
+    display: block;
+    height: calc(100%);
+    height: -moz-calc(100%);
+    height: -webkit-calc(100%);
+    /* height: 800px; */
+}
+
+.panel {
+    padding-top: 13px;
+    margin: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: #f4f4f4;
+    border-radius: 2px 2px 0px 0px;
+    box-shadow: 0px -0.5px 2px 0px rgba(0, 0, 0, 0.15);
+    padding: 2px;
+    margin-bottom: 30px;
+}
+
+.panel>.panel-body {
+    background-color: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 15px;
 }
 
 
@@ -312,5 +367,32 @@ body {
     }
     .headerNav>.headerWrapper>.logo-wrapper>.LoginWrapper>.login-info>span {
         display: none;
+    }
+    /** Content */
+    .wrapper>.content-wrapper>.content {
+        /* margin-left: 10px; */
+        width: calc(100%);
+        height: 100%;
+        position: absolute;
+        display: block;
+        height: calc(100%);
+    }
+    /** Map View */
+    .wrapper>.content-wrapper>.content>.map {
+        width: calc(100%);
+        position: absolute;
+        display: block;
+        height: calc(100%);
+        height: -moz-calc(100%);
+        height: -webkit-calc(100%);
+    }
+    /** List View */
+    .wrapper>.content-wrapper>.content>.list {
+        width: calc(100%);
+        position: absolute;
+        display: block;
+        height: calc(100%);
+        height: -moz-calc(100%);
+        height: -webkit-calc(100%);
     }
 }

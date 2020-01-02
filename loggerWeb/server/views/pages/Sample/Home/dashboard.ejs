@@ -123,16 +123,18 @@
                 <div class="content-header">
                     <button class='btn menu-control' data-toggle="offcanvas" role="button"><i class="fas fa-angle-left"></i></button>
                     <div class='btn-group'>
-                        <button class="btn btn-outline-dark btn-sm"><i class="fas fa-grip-horizontal" style="margin-right:10px;"></i>Dash Board</button>
-                        <button class="btn btn-outline-dark btn-sm active"><i class="fas fa-map-marker-alt" style="margin-right:10px;"></i>Map</button>
-                        <button class="btn btn-outline-dark btn-sm "><i class="fas fa-list" style="margin-right:10px;"></i>List</button>
-                        <button class='btn btn-outline-dark btn-sm'><i class="fas fa-eye" style="margin-right:10px;"></i>Detail</button>
+                        <button class="btn btn-outline-dark btn-sm" id="dashBoardSelect"><i class="fas fa-grip-horizontal" style="margin-right:10px;"></i>Dash Board</button>
+                        <button class="btn btn-outline-dark btn-sm" id="MapSelect"><i class="fas fa-map-marker-alt" style="margin-right:10px;"></i>Map</button>
+                        <button class="btn btn-outline-dark btn-sm active" id="ListSelect"><i class="fas fa-list" style="margin-right:10px;"></i>List</button>
+                        <button class='btn btn-outline-dark btn-sm' id="DetailSelect"><i class="fas fa-eye" style="margin-right:10px;"></i>Detail</button>
                     </div>
                 </div>
             </div>
             <div class="content">
-                <div class='map' id="Map">
+                <div class="list">
+                    
                 </div>
+                <!--./list page-->
             </div>
         </div>
     </div>
@@ -147,16 +149,11 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-language/v0.10.1/mapbox-gl-language.js'></script>
     <!-- Icon -->
     <script src="https://kit.fontawesome.com/785affb790.js" crossorigin="anonymous"></script>
-    <!-- Map Javascript -->
-    <script src="/example/js/map.js"></script>
     <!-- Main Javascript -->
     <script src="/example/js/index.js"></script>
     <script>
         $(function(){
-            /** Show Map */
-            let map = mapMaker();
-            /** Map Reloading */
-            Reloading(map);
+            
         });
     </script>
 </body>

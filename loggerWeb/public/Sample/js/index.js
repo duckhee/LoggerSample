@@ -93,14 +93,48 @@ $.Main.controlSidebar = {
             if ($(".main-sidebar").hasClass("sidebar-collapse")) {
                 $(".main-sidebar").removeClass('sidebar-collapse');
                 $(".wrapper").removeClass('wrapper-collapse');
+                $('.content').css('width', $(window).width() - 260);
+                $(".map").css('width', $(window).width() - 260);
 
             } else {
                 $(".main-sidebar").addClass('sidebar-collapse');
                 $(".wrapper").addClass('wrapper-collapse');
+                $('.content').css('width', $(window).width());
+                $(".map").css('width', $(window).width());
             }
+
         });
     }
 
+};
+
+/** Header Menu Control */
+$.Main.HomeMove = {
+    active: function() {
+
+
+    }
+};
+
+$.Main.HeaderMove = {
+    active: function() {
+        $("#dashBoardSelect").click(function() {
+
+            location.href = "/sample/Dashboard";
+        });
+        $("#MapSelect").click(function() {
+
+            location.href = "/sample";
+        });
+        $("#ListSelect").click(function() {
+
+            location.href = "/sample/list";
+        });
+        $("#DetailSelect").click(function() {
+
+            location.href = "/sample/detail";
+        });
+    }
 };
 
 $(function() {
@@ -112,4 +146,6 @@ $(function() {
     if (options.sidebarPushMenu) {
         $.Main.controlSidebar.activate(options.sidebarToggleSelector);
     }
+    $.Main.HeaderMove.active();
+
 });
