@@ -92,9 +92,24 @@ const UserAllDeviceLangLat = (req, res, next) => {
 
 
 
+/** Camera Direct View Test */
+const request = require('request');
+let HUrl = "http://223.171.44.131:8888/ISAPI/Streaming/channels/1/picture";
+const _SampleCapture = (req, res, next) => {
+
+    request.get(HUrl, { auth: { 'user': 'admin', password: 'won1228WON' } }, function(error, response, body) {
+        if (error) {
+            return res.json(error);
+        }
+        console.log('response : ', response);
+        res.send(body);
+    });
+
+}
 
 module.exports = {
     ListAllData,
     ListAllDeviceLangLat,
-    UserAllDeviceLangLat
+    UserAllDeviceLangLat,
+    _SampleCapture
 };

@@ -198,7 +198,7 @@ const DetailGraphDevice = (no) => {
             where: {
                 id: no
             },
-            attributes: ['name'],
+            attributes: ['name', 'DeviceType'],
             include: [{
                 model: models.DeviceColumns,
                 attributes: ['columns']

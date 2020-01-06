@@ -1,6 +1,8 @@
 const dw = require('dir_watchdog');
+/** All Config file */
+const _config = require('../config/config.json');
 /** Dir config */
-const config = require('../config/config.json').WatchDog;
+const WatchDogConfig = _config.WatchDog;
 
 /** File */
 const GetFile = require('../File/file.ctrl');
@@ -154,7 +156,7 @@ const _SInsertDB = (_Insert) => {
         if (_Insert.length > 0) {
             for (let i = 0; i < _Insert.length; i++) {
                 console.log("DEVICE TYPE : ", _Insert[i].DeviceType);
-                if (_Insert[i].DeviceType) {
+                if (_Insert[i].DeviceType == "DataTracker") {
                     console.log("LENGTH : " + _Insert.length + ', _Insert[' + i + '].DeviceType', _Insert[i].DeviceType);
                     _NameCheck[_Insert[i].DeviceType](_Insert).then(_NameCheckResult => {
                         console.log("NAME CHECK RESULT : ", _NameCheckResult);
@@ -183,6 +185,8 @@ const _SInsertDB = (_Insert) => {
                     }).catch(err => {
                         return reject(err);
                     });
+                } else if (_Insert[i].DeviceType == "HikVision") {
+
                 }
             }
         } else {
@@ -287,7 +291,8 @@ const _SelectCase = (ret, files, dirs) => {
 };
 /** Start Function */
 const _Init = () => {
-    return dw.watchdog(config, (ret, files, dirs) => {
+
+    return dw.watchdog(WatchDogConfig, (ret, files, dirs) => {
         _SelectCase(ret, files, dirs);
     });
 };

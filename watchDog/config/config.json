@@ -20,5 +20,10 @@
     "WatchDog": {
         "rootpath": "./test",
         "timer": 1000
+    },
+    "DeviceType": {
+        "HikVision": true,
+        "DataTracker": true,
+        "ecolog": true
     }
 }

@@ -6,7 +6,9 @@ const MainCtrl = require('../../ctrl/sample/index.ctrl');
 
 router.get('/', MainCtrl.MainPage);
 
-router.get('/list', MainCtrl.ListPage);
+router.get('/map', MainCtrl.MapPage);
+
+router.get('/detail', MainCtrl.DetailPage);
 
 router.get('/cell-two', (req, res, next) => {
 

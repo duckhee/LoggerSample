@@ -23,6 +23,8 @@ const DeviceRouter = (csurfMiddleWare) => {
     router.post('/delete', csurfMiddleWare, AdminDeviceCtrl.DeleteDo);
     /** return router */
     router.get('/getData', AdminDeviceJsonCtrl.ListAllData);
+    /** Get Picture */
+    router.get('/getPicture', AdminDeviceJsonCtrl._SampleCapture);
     return router;
 };
 

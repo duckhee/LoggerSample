@@ -191,7 +191,10 @@ const _ChartData = (no) => {
             return reject("_ChartData");
         }
         AdminDeviceDao.DetailGraphDevice(no).then(result => {
-            //console.log("GET GRAPH DATA : ", result);
+            console.log("GET GRAPH DATA : ", result);
+            if (result.DeviceType === "HikVision") {
+                return resolve(null);
+            }
             if (result.DeviceColumns.length == 0) {
                 console.log("RESULT CHART NAME 0 : ", result.DeviceColumns);
                 return reject("_ChartData");

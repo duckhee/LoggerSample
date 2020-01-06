@@ -126,6 +126,7 @@ const InsertDataColumns = () => {
     let _return = {
         "DataTracker": InsertDataTrackerData
     };
+    /** Insert HikVision Camera path */
 
     return _return;
 };

@@ -1,13 +1,19 @@
 const MainPage = (req, res, next) => {
-    res.render('Sample/Home/index');
+    res.redirect('/sample/map');
 };
 
 /** Main List  */
-const ListPage = (req, res, next) => {
-    res.render('Sample/Home/list');
+const MapPage = (req, res, next) => {
+    res.render('Sample/Home/map');
+};
+
+/** Detail Page */
+const DetailPage = (req, res, next) => {
+    res.render('Sample/Home/detail');
 };
 
 module.exports = {
     MainPage,
-    ListPage
+    MapPage,
+    DetailPage
 };

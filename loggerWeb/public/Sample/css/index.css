@@ -311,10 +311,28 @@ body {
     margin-bottom: 30px;
 }
 
+.panel-detail {
+    color: #cccccc;
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+.panel-updateTime {
+    font-size: 12px;
+    color: #cccccc;
+}
+
+.device-download {
+    display: inline-block;
+    color: #337ab7;
+    text-decoration: none;
+}
+
 .panel>.panel-body {
     background-color: #ffffff;
     border-top: 1px solid rgba(0, 0, 0, 0.15);
-    padding: 15px;
+    padding: 25px;
 }
 
 
@@ -373,5 +391,36 @@ body {
         height: calc(100%);
         height: -moz-calc(100%);
         height: -webkit-calc(100%);
+    }
+    /** List Panel */
+    .panel {
+        padding-top: 13px;
+        margin: 15px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        background-color: #f4f4f4;
+        border-radius: 2px 2px 0px 0px;
+        box-shadow: 0px -0.5px 2px 0px rgba(0, 0, 0, 0.15);
+        padding: 2px;
+        margin-bottom: 30px;
+    }
+    .panel-detail {
+        color: #cccccc;
+        font-size: 14px;
+        font-weight: 700;
+        margin-left: 10px;
+    }
+    .panel-updateTime {
+        font-size: 12px;
+        color: #cccccc;
+    }
+    .device-download {
+        display: inline-block;
+        color: #337ab7;
+        text-decoration: none;
+    }
+    .panel>.panel-body {
+        background-color: #ffffff;
+        border-top: 1px solid rgba(0, 0, 0, 0.15);
+        padding: 25px;
     }
 }

@@ -92,6 +92,7 @@ const ListRaw = (Info) => {
             }
         }).then(result => {
             console.log('Raw Dao Device hikvision List');
+            return resolve(result);
         }).catch(err => {
             console.log("Raw Dao Device hikvision List Error code ::: ", err.code);
             console.log("Raw Dao Device hikvision List Error ::: ", err);
