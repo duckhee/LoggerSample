@@ -263,6 +263,13 @@ const DetailPage = (req, res, next) => {
             });
         }).catch(err => {
             console.log("ERROR CHART DATA");
+            res.render('admin/DevicePage/Detail/DetailPage', {
+                login: TestingLoginData,
+                title: 'Admin Device Detail Page',
+                DeviceInfo: result,
+                chartData: null,
+                _csrf: req.csrfToken()
+            });
         });
 
         /*

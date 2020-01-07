@@ -4,9 +4,9 @@
  function mapMaker() {
      let map = new mapboxgl.Map({
          container: 'Map',
-         center: [126.97806, 37.56667], //seoul
+         center: [127.561236, 36.986204], //seoul
          style: 'mapbox://styles/mapbox/satellite-streets-v9',
-         zoom: 6
+         zoom: 10
      });
      let mapZoomCtrl = new mapboxgl.NavigationControl();
      map.addControl(new MapboxLanguage({

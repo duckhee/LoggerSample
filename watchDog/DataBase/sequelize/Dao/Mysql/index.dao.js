@@ -52,8 +52,8 @@ const CheckNameColumns = () => {
 const InsertDataTrackerName = (_Insert) => {
     return new Promise((resolve, reject) => {
         models.DeviceColumns.create({
-            deviceIdx: _Insert.deviceIdx,
-            columns: _Insert.name
+            deviceIdx: _Insert[0].id,
+            columns: _Insert.nameColumns
         }).then(result => {
             console.log("INSERT DEVICE NAME");
             return resolve(result);

@@ -138,6 +138,7 @@ const DetailPage = (req, res, next) => {
     res.render('admin/Member/Detail/DetailPage', {
         login: TestingLoginData,
         title: 'Admin Member Detail Page',
+        no: no,
         _csrf: req.csrfToken()
     });
 };

@@ -87,7 +87,7 @@
     <script>
         function EditMember(){
             $("#Edit").click(function(){
-                location.href="/admin/Members/modify?no=";
+                location.href="/admin/Members/modify?no=<%=no%>";
             });
         }
         $(document).ready(function(){

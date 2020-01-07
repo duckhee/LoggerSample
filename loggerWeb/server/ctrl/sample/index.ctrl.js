@@ -12,6 +12,11 @@ const DetailPage = (req, res, next) => {
     res.render('Sample/Home/detail');
 };
 
+/** Get current Camera Set */
+const CameraViewPage = (req, res, next) => {
+
+};
+
 module.exports = {
     MainPage,
     MapPage,

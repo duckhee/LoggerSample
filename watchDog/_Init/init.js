@@ -152,6 +152,7 @@ const _SInsertDB = (_Insert) => {
     console.log("INSERT DB FUNCTION", _Insert.length);
     let _NameCheck = SDao.CheckNameColumns();
     console.log("NAME CHECK : ", _NameCheck);
+    console.log("_Insert Data : ", _Insert);
     return new Promise((resolve, reject) => {
         if (_Insert.length > 0) {
             for (let i = 0; i < _Insert.length; i++) {
@@ -169,15 +170,23 @@ const _SInsertDB = (_Insert) => {
                                 return resolve(_InsertResult);
                             }).catch(err => {
                                 return reject(err);
-                            })
+                            });
                         }
                         /** NOT HAVE NAME COLUMNS */
-                        if (result.length == 0) {
+                        if (_NameCheckResult.length == 0) {
                             /** INSERT NAME COLUMN AND DATA COLUMNS */
                             let _NameInsert = SDao.InsertNameColumns();
+                            console.log('NAME INSERT DATA : ', _Insert);
                             _NameInsert[_Insert[i].DeviceType](_Insert).then(_InsertNameResult => {
-
+                                let _DataInsert = SDao.InsertDataColumns();
+                                _DataInsert[_Insert[i].DeviceType](_Insert).then(_InsertResult => {
+                                    console.log("SUCCESS : ", _InsertResult);
+                                    return resolve(_InsertResult);
+                                }).catch(err => {
+                                    return reject(err);
+                                });
                             }).catch(err => {
+                                console.log("_NameInsert ERROR ", err)
                                 return reject(err);
                             })
                         }
@@ -211,7 +220,7 @@ const _ReadInsert = (_Insert) => {
                 _SInsertDB(_Insert).then(_InsertResult => {
                     console.log(" INSERT DB : ", _InsertResult);
                 }).catch(err => {
-                    console.log("INSERT DB ERROR UP");
+                    console.log("INSERT DB ERROR UP : ", err);
                     return reject(err);
                 });
 
@@ -259,26 +268,7 @@ const _SelectCase = (ret, files, dirs) => {
                     console.log("DEVICE CHECK ERROR : ", err);
                 });
 
-                /*
-                Dao.InitCheck().then(_result => {
-                    console.log(_result);
-                    _DirsCheck(ret, files, _result).then(_PathCheck => {
-                        console.log('Path Check : ', _PathCheck);
-                        console.log('Path Check : ', _PathCheck.length);
-                        _ReadInsert(_PathCheck).then(result => {
-                            console.log(result);
 
-                        }).catch(err => {
-                            console.log(err);
-                            console.log("INSERT ERROR");
-                        });
-                    }).catch(err => {
-                        console.log('NOT MATCH DATABASE AND FILE PATH');
-                    });
-                }).catch(err => {
-                    console.log('DATABASE ERROR');
-                });
-                */
             }).catch(err => {
                 console.log('NOT HAVE FILE SIZE OR RIGHT FILE TYPE');
             });
