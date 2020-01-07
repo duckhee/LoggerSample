@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link ref="shortcut icon" type="image/x-icon" href="/static/customer/img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/customer/img/logo.png">
     <link rel="stylesheet" href="/example/css/index.css">
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -22,7 +22,7 @@
                 <!--./logo-->
                 <div class="LoginWrapper dropdown dropleft">
                     <div class="login-info" data-toggle="dropdown">
-                        <span>Login Info</span>
+                        <span><!--Login Info--><%=UserInfo.UserName%></span>
                         <i class="fas fa-user" style="margin-left:10px;font-size:20px;"></i>
                     </div>
                     <!--./login info -->
@@ -38,13 +38,13 @@
             <div class="header-menu-wrapper">
                 <div class="select-wrapper dropdown">
                     <div class="select" data-toggle="dropdown">
-                        SITE NAME
+                        <!--SITE NAME--><%=UserInfo.sites[0].name%>
                         <i class="fas fa-chevron-down" style="float:right; padding:5px;"></i>
                     </div>
                     <!--./select-site-->
                     <div class="dropdown-menu" style="z-index:10000; width:229px;">
-                        <a class="dropdown-item">SITE NAME</a>
-                        <a class="dropdown-item">SITE NAME</a>
+                        <!--<a class="dropdown-item">SITE NAME</a>
+                        <a class="dropdown-item">SITE NAME</a>-->
                     </div>
                     <!--./drop down menu-->
                 </div>
@@ -82,7 +82,7 @@
         <div class="side-menu">
             <div class="side-menu-item">
                 <i class="fas fa-home" style="margin-right:5px;"></i>
-                    Site
+                    <!--Site--><%=UserInfo.sites[0].name%>
                 <a class="edit" href="#">
                     <i class="fas fa-pen"></i>
                 </a>
@@ -90,11 +90,12 @@
             <!--./side-menu-item-->
         </div>
         <!--./side-menu-->
+        
         <div class="side-menu treeItem-menu">
             <div class="side-menu-item">
                 <i class="fas fa-layer-group" style="margin-right:15px;"></i>
-                    Plot
-                <a class="edit" href="#">
+                    <!--Plot--><%=UserInfo.sites[0].plots[0].PlotName%>
+                <a class="edit" href="#" style="float:right;">
                     <i class="fas fa-pen"></i>
                 </a>
             </div>
@@ -102,7 +103,10 @@
         </div>
         <!--./side-menu-->
         <ul class="treeItem-menu-item">
-            <li class="device-list"><i class="fas fa-satellite-dish" style="margin-right:15px;"></i>Device</li>
+            <!--<li class="device-list"><i class="fas fa-satellite-dish" style="margin-right:15px;"></i>Device</li>-->
+            <%for(var i = 0; i < UserInfo.sites[0].plots[0].devices.length; i++){%>
+                <li class="device-list" id="<%=UserInfo.sites[0].plots[0].devices[i].name%>"><i class="fas fa-satellite-dish" style="margin-right:15px;"></i><%=UserInfo.sites[0].plots[0].devices[i].name%></li>
+            <%}%>
         </ul>
         <!--./side-menu-item-tree-menu-->
         <!--./one menu -->
@@ -153,11 +157,21 @@
     <script src="/example/js/index.js"></script>
     <script>
         $(function(){
-            
+            let UserInfo = JSON.parse('<%-JSON.stringify(UserInfo)%>');
+            console.log(UserInfo);
+            let SiteInfo = JSON.parse('<%-JSON.stringify(SiteInfo)%>');
+            console.log("DEVICE :", (parseFloat(UserInfo.sites[0].plots[0].devices[0].Latitude)));
+            console.log("DEVICE :", (parseFloat(UserInfo.sites[0].plots[0].devices[0].Longitude)));
             /** Show Map */
             let map = mapMaker();
             /** Map Reloading */
             Reloading(map);
+            let marker;
+            <%for(var i = 0; i < UserInfo.sites[0].plots[0].devices.length; i++){%>
+                 marker = makeMaker(map, <%=parseFloat(UserInfo.sites[0].plots[0].devices[i].Latitude)%>, <%=parseFloat(UserInfo.sites[0].plots[0].devices[i].Longitude)%>,UserInfo.sites[0].plots[0].devices[<%=i%>]);
+                PopUpMarker(map, marker, UserInfo.sites[0].plots[0].devices[<%=i%>].name, UserInfo.sites[0].plots[0].devices[<%=i%>].Latitude, UserInfo.sites[0].plots[0].devices[<%=i%>].Longitude);
+            <%}%>
+            
         });
     </script>
 </body>

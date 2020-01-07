@@ -183,7 +183,9 @@
                         </div>
                         <!-- ./box-header-->
                         <div class="box-body">
-                        
+                            <div id="Camera-Image">
+                                <img style="height:100%;width:100%;">
+                            </div>
                         </div>
                     </div>
                     <!--./show img-->
@@ -220,17 +222,30 @@
        <!--/.wrapper-->
        <% include ../../../../partials/admin/footerScript.ejs %>
        <% include ../../../../partials/admin/chartScript.ejs %>
+       <script src="/static/camera/camera.js"></script>
        <script>
-            
+            $(function(){
+
             //console.log('Testing Value : ', TestingData);
             /** Make Chart */
-            let chart = MakeAreaChart("graph");
-            /*
+            
+
             let charData = JSON.parse('<%-JSON.stringify(DeviceInfo)%>');
             console.log('char Data : ',charData);
-            */
+            
             /** New Update */
-            AjaxTest(<%=DeviceInfo.dataValues.id%>,chart);
+            
+            console.log("<%=DeviceInfo.dataValues.DeviceType%>");
+            if("<%=DeviceInfo.dataValues.DeviceType%>" === "HikVision"){
+                capture("admin", "won1228WON","Camera-Image");
+            }
+            //AjaxTest(<%=DeviceInfo.dataValues.id%>,chart);
+            if("<%=DeviceInfo.dataValues.DeviceType%>" === "DataTracker"){
+                let chart = MakeAreaChart("graph");
+                AjaxTest(charData.id, chart);
+                
+            }
+            })
        </script>
     </body>
   

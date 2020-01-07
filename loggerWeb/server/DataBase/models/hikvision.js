@@ -105,6 +105,12 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             onDelete: 'CASCADE'
         });
+        /** HikVision has Many HikVision Path */
+        hikvision.hasMany(models.HikVisionPath, {
+            HikVisionIdx: 'deviceIdx',
+            targetKey: 'id',
+            sourceKey: 'id'
+        });
     };
     return hikvision;
 };

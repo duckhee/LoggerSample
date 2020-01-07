@@ -6,6 +6,8 @@ const DeviceColumnData = require("../../models/datatrackerdatacolumns");
 /** PRODUCT DATA-TRACKER COLUMNS */
 const DataTrackerColumns = require("../../models/datatrackercolumns");
 const DataTrackerDataColumns = require("../../models/datatrackerdatacolumns");
+/** PRODUCT HIKVISION CAMERA  */
+
 
 /** Check Device */
 const CheckDevice = () => {
@@ -63,11 +65,19 @@ const InsertDataTrackerName = (_Insert) => {
     });
 };
 
+/** Insert HikVision Path */
+const InsertHikVision = (_Insert) => {
+    return new Promise((resolve, reject) => {
+
+    });
+};
+
 /** Insert Name Columns */
 const InsertNameColumns = () => {
     /** Interface JSON */
     let _return = {
-        "DataTracker": InsertDataTrackerName
+        "DataTracker": InsertDataTrackerName,
+        "HikVision": InsertHikVision
     };
     return _return;
 };
@@ -124,7 +134,8 @@ const InsertDataTrackerData = (_Insert) => {
 const InsertDataColumns = () => {
     /** Interface JSON */
     let _return = {
-        "DataTracker": InsertDataTrackerData
+        "DataTracker": InsertDataTrackerData,
+        "HikVision": InsertHikVision
     };
     /** Insert HikVision Camera path */
 

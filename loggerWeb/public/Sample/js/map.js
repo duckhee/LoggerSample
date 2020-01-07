@@ -13,21 +13,6 @@
          defaultLanguage: 'ko'
      }));
      map.addControl(mapZoomCtrl, 'bottom-right');
-
-     let mapPopup = '';
-
-     popup = new mapboxgl.Popup({ offset: 25, anchor: 'bottom' })
-         .setMaxWidth("600px")
-         .setHTML(mapPopup);
-     /*
-          marker = new mapboxgl.Marker({
-                  draggable: false
-              })
-              .setLngLat([126.8124566, 33.542319])
-              .setPopup(popup)
-              .addTo(map);
-     */
-
      return map;
 
  }
@@ -37,5 +22,38 @@
          e.preventDefault();
 
          map.resize();
+     });
+ }
+
+ function makeMaker(map, lat, lon, popUp) {
+     console.log(popUp);
+     let mapPopup = "<div class='map-popup'>" +
+         "<div class='map-box'>" +
+         "<h5>" + popUp.name + "</h5>" +
+         "<div class='map-box-content'>" +
+         "<h6>" + popUp.DeviceType + "</h6>";
+     popup = new mapboxgl.Popup({ offset: 25, anchor: 'bottom' })
+         .setMaxWidth("600px")
+         .setHTML(mapPopup);
+     marker = new mapboxgl.Marker({
+             draggable: false
+         })
+         .setLngLat([lon, lat])
+         .setPopup(popup)
+         .addTo(map);
+     return popup;
+ }
+
+ function PopUpMarker(map, popup, name, lat, lon) {
+     $("#" + name).click(function() {
+
+         console.log("name", name);
+         console.log("Lat : ", lat);
+         console.log("Lon : ", lon);
+         let deviceInfo = { lng: parseFloat(lon), lat: parseFloat(lat) };
+         let px = map.project(deviceInfo);
+         px.y -= deviceInfo.lat + 50;
+         map.panTo(map.unproject(px), { animate: true });
+         popup.addTo(map);
      });
  }

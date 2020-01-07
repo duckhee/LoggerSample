@@ -151,8 +151,8 @@ const _InsertDB = (_Insert) => {
 const _SInsertDB = (_Insert) => {
     console.log("INSERT DB FUNCTION", _Insert.length);
     let _NameCheck = SDao.CheckNameColumns();
-    console.log("NAME CHECK : ", _NameCheck);
-    console.log("_Insert Data : ", _Insert);
+    /*console.log("NAME CHECK : ", _NameCheck);
+    console.log("_Insert Data : ", _Insert);*/
     return new Promise((resolve, reject) => {
         if (_Insert.length > 0) {
             for (let i = 0; i < _Insert.length; i++) {
@@ -195,7 +195,8 @@ const _SInsertDB = (_Insert) => {
                         return reject(err);
                     });
                 } else if (_Insert[i].DeviceType == "HikVision") {
-
+                    console.log("IMAGE");
+                    console.log("INSERT DATA : ", _Insert);
                 }
             }
         } else {
@@ -208,6 +209,7 @@ const _SInsertDB = (_Insert) => {
 const _ReadInsert = (_Insert) => {
     let _Return = [];
     return new Promise((resolve, reject) => {
+        console.log("_INSERT : ", _Insert[0].DeviceType);
         if (_Insert.length > 0) {
             for (let i = 0; i < _Insert.length; i++) {
                 let format = GetFile.GetFormat(_Insert[i].Insert);
@@ -270,6 +272,7 @@ const _SelectCase = (ret, files, dirs) => {
 
 
             }).catch(err => {
+                console.log("ERROR :: ", err);
                 console.log('NOT HAVE FILE SIZE OR RIGHT FILE TYPE');
             });
             break;

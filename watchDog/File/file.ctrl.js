@@ -146,6 +146,9 @@ const Raw = (file, value, _type) => {
     if (_type == "MIS") {
         return RawMIS(file, value);
     }
+    if (_type = "jpg") {
+        return file;
+    }
     return null;
 };
 

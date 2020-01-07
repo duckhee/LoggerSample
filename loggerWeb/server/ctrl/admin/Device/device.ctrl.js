@@ -191,7 +191,7 @@ const _ChartData = (no) => {
             return reject("_ChartData");
         }
         AdminDeviceDao.DetailGraphDevice(no).then(result => {
-            console.log("GET GRAPH DATA : ", result);
+            //console.log("GET GRAPH DATA : ", result);
             if (result.DeviceType === "HikVision") {
                 return resolve(null);
             }
@@ -248,12 +248,13 @@ const DetailPage = (req, res, next) => {
         req.flash('message', "Not Select Device Detail Number");
         return res.redirect('/admin/Device/list');
     }
+
     AdminDeviceDao.DetailDevice(no).then(result => {
         console.log('Device Detail Page Info : ', result.dataValues.id);
         console.log('NO : ', no);
-
+        console.log("DEVICE INFO DETAIL ::: ", result);
         _ChartData(no).then(chartResult => {
-            console.log("CHART DATA RESULT : ", chartResult);
+            //console.log("CHART DATA RESULT : ", chartResult);
             res.render('admin/DevicePage/Detail/DetailPage', {
                 login: TestingLoginData,
                 title: 'Admin Device Detail Page',

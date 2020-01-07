@@ -96,13 +96,20 @@ const UserAllDeviceLangLat = (req, res, next) => {
 const request = require('request');
 let HUrl = "http://223.171.44.131:8888/ISAPI/Streaming/channels/1/picture";
 const _SampleCapture = (req, res, next) => {
-
-    request.get(HUrl, { auth: { 'user': 'admin', password: 'won1228WON' } }, function(error, response, body) {
+    const Id = req.query.id || req.body.id || req.param.id || req.params.id || "";
+    const Pass = req.query.password || req.body.password || req.param.password || req.params.password || "";
+    if (Id == "") {
+        return res.json(null);
+    }
+    if (Pass == "") {
+        return res.json(null);
+    }
+    request.get(HUrl, { auth: { 'user': Id, password: Pass }, encoding: 'binary' }, function(error, response, body) {
         if (error) {
             return res.json(error);
         }
-        console.log('response : ', response);
-        res.send(body);
+        res.writeHead(200, { 'Content-Type': 'image/jpg' });
+        res.end(body, 'binary');
     });
 
 }
