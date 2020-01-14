@@ -210,7 +210,7 @@
 
                             $.ajaxSetup({
                                 beforeSend: function(xhr) {
-                                    xhr.setRequestHeader('Csrf-Token', "<%=_csrf%>");
+                                     xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
                                 }
                             });
                             $.ajax({
