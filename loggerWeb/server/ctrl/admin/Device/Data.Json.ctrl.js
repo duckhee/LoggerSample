@@ -21,6 +21,7 @@ const ListTenData = (req, res, next) => {
     return res.json(1);
 };
 
+//TODO
 /** Select All Data */
 const ListAllData = (req, res, next) => {
     let no = req.param.no || req.params.no || req.query.no || "";
@@ -39,23 +40,27 @@ const ListAllData = (req, res, next) => {
         let NamesSplit = Names.split(',');
         let dataOrigin = result.DeviceColumnData;
         let dataArray = [];
+        console.log("Name Split Length : ", NamesSplit.length);
         for (let i in NamesSplit) {
             let dataJson = {};
             dataJson.name = NamesSplit[i];
             dataJson.data = [];
-            if (Number(i) !== 0)
+            if (Number(i) !== 0) {
+                console.log('data json ', dataArray.length);
                 dataArray.push(dataJson);
+            }
 
         }
+        console.log("Name Input Array : ", dataArray);
         console.log('data is : ', result.DeviceColumnData.length);
         for (let i = 0; i < dataOrigin.length; i++) {
             //console.log('data origin : ', dataOrigin[i].dataValues.columnValue.split(','));
-
             let splitData = dataOrigin[i].dataValues.columnValue.split(',');
             let DataTime;
             for (let i2 in splitData) {
                 if (i2 == 0) {
                     //console.log('get Time : ', splitData[i2]);
+
                     DataTime = new Date(splitData[i2]); //.getTime();
                 } else {
                     let chartData = splitData[i2];
@@ -63,8 +68,16 @@ const ListAllData = (req, res, next) => {
                     if (isNaN(InsertData)) {
                         InsertData = null;
                     }
-                    dataArray[i2 - 1].data.push([DataTime, InsertData]);
-                    //console.log(chartData);
+                    //console.log("Data Check : ", Array.isArray(dataArray[i2 - 1].data));
+                    //TODO
+                    try {
+                        dataArray[i2 - 1].data.push([DataTime, InsertData]);
+                    } catch (err) {
+                        //console.log("Array Data Check : ", dataArray[i2 - 1]);
+                        //console.log(i2 - 1);
+                        console.log("data Array Number : " + (i2 - 1) + "," + err);
+                    }
+
                 }
             }
 
