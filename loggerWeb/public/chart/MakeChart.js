@@ -227,3 +227,5 @@ function InsertChart(data, chart) {
         chart.toggleSeries(data[i].name);
     }
 }
+
+/** Test Ecolog Chart */

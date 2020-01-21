@@ -241,9 +241,12 @@
             }
             //AjaxTest(<%=DeviceInfo.dataValues.id%>,chart);
             if("<%=DeviceInfo.dataValues.DeviceType%>" === "DataTracker"){
-                let chart = MakeAreaChart("graph");
+                let chart = MakeAreaChart("graph","<%=DeviceInfo.dataValues.name%>");
                 AjaxTest(charData.id, chart);
                 
+            }
+            if("<%=DeviceInfo.dataValues.DeviceType%>" === "ecolog"){
+                let chart = MakeAreaChart("graph","<%=DeviceInfo.dataValues.name%>");
             }
             })
        </script>

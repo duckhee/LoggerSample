@@ -110,6 +110,17 @@ const RawCSV = (file, value) => {
     }
 };
 
+const _MISFileRaw = (file) => {
+    try {
+        let _ReadFile = fs.readFileSync(String(file), { encoding: 'utf-8' });
+
+    } catch (err) {
+        console.log("MIS File Read Error code ::: ", err.code);
+        console.log("MIS File Read Error ::: ", err);
+        return null;
+    }
+};
+
 const RawNameMIS = (file) => {
 
 };
@@ -118,10 +129,21 @@ const RawValueMIS = (file) => {
 
 };
 
+const RowMIS = (file) => {
+    try {
+        let _ReadFile = fs.readFileSync(String(file), { encoding: 'utf-8' });
+        return _ReadFile;
+    } catch (err) {
+        console.log("File Read Error code ::: ", err.code);
+        console.log("File Read Error ::: ", err);
+        return null;
+    }
+};
+
 //TODO 
 /** Make EcoLog File DataBase and Parser */
 const RawMIS = (file, value) => {
-    let _raw = FileRaw(file);
+    let _raw = RowMIS(file);
     if (value == "name") {
         return "NEED TO XML PARSER";
     }
