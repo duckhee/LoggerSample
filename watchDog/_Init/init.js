@@ -6,9 +6,6 @@ const WatchDogConfig = _config.WatchDog;
 
 /** File */
 const GetFile = require('../File/file.ctrl');
-/** Dao */
-const _Dao = require('../DataBase/index.dao');
-const Dao = _Dao();
 
 /** SEQUELIZE DAO */
 const _SDao = require('../DataBase/sequelize/Dao/index.dao');
@@ -97,55 +94,6 @@ const _DirsCheck = (ret, files, DatabaseDirs) => {
     });
 };
 
-/** TODO Database check and Insert  */
-const _InsertDB = (_Insert) => {
-    console.log("INSERT DB FUNCTION", _Insert.length);
-    let CheckDao = Dao.CheckNameDB();
-    return new Promise((resolve, reject) => {
-        if (_Insert.length > 0) {
-            for (let i = 0; i < _Insert.length; i++) {
-
-                if (_Insert[i].DeviceType) {
-                    console.log("LENGTH : " + _Insert.length + ', _Insert[' + i + '].DeviceType', _Insert[i].DeviceType);
-                    CheckDao[_Insert[i].DeviceType](_Insert[i].id).then(result => {
-                        /** HAVE NAME COLUMNS */
-                        if (result.length > 0) {
-                            console.log("RESULT TEST ID : ", _Insert[i].id);
-                            /** Get Database Insert data device Type */
-                            let _DB = Dao.RawInsert("data", _Insert[i].DeviceType);
-                            _DB(_Insert).then(result => {
-                                console.log("INSERT RESULT : ", result);
-                                return resolve(true);
-                            }).catch(err => {
-                                console.log("ERROR INSERT DB");
-                                return reject(err);
-                            });
-                        }
-                        /** NOT HAVE NAME COLUMNS */
-                        if (result.length == 0) {
-                            /** Get Database Insert name device Type */
-                            let _DB = Dao.RawInsert("name", _Insert[i].DeviceType);
-                            _DB(_Insert).then(result => {
-
-                            }).catch(err => {
-
-                            });
-                        }
-                        return reject("_InsertDB");
-                    }).catch(err => {
-                        console.log(err);
-                        return reject("_InsertDB");
-                    });
-                } else {
-                    console.log('NOT TYPE : ', _Insert[i].DeviceType);
-                }
-            }
-        } else {
-
-            return reject("_InsertDB");
-        }
-    });
-};
 
 /** Database Check and Insert */
 const _SInsertDB = (_Insert) => {
@@ -157,6 +105,7 @@ const _SInsertDB = (_Insert) => {
         if (_Insert.length > 0) {
             for (let i = 0; i < _Insert.length; i++) {
                 console.log("DEVICE TYPE : ", _Insert[i].DeviceType);
+                /** Insert DB DataTracker */
                 if (_Insert[i].DeviceType == "DataTracker") {
                     console.log("LENGTH : " + _Insert.length + ', _Insert[' + i + '].DeviceType', _Insert[i].DeviceType);
                     _NameCheck[_Insert[i].DeviceType](_Insert).then(_NameCheckResult => {
@@ -186,17 +135,38 @@ const _SInsertDB = (_Insert) => {
                                     return reject(err);
                                 });
                             }).catch(err => {
-                                console.log("_NameInsert ERROR ", err)
+                                console.log("_NameInsert ERROR ", err);
                                 return reject(err);
-                            })
+                            });
                         }
                         return reject("_SInsertDB");
                     }).catch(err => {
                         return reject(err);
                     });
+                    /** Insert DB Hikvision */
                 } else if (_Insert[i].DeviceType == "HikVision") {
                     console.log("IMAGE");
                     console.log("INSERT DATA : ", _Insert);
+                    /** Insert DB Ecolg */
+                } else if (_Insert[i].DeviceType == "ecolog") {
+                    console.log("Insert Data : ", _Insert[i]);
+                    /** Insert Data Get */
+                    let _DataInsert = SDao.InsertDataColumns();
+                    let _DeviceType = SDao.CheckDeviceType();
+                    _DeviceType[_Insert[i].DeviceType](_Insert).then(ecologResult => {
+                        console.log("device value Check : ", ecologResult[0].id);
+                        _Insert.ecologId = ecologResult[0].id;
+                        _DataInsert[_Insert[i].DeviceType](_Insert).then(_InsertResult => {
+                            console.log("SUCCESS : ", _InsertResult);
+                            return resolve(_InsertResult);
+                        }).catch(err => {
+                            return reject(err);
+                        });
+                        return reject("_SInsertDB");
+                    }).catch(err => {
+                        console.log('Error ::: ', err);
+                        return reject("_SInsertDB");
+                    });
                 }
             }
         } else {
@@ -210,29 +180,34 @@ const _ReadInsert = (_Insert) => {
     let _Return = [];
     return new Promise((resolve, reject) => {
         console.log("_INSERT : ", _Insert[0].DeviceType);
+
         if (_Insert.length > 0) {
+
             for (let i = 0; i < _Insert.length; i++) {
+                console.log('Insert ReadInsert Value : ', _Insert[i]);
                 let format = GetFile.GetFormat(_Insert[i].Insert);
                 let names = GetFile.Raw(_Insert[i].Insert, "name", format);
                 _Insert.nameColumns = names;
                 let data = GetFile.Raw(_Insert[i].Insert, "data", format);
                 _Insert.dataColumns = data;
-                console.log('test : ', _Insert.length);
-
+                console.log('test : ', _Insert.dataColumns);
                 _SInsertDB(_Insert).then(_InsertResult => {
                     console.log(" INSERT DB : ", _InsertResult);
+                    return resolve(_InsertResult);
                 }).catch(err => {
                     console.log("INSERT DB ERROR UP : ", err);
                     return reject(err);
                 });
 
             }
+
             if (_Return.length > 0) {
                 console.log('ERROR');
                 return resolve(_Return);
             }
-            console.log("RETURN VALUE : ", _Return);
-            return reject("_ReadInsert");
+            //return resolve(_Return);
+            //console.log("RETURN VALUE : ", _Return);
+            //return reject("_ReadInsert");
         }
         return reject("_ReadInsert");
     });
@@ -253,11 +228,13 @@ const _SelectCase = (ret, files, dirs) => {
             _SizeCheck(ret, files, dirs).then(_ConfirmFiles => {
                 console.log('Size and extend Check Array : ', _ConfirmFiles);
                 /** USE SEQUELIZE */
+                /** Check Device have return Device Database Value */
                 SDao.CheckDevice().then(_DeviceResult => {
-                    console.log("RESULT : ", _DeviceResult.length);
+
                     /** DIR CHECK */
+                    /** Chekc Dir Path Right or False in Database */
                     _DirsCheck(ret, files, _DeviceResult).then(_DirResult => {
-                        console.log("DIR RESULT : ", _DirResult.length);
+                        //console.log("DIR RESULT : ", _DirResult.length);
                         _ReadInsert(_DirResult).then(_ReadResult => {
                             console.log("READ INSERT RESULT : ", _ReadResult);
                         }).catch(err => {

@@ -23,7 +23,8 @@ const CheckType = (type) => {
     if (_Type[type]) {
         return _Type[type];
     }
-    return null;
+    if (type == "BIN")
+        return null;
 };
 
 /** Get File Name */
@@ -142,15 +143,15 @@ const RowMIS = (file) => {
 
 //TODO 
 /** Make EcoLog File DataBase and Parser */
-const RawMIS = (file, value) => {
+const RawMIS = (file) => {
+    /** Read File */
     let _raw = RowMIS(file);
-    if (value == "name") {
-        return "NEED TO XML PARSER";
+    if (_raw == null) {
+        return null;
+    } else {
+        return _raw;
     }
-    if (value == "data") {
-        return "NEED TO XML PARSER";
-    }
-    return null;
+
 };
 
 const RawName = (file) => {
@@ -166,7 +167,8 @@ const Raw = (file, value, _type) => {
         return RawCSV(file, value);
     }
     if (_type == "MIS") {
-        return RawMIS(file, value);
+        console.log("ecolog Type : ", file);
+        return RawMIS(file);
     }
     if (_type = "jpg") {
         return file;

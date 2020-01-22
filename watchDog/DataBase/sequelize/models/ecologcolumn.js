@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         ecologData: {
             type: DataTypes.STRING,
-        },
+        }
     }, {});
     ecologColumn.associate = function(models) {
         // associations can be defined here

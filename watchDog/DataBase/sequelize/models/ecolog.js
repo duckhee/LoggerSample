@@ -27,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             onDelete: 'CASCADE'
         });
-
         /** ecolog has Many EcoLog Columns */
         ecolog.hasMany(models.ecologColumn, {
             foreignKey: 'ecologIdx',
