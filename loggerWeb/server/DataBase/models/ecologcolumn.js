@@ -9,22 +9,10 @@ module.exports = (sequelize, DataTypes) => {
             },
             onDelete: 'CASCADE'
         },
-        ecologValue1: {
+        ecologName: {
             type: DataTypes.STRING,
         },
-        ecologValue2: {
-            type: DataTypes.STRING,
-        },
-        ecologValue3: {
-            type: DataTypes.STRING,
-        },
-        ecologValue4: {
-            type: DataTypes.STRING,
-        },
-        ecologValue5: {
-            type: DataTypes.STRING,
-        },
-        ecologValue6: {
+        ecologData: {
             type: DataTypes.STRING,
         },
     }, {});

@@ -17,22 +17,10 @@ module.exports = {
                 },
                 onDelete: 'CASCADE'
             },
-            ecologValue1: {
+            ecologName: {
                 type: Sequelize.STRING,
             },
-            ecologValue2: {
-                type: Sequelize.STRING,
-            },
-            ecologValue3: {
-                type: Sequelize.STRING,
-            },
-            ecologValue4: {
-                type: Sequelize.STRING,
-            },
-            ecologValue5: {
-                type: Sequelize.STRING,
-            },
-            ecologValue6: {
+            ecologData: {
                 type: Sequelize.STRING,
             },
             createdAt: {

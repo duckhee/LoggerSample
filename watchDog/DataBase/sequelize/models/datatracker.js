@@ -48,6 +48,11 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'dataTrackerIdx',
             targetKey: 'id'
         });
+        /** DataTracker has Many DataTracker columns(data) */
+        DataTracker.hasMany(models.DataTrackerDataColumns, {
+            foreignKey: 'dataTrackerIdx',
+            targetKey: 'id'
+        });
     };
     return DataTracker;
 };

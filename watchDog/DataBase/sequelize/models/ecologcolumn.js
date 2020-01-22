@@ -8,7 +8,13 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'id'
             },
             onDelete: 'CASCADE'
-        }
+        },
+        ecologName: {
+            type: DataTypes.STRING,
+        },
+        ecologData: {
+            type: DataTypes.STRING,
+        },
     }, {});
     ecologColumn.associate = function(models) {
         // associations can be defined here

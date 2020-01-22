@@ -9,7 +9,13 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {});
     DataTrackerDataColumns.associate = function(models) {
-        // associations can be defined here
+        // associations can be defined here/** DataTracker Has one Columns */
+        DataTrackerDataColumns.belongsTo(models.DataTracker, {
+            foreignKeyConstraint: true,
+            foreignKey: 'id',
+            allowNull: false,
+            onDelete: 'CASCADE'
+        });
     };
     return DataTrackerDataColumns;
 };
