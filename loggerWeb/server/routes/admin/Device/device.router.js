@@ -25,6 +25,9 @@ const DeviceRouter = (csurfMiddleWare) => {
     router.get('/getData', AdminDeviceJsonCtrl.ListAllData);
     /** Get Picture */
     router.get('/getPicture', AdminDeviceJsonCtrl._SampleCapture);
+
+    //TODO Test Router
+    router.get('/testEcolog', AdminDeviceJsonCtrl.TestEcolog);
     return router;
 };
 

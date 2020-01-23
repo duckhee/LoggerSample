@@ -1,6 +1,10 @@
 /** Device Dao */
+//TODO Change
 const Dao = require('../../../dao/admin/Device/index.dao');
 const AdminDeviceDao = Dao();
+/** Graph Dao */
+const _Dao = require('../../../dao/admin/Device/mysql/graph/graph.interface.dao');
+
 
 /** Insert Data */
 const InsertData = (req, res, next) => {
@@ -92,6 +96,7 @@ const ListAllData = (req, res, next) => {
     });
 };
 
+
 /** select Device LangLat */
 const ListAllDeviceLangLat = (req, res, next) => {
     const email = req.query.email || req.body.email || "";
@@ -125,11 +130,108 @@ const _SampleCapture = (req, res, next) => {
         res.end(body, 'binary');
     });
 
-}
+};
+
+//TODO Ecolog Make ApexChart
+const MakeEcologChart = (data) => {
+    //console.log("Make Ecolog Chart Data : ", data);
+    return new Promise((resolve, reject) => {
+        console.log('testtt', data.length);
+        let _return = [];
+        if (data.length == 0) {
+            console.log("Not Data");
+            return reject(null);
+        }
+        let _returnValue1 = {};
+        let _returnValue2 = {};
+        let _returnValue3 = {};
+        let _returnValue4 = {};
+        let _returnValue5 = {};
+        let _returnValue6 = {};
+        let data1 = [];
+        let data2 = [];
+        let data3 = [];
+        let data4 = [];
+        let data5 = [];
+        let data6 = [];
+
+        for (var i = 0; i < data.length; i++) {
+            //            _SetJson.data = [new Date(data[i].createdAt), data[i].ecologData];
+            if (data[i].ecologName == "0001") {
+                _returnValue1.name = "깊이";
+                //_returnValue1.data.push([new Date(data[i].createdAt), data[i].ecologData]);
+                data1.push([new Date(data[i].createdAt), data[i].ecologData]);
+            } else if (data[i].ecologName == "0002") {
+                _returnValue2.name = "\"DegC\"";
+                data2.push([new Date(data[i].createdAt), data[i].ecologData]);
+                //_returnValue2.data.push([new Date(data[i].createdAt), data[i].ecologData]);
+            } else if (data[i].ecologName == "0003") {
+                _returnValue3.name = "\"EC(ms/cm)\"";
+                data3.push([new Date(data[i].createdAt), data[i].ecologData]);
+                //_returnValue3.data.push([new Date(data[i].createdAt), data[i].ecologData]);
+            } else if (data[i].ecologName == "0004") {
+                _returnValue4.name = "\"salt\"";
+                data4.push([new Date(data[i].createdAt), data[i].ecologData]);
+                //_returnValue4.data.push([new Date(data[i].createdAt), data[i].ecologData]);
+            } else if (data[i].ecologName == "0005") {
+                _returnValue5.name = "\"TDS(mg/L)\"";
+                data5.push([new Date(data[i].createdAt), data[i].ecologData]);
+                //_returnValue5.data.push([new Date(data[i].createdAt), data[i].ecologData]);
+            } else if (data[i].ecologName == "0006") {
+                _returnValue6.name = "\"Power(V)\"";
+                data6.push([new Date(data[i].createdAt), data[i].ecologData]);
+                //_returnValue6.data.push([new Date(data[i].createdAt), data[i].ecologData]);
+            }
+            //console.log("SET JSON : ", _SetJson);
+        }
+        _returnValue1.data = data1;
+        _returnValue2.data = data2;
+        _returnValue3.data = data3;
+        _returnValue4.data = data4;
+        _returnValue5.data = data5;
+        _returnValue6.data = data6;
+
+        _return.push(_returnValue1);
+        _return.push(_returnValue2);
+        _return.push(_returnValue3);
+        _return.push(_returnValue4);
+
+
+        return resolve(_return);
+
+
+
+    });
+};
+
+//TODO Graph Ecolog Only Need to All Device
+const TestEcolog = (req, res, next) => {
+    const no = req.query.no || req.body.no || req.param.no || req.params.no || "";
+    console.log("Ecolog graph Test : ", no);
+    if (no === "") {
+        return res.json(null);
+    }
+    _Dao["ecolog"]().Graph(3).then(result => {
+        //console.log("GET DATA : ", result.dataValues.ecolog.ecologColumns);
+        MakeEcologChart(result.dataValues.ecolog.ecologColumns).then(_returnResult => {
+            //return res.json(result.dataValues.ecolog.ecologColumns);
+            return res.json(_returnResult);
+        }).catch(err => {
+            console.log("ERROR ", err);
+            return res.json(null);
+        });
+    }).catch(err => {
+        console.log("ERROR null ", err);
+        return res.json(null);
+    });
+
+};
 
 module.exports = {
     ListAllData,
     ListAllDeviceLangLat,
     UserAllDeviceLangLat,
-    _SampleCapture
+    _SampleCapture,
+    //TODO Test Controller
+    TestEcolog
 };

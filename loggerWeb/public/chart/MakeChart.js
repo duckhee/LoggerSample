@@ -216,10 +216,26 @@ function AjaxDataParsing(data) {
 
 }
 
+//TODO
+function AjaxEcolog(no, chart) {
+    $.ajax({
+        type: 'GET',
+        url: '/admin/Device/testEcolog?no=' + no,
+        dataType: 'json',
+        error: function() {
+            console.log("AJAX ERROR");
+        },
+        success: function(data) {
+
+            InsertChart(data, chart);
+        }
+    });
+}
+
 /** Function Insert data if make chart data make server side */
 function InsertChart(data, chart) {
     for (let i in data) {
-        //console.log('Data Test : ', data[i]);
+        console.log('Data Test : ', data[i]);
         chart.appendSeries(data[i]);
         //chart.toggleSeries(result[i].name);
     }
