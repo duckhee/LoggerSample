@@ -244,12 +244,29 @@ const GPSAllDevice = () => {
     });
 };
 
+const GetDeviceType = (no) => {
+    return new Promise((resolve, reject) => {
+        models.device.findOne({
+            where: {
+                id: no
+            },
+            attributes: ['name', 'DeviceType']
+        }).then(result => {
+            return resolve(result);
+        }).catch(err => {
+            console.log("Dao DeviceType Device Error code ::: ", err.code);
+            console.log("Dao DeviceType Device Error ::: ", err);
+            return reject(err);
+        })
+    });
+}
+
 module.exports = {
     CreateDevice,
     PagingDevice,
     DeleteDevice,
     DetailDevice,
     DetailGraphDevice,
-    GPSAllDevice
-
+    GPSAllDevice,
+    GetDeviceType
 };

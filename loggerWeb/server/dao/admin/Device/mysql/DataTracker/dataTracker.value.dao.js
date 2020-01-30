@@ -1,5 +1,5 @@
 const models = require('../../../../../DataBase/models/index');
-const DataTrackerDataColumns = require('../../../../../DataBase/models/DataTrackerDataColumns');
+const DataTrackerDataColumns = require('../../../../../DataBase/models/datatrackercolumndata');
 
 
 module.exports = {

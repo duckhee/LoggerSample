@@ -1,3 +1,14 @@
 {
-    "maven.view": "hierarchical"
+    "maven.view": "hierarchical",
+    "sqltools.connections": [
+        {
+            "database": "cloud_database_development",
+            "dialect": "MySQL",
+            "name": "cloudDevelopment",
+            "password": "won1228A!",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
 }

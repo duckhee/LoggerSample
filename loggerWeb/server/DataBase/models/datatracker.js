@@ -43,15 +43,17 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             onDelete: 'CASCADE'
         });
-        /** DataTracker has One DataTracker columns(name) */
-        DataTracker.hasOne(models.DataTrackerColumns, {
-            foreignKey: 'dataTrackerIdx',
-            targetKey: 'id',
-        });
         /** DataTracker has Many DataTracker columns(data) */
-        DataTracker.hasMany(models.DataTrackerDataColumns, {
-            foreignKey: 'dataTrackerIdx',
-            targetKey: 'id'
+        DataTracker.hasMany(models.DataTrackerColumnData, {
+            foreignKey: 'DataTrackerIdx',
+            targetKey: 'id',
+            sourceKey: 'id'
+        });
+        /** DataTracker has One DataTracker columns(name) */
+        DataTracker.hasOne(models.DataTrackerColumnName, {
+            foreignKey: 'DataTrackerIdx',
+            targetKey: 'id',
+            sourceKey: 'id'
         });
     };
     return DataTracker;

@@ -205,8 +205,8 @@
     <script>
         $(function(){
             let UserInfo = JSON.parse('<%-JSON.stringify(UserInfo)%>');
-            let chart1 = MakeAreaChart("TestEcolog","TestEcolog");
-            AjaxEcolog(3, chart1);
+            //let chart1 = MakeAreaChart("TestEcolog","TestEcolog");
+            //AjaxEcolog(3, chart1);
             console.log(UserInfo);
             for(var i = 0; i < UserInfo.sites[0].plots[0].devices.length;i++){
                 console.log(UserInfo.sites[0].plots[0].devices[i].name);
@@ -222,8 +222,8 @@
                 if(UserInfo.sites[0].plots[0].devices[i].DeviceType==="ecolog"){
                     console.log("Ecolog : ",(UserInfo.sites[0].plots[0].devices[i].name));
                     let _ecologNameColumns = [{name:"\"Depth(M)\"",data:[]},{name:"\"DegC\"",data:[]},{name:"\"EC(ms/cm)\"",data:[]},{name:"\"salt\"",data:[]},{name:"\"TDS(mg/L)\"",data:[]},{name:"\"Power(V)\"",data:[]}];
-                    //let chart = MakeAreaChart(UserInfo.sites[0].plots[0].devices[i].name,UserInfo.sites[0].plots[0].devices[i].name);
-                    //AjaxTest(UserInfo.sites[0].plots[0].devices[i].id, chart);
+                    let chart = MakeAreaChart(UserInfo.sites[0].plots[0].devices[i].name,UserInfo.sites[0].plots[0].devices[i].name);
+                    AjaxEcolog(UserInfo.sites[0].plots[0].devices[i].id, chart);
                 }
             }
           

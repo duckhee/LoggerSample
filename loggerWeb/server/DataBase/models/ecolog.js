@@ -31,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
         /** ecolog has Many EcoLog Columns */
         ecolog.hasMany(models.ecologColumn, {
             foreignKey: 'ecologIdx',
-            targetKey: 'id'
+            targetKey: 'id',
+            sourceKey: 'id'
         });
     };
     return ecolog;

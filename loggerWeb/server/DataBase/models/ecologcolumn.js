@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     const ecologColumn = sequelize.define('ecologColumn', {
         ecologIdx: {
             type: DataTypes.INTEGER,
-            reference: {
+            allowNull: false,
+            references: {
                 model: 'ecolog',
                 key: 'id'
             },
@@ -20,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
         // associations can be defined here
         ecologColumn.belongsTo(models.ecolog, {
             foreignKeyConstraint: true,
-            foreignKey: 'id',
+            foreignKey: 'ecologIdx',
+            targetKey: 'id',
             allowNull: false,
             onDelete: 'CASCADE'
         });

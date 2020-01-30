@@ -110,6 +110,7 @@ const UserAllDeviceLangLat = (req, res, next) => {
 
 
 
+//TODO
 /** Camera Direct View Test */
 const request = require('request');
 let HUrl = "http://223.171.44.131:8888/ISAPI/Streaming/channels/1/picture";
@@ -136,7 +137,7 @@ const _SampleCapture = (req, res, next) => {
 const MakeEcologChart = (data) => {
     //console.log("Make Ecolog Chart Data : ", data);
     return new Promise((resolve, reject) => {
-        console.log('testtt', data.length);
+        console.log('test Ecolog Chart : ', data);
         let _return = [];
         if (data.length == 0) {
             console.log("Not Data");
@@ -162,7 +163,7 @@ const MakeEcologChart = (data) => {
                 //_returnValue1.data.push([new Date(data[i].createdAt), data[i].ecologData]);
                 data1.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0002") {
-                _returnValue2.name = "\"DegC\"";
+                _returnValue2.name = "온도";
                 data2.push([new Date(data[i].createdAt), data[i].ecologData]);
                 //_returnValue2.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0003") {
@@ -211,7 +212,7 @@ const TestEcolog = (req, res, next) => {
     if (no === "") {
         return res.json(null);
     }
-    _Dao["ecolog"]().Graph(3).then(result => {
+    _Dao["ecolog"]().Graph(no).then(result => {
         //console.log("GET DATA : ", result.dataValues.ecolog.ecologColumns);
         MakeEcologChart(result.dataValues.ecolog.ecologColumns).then(_returnResult => {
             //return res.json(result.dataValues.ecolog.ecologColumns);

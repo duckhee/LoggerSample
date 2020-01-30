@@ -226,7 +226,7 @@ function AjaxEcolog(no, chart) {
             console.log("AJAX ERROR");
         },
         success: function(data) {
-
+            console.log("ecolog : ", data);
             InsertChart(data, chart);
         }
     });
