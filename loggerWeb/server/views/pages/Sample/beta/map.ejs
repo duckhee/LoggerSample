@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Sample Page</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/customer/img/logo.png">
+    <link rel="stylesheet" href="/beta/css/index.css">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+   
+</head>
+<body>
+    <header class="headerNav">
+        <div class="headerWrapper">
+            <div class="logo-wrapper">
+                <div class="header-logo">
+                    <a class="logo" href="#main">C&amp;H <span>Cloud</span></a>
+                </div>
+                <!--./logo-->
+                <div class="LoginWrapper dropdown dropleft">
+                    <div class="login-info" data-toggle="dropdown">
+                        <span><!--Login Info--><%=UserInfo.UserName%></span>
+                        <i class="fas fa-user" style="margin-left:10px;font-size:20px;"></i>
+                    </div>
+                    <!--./login info -->
+                    <div class="dropdown-menu">
+                        <!--<a class="dropdown-item" href="#">Profile</a>-->
+                        <a class="dropdown-item" id="LogoutBtn" href="#">Logout</a>
+                    </div>
+                    <!--./dropdown login info-->
+                </div>
+                <!--./logo header-->
+            </div>
+            <!--./first header-->
+            <div class="header-menu-wrapper">
+                <div class="select-wrapper dropdown">
+                    <%if(UserInfo.sites.length != 0){%>
+                    <div class="select" data-toggle="dropdown">
+                        <!--SITE NAME--><%=UserInfo.sites[0].name%>
+                        <i class="fas fa-chevron-down" style="float:right; padding:5px;"></i>
+                    </div>
+                    <%}%>
+                    <!--./select-site-->
+                    <div class="dropdown-menu" style="z-index:10000; width:229px;">
+                        <!--<a class="dropdown-item">SITE NAME</a>
+                        <a class="dropdown-item">SITE NAME</a>-->
+                    </div>
+                    <!--./drop down menu-->
+                </div>
+                <!--./select-wrapper-->
+                <div class="menu-wrapper">
+                    <div class="header-menu active">
+                        Home
+                    </div>
+                    <!--./menu-->
+                    <!--<div class="header-menu">
+                        Manage Devices
+                    </div>-->
+                    <!--./menu-->
+                    <!--<div class="header-menu">
+                        MENU 3
+                    </div>-->
+                    <!--./menu-->
+                    <div class="mobile-menu">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <!--./mobile menu-->
+                    <div class="question-info">
+                        <i class="fas fa-question-circle" style="margin-right:15px;font-size:25px;"></i>
+                    </div>
+                    <!--./info-->
+                </div>
+            </div>
+            <!--./header-menu-wrapper-->
+        </div>
+        <!--./menuWrapper-->
+    </header>
+    <!-- ./header -->
+    <aside class="main-sidebar">
+        <!--one menu -->
+        <%if(UserInfo.sites.length != 0){%>
+        <div class="side-menu">
+            <div class="side-menu-item">
+                <i class="fas fa-home" style="margin-right:5px;"></i>
+                    <!--Site--><%=UserInfo.sites[0].name%>
+                <a class="edit" href="#">
+                    <i class="fas fa-pen"></i>
+                </a>
+            </div>
+            <!--./side-menu-item-->
+        </div>
+        <!--./side-menu-->
+        <%if(UserInfo.sites[0].plots.length != 0){%>
+        <div class="side-menu treeItem-menu">
+            <div class="side-menu-item">
+                <i class="fas fa-layer-group" style="margin-right:15px;"></i>
+                    <!--Plot--><%=UserInfo.sites[0].plots[0].PlotName%>
+                <a class="edit" href="#" style="float:right;">
+                    <i class="fas fa-pen"></i>
+                </a>
+            </div>
+            <!--./side-menu-item-->
+        </div>
+        <!--./side-menu-->
+        <%if(UserInfo.sites[0].plots[0].devices.length != 0){%>
+        <ul class="treeItem-menu-item">
+            <!--<li class="device-list"><i class="fas fa-satellite-dish" style="margin-right:15px;"></i>Device</li>-->
+            <%for(var i = 0; i < UserInfo.sites[0].plots[0].devices.length; i++){%>
+                <li class="device-list" id="<%=UserInfo.sites[0].plots[0].devices[i].name%>"><i class="fas fa-satellite-dish" style="margin-right:15px;"></i><%=UserInfo.sites[0].plots[0].devices[i].name%></li>
+            <%}%>
+        </ul>
+        <%}%>
+        <!-- ./device if check -->
+        <%}%>
+        <!-- ./plot if check -->
+        <%}%>
+        <!--./site if check -->
+        <!--./side-menu-item-tree-menu-->
+        <!--./one menu -->
+    </aside>
+    <div class="wrapper">
+        <div class="content-wrapper">
+            <div class="content-header-wrapper">
+                <div class="content-header">
+                    <button class='btn menu-control' data-toggle="offcanvas" role="button"><i class="fas fa-angle-left"></i></button>
+                    <div class='btn-group'>
+                        <!--<button class="btn btn-outline-dark btn-sm" id="dashBoardSelect"><i class="fas fa-grip-horizontal" style="margin-right:10px;"></i>Dash Board</button>-->
+                        <button class="btn btn-outline-dark btn-sm active" id="MapSelect"><i class="fas fa-map-marker-alt" style="margin-right:10px;"></i>Map</button>
+                        <!--<button class="btn btn-outline-dark btn-sm " id="ListSelect"><i class="fas fa-list" style="margin-right:10px;"></i>List</button>-->
+                        <button class='btn btn-outline-dark btn-sm' id="DetailSelect"><i class="fas fa-eye" style="margin-right:10px;"></i>Detail</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class='map' id="Map">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Map box sample -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-language/v0.10.1/mapbox-gl-language.js'></script>
+    <!-- Icon -->
+    <script src="https://kit.fontawesome.com/785affb790.js" crossorigin="anonymous"></script>
+    <!-- Map Javascript -->
+    <script src="/beta/js/map.js"></script>
+    <!-- Main Javascript -->
+    <script src="/beta/js/index.js"></script>
+    <script>
+        $(function(){
+            let UserInfo = JSON.parse('<%-JSON.stringify(UserInfo)%>');
+            console.log(UserInfo);
+            let SiteInfo = JSON.parse('<%-JSON.stringify(SiteInfo)%>');
+            
+            /** Show Map */
+            let map = mapMaker();
+            /** Map Reloading */
+            Reloading(map);
+            let marker;
+            <%if(UserInfo.sites.length != 0){
+                if(UserInfo.sites[0].plots.length != 0){
+                    if(UserInfo.sites[0].plots[0].devices.length != 0){
+                for(var i = 0; i < UserInfo.sites[0].plots[0].devices.length; i++){%>
+                 marker = makeMaker(map, <%=parseFloat(UserInfo.sites[0].plots[0].devices[i].Latitude)%>, <%=parseFloat(UserInfo.sites[0].plots[0].devices[i].Longitude)%>,UserInfo.sites[0].plots[0].devices[<%=i%>]);
+                PopUpMarker(map, marker, UserInfo.sites[0].plots[0].devices[<%=i%>].name, UserInfo.sites[0].plots[0].devices[<%=i%>].Latitude, UserInfo.sites[0].plots[0].devices[<%=i%>].Longitude);
+            <%}}}
+            }%>
+            
+        });
+    </script>
+</body>
+</html>
