@@ -6,10 +6,12 @@ const _Init = () => {
 
 };
 
+/** Download CSV */
 const DownLoadCSV = (req, res, next) => {
 
 };
 
 module.exports = {
-
+    _Init,
+    DownLoadCSV
 };

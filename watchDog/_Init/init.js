@@ -94,6 +94,28 @@ const _DirsCheck = (ret, files, DatabaseDirs) => {
     });
 };
 
+/** Insert DataBase */
+const _Insert = (_Data) => {
+    console.log("Insert DataBase");
+    return new Promise((resolve, reject) => {
+        if (_Data.length > 0) {
+            for (let i = 0; i < _Data.length; i++) {
+                //TODO Make Json Type
+                if (_Data[i].DeviceType == "DataTracker") {
+
+                } else if (_Data[i].DeviceType == "ecolog") {
+
+                } else if (_Data[i].DeviceType == "HikVision") {
+
+                } else {
+                    return reject("Not Support Device Type(_Insert Function)");
+                }
+            }
+        } else {
+            return reject("Not Have Data (_Insert Function)");
+        }
+    });
+};
 
 /** Database Check and Insert */
 const _SInsertDB = (_Insert) => {
@@ -104,29 +126,20 @@ const _SInsertDB = (_Insert) => {
     return new Promise((resolve, reject) => {
         if (_Insert.length > 0) {
             for (let i = 0; i < _Insert.length; i++) {
-                console.log("DEVICE TYPE : ", _Insert[i].DeviceType);
+                //console.log("DEVICE TYPE : ", _Insert[i].DeviceType);
                 /** Insert DB DataTracker */
                 if (_Insert[i].DeviceType == "DataTracker") {
-                    console.log("LENGTH : " + _Insert.length + ', _Insert[' + i + '].DeviceType', _Insert[i].DeviceType);
-                    _NameCheck[_Insert[i].DeviceType](_Insert).then(_NameCheckResult => {
-                        console.log("NAME CHECK RESULT : ", _NameCheckResult);
-                        /** HAVE NAME COLUMNS */
-                        if (_NameCheckResult.length > 0) {
-                            /** INSERT DATA COLUMNS */
-                            let _DataInsert = SDao.InsertDataColumns();
-                            _DataInsert[_Insert[i].DeviceType](_Insert).then(_InsertResult => {
-                                console.log("SUCCESS : ", _InsertResult);
-                                return resolve(_InsertResult);
-                            }).catch(err => {
-                                return reject(err);
-                            });
-                        }
-                        /** NOT HAVE NAME COLUMNS */
-                        if (_NameCheckResult.length == 0) {
-                            /** INSERT NAME COLUMN AND DATA COLUMNS */
-                            let _NameInsert = SDao.InsertNameColumns();
-                            console.log('NAME INSERT DATA : ', _Insert);
-                            _NameInsert[_Insert[i].DeviceType](_Insert).then(_InsertNameResult => {
+                    let _CheckDevice = SDao.CheckDeviceType();
+                    //console.log("LENGTH : " + _Insert.length + ', _Insert[' + i + '].DeviceType', _Insert[i].DeviceType);
+                    /**DataTracker Check  Get Id */
+                    _CheckDevice[_Insert[i].DeviceType](_Insert).then(CheckDevice => {
+                        console.log("Check Device : ", CheckDevice);
+                        _Insert.DataTrackerId = CheckDevice[0].id;
+                        _NameCheck[_Insert[i].DeviceType](_Insert).then(_NameCheckResult => {
+                            console.log("NAME CHECK RESULT : ", _NameCheckResult);
+                            /** HAVE NAME COLUMNS */
+                            if (_NameCheckResult.length > 0) {
+                                /** INSERT DATA COLUMNS */
                                 let _DataInsert = SDao.InsertDataColumns();
                                 _DataInsert[_Insert[i].DeviceType](_Insert).then(_InsertResult => {
                                     console.log("SUCCESS : ", _InsertResult);
@@ -134,23 +147,38 @@ const _SInsertDB = (_Insert) => {
                                 }).catch(err => {
                                     return reject(err);
                                 });
-                            }).catch(err => {
-                                console.log("_NameInsert ERROR ", err);
-                                return reject(err);
-                            });
-                        }
-                        return reject("_SInsertDB");
-                    }).catch(err => {
-                        return reject(err);
+                            }
+                            /** NOT HAVE NAME COLUMNS */
+                            if (_NameCheckResult.length == 0) {
+                                /** INSERT NAME COLUMN AND DATA COLUMNS */
+                                let _NameInsert = SDao.InsertNameColumns();
+                                //console.log('NAME INSERT DATA : ', _Insert);
+                                _NameInsert[_Insert[i].DeviceType](_Insert).then(_InsertNameResult => {
+                                    let _DataInsert = SDao.InsertDataColumns();
+                                    _DataInsert[_Insert[i].DeviceType](_Insert).then(_InsertResult => {
+                                        //console.log("SUCCESS : ", _InsertResult);
+                                        return resolve(_InsertResult);
+                                    }).catch(err => {
+                                        return reject(err);
+                                    });
+                                }).catch(err => {
+                                    console.log("_NameInsert ERROR ", err);
+                                    return reject(err);
+                                });
+                            }
+                            return reject("_SInsertDB");
+                        }).catch(err => {
+                            return reject(err);
+                        });
                     });
                     /** Insert DB Hikvision */
                 } else if (_Insert[i].DeviceType == "HikVision") {
-                    console.log("IMAGE");
-                    console.log("INSERT DATA : ", _Insert);
+                    //console.log("IMAGE");
+                    //console.log("INSERT DATA : ", _Insert);
                     /** Insert DB Ecolg */
                 } else if (_Insert[i].DeviceType == "ecolog") {
                     console.log("Insert Data : ", _Insert[i]);
-                    /** Insert Data Get */
+                    /** Insert Data Get Function */
                     let _DataInsert = SDao.InsertDataColumns();
                     let _DeviceType = SDao.CheckDeviceType();
                     _DeviceType[_Insert[i].DeviceType](_Insert).then(ecologResult => {

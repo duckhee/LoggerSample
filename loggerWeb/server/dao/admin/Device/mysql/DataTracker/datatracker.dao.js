@@ -56,7 +56,16 @@ const DetailRaw = (Info) => {
         models.DataTracker.findOne({
             where: {
                 DeviceIdx: Info.DeviceIdx
-            }
+            },
+            include: [{
+                    model: models.DataTrackerColumnName,
+                    attributes: ['nameColumn']
+                },
+                {
+                    model: models.DataTrackerColumnData,
+                    attributes: ['DataColumn']
+                }
+            ]
         }).then(result => {
             console.log('Raw Dao Device Data Tracker Detail');
             return resolve(result);

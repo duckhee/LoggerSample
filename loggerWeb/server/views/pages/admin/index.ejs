@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% include ../../partials/admin/stylesheet.ejs %>
+    <%- include ('../../partials/admin/stylesheet.ejs') %>
   </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -23,7 +23,7 @@
                     <ul class="nav navbar-nav">
                         <!-- Tasks: style can be found in dropdown.less -->
                         <!-- header nav 들어가는 부분 -->
-                        <% include ../../partials/admin/headerNav.ejs %>
+                        <%- include ('../../partials/admin/headerNav.ejs') %>
                     </ul>
                 </div>
             </nav>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <!-- nav item -->
-                <% include ../../partials/admin/navItem.ejs %>
+                <%- include ('../../partials/admin/navItem.ejs') %>
                 <!-- end nav item -->
             </section>
             <!-- /.sidebar -->
@@ -247,9 +247,9 @@
 
 
     
-    <% include ../../partials/admin/footer.ejs %>
+    <%- include ('../../partials/admin/footer.ejs') %>
     </div>
-    <% include ../../partials/admin/footerScript.ejs %>
+    <%- include ('../../partials/admin/footerScript.ejs') %>
 <!--
     <script>
         $(function(){

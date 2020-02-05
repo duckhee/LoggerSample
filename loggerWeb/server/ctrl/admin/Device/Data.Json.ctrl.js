@@ -44,19 +44,19 @@ const ListAllData = (req, res, next) => {
         let NamesSplit = Names.split(',');
         let dataOrigin = result.DeviceColumnData;
         let dataArray = [];
-        console.log("Name Split Length : ", NamesSplit.length);
+        //console.log("Name Split Length : ", NamesSplit.length);
         for (let i in NamesSplit) {
             let dataJson = {};
             dataJson.name = NamesSplit[i];
             dataJson.data = [];
             if (Number(i) !== 0) {
-                console.log('data json ', dataArray.length);
+                //console.log('data json ', dataArray.length);
                 dataArray.push(dataJson);
             }
 
         }
-        console.log("Name Input Array : ", dataArray);
-        console.log('data is : ', result.DeviceColumnData.length);
+        //console.log("Name Input Array : ", dataArray);
+        //console.log('data is : ', result.DeviceColumnData.length);
         for (let i = 0; i < dataOrigin.length; i++) {
             //console.log('data origin : ', dataOrigin[i].dataValues.columnValue.split(','));
             let splitData = dataOrigin[i].dataValues.columnValue.split(',');
@@ -137,7 +137,7 @@ const _SampleCapture = (req, res, next) => {
 const MakeEcologChart = (data) => {
     //console.log("Make Ecolog Chart Data : ", data);
     return new Promise((resolve, reject) => {
-        console.log('test Ecolog Chart : ', data);
+        //console.log('test Ecolog Chart : ', data);
         let _return = [];
         if (data.length == 0) {
             console.log("Not Data");
@@ -159,27 +159,27 @@ const MakeEcologChart = (data) => {
         for (var i = 0; i < data.length; i++) {
             //            _SetJson.data = [new Date(data[i].createdAt), data[i].ecologData];
             if (data[i].ecologName == "0001") {
-                _returnValue1.name = "깊이";
+                _returnValue1.name = "깊이(M)";
                 //_returnValue1.data.push([new Date(data[i].createdAt), data[i].ecologData]);
                 data1.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0002") {
-                _returnValue2.name = "온도";
+                _returnValue2.name = "온도(℃)";
                 data2.push([new Date(data[i].createdAt), data[i].ecologData]);
                 //_returnValue2.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0003") {
-                _returnValue3.name = "\"EC(ms/cm)\"";
+                _returnValue3.name = "EC(ms/cm)";
                 data3.push([new Date(data[i].createdAt), data[i].ecologData]);
                 //_returnValue3.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0004") {
-                _returnValue4.name = "\"salt\"";
+                _returnValue4.name = "염분";
                 data4.push([new Date(data[i].createdAt), data[i].ecologData]);
                 //_returnValue4.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0005") {
-                _returnValue5.name = "\"TDS(mg/L)\"";
+                _returnValue5.name = "TDS(mg/L)";
                 data5.push([new Date(data[i].createdAt), data[i].ecologData]);
                 //_returnValue5.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0006") {
-                _returnValue6.name = "\"Power(V)\"";
+                _returnValue6.name = "전원(V)";
                 data6.push([new Date(data[i].createdAt), data[i].ecologData]);
                 //_returnValue6.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             }
@@ -209,25 +209,53 @@ const MakeEcologChart = (data) => {
 const TestEcolog = (req, res, next) => {
     const no = req.query.no || req.body.no || req.param.no || req.params.no || "";
     console.log("Ecolog graph Test : ", no);
+    console.log("DAO is ", _Dao);
     if (no === "") {
         return res.json(null);
     }
-    _Dao["ecolog"]().Graph(no).then(result => {
-        //console.log("GET DATA : ", result.dataValues.ecolog.ecologColumns);
-        MakeEcologChart(result.dataValues.ecolog.ecologColumns).then(_returnResult => {
-            //return res.json(result.dataValues.ecolog.ecologColumns);
-            return res.json(_returnResult);
+    AdminDeviceDao.GetDeviceType(no).then(results => {
+        //console.log('get Device Type : ', results);
+        _Dao.GraphSelect["ecolog"]().Graph(no).then(result => {
+            //console.log("GET DATA : ", result.dataValues.ecolog.ecologColumns);
+            MakeEcologChart(result.dataValues.ecolog.ecologColumns).then(_returnResult => {
+                //return res.json(result.dataValues.ecolog.ecologColumns);
+                return res.json(_returnResult);
+            }).catch(err => {
+                console.log("ERROR ", err);
+                return res.json(null);
+            });
         }).catch(err => {
-            console.log("ERROR ", err);
+            console.log("ERROR null ", err);
             return res.json(null);
         });
     }).catch(err => {
-        console.log("ERROR null ", err);
         return res.json(null);
     });
-
 };
 
+
+//TODo
+/** Select Device Type */
+const TestMode = (req, res, next) => {
+    const no = req.query.no || req.body.no || req.param.no || req.params.no || "";
+    console.log("Ecolog graph Test : ", no);
+    console.log("DAO is ", _Dao);
+    if (no === "") {
+        return res.json(null);
+    }
+    AdminDeviceDao.GetDeviceType(no).then(results => {
+        console.log('get Device Type : ', results.DeviceType);
+        _Dao.GraphSelect[results.DeviceType]().Graph(no).then(result => {
+            //console.log("GET DATA : ", result.dataValues.ecolog.ecologColumns);
+            return res.json(result);
+        }).catch(err => {
+            console.log("ERROR null ", err);
+            return res.json(null);
+        });
+    }).catch(err => {
+        return res.json(null);
+    });
+};
 module.exports = {
     ListAllData,
     ListAllDeviceLangLat,

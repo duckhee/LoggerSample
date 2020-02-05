@@ -2,12 +2,12 @@
 <html lang="en">
     <head>
         <title>IoF Main Page</title>
-        <% include ../../partials/customer/MainPage/afterstylesheet.ejs %>
+        <%- include ('../../partials/customer/MainPage/afterstylesheet.ejs') %>
     </head>
     <body>
         <!-- header -->
         <div class="wrapper">
-        <% include ../../partials/customer/MainPage/afterMainHeader.ejs %>
+        <%- include ('../../partials/customer/MainPage/afterMainHeader.ejs') %>
             <div class="content-wrapper">
                 <div class="content">
                 TEST
@@ -15,9 +15,9 @@
                 <!-- Footer -->
             </div>
         </div>
-		<% include ../../partials/customer/MainPage/footer.ejs %>
+		<%- include ('../../partials/customer/MainPage/footer.ejs') %>
         <!-- end header -->
-        <% include ../../partials/customer/MainPage/afterjavascript.ejs %>
+        <%- include ('../../partials/customer/MainPage/afterjavascript.ejs') %>
         <script>
             $(document).ready(function(){
                 function fix()

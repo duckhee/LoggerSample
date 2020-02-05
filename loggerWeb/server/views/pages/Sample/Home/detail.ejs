@@ -168,6 +168,7 @@
                             </div>
                             <!--./panel-header-->
                             <div class="panel-body">
+                                <div class="">Controller Change Y value and Date Time Selector</div>
                                 <div name="<%=UserInfo.sites[0].plots[0].devices[i].name%>"id="<%=UserInfo.sites[0].plots[0].devices[i].name%>">
                                     <img style="height:100%;width:100%;">
                                 </div>
@@ -190,7 +191,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    
+    <!-- Moment -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
     <!-- Icon -->
     <script src="https://kit.fontawesome.com/785affb790.js" crossorigin="anonymous"></script>
     <!-- apexcharts chart cdn -->
@@ -215,7 +217,7 @@
                     capture("admin", "won1228WON",UserInfo.sites[0].plots[0].devices[i].name);
                 }
                 if(UserInfo.sites[0].plots[0].devices[i].DeviceType==="DataTracker"){
-                    console.log("DataTracker :",(UserInfo.sites[0].plots[0].devices[i].name));
+                    //console.log("DataTracker :",(UserInfo.sites[0].plots[0].devices[i].name));
                     let chart = MakeAreaChart(UserInfo.sites[0].plots[0].devices[i].name,UserInfo.sites[0].plots[0].devices[i].name);
                     AjaxTest(UserInfo.sites[0].plots[0].devices[i].id, chart);
                 }

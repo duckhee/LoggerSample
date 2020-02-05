@@ -128,7 +128,7 @@ const DeleteSite = (SiteInfo) => {
                 console.log('Dao Delete Paging Site Error code ::: ', err.code);
                 console.log('Dao Delete Paging Site Error ::: ', err);
                 return reject(err);
-            })
+            });
         }).catch(err => {
             console.log('Dao Delete Site Error code ::: ', err.code);
             console.log('Dao Delete Site Error ::: ', err);

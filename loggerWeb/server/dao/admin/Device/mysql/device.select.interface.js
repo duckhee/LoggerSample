@@ -50,4 +50,5 @@ const RawDevice = (Type) => {
     }
 };
 
+
 module.exports = RawConnection;

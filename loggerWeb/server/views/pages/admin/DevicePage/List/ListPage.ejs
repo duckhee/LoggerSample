@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <% include ../../../../partials/admin/stylesheet.ejs %>
+        <%- include ('../../../../partials/admin/stylesheet.ejs') %>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
        <div class="wrapper">
-            <% include ../../../../partials/admin/header.ejs %>
+            <%- include ('../../../../partials/admin/header.ejs') %>
             <div class="content-wrapper">
                 <div class="content">
                     <div class="box">
@@ -127,10 +127,10 @@
                 <!--/.content-->
             </div>
             <!-- /.content-wrapper-->
-            <% include ../../../../partials/admin/footer.ejs %>
+            <%- include ('../../../../partials/admin/footer.ejs') %>
        </div>
        <!--/.wrapper-->
-       <% include ../../../../partials/admin/footerScript.ejs %>
+       <%- include ('../../../../partials/admin/footerScript.ejs') %>
     </body>
     <script>
         function allCheck(){

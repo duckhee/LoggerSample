@@ -1,6 +1,6 @@
 const models = require('../../../../../DataBase/models/index');
 const ecolog = require('../../../../../DataBase/models/ecolog');
-
+const ecologColumn = require('../../../../../DataBase/models/ecologcolumn');
 /** ecolog Root Path */
 const RootPath = "/ecolog";
 
@@ -48,7 +48,11 @@ const DetailRaw = (Info) => {
         models.ecolog.findOne({
             where: {
                 DeviceIdx: Info.DeviceIdx
-            }
+            },
+            include: [{
+                model: models.ecologColumn,
+                attributes: ['ecologName', 'ecologData']
+            }]
         }).then(result => {
             console.log('Raw Dao Device ecolog Detail');
             return resolve(result);
@@ -113,6 +117,7 @@ const PagingRaw = (Info) => {
         });
     });
 };
+
 
 module.exports = {
     CreateRaw,

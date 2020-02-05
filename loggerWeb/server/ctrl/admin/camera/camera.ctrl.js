@@ -1,11 +1,16 @@
 const request = require('request');
 
+/**
+ *  Hikvision Control Test
+ * 
+ * @class CameraControl
+ */
 class CameraControl {
     constructor(Ip, Id, pass) {
         this.IpAddress = Ip;
         this.UserId = Id;
         this.UserPassword = pass;
-    };
+    }
 
     capture() {
         request.get(this.IpAddress + '/ISAPI/Streaming/channels/1/picture', {

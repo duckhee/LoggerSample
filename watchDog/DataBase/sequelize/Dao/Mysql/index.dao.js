@@ -1,23 +1,26 @@
 const models = require('../../models/index');
 const device = require("../../models/device");
 /** TEST DEVICE COLUMNS */
+const DataTracker = require('../../models/datatracker.js');
 const DeviceColumns = require('../../models/devicecolumns');
-const DeviceColumnData = require("../../models/datatrackerdatacolumns");
+const DeviceColumnData = require("../../models/datatrackercolumndata");
 /** PRODUCT DATA-TRACKER COLUMNS */
-const DataTrackerColumns = require("../../models/datatrackercolumns");
-const DataTrackerDataColumns = require("../../models/datatrackerdatacolumns");
+const DataTrackerColumnName = require("../../models/datatrackercolumnname");
+const DataTrackerColumnData = require("../../models/datatrackercolumndata");
 /** PRODUCT HIKVISION CAMERA  */
-
+const hikvision = require('../../models/hikvision');
+const HikVisionPath = require('../../models/hikvisionpath');
 /** PRODUCT ECOLOG COLUMNS */
 const ecolog = require('../../models/ecolog');
 const ecologColumn = require('../../models/ecologcolumn');
-
+/** Test Interface */
+const Interface = require('./interface.doa');
 
 /** Check Device */
 const CheckDevice = () => {
     return new Promise((resolve, reject) => {
         models.device.findAll({
-            attributes: ['id', 'DeviceType', 'FTPFolder']
+            attributes: ['id', 'DeviceType', 'FTPFolder'],
         }).then(result => {
             console.log("CHECK RESULT DEVICE");
             return resolve(result);
@@ -31,16 +34,24 @@ const CheckDevice = () => {
 const CheckDataTrackerName = (_Insert) => {
     return new Promise((resolve, reject) => {
         console.log("FIND ALL WHERE DeviceIdx : ", _Insert[0].id);
-        models.DeviceColumns.findAll({
+        models.DataTracker.findAll({
             where: {
-                deviceIdx: _Insert[0].id
+                DeviceIdx: _Insert[0].id
             }
-        }).then(result => {
-            console.log("CHECK DEVICE NAME : ", result);
-            return resolve(result);
-        }).catch(err => {
-            return reject(err);
-        });
+        }).then(results => {
+            console.log("GET DATATRACKER : ", results[0].id);
+            models.DataTrackerColumnName.findAll({
+                where: {
+                    DataTrackerIdx: results[0].id
+                }
+            }).then(result => {
+                console.log("CHECK DEVICE NAME : ", result);
+                _Insert[0].id = results[0].id;
+                return resolve(result);
+            }).catch(err => {
+                return reject(err);
+            });
+        })
     });
 };
 
@@ -57,14 +68,27 @@ const CheckEcolog = (_Insert) => {
             return reject(err);
         })
     });
-}
+};
 
+const CheckHikVision = (_Insert) => {
+    return new Promise((resolve, reject) => {
+        models.hikvision.findAll({
+            where: {
+                DeviceIdx: _Insert[0].id
+            }
+        }).then(result => {
+            return resolve(result);
+        }).catch(err => {
+            return reject(err);
+        });
+    });
+};
+
+//TODO DELETE CHANGE INTERFACE
 /** Check DeviceType */
 const CheckDeviceType = () => {
-    let _return = {
-        "DataTracker": "",
-        "ecolog": CheckEcolog
-    };
+
+    let _return = Interface.CheckDevice();
     console.log("DEVICE TYPE CHECK ", _return);
     return _return;
 };
@@ -82,9 +106,10 @@ const CheckNameColumns = () => {
 /** Insert Name */
 const InsertDataTrackerName = (_Insert) => {
     return new Promise((resolve, reject) => {
-        models.DeviceColumns.create({
-            deviceIdx: _Insert[0].id,
-            columns: _Insert.nameColumns
+        console.log("INSERT DATA TRACKER CHANGE : ", _Insert);
+        models.DataTrackerColumnName.create({
+            DataTrackerIdx: _Insert.DataTrackerId,
+            nameColumn: _Insert.nameColumns
         }).then(result => {
             console.log("INSERT DEVICE NAME");
             return resolve(result);
@@ -121,8 +146,8 @@ const _DataTrackerMakeData = (_Insert) => {
                 /** id Error Check */
                 if (_Insert.dataColumns[i] !== "") {
                     _return.push({
-                        deviceIdx: parseInt(_Insert[0].id),
-                        columnValue: "" + _Insert.dataColumns[i],
+                        DataTrackerIdx: parseInt(_Insert.DataTrackerId),
+                        DataColumn: "" + _Insert.dataColumns[i],
                     });
                 }
             }
@@ -141,7 +166,7 @@ const InsertDataTrackerData = (_Insert) => {
         _DataTrackerMakeData(_Insert).then(_InsertData => {
             console.log("INSERT DATA MAKE COLUMNS : ", _InsertData);
             if (_InsertData.length > 0) {
-                models.DeviceColumnData.bulkCreate(_InsertData).then(() => {
+                models.DataTrackerColumnData.bulkCreate(_InsertData).then(() => {
                     console.log("INSERT DEVICE DATA : ");
                     return resolve("DONE");
                 }).catch(err => {

@@ -32,12 +32,17 @@ var DefaultOptions = {
         horizontalAlign: 'left',
 
     },
+    noData: {
+        text: 'Loading...'
+    },
     xaxis: {
         type: 'datetime',
+
     },
+
     tooltip: {
         x: {
-            format: 'yy/MM/dd HH:mm'
+            format: 'yyyy/MM/dd HH:mm'
         },
     }
 };
@@ -226,6 +231,7 @@ function AjaxEcolog(no, chart) {
             console.log("AJAX ERROR");
         },
         success: function(data) {
+            console.log("ecolog no : ", no);
             console.log("ecolog : ", data);
             InsertChart(data, chart);
         }
@@ -234,11 +240,13 @@ function AjaxEcolog(no, chart) {
 
 /** Function Insert data if make chart data make server side */
 function InsertChart(data, chart) {
-    for (let i in data) {
-        console.log('Data Test : ', data[i]);
-        chart.appendSeries(data[i]);
-        //chart.toggleSeries(result[i].name);
-    }
+    //console.log("chart Data Insert : ", data[0]);
+    chart.updateSeries(data);
+    // for (let i in data) {
+    //     console.log('Data Test : ', data[i]);
+    //     chart.appendSeries(data[i]);
+    //     //chart.toggleSeries(result[i].name);
+    // }
     for (let i in data) {
         chart.toggleSeries(data[i].name);
     }

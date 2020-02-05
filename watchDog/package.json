@@ -1,18 +1,36 @@
 {
-  "name": "watchdog",
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
-    "dir_watchdog": "^1.0.0",
-    "mysql": "^2.17.1",
-    "mysql2": "^2.0.2",
-    "sequelize": "^5.21.3"
-  }
+    "name": "watchdog",
+    "version": "1.0.0",
+    "description": "",
+    "main": "test.code.js",
+    "bin": {
+        "app": "test.code.js"
+    },
+    "scripts": {
+        "start": "node ./test.code.js",
+        "node": "test.code.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "pkg . --out-path ./dist --debug --force "
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt-nodejs": "0.0.3",
+        "dir_watchdog": "^1.0.0",
+        "mysql": "^2.17.1",
+        "mysql2": "^2.0.2",
+        "node-gyp": "^6.1.0",
+        "require": "^2.4.20",
+        "sequelize": "^5.21.3"
+    },
+    "devDependencies": {
+        "pkg": "^4.4.2"
+    },
+    "pkg": {
+        "assets": [
+            "./DataBase/sequelize/config/config.json",
+            "./DataBase/sequelize/models/*.js",
+            "./config/config.json"
+        ]
+    }
 }
