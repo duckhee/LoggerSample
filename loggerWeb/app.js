@@ -31,6 +31,7 @@ const CustomerIndexRouter = require('./server/routes/customer/index.router');
  * Sample router add
  */
 const SampleIndexRouter = require('./server/routes/Sample/sample.router');
+const BetaIndexRouter = require('./server/routes/beta/beta.router');
 
 var app = express();
 
@@ -120,6 +121,7 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 
 /** Get File Url static path */
 app.use('/example', express.static(path.join(__dirname, 'public/Sample')));
+app.use('/beta', express.static(path.join(__dirname, 'public/beta')));
 
 /**
  * Admin Router Registe
@@ -136,6 +138,8 @@ CustomerIndexRouter(app, csurfMiddleWare);
  * Sample Router Registe
  */
 SampleIndexRouter(app, csurfMiddleWare);
+
+BetaIndexRouter(app, csurfMiddleWare);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

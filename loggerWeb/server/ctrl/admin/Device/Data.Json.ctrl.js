@@ -1,3 +1,4 @@
+//TODO Change Stream All
 /** Device Dao */
 //TODO Change
 const Dao = require('../../../dao/admin/Device/index.dao');
@@ -128,6 +129,7 @@ const _SampleCapture = (req, res, next) => {
             return res.json(error);
         }
         res.writeHead(200, { 'Content-Type': 'image/jpg' });
+
         res.end(body, 'binary');
     });
 

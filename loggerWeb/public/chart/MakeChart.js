@@ -241,15 +241,17 @@ function AjaxEcolog(no, chart) {
 /** Function Insert data if make chart data make server side */
 function InsertChart(data, chart) {
     //console.log("chart Data Insert : ", data[0]);
-    chart.updateSeries(data);
+    chart.updateSeries(data).then(result => {
+        for (let i in data) {
+            chart.toggleSeries(data[i].name);
+        }
+    });
     // for (let i in data) {
     //     console.log('Data Test : ', data[i]);
     //     chart.appendSeries(data[i]);
     //     //chart.toggleSeries(result[i].name);
     // }
-    for (let i in data) {
-        chart.toggleSeries(data[i].name);
-    }
+
 }
 
 /** Test Ecolog Chart */

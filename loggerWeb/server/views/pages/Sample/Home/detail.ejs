@@ -218,8 +218,11 @@
                 }
                 if(UserInfo.sites[0].plots[0].devices[i].DeviceType==="DataTracker"){
                     //console.log("DataTracker :",(UserInfo.sites[0].plots[0].devices[i].name));
+                 
                     let chart = MakeAreaChart(UserInfo.sites[0].plots[0].devices[i].name,UserInfo.sites[0].plots[0].devices[i].name);
+                 
                     AjaxTest(UserInfo.sites[0].plots[0].devices[i].id, chart);
+                 
                 }
                 if(UserInfo.sites[0].plots[0].devices[i].DeviceType==="ecolog"){
                     console.log("Ecolog : ",(UserInfo.sites[0].plots[0].devices[i].name));
