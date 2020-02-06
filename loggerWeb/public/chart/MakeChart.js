@@ -39,7 +39,6 @@ var DefaultOptions = {
         type: 'datetime',
 
     },
-
     tooltip: {
         x: {
             format: 'yyyy/MM/dd HH:mm'
@@ -242,6 +241,7 @@ function AjaxEcolog(no, chart) {
 function InsertChart(data, chart) {
     //console.log("chart Data Insert : ", data[0]);
     chart.updateSeries(data).then(result => {
+        console.log('result : ', result);
         for (let i in data) {
             chart.toggleSeries(data[i].name);
         }

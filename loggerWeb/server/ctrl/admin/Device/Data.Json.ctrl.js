@@ -198,7 +198,8 @@ const MakeEcologChart = (data) => {
         _return.push(_returnValue2);
         _return.push(_returnValue3);
         _return.push(_returnValue4);
-
+        _return.push(_returnValue5);
+        _return.push(_returnValue6);
 
         return resolve(_return);
 
@@ -221,6 +222,9 @@ const TestEcolog = (req, res, next) => {
             //console.log("GET DATA : ", result.dataValues.ecolog.ecologColumns);
             MakeEcologChart(result.dataValues.ecolog.ecologColumns).then(_returnResult => {
                 //return res.json(result.dataValues.ecolog.ecologColumns);
+                _returnResult.forEach(item => {
+                    console.log(item.name);
+                })
                 return res.json(_returnResult);
             }).catch(err => {
                 console.log("ERROR ", err);
