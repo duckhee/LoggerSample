@@ -281,8 +281,8 @@
                                         min:parseFloat(MinY),
                                         max:parseFloat(MaxY)
                                     };
-                                    ChangeYMinMax(data, chart);
                                     console.log('get Min : ' + MinY + ", get Max : " + MaxY);
+                                    return ChangeYMinMax(data, chart);
                                 });
                             }
                             /** Change Date */
@@ -292,11 +292,11 @@
                                     let end = $("#<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>end").val();
                                     console.log('click date start Date : ' + start + ", end Date : " + end + ", ecolog id : " + id, "chart Title : " + chartTitle);
                                     let DatePickerOptions = {
-                                        start:start,
-                                        end:end
+                                        "start":start,
+                                        "end":end
                                     };
                                     console.log('option Json : ' + DatePickerOptions);
-                                    
+                                    return InputChartData(chart, id, DatePickerOptions);
                                     
                                 });
                             }

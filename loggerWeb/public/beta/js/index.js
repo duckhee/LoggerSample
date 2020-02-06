@@ -156,7 +156,7 @@ $(function() {
         clearBtn: false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
         disableTouchKeyboard: false, //모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
         immediateUpdates: true, //사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false 
-        multidate: true, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false 
+        multidate: false, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false 
         endDate: '+0d', //오늘까지 선택 가능하게 하는 옵션
         multidateSeparator: ",", //여러 날짜를 선택했을 때 사이에 나타나는 글짜 2019-05-01,2019-06-01
         templates: {

@@ -68,19 +68,28 @@ function MakeAreaChart(GetQuerySelectorId, titleText, options) {
 }
 
 function InputChartData(chart, id, options) {
+    var sendOption = "";
     console.log('chart : ' + chart + ", options : " + options + "device id : " + id);
+    if (options) {
+        console.log("option have : ");
+        sendOption = {
+            start: JSON.parse(JSON.stringify(options)).start,
+            end: JSON.parse(JSON.stringify(options)).end
+        };
+    }
     return $.ajax({
         type: 'GET',
         url: '/beta/Data?no=' + id,
         dataType: 'json',
+        data: sendOption,
         error: function() {
-            console.log('ajax error');
+            return console.log('ajax error');
         },
         success: function(data) {
             console.log('get data : ', data);
-            if (data.err) {
+            if (data.error) {
                 console.log('data is null');
-                return null;
+                return chart.updateOptions({ series: [], noData: { text: "NOT DATA..." } });
             }
             return InsertChart(data, chart);
         }
@@ -89,7 +98,7 @@ function InputChartData(chart, id, options) {
 
 /** Function Insert data if make chart data make server side */
 function InsertChart(data, chart) {
-    //console.log("chart Data Insert : ", data[0]);
+    console.log("chart Data Insert : ", data);
     chart.updateSeries(data).then(result => {
         for (let i in data) {
             chart.toggleSeries(data[i].name);
@@ -101,8 +110,11 @@ function InsertChart(data, chart) {
 function ChangeYMinMax(data, chart) {
     /** Data Json {min:, max:} */
     /** if want to min max delete data = {min:null, max:null} */
+    console.log('data : ' + data + ", chart : ");
     if (data == null) {
         data = { min: null, max: null };
     }
+    DefaultOptions.yaxis = data;
     return chart.updateOptions({ yaxis: data });
+
 }

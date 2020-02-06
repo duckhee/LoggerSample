@@ -70,11 +70,24 @@ const ApexChartData = (data) => {
         console.log("value 4 : " + _returnValue4.data.length);
         console.log("value 5 : " + _returnValue5.data.length);
         console.log("value 6 : " + _returnValue6.data.length);
-        _return.push(_returnValue1);
-        _return.push(_returnValue2);
-        _return.push(_returnValue3);
-        _return.push(_returnValue4);
-
+        if (_returnValue1.data.length !== 0) {
+            _return.push(_returnValue1);
+        }
+        if (_returnValue2.data.length !== 0) {
+            _return.push(_returnValue2);
+        }
+        if (_returnValue3.data.length !== 0) {
+            _return.push(_returnValue3);
+        }
+        if (_returnValue4.data.length !== 0) {
+            _return.push(_returnValue4);
+        }
+        if (_returnValue5.data.length !== 0) {
+            _return.push(_returnValue5);
+        }
+        if (_returnValue6.data.length !== 0) {
+            _return.push(_returnValue6);
+        }
 
         return resolve(_return);
     });

@@ -114,7 +114,7 @@ const GraphDataJson = (req, res, next) => {
     const StartDate = req.body.start || req.query.start || req.params.start || req.param.start || "";
     const EndDate = req.body.end || req.query.end || req.params.end || req.param.end || "";
     const no = req.body.no || req.query.no || req.params.no || req.param.no || "";
-    console.log("Device Id : " + no + ", Start Date : " + StartDate + ", End Date : " + EndDate);
+    console.log("Device Id : " + no + ", Start Date : " + StartDate + ", End Date : " + EndDate + ", body : " + req.body);
     /** Device Id Null */
     if (no == "") {
         let msg = {
@@ -123,10 +123,7 @@ const GraphDataJson = (req, res, next) => {
         return res.json(msg);
     }
     let options = {};
-    console.log('date Test : ', new Date(''));
-    if (new Date('test') == "Invalid Date") {
-        console.log('error catch');
-    }
+
     if (new Date(StartDate) !== "Invalid Date") {
         if (new Date(EndDate) !== "Invalid Date") {
             options.start = StartDate;
@@ -140,16 +137,17 @@ const GraphDataJson = (req, res, next) => {
             return res.json({ error: "null" });
         }
         console.log('device Type', resultDevice.dataValues.deviceType);
-        console.log(' graph : ', graph);
+        console.log(' graph : ', options);
 
         graph[resultDevice.dataValues.deviceType](no, options).then(result => {
             if (result == 0) {
                 console.log("Device Data : ", result);
-                res.json({ err: "null" });
+                return res.json({ error: "null" });
             }
             return res.json(result);
         }).catch(err => {
-            return res.json({ err: err.code });
+            console.log('Get Error : ', err);
+            return res.json({ error: "null" });
         });
         //return res.json(result);
     }).catch(err => {
