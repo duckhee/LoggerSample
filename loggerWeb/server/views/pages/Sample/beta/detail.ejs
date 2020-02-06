@@ -251,7 +251,7 @@
                                         if(MinY == ""){
                                             return swal.fire({
                                                 type:'warning',
-                                                title:'최소값을 입력하세요'
+                                                title:'최소값을 입력하세요.'
                                             });
                                         }
                                         return swal.fire({
@@ -263,7 +263,7 @@
                                         if(MaxY == ""){
                                             return swal.fire({
                                                 type:'warning',
-                                                title:'최대값을 입력하세요'
+                                                title:'최대값을 입력하세요.'
                                             });
                                         }
                                         return swal.fire({
@@ -291,20 +291,27 @@
                                     let start = $("#<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>start").val();
                                     let end = $("#<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>end").val();
                                     console.log('click date start Date : ' + start + ", end Date : " + end + ", ecolog id : " + id, "chart Title : " + chartTitle);
-
+                                    let DatePickerOptions = {
+                                        start:start,
+                                        end:end
+                                    };
+                                    console.log('option Json : ' + DatePickerOptions);
+                                    
+                                    
                                 });
                             }
                             /** Make Chart And Function Registe */
                             if('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%>' === "dataTracker"){
                                 /** DataTracker Chart */
                                 let <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart = MakeAreaChart('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>', '<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');
+                                InputChartData(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart,'<%=UserInfo.sites[0].plots[0].devices[i].id%>');
                                 console.log('DataTracker');
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>ChangeChart(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart);
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>DateSelector(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart,'<%=UserInfo.sites[0].plots[0].devices[i].id%>','<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');
                             }else if('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%>' === "ecolog"){
                                 /** Ecolog Chart */
                                 let <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart = MakeAreaChart('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>', '<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');
-                                InputChartData(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart);
+                                InputChartData(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart,<%=UserInfo.sites[0].plots[0].devices[i].id%>);
                                 console.log('ecolog');
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>ChangeChart(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart);
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>DateSelector(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart,'<%=UserInfo.sites[0].plots[0].devices[i].id%>','<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');

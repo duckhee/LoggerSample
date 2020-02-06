@@ -67,8 +67,24 @@ function MakeAreaChart(GetQuerySelectorId, titleText, options) {
     return charts;
 }
 
-function InputChartData(chart, options) {
-    console.log('chart : ' + chart + ", options : " + options);
+function InputChartData(chart, id, options) {
+    console.log('chart : ' + chart + ", options : " + options + "device id : " + id);
+    return $.ajax({
+        type: 'GET',
+        url: '/beta/Data?no=' + id,
+        dataType: 'json',
+        error: function() {
+            console.log('ajax error');
+        },
+        success: function(data) {
+            console.log('get data : ', data);
+            if (data.err) {
+                console.log('data is null');
+                return null;
+            }
+            return InsertChart(data, chart);
+        }
+    });
 }
 
 /** Function Insert data if make chart data make server side */
@@ -84,6 +100,9 @@ function InsertChart(data, chart) {
 /** Change Yaxis Graph */
 function ChangeYMinMax(data, chart) {
     /** Data Json {min:, max:} */
-    console.log('data : ', data);
-    chart.updateOptions({ yaxis: data });
+    /** if want to min max delete data = {min:null, max:null} */
+    if (data == null) {
+        data = { min: null, max: null };
+    }
+    return chart.updateOptions({ yaxis: data });
 }

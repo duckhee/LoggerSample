@@ -143,6 +143,10 @@ const GraphDataJson = (req, res, next) => {
         console.log(' graph : ', graph);
 
         graph[resultDevice.dataValues.deviceType](no, options).then(result => {
+            if (result == 0) {
+                console.log("Device Data : ", result);
+                res.json({ err: "null" });
+            }
             return res.json(result);
         }).catch(err => {
             return res.json({ err: err.code });
