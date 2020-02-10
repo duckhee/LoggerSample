@@ -58,6 +58,13 @@
                                         </div>
                                     </div>
                                     <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='' class='control-label col-xs-2'>Device Longitude</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value='<%=DeviceInfo.FTPFolder%>' disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
                                 <%}%>
                             </div>
                         </div>
@@ -97,13 +104,6 @@
                                     </div>
                                 </div>
                                 <!--./form-group-->
-                                <div class="form-group">
-                                    <label for="" class="control-label col-xs-2">Data Tracker FTPFolder</label>
-                                    <div class="col-xs-4">
-                                        <input type="text" class="form-control" value="<%=DeviceInfo.RawValue.FTPFolder %>" disabled>
-                                    </div>
-                                </div>
-                                <!--./form-group-->
                             </div>
                         </div>
                     </div>
@@ -119,13 +119,6 @@
                         <!--./box-header-->
                         <div class="box-body">
                             <div class='form-horizontal'>
-                                <div class="form-group">
-                                    <label for="" class="control-label col-xs-2">FTP Folder</label>
-                                    <div class="col-xs-4">
-                                        <input type="text" class="form-control" disabled value="<%=DeviceInfo.RawValue.FTPFolder%>">
-                                    </div>
-                                </div>
-                                <!-- ./form-group -->
                                 <div class="form-group">
                                     <label for="" class="control-label col-xs-2">File Type</label>
                                     <div class="col-xs-4">
@@ -162,13 +155,6 @@
                                     </div>
                                 </div>
                                 <!--./form-group-->
-                                <div class="form-group">
-                                    <label for="" class="col-xs-2 control-label">FTP Folder</label>
-                                    <div class="col-xs-4">
-                                        <input type="text" class="form-control" disabled value="<%=DeviceInfo.RawValue.FTPFolder%>">
-                                    </div>
-                                </div>
-                                <!--./form-group-->
                             </div>
                         </div>
                     </div>
@@ -193,7 +179,7 @@
                    <%}%>
                    <!-- ./device Type Detail -->
                    
-                   
+                   <%if(DeviceInfo.DeviceType !== "HikVision"){%>
                    <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title"><i class="fa fa-line-chart" style="margin-right:10px;"></i>Device Graph</h3>
@@ -211,7 +197,7 @@
                             <!--./box-body-->
                         </div>
                    </div>
-                   
+                   <%}%>
                    <!--./bod graph-->
                 </div>
                 <!--/.content-->

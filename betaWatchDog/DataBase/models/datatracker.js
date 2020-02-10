@@ -25,9 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         DataTrackerPw: {
             type: DataTypes.STRING
-        }
-
-
+        },
     }, {});
     DataTracker.associate = function(models) {
         // associations can be defined here
@@ -39,17 +37,15 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             onDelete: 'CASCADE'
         });
-        /** DataTracker has Many DataTracker columns(data) */
-        DataTracker.hasMany(models.DataTrackerColumnData, {
-            foreignKey: 'DataTrackerIdx',
-            targetKey: 'id',
-            sourceKey: 'id'
-        });
         /** DataTracker has One DataTracker columns(name) */
         DataTracker.hasOne(models.DataTrackerColumnName, {
-            foreignKey: 'DataTrackerIdx',
-            targetKey: 'id',
-            sourceKey: 'id'
+            foreignKey: 'dataTrackerIdx',
+            targetKey: 'id'
+        });
+        /** DataTracker has Many DataTracker columns(data) */
+        DataTracker.hasMany(models.DataTrackerColumnData, {
+            foreignKey: 'dataTrackerIdx',
+            targetKey: 'id'
         });
     };
     return DataTracker;

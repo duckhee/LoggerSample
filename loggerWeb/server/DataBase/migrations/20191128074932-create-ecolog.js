@@ -17,10 +17,6 @@ module.exports = {
                 },
                 onDelete: 'CASCADE'
             },
-            FTPFolder: {
-                type: Sequelize.STRING,
-                unique: true
-            },
             FileFormat: {
                 type: Sequelize.STRING
             },

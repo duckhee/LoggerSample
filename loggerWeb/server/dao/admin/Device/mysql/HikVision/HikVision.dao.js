@@ -13,7 +13,6 @@ const CreateRaw = (Info) => {
             HikVisionIp: Info.IP,
             HikVisionId: Info.ID,
             HikVisionPw: Info.PW,
-            FTPFolder: Info.Path
         }).then(result => {
             console.log('Raw Dao Device hikvision Create');
             return resolve(result);

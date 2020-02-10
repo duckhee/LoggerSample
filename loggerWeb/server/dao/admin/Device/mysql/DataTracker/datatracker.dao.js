@@ -18,7 +18,6 @@ const CreateRaw = (Info) => {
             DataTrackerIP: Info.IP,
             DataTrackerId: Info.ID,
             DataTrackerPw: Info.PW,
-            FTPFolder: Info.Path
         }).then(result => {
             console.log('Raw Dao Device Data Tracker Create');
             return resolve(result);

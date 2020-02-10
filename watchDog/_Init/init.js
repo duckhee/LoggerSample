@@ -64,7 +64,7 @@ const _DirsCheck = (ret, files, DatabaseDirs) => {
                 for (let j = 0; j < files.length; j++) {
                     console.log("Last Dir : " + GetFile.LastFileDirs(files[j]) + ", Database Check : " + DatabaseDirs[i].FTPFolder)
                     if (GetFile.PathCheck(GetFile.LastFileDirs(files[j]), DatabaseDirs[i].FTPFolder)) {
-                        DatabaseDirs[i].Insert = files[j];
+                        DatabaseDirs[i].Insert = "" + files[j];
                         _Return.push(DatabaseDirs[i]);
                     }
                 }
@@ -177,7 +177,7 @@ const _SInsertDB = (_Insert) => {
                     //console.log("INSERT DATA : ", _Insert);
                     /** Insert DB Ecolg */
                 } else if (_Insert[i].DeviceType == "ecolog") {
-                    console.log("Insert Data : ", _Insert[i]);
+                    console.log("Insert Data : ", i);
                     /** Insert Data Get Function */
                     let _DataInsert = SDao.InsertDataColumns();
                     let _DeviceType = SDao.CheckDeviceType();
@@ -185,7 +185,7 @@ const _SInsertDB = (_Insert) => {
                         console.log("device value Check : ", ecologResult[0].id);
                         _Insert.ecologId = ecologResult[0].id;
                         _DataInsert[_Insert[i].DeviceType](_Insert).then(_InsertResult => {
-                            console.log("SUCCESS : ", _InsertResult);
+                            console.log("SUCCESS : ");
                             return resolve(_InsertResult);
                         }).catch(err => {
                             return reject(err);
@@ -218,7 +218,7 @@ const _ReadInsert = (_Insert) => {
                 _Insert.nameColumns = names;
                 let data = GetFile.Raw(_Insert[i].Insert, "data", format);
                 _Insert.dataColumns = data;
-                console.log('test : ', _Insert.dataColumns);
+                //console.log('test : ', _Insert.dataColumns);
                 _SInsertDB(_Insert).then(_InsertResult => {
                     console.log(" INSERT DB : ", _InsertResult);
                     return resolve(_InsertResult);
@@ -258,9 +258,9 @@ const _SelectCase = (ret, files, dirs) => {
                 /** USE SEQUELIZE */
                 /** Check Device have return Device Database Value */
                 SDao.CheckDevice().then(_DeviceResult => {
-
                     /** DIR CHECK */
-                    /** Chekc Dir Path Right or False in Database */
+                    /** Check Dir Path Right or False in Database */
+                    console.log('get Device FTP Folder : ', _DeviceResult);
                     _DirsCheck(ret, files, _DeviceResult).then(_DirResult => {
                         //console.log("DIR RESULT : ", _DirResult.length);
                         _ReadInsert(_DirResult).then(_ReadResult => {

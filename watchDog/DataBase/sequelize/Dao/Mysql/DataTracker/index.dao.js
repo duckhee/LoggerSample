@@ -3,7 +3,7 @@ const device = require("../../../models/device");
 /** TEST DEVICE COLUMNS */
 const DataTracker = require('../../../models/datatracker.js');
 const DataTrackerColumnName = require('../../../models/DataTrackerColumnName');
-const DeviceColumnData = require("../../../models/datatrackercolumndata");
+const DeviceColumnData = require("../../../models/DataTrackerColumnData");
 
 /** Check DataTracker */
 const CheckDataTracker = (_Insert) => {
@@ -103,7 +103,12 @@ const InsertDataTrackerData = (_Insert) => {
 /** All Do Device Check, Insert Data */
 const AllDo = (_Insert) => {
     return new Promise((resolve, reject) => {
+        CheckDataTracker(_Insert).then(CheckDevice => {
+            _Insert.dataTrackerId = CheckDevice[0].id;
 
+        }).then(err => {
+            return reject(err);
+        });
     });
 };
 
@@ -111,5 +116,6 @@ module.exports = {
     CheckDataTracker,
     CheckDataTrackerName,
     InsertDataTrackerName,
-    InsertDataTrackerData
+    InsertDataTrackerData,
+    AllDo
 };

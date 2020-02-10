@@ -78,6 +78,18 @@ const GetFormat = (_path) => {
 };
 
 /** Get File Data */
+const FileRead = (file) => {
+    try {
+        let read = fs.readFileSync(String(file), { encoding: 'utf-8' });
+        return read;
+    } catch (err) {
+        console.log("File Read Error Code ::: ", err.code);
+        console.log("File Read Error Code ::: ", err.code);
+        return err;
+    }
+};
+
+/** Get File Data */
 const FileRaw = (file) => {
     try {
         let _ReadFile = fs.readFileSync(String(file), { encoding: 'utf-8' });
@@ -122,13 +134,7 @@ const _MISFileRaw = (file) => {
     }
 };
 
-const RawNameMIS = (file) => {
 
-};
-
-const RawValueMIS = (file) => {
-
-};
 
 const RowMIS = (file) => {
     try {
@@ -154,13 +160,6 @@ const RawMIS = (file) => {
 
 };
 
-const RawName = (file) => {
-
-};
-
-const RawValue = (file) => {
-
-};
 
 const Raw = (file, value, _type) => {
     if (_type == "csv") {
@@ -205,4 +204,5 @@ module.exports = {
     PathCheck,
     GetFormat,
     Raw,
+    FileRead
 };

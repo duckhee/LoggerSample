@@ -51,7 +51,7 @@ const CheckDataTrackerName = (_Insert) => {
             }).catch(err => {
                 return reject(err);
             });
-        })
+        });
     });
 };
 
@@ -66,7 +66,7 @@ const CheckEcolog = (_Insert) => {
             return resolve(result);
         }).catch(err => {
             return reject(err);
-        })
+        });
     });
 };
 
@@ -89,7 +89,7 @@ const CheckHikVision = (_Insert) => {
 const CheckDeviceType = () => {
 
     let _return = Interface.CheckDevice();
-    console.log("DEVICE TYPE CHECK ", _return);
+    //console.log("DEVICE TYPE CHECK ", _return);
     return _return;
 };
 
@@ -99,14 +99,14 @@ const CheckNameColumns = () => {
     let _return = {
         "DataTracker": CheckDataTrackerName,
     };
-    console.log("RETURN VALUE : ", _return);
+    //console.log("RETURN VALUE : ", _return);
     return _return;
 };
 
 /** Insert Name */
 const InsertDataTrackerName = (_Insert) => {
     return new Promise((resolve, reject) => {
-        console.log("INSERT DATA TRACKER CHANGE : ", _Insert);
+        //console.log("INSERT DATA TRACKER CHANGE : ", _Insert);
         models.DataTrackerColumnName.create({
             DataTrackerIdx: _Insert.DataTrackerId,
             nameColumn: _Insert.nameColumns
@@ -164,7 +164,7 @@ const _DataTrackerMakeData = (_Insert) => {
 const InsertDataTrackerData = (_Insert) => {
     return new Promise((resolve, reject) => {
         _DataTrackerMakeData(_Insert).then(_InsertData => {
-            console.log("INSERT DATA MAKE COLUMNS : ", _InsertData);
+            //console.log("INSERT DATA MAKE COLUMNS : ", _InsertData);
             if (_InsertData.length > 0) {
                 models.DataTrackerColumnData.bulkCreate(_InsertData).then(() => {
                     console.log("INSERT DEVICE DATA : ");
@@ -190,7 +190,7 @@ const _MISParser = (_data, ecologId) => {
     let _NewData = "<STATION>";
     let _Return = [];
     return new Promise((resolve, reject) => {
-        console.log("Parsing ID : ", ecologId);
+        //console.log("Parsing ID : ", ecologId);
         while (true) {
             let ReturnJson = {};
             ReturnJson.name = _RawData.substring(_RawData.indexOf(_SensorStartString) + _SensorStartString.length, _RawData.indexOf(_SensorEndString));
@@ -220,8 +220,8 @@ const _EcologMakeDate = (data, time) => {
 }
 const _EclogDBData = (Insert) => {
     let _ReturnValue = [];
-    console.log("Array LENGTH : ", Insert.length);
-    console.log("ecolog id : ", Insert.ecologId);
+    //console.log("Array LENGTH : ", Insert.length);
+    //console.log("ecolog id : ", Insert.ecologId);
     return new Promise((resolve, reject) => {
         for (var i = 0; i < Insert.length; i++) {
             for (var j = 0; j < Insert[i].raw.length; j++) {
@@ -236,8 +236,8 @@ const _EclogDBData = (Insert) => {
                 }
                 let _FloatValue = parseFloat(_Detail[2]);
                 if (isNaN(_FloatValue)) {
-                    console.log("NULL");
-                    console.log("DATA " + i + " : ", _Detail[2]);
+                    //console.log("NULL");
+                    //console.log("DATA " + i + " : ", _Detail[2]);
                     if (_Detail[2] == undefined) {
                         console.log("NULL VALUE");
                     } else {
@@ -263,10 +263,10 @@ const _EclogDBData = (Insert) => {
     });
 }
 const _MakeEcologData = (_Insert) => {
-    console.log(_Insert[0].id);
+    //console.log(_Insert[0].id);
     return new Promise((resolve, reject) => {
         _MISParser(_Insert.dataColumns, _Insert.ecologId).then(result => {
-            console.log("Parsing Data :", result);
+            //console.log("Parsing Data :", result);
             _EclogDBData(result).then(result2 => {
                 //console.log('get Data : ', result2);
                 return resolve(result2);
@@ -281,10 +281,10 @@ const _MakeEcologData = (_Insert) => {
 
 const InsertEcologData = (_Insert) => {
     return new Promise((resolve, reject) => {
-        console.log("Testing : ", _Insert);
+        //console.log("Testing : ", _Insert);
         _MakeEcologData(_Insert).then(result => {
             if (result.length > 0) {
-                console.log("Bulk Insert Data : ", result);
+                //console.log("Bulk Insert Data : ", result);
                 models.ecologColumn.bulkCreate(result).then(() => {
                     return resolve("DONE");
                 }).catch(err => {

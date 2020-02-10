@@ -9,7 +9,6 @@ const CreateRaw = (Info) => {
     console.log('ecolog RawDao');
     return new Promise((resolve, reject) => {
         models.ecolog.create({
-            FTPFolder: Info.Path,
             DeviceIdx: Info.DeviceIdx,
             FileFormat: Info.FileType
         }).then(result => {

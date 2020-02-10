@@ -162,6 +162,7 @@ const DownloadCSV = (req, res, next) => {
     const StartDate = req.body.start || req.query.start || req.params.start || req.param.start || "";
     const EndDate = req.body.end || req.query.end || req.params.end || req.param.end || "";
     const no = req.body.no || req.query.no || req.params.no || req.param.no || "";
+    console.log("Start Date : " + StartDate + ", End Date : " + EndDate + ", Device No : " + no);
     return res.json(0);
 };
 

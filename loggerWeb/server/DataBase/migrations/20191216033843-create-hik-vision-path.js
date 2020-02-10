@@ -9,7 +9,9 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
             path: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
+                allowNull: false,
+                unique: true
             },
             HikVisionIdx: {
                 type: Sequelize.INTEGER,
