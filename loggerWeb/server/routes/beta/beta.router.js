@@ -29,7 +29,7 @@ const BetaRouter = (csurfMiddleware) => {
     router.get('/Data', BetaCtrl.GraphDataJson);
 
     /** Download CSV */
-    router.get('/download', BetaCtrl.DownloadCSV);
+    router.post('/download', BetaCtrl.DownloadCSV);
     return router;
 }
 

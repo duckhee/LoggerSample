@@ -2,10 +2,12 @@
 const _UserDao = require('../../dao/beta/user/index.dao');
 const UserDao = _UserDao();
 /** Graph Dao */
-const _Graph = require('../../dao/beta/graph/graph.interface');
-const graph = _Graph.graphSelector();
+const Device = require('../../dao/beta/graph/graph.interface');
+const graph = Device.graphSelector();
 /** Download Dao */
-const _Download = require('../../dao/beta/download/index.dao');
+const _Download = require('../../dao/beta/download/download.interface');
+const Download = _Download.DownloadSelector();
+
 /** Login Check Middle ware */
 const LoginChecker = (req, res, next) => {
     if (!req.session.UserLogin) {
@@ -42,6 +44,7 @@ const DetailPage = (req, res, next) => {
     UserDao.SampleDao(req.session.UserLogin.email).then(result => {
         return res.render('Sample/beta/detail', {
             UserInfo: result,
+            _csrf: req.csrfToken(),
         });
     }).catch(err => {
         console.log("Get Sample Error : ", err);
@@ -131,7 +134,7 @@ const GraphDataJson = (req, res, next) => {
         }
     }
 
-    _Graph.GetDeviceType(no).then(resultDevice => {
+    Device.GetDeviceType(no).then(resultDevice => {
         if (!resultDevice) {
             console.log('result Type NUll: ', resultDevice);
             return res.json({ error: "null" });
@@ -163,7 +166,35 @@ const DownloadCSV = (req, res, next) => {
     const EndDate = req.body.end || req.query.end || req.params.end || req.param.end || "";
     const no = req.body.no || req.query.no || req.params.no || req.param.no || "";
     console.log("Start Date : " + StartDate + ", End Date : " + EndDate + ", Device No : " + no);
-    return res.json(0);
+    let options = {};
+
+    if (no == "") {
+        let err = new Error("Not Select Device");
+        return next(err);
+    }
+    if (new Date(StartDate) !== "Invalid Date") {
+        if (new Date(EndDate) !== "Invalid Date") {
+            options.start = StartDate;
+            options.end = EndDate;
+        }
+    }
+    Device.GetDeviceType(no).then(Device => {
+        Download[Device.dataValues.deviceType](no).then(result => {
+            if (!result) {
+                return res.redirect('/beta/detail');
+            }
+            /** excel4node download Function */
+            return result.write("download.csv", res);
+        }).catch(err => {
+            console.log("Download Error Code ::: ", err.code);
+            console.log("Download Error ::: ", err);
+            return res.redirect('/beta/detail');
+        });
+    }).catch(err => {
+        console.log("Download Error Code ::: ", err.code);
+        console.log("Download Error ::: ", err);
+        return res.redirect('/beta/detail');
+    });
 };
 
 

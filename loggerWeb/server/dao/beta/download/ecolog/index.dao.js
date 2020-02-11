@@ -1,5 +1,4 @@
-const configDatabase = require('../../../../config/config.json');
-
+const configDatabase = require('../../../../../config/config.json');
 
 const IndexDao = () => {
     if (configDatabase.mysql) {
@@ -9,9 +8,8 @@ const IndexDao = () => {
         console.log("Sample MongoDB Setting");
         return MongoDBIndexDao = require('./mongoDB/index.dao');
     } else {
-        throw new Error("Setting DAtabase config file");
+        throw new Error("Setting Database Config file");
     }
 };
-
 
 module.exports = IndexDao;

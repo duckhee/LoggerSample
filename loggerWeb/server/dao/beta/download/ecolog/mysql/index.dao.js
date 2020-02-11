@@ -6,7 +6,39 @@ const device = require('../../../../../DataBase/models/device');
 const ecolog = require('../../../../../DataBase/models/ecolog');
 /** Ecolog Column Model */
 const ecologColumn = require('../../../../../DataBase/models/ecologcolumn');
-
+/** Excel Module */
+const excel = require('excel4node');
+/** Make WorkBook */
+const _WorkBook = new excel.Workbook();
+/** Style Setting */
+const SheetStyle = _WorkBook.createStyle({
+    alignment: {
+        horizontal: ['center'],
+        vertical: ['center']
+    },
+    font: {
+        size: 10,
+        bold: false,
+    },
+    border: {
+        left: {
+            style: 'thin',
+            color: '#000000'
+        },
+        right: {
+            style: 'thin',
+            color: '#000000'
+        },
+        top: {
+            style: 'thin',
+            color: '#000000'
+        },
+        bottom: {
+            style: 'thin',
+            color: '#000000'
+        }
+    }
+});
 /** ApexChart Data Type Make */
 const ApexChartData = (data) => {
     //console.log("Make Ecolog Chart Data : ", data);
@@ -138,8 +170,31 @@ const graph = (no, options) => {
     });
 };
 
+const MakeDownload = (data) => {
+    console.log("Make CSV Function");
+    console.log('Make Download Data : ', data);
+    Sheets.cell(1, 1).string('created Date').style(SheetStyle);
+    Sheets.cell(1, 2).string("number").style(SheetStyle);
+    return _WorkBook;
+    /*
+    ApexChartData(data.dataValues.ecologColumns).then(results => {
+        console.log("Make CSV Function");
+        console.log('Make Download Data : ');
+        let Sheets = _WorkBook.addWorksheet("sheet1");
+        Sheets.cell(1, 1).string('created Date').style(SheetStyle);
+        Sheets.cell(1, 2).string("number").style(SheetStyle);
+        return _WorkBook;
+    }).catch(err => {
+        console.log('Beta Ecolog Graph Data Make Error Code ::: ', err.code);
+        console.log('Beta Ecolog Graph Data Make Error ::: ', err);
+        return null;
+    });
+    */
+};
+
 /** Download data get Module */
 const download = (no, options) => {
+    console.log("Download Controller");
     return new Promise((resolve, reject) => {
         models.ecolog.findOne({
             where: {
@@ -158,7 +213,7 @@ const download = (no, options) => {
             if (!result) {
                 return resolve(null);
             }
-            return resolve(result);
+            return resolve(MakeDownload(result));
         }).catch(err => {
             console.log("Beta Ecolog Download Data Error Code ::: ", err.code);
             console.log("Beta Ecolog Download Data Error ::: ", err);

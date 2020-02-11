@@ -1,17 +1,15 @@
-/** Beta DownLoad  */
 const excel = require('excel4node');
-/** New WorkBook */
-const _Books = new excel.Workbook();
-/** Sheet */
-const _Sheets = _Books.addWorkSheet('Sheet 1');
-/** Excel Sheet Style */
-const style = _Books.createStyle({
+
+/** Make WorkBook */
+const _WorkBook = new excel.Workbook();
+/** Style Setting */
+const SheetStyle = _WorkBook.createStyle({
     alignment: {
         horizontal: ['center'],
         vertical: ['center']
     },
     font: {
-        size: 12,
+        size: 10,
         bold: false,
     },
     border: {
@@ -34,10 +32,10 @@ const style = _Books.createStyle({
     }
 });
 
-const MakeChart = () => {
-
+const CSVDownload = (data, res) => {
+    const sheet = _WorkBook.addWorksheet('sheet1');
 };
 
 module.exports = {
-
+    CSVDownload
 };

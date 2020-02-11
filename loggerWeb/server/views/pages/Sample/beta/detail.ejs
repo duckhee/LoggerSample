@@ -166,9 +166,13 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <button class="panel-control" style="float:right;">
-                                        <i class="fas fa-download"></i>
-                                    </button>
+                                    <form id="<%=UserInfo.sites[0].plots[0].devices[i].name%>DownloadForm" action="/beta/download?no=<%=UserInfo.sites[0].plots[0].devices[i].id%>" method="post">
+                                        <input type="hidden" value="<%=_csrf%>" name="_csrf" id="_csrf">
+                                        <button type="submit" class="panel-control" style="float:right;" id="Download<%=UserInfo.sites[0].plots[0].devices[i].name%>">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </form>
+                                    <!--./download form-->
                                     <div class="panel-type">
                                         <span class="gps">Lat : <%=UserInfo.sites[0].plots[0].devices[i].Latitude%><br> Lon : <%=UserInfo.sites[0].plots[0].devices[i].Longitude%></span>
                                     </div>
@@ -242,6 +246,7 @@
                     /** Need To For */
                     if(UserInfo.sites[0].plots[0].devices.length != 0){
                         for(var i = 0; i < UserInfo.sites[0].plots[0].devices.length; i++){%>
+                            
                             /** Change Y Limit */
                             function <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>ChangeChart(chart){
                                 $("#<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Btn").click(function(){
@@ -308,6 +313,7 @@
                                 console.log('DataTracker');
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>ChangeChart(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart);
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>DateSelector(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart,'<%=UserInfo.sites[0].plots[0].devices[i].id%>','<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');
+                                
                             }else if('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%>' === "ecolog"){
                                 /** Ecolog Chart */
                                 let <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart = MakeAreaChart('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>', '<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');
@@ -315,6 +321,7 @@
                                 console.log('ecolog');
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>ChangeChart(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart);
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>DateSelector(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart,'<%=UserInfo.sites[0].plots[0].devices[i].id%>','<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');
+                                
                             }else if('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%>'=== "hikVision"){
                                 /** HikVision Camera */
                                 console.log('hikVision');

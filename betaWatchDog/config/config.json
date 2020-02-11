@@ -18,7 +18,7 @@
         "jpg": true
     },
     "WatchDog": {
-        "rootpath": "./test",
+        "rootpath": "./window_dataShareFolder",
         "timer": 1000
     },
     "DeviceType": {
