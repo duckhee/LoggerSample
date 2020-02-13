@@ -20,6 +20,9 @@ var DefaultOptions = {
         curve: 'straight'
     },
     series: [],
+    markers: {
+        size: 5
+    },
     fill: {
         type: 'gradient',
         gradient: {
@@ -87,6 +90,24 @@ function InputChartData(chart, id, options) {
         },
         success: function(data) {
             console.log('get data : ', data);
+            if (data.error) {
+                console.log('data is null');
+                return chart.updateOptions({ series: [], noData: { text: "NOT DATA..." } });
+            }
+            return InsertChart(data, chart);
+        }
+    });
+}
+
+function ReMakeData(chart, id) {
+    return $.ajax({
+        type: 'get',
+        url: '/beta/Data?no=' + id,
+        dataType: 'json',
+        error: function() {
+            return console.log('ajax error');
+        },
+        success: function(data) {
             if (data.error) {
                 console.log('data is null');
                 return chart.updateOptions({ series: [], noData: { text: "NOT DATA..." } });

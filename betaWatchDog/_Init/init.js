@@ -60,15 +60,18 @@ const DirPathCheck = (stat, files, dirs) => {
         console.log('file Check : ', _files);
         //TODO Change not good Logic
         for (let i = 0; i < dirs.length; i++) {
-            for (let j = 0; j < files.length; j++) {
-                if (GetFile.PathCheck(GetFile.LastFileDirs(files[j]), dirs[i].FTPFolder)) {
-                    dirs[i].Insert = files[j];
-                    console.log('Check files : ', files[j]);
+            for (let j = 0; j < _files.length; j++) {
+                console.log("Get File Paths  For : " + _files[j] + ", FTP Path For : " + dirs[i].FTPFolder);
+                if ((GetFile.LastFileDirs(String(_files[j])) === String(dirs[i].FTPFolder))) {
+                    console.log('get File Path : ', _files[j] + ", FTP Path : " + String(dirs[i].FTPFolder));
+                    dirs[i].Insert = _files[j];
+                    console.log('Check files : ', _files[j]);
                     _return.push(dirs[i]);
                 }
             }
         }
         if (_return.length > 0) {
+            console.log("get path Check : ", _return);
             return resolve(_return);
         }
         return reject("not math");
@@ -77,6 +80,7 @@ const DirPathCheck = (stat, files, dirs) => {
 
 /** Insert Database */
 const InsertDB = (_InsertData) => {
+    let checkFlag = 0;
     return new Promise((resolve, reject) => {
         if (_InsertData.length <= 0) {
             let err = new Error("Not Insert Data");
@@ -101,7 +105,9 @@ const InsertDB = (_InsertData) => {
 
             _InsertData[i].filesRaw = GetFile.FileRead(_InsertData[i].Insert);
             InsertColumns[_InsertData[i].DeviceType](_InsertData[i]).then(result => {
-                console.log(result);
+                console.log("Check For : ", checkFlag);
+                console.log("Insert DB Check : ", result);
+                checkFlag++;
             }).catch(err => {
                 return reject(err);
             });
@@ -134,6 +140,7 @@ const _SelectCase = (stat, files, dirs) => {
             break;
         case "create":
         case "change":
+
             /** Do Insert DataBase Logic Here. */
             FileEventLog(stat, files, dirs);
             /** File Size Check */

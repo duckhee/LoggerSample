@@ -34,26 +34,44 @@ const ApexChartData = (data) => {
             if (data[i].ecologName == "0001") {
                 _returnValue1.name = "깊이(M)";
                 //_returnValue1.data.push([new Date(data[i].createdAt), data[i].ecologData]);
-                data1.push([new Date(data[i].createdAt), data[i].ecologData]);
+                let Dates = new Date(data[i].createdAt);
+                let GetHours = Dates.getHours() + 9;
+                Dates.setHours(GetHours);
+                data1.push([Dates, data[i].ecologData]);
             } else if (data[i].ecologName == "0002") {
                 _returnValue2.name = "온도(℃)";
-                data2.push([new Date(data[i].createdAt), data[i].ecologData]);
+                let Dates = new Date(data[i].createdAt);
+                let GetHours = Dates.getHours() + 9;
+                Dates.setHours(GetHours);
+                data2.push([Dates, data[i].ecologData]);
                 //_returnValue2.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0003") {
                 _returnValue3.name = "EC(ms/cm)";
-                data3.push([new Date(data[i].createdAt), data[i].ecologData]);
+                let Dates = new Date(data[i].createdAt);
+                let GetHours = Dates.getHours() + 9;
+                Dates.setHours(GetHours);
+                data3.push([Dates, data[i].ecologData]);
                 //_returnValue3.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0004") {
                 _returnValue4.name = "염분";
-                data4.push([new Date(data[i].createdAt), data[i].ecologData]);
+                let Dates = new Date(data[i].createdAt);
+                let GetHours = Dates.getHours() + 9;
+                Dates.setHours(GetHours);
+                data4.push([Dates, data[i].ecologData]);
                 //_returnValue4.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0005") {
                 _returnValue5.name = "TDS(mg/L)";
-                data5.push([new Date(data[i].createdAt), data[i].ecologData]);
+                let Dates = new Date(data[i].createdAt);
+                let GetHours = Dates.getHours() + 9;
+                Dates.setHours(GetHours);
+                data5.push([Dates, data[i].ecologData]);
                 //_returnValue5.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             } else if (data[i].ecologName == "0006") {
                 _returnValue6.name = "전원(V)";
-                data6.push([new Date(data[i].createdAt), data[i].ecologData]);
+                let Dates = new Date(data[i].createdAt);
+                let GetHours = Dates.getHours() + 9;
+                Dates.setHours(GetHours);
+                data6.push([Dates, data[i].ecologData]);
                 //_returnValue6.data.push([new Date(data[i].createdAt), data[i].ecologData]);
             }
             //console.log("SET JSON : ", _SetJson);

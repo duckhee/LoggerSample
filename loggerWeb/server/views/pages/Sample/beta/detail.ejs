@@ -193,7 +193,7 @@
                                             <label for="">차트 범위 (Y축) : </label>
                                             <input type='text' class="col-sm-2" id="<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>yMin" placeholder="최소값">-<input type="text" class="col-sm-2" id="<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>yMax" placeholder="최대값">
                                             <button type='button' class='btn btn-outline-dark active' id="<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Btn">적용</button>
-                                            <div class="panel-control-info"></div>
+                                            <p class="panel-control-info"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -287,7 +287,8 @@
                                         max:parseFloat(MaxY)
                                     };
                                     console.log('get Min : ' + MinY + ", get Max : " + MaxY);
-                                    return ChangeYMinMax(data, chart);
+                                    ChangeYMinMax(data, chart);
+                                    return ReMakeData(chart, '<%=UserInfo.sites[0].plots[0].devices[i].id%>');
                                 });
                             }
                             /** Change Date */

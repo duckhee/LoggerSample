@@ -46,6 +46,8 @@ const LastFileDirs = (_path) => {
     let _del = path.sep;
     let _Return;
     let _LIdx = _Fpath.lastIndexOf(_del);
+    let _sub = _Fpath.slice(0, _LIdx);
+    console.log("Get Sub File Path : ", _sub);
     _Return = _Fpath.slice(_LIdx + 1, _Fpath.length);
 
     return _Return;
@@ -56,7 +58,8 @@ const LastFileDirs = (_path) => {
  *  Return True False
  */
 const PathCheck = (_path, _cPath) => {
-    let _flag = String(_path).includes(_cPath);
+    console.log("Path Get : " + _path + "DB Path : " + _cPath);
+    let _flag = String(_path).includes(String(_cPath));
     if (_flag == true) {
         return true;
     } else {

@@ -85,7 +85,8 @@ module.exports = (sequelize, DataTypes) => {
         /** Device Has One ecolog  */
         device.hasOne(models.ecolog, {
             foreignKey: 'DeviceIdx',
-            targetKey: 'id'
+            targetKey: 'id',
+            sourceKey: 'id'
         });
         /** Device Has One HikVision Camera  */
         device.hasOne(models.hikvision, {

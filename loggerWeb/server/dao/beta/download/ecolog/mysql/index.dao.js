@@ -8,10 +8,9 @@ const ecolog = require('../../../../../DataBase/models/ecolog');
 const ecologColumn = require('../../../../../DataBase/models/ecologcolumn');
 /** Excel Module */
 const excel = require('excel4node');
-/** Make WorkBook */
-const _WorkBook = new excel.Workbook();
+
 /** Style Setting */
-const SheetStyle = _WorkBook.createStyle({
+const DefaultSheetStyle = {
     alignment: {
         horizontal: ['center'],
         vertical: ['center']
@@ -38,7 +37,7 @@ const SheetStyle = _WorkBook.createStyle({
             color: '#000000'
         }
     }
-});
+};
 /** ApexChart Data Type Make */
 const ApexChartData = (data) => {
     //console.log("Make Ecolog Chart Data : ", data);
@@ -169,28 +168,81 @@ const graph = (no, options) => {
         });
     });
 };
+/** CSV File Download Setting */
+const MakeCSV = (data) => {
+    return new Promise((resolve, reject) => {
+        let datas = data.dataValues.ecologColumns;
+        console.log("Make CSV File Format");
+        if (data.dataValues.ecologColumns.length <= 0) {
+            return reject(null);
+        }
+        /** Make WorkBook */
+        const _WorkBook = new excel.Workbook();
+        const SheetStyle = _WorkBook.createStyle(DefaultSheetStyle);
+        let Sheets = _WorkBook.addWorksheet("Sheets");
+        Sheets.cell(1, 1).string("날짜(년-월-일)").style(SheetStyle);
+        Sheets.cell(1, 2).string("시간(시:분)").style(SheetStyle);
+        Sheets.cell(1, 3).string("수위(M)").style(SheetStyle);
+        Sheets.cell(1, 4).string("온도(℃)").style(SheetStyle);
+        Sheets.cell(1, 5).string("EC(ms/cm)").style(SheetStyle);
+        Sheets.cell(1, 6).string("염분").style(SheetStyle);
+        Sheets.cell(1, 7).string("TDS(mg/L)").style(SheetStyle);
+        Sheets.cell(1, 8).string("전원(V)").style(SheetStyle);
+        let count = 0;
+        let temp0 = 0,
+            temp1 = 0,
+            temp2 = 0,
+            temp3 = 0,
+            temp4 = 0,
+            temp5 = 0;
+        for (let i = 0; i < datas.length; i++) {
+            //console.log("Make Data : ", datas[i]);
+            if (datas[i].ecologName == "0001") {
 
-const MakeDownload = (data) => {
-    console.log("Make CSV Function");
-    console.log('Make Download Data : ', data);
-    Sheets.cell(1, 1).string('created Date').style(SheetStyle);
-    Sheets.cell(1, 2).string("number").style(SheetStyle);
-    return _WorkBook;
-    /*
-    ApexChartData(data.dataValues.ecologColumns).then(results => {
-        console.log("Make CSV Function");
-        console.log('Make Download Data : ');
-        let Sheets = _WorkBook.addWorksheet("sheet1");
-        Sheets.cell(1, 1).string('created Date').style(SheetStyle);
-        Sheets.cell(1, 2).string("number").style(SheetStyle);
-        return _WorkBook;
-    }).catch(err => {
-        console.log('Beta Ecolog Graph Data Make Error Code ::: ', err.code);
-        console.log('Beta Ecolog Graph Data Make Error ::: ', err);
-        return null;
+                Sheets.cell(temp0 + 2, 3).string("" + datas[i].ecologData).style(SheetStyle);
+                Sheets.cell(temp0 + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd' });
+                let Dates = new Date(datas[i].createdAt);
+                let GetHour = Dates.getHours() + 9;
+                Dates.setHours(GetHour);
+                Sheets.cell(temp0 + 2, 2).date(Dates).style({ numberFormat: 'HH:MM' });
+                temp0++;
+                count++;
+            } else if (datas[i].ecologName == "0002") {
+                Sheets.cell(temp1 + 2, 4).string("" + datas[i].ecologData).style(SheetStyle);
+                temp1++;
+                //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
+                count++;
+            } else if (datas[i].ecologName == "0003") {
+                Sheets.cell(temp2 + 2, 5).string("" + datas[i].ecologData).style(SheetStyle);
+                temp2++;
+                //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
+                count++;
+            } else if (datas[i].ecologName == "0004") {
+                Sheets.cell(temp3 + 2, 6).string("" + datas[i].ecologData).style(SheetStyle);
+                temp3++;
+                //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
+                count++;
+            } else if (datas[i].ecologName === "0005") {
+                Sheets.cell(temp4 + 2, 7).string("" + datas[i].ecologData).style(SheetStyle);
+                temp4++;
+                //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
+                count++;
+            } else if (datas[i].ecologName === "0006") {
+                Sheets.cell(temp5 + 2, 8).string("" + datas[i].ecologData).style(SheetStyle);
+                temp5++;
+                //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
+                count++;
+            }
+        }
+        if (datas.length === count) {
+            return resolve(_WorkBook);
+        } else {
+            return reject(null);
+        }
+
     });
-    */
 };
+
 
 /** Download data get Module */
 const download = (no, options) => {
@@ -211,9 +263,16 @@ const download = (no, options) => {
             }]
         }).then(result => {
             if (!result) {
+                console.log("Have Data is Null");
                 return resolve(null);
             }
-            return resolve(MakeDownload(result));
+            console.log("Download Get Data ::: ", result.device);
+            MakeCSV(result).then(results => {
+                return resolve(results);
+            }).catch(err => {
+                console.log("Make CSV Error : ", err);
+                return reject(null);
+            });
         }).catch(err => {
             console.log("Beta Ecolog Download Data Error Code ::: ", err.code);
             console.log("Beta Ecolog Download Data Error ::: ", err);

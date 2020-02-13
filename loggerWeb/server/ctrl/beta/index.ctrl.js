@@ -181,10 +181,15 @@ const DownloadCSV = (req, res, next) => {
     Device.GetDeviceType(no).then(Device => {
         Download[Device.dataValues.deviceType](no).then(result => {
             if (!result) {
+                console.log("Download Logic Error");
                 return res.redirect('/beta/detail');
             }
             /** excel4node download Function */
-            return result.write("download.csv", res);
+            else {
+                console.log("Download Logic Start");
+                return result.write("download.csv", res);
+                //return result;
+            }
         }).catch(err => {
             console.log("Download Error Code ::: ", err.code);
             console.log("Download Error ::: ", err);

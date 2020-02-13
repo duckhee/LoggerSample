@@ -134,7 +134,7 @@ const InsertDataColumn = (_Insert) => {
                 let err = new Error("Not Make Ecolog Data");
                 return reject(err);
             }
-            console.log("Insert Ecolog Data Json : " + result);
+            //console.log("Insert Ecolog Data Json : " + result);
             models.ecologColumn.bulkCreate(result).then(() => {
                 return resolve("DONE");
             }).catch(err => {

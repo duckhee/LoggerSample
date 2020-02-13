@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
         /** Device has One ecolog */
         ecolog.belongsTo(models.device, {
             foreignKeyConstraint: true,
-            foreignKey: 'id',
+            targetKey: 'id',
+            foreignKey: 'deviceIdx',
             allowNull: false,
             onDelete: 'CASCADE'
         });
