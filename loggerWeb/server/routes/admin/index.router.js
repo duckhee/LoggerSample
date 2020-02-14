@@ -22,6 +22,8 @@ const DownLoadRouter = require('./download/index.router');
 
 
 module.exports = (app, csurfMiddleWare) => {
+    /** Login Check */
+    app.use("/admin/**", AdminMainCtrl.LoginCheck);
     /** Index router */
     app.use('/admin', router);
     /** Member router */

@@ -7,7 +7,7 @@ const Dao = require('../../dao/admin/Device/index.dao');
 const DeviceDao = Dao();
 
 /** Login Check */
-const Logind = (req, res, next) => {
+const LoginCheck = (req, res, next) => {
     console.log("Admin Level Check");
     if (!req.session.UserLogin) {
         return res.redirect('/admin/user/login');
@@ -70,5 +70,6 @@ const MainPage = (req, res, next) => {
 
 
 module.exports = {
-    MainPage
+    MainPage,
+    LoginCheck
 };
