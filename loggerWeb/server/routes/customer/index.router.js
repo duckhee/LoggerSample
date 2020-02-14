@@ -8,7 +8,9 @@ const UserRouter = require('./user/user.router');
 
 const DeviceRouter = require('./Device/index.router');
 /* GET home page. */
-router.get('/', MainCtrl.MainPage);
+router.get('/', (req, res, next)=>{
+	res.redirect('/beta');
+});
 /** Page Testing router */
 router.get('/test', MainCtrl.LoginDone);
 
