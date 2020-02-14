@@ -6,6 +6,18 @@ const AdminUserDao = UDao();
 const Dao = require('../../dao/admin/Device/index.dao');
 const DeviceDao = Dao();
 
+/** Login Check */
+const Logind = (req, res, next) => {
+    console.log("Admin Level Check");
+    if (!req.session.UserLogin) {
+        return res.redirect('/admin/user/login');
+    }
+    console.log("User Info : ", req.session.UserLogin);
+    if (Number(req.session.UserLogin.level) < 3) {
+        return next();
+    }
+    return res.redirect('/beta');
+};
 
 /** Admin Main Page Check Login */
 const MainPage = (req, res, next) => {
