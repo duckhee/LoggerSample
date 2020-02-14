@@ -1,8 +1,8 @@
 {
     "development": {
-        "username": "beta",
-        "password": "won1228",
-        "database": "beta_development",
+        "username": "root",
+        "password": "won1228A!",
+        "database": "cloud_database_development",
         "host": "127.0.0.1",
         "dialect": "mysql",
         "timezone": "+09:00",
@@ -14,12 +14,11 @@
         }
     },
     "test": {
-        "username": "beta",
-        "password": "won1228",
-        "database": "beta_development",
+        "username": "root",
+        "password": null,
+        "database": "database_test",
         "host": "127.0.0.1",
         "dialect": "mysql",
-        "timezone": "+09:00",
         "define": {
             "charset": "utf8mb4",
             "dialectOptions": {
@@ -28,12 +27,11 @@
         }
     },
     "production": {
-        "username": "beta",
-        "password": "won1228",
-        "database": "beta_development",
+        "username": "root",
+        "password": null,
+        "database": "database_production",
         "host": "127.0.0.1",
         "dialect": "mysql",
-        "timezone": "+09:00",
         "define": {
             "charset": "utf8mb4",
             "dialectOptions": {
