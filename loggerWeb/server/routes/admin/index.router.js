@@ -5,7 +5,7 @@ const AdminMainCtrl = require('../../ctrl/admin/index.ctrl');
 
 
 /** Admin Get Router */
-router.get('/', AdminMainCtrl.MainPage);
+router.get('/', AdminMainCtrl.LoginCheck, AdminMainCtrl.MainPage);
 /** Admin Member Router */
 const MemberRouter = require('./Member/member.router');
 /** Admin User Router */
