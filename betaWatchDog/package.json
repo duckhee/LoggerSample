@@ -27,8 +27,8 @@
     },
     "pkg": {
         "assets": [
-            "./DataBase/sequelize/config/config.json",
-            "./DataBase/sequelize/models/*.js",
+            "./DataBase/config/config.json",
+            "./DataBase/models/*.js",
             "./config/config.json"
         ]
     }
