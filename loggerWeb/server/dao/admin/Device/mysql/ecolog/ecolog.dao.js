@@ -93,6 +93,7 @@ const ListRaw = (Info) => {
             }
         }).then(result => {
             console.log('Raw Dao Device ecolog List');
+	    return resolve(result);
         }).catch(err => {
             console.log("Raw Dao Device ecolog List Error code ::: ", err.code);
             console.log("Raw Dao Device ecolog List Error ::: ", err);
