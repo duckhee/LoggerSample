@@ -132,6 +132,11 @@ const GraphDataJson = (req, res, next) => {
             options.start = StartDate;
             options.end = EndDate;
         }
+    } else {
+        let start = new Date();
+        options.start = start.setDate(start.getDate() - 1);
+
+        options.end = Date.now();
     }
 
     Device.GetDeviceType(no).then(resultDevice => {
