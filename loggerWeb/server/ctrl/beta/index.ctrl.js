@@ -30,7 +30,8 @@ const MapPage = (req, res, next) => {
         return res.render('Sample/beta/map', {
             UserInfo: result,
             SiteInfo: result.sites,
-            PlotInfo: result.sites.plots
+            PlotInfo: result.sites.plots,
+            _csrf: req.csrfToken(),
         });
     }).catch(err => {
         console.log("Get Sample Error : ", err);

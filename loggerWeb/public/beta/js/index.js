@@ -150,5 +150,6 @@ $(function() {
 
     $("#LogoutBtn").click(function() {
         console.log("Log out Btn ");
+        document.LogoutForm.method = "POST";
     });
 });

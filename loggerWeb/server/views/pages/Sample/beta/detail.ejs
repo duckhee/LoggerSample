@@ -30,7 +30,9 @@
                     <!--./login info -->
                     <div class="dropdown-menu">
                         <!--<a class="dropdown-item" href="#">Profile</a>-->
-                        <form id="LogoutForm"></form>
+                        <form id="LogoutForm" name="LogoutForm">
+                            <input type="hidden" id="_csrf" name="_csrf" value="<%=_csrf%>">
+                        </form>
                         <a class="dropdown-item" id="LogoutBtn" href="#">Logout</a>
                     </div>
                     <!--./dropdown login info-->
