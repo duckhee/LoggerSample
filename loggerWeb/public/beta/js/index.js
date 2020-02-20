@@ -151,5 +151,7 @@ $(function() {
     $("#LogoutBtn").click(function() {
         console.log("Log out Btn ");
         document.LogoutForm.method = "POST";
+        document.LogoutForm.action = "/beta/logout";
+        document.LogoutForm.submit();
     });
 });
