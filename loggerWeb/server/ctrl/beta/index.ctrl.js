@@ -10,6 +10,7 @@ const Download = _Download.DownloadSelector();
 
 /** Login Check Middle ware */
 const LoginChecker = (req, res, next) => {
+    console.log("session Checker : ", req.session.UserLogin);
     if (!req.session.UserLogin) {
         return res.redirect('/beta/login');
     }
