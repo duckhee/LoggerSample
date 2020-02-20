@@ -35,15 +35,19 @@ const _MISParser = (_data, ecologId) => {
             let ReturnJson = {};
             ReturnJson.name = _RawData.substring(_RawData.indexOf(_SensorStartString) + _SensorStartString.length, _RawData.indexOf(_SensorEndString));
             ReturnJson.ecologIdx = parseInt(ecologId);
+            console.log("Return Json : ", ReturnJson);
             _RawData = _RawData.slice(_RawData.indexOf(_DataStart) + _DataStart.length);
+            console.log("Raw Value : ", _RawData);
             if (_RawData.indexOf(_NewData) == -1) {
                 ReturnJson.raw = _RawData.substring(0, _RawData.length).split("\r\n");
                 _Return.push(ReturnJson);
                 break;
             }
             ReturnJson.raw = _RawData.substring(0, _RawData.indexOf(_NewData)).split("\r\n");
+
             _Return.push(ReturnJson);
         };
+        console.log("Return : ", _Return);
         return resolve(_Return);
     });
 };
@@ -107,9 +111,9 @@ const _EclogDBData = (Insert) => {
 
 /** Make Ecolog Data Json Type  */
 const _MakeEcologData = (_Insert) => {
-    console.log(_Insert.dataValues.id);
+    //console.log(_Insert.dataValues.id);
     return new Promise((resolve, reject) => {
-        console.log("Make Ecolog Data : " + _Insert);
+        //console.log("Make Ecolog Data : " + _Insert.dataValues);
         _MISParser(_Insert.filesRaw, _Insert.ecologIdx).then(result => {
             //console.log("Parsing Data :", result);
             _EclogDBData(result).then(result2 => {

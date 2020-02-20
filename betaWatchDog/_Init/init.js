@@ -27,9 +27,16 @@ const SizeCheck = (stat, files, dirs) => {
         console.log('get files : ', _files);
         for (let i in _files) {
             let size = GetFile.FileStat(_files[i]).size;
+            console.log("File Size : ", size);
             if (size === 0) {
+                /*
                 let err = new Error("File Size Zero");
                 return reject(err);
+                */
+                let FileFormat = GetFile.GetFormat(_files[i]);
+                if (GetFile.CheckType(FileFormat)) {
+                    _ReturnValue.push(_files[i]);
+                }
             } else {
                 let FileFormat = GetFile.GetFormat(_files[i]);
                 if (GetFile.CheckType(FileFormat)) {
@@ -144,36 +151,38 @@ const _SelectCase = (stat, files, dirs) => {
             /** Do Insert DataBase Logic Here. */
             FileEventLog(stat, files, dirs);
             /** File Size Check */
-            SizeCheck(stat, files, dirs).then(SizeCheckValue => {
-                /** Device Check FTP Folder */
-                console.log("Get File Size Check Done Value Number : ", SizeCheckValue.length);
-                //TODO how to Tunning Database ?
-                /** Get DataBase All Registe Device  */
-                Dao.GetDeviceType().then(RegisteAllDevice => {
-                    //console.log("Get All Registe Device : ", RegisteAllDevice);
+            setTimeout(function() {
+                SizeCheck(stat, files, dirs).then(SizeCheckValue => {
+                    /** Device Check FTP Folder */
+                    console.log("Get File Size Check Done Value Number : ", SizeCheckValue.length);
                     //TODO how to Tunning Database ?
-                    /** Check Directory Registe */
-                    DirPathCheck(stat, files, RegisteAllDevice).then(_DirResult => {
-                        /** Read File  */
-                        console.log("Dir Check : ", _DirResult);
-                        ReadFile(_DirResult).then(ReadFiles => {
-                            console.log("Selection Done : " + ReadFiles);
+                    /** Get DataBase All Registe Device  */
+                    Dao.GetDeviceType().then(RegisteAllDevice => {
+                        //console.log("Get All Registe Device : ", RegisteAllDevice);
+                        //TODO how to Tunning Database ?
+                        /** Check Directory Registe */
+                        DirPathCheck(stat, files, RegisteAllDevice).then(_DirResult => {
+                            /** Read File  */
+                            console.log("Dir Check : ", _DirResult);
+                            ReadFile(_DirResult).then(ReadFiles => {
+                                console.log("Selection Done : " + ReadFiles);
+                            }).catch(err => {
+                                // console.log("Read File Function Error Code ::: ", err.code);
+                                console.log("Read File Function Error ::: ", err);
+                            });
                         }).catch(err => {
-                            console.log("Read File Function Error Code ::: ", err.code);
-                            console.log("Read File Function Error ::: ", err);
+                            console.log("Device FTP Path Check Error Code ::: ", err.code);
+                            console.log("Device FTP Path Check Error ::: ", err);
                         });
                     }).catch(err => {
-                        console.log("Device FTP Path Check Error Code ::: ", err.code);
-                        console.log("Device FTP Path Check Error ::: ", err);
+                        console.log('All Registe Device Get Error Code ::: ', err.code);
+                        console.log('All Registe Device Get Error ::: ', err);
                     });
                 }).catch(err => {
-                    console.log('All Registe Device Get Error Code ::: ', err.code);
-                    console.log('All Registe Device Get Error ::: ', err);
+                    console.log('Selection Error Code ::: ', err.code);
+                    console.log('Selection Error ::: ', err);
                 });
-            }).catch(err => {
-                console.log('Selection Error Code ::: ', err.code);
-                console.log('Selection Error ::: ', err);
-            });
+            }, 5000);
             break;
         case "delete":
             FileEventLog(stat, files, dirs);
@@ -197,7 +206,7 @@ const _Init = () => {
 /** Log File Event Make Function */
 const FileEventLog = (ret, files, dirs) => {
     let tmp = `case is ${ret}! ${dirs.length>0?"\r\n-dirs :"+dirs:""} ${files.length>0?"\r\n - files : " + files:""}`;
-    console.log(tmp);
+    console.log(tmp + "\r\n TIME : " + Date.now());
 };
 
 module.exports = _Init;

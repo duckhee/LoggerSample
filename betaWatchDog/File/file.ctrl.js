@@ -9,6 +9,7 @@ const _LogRoot = process.cwd() + '/log/';
 const FileStat = (file) => {
     try {
         let _stat = fs.statSync(file);
+        console.log("File Stats : ", _stat);
         return _stat;
     } catch (err) {
         console.log('file Stat Check Error code ::: ', err.code);
