@@ -106,6 +106,7 @@ function InputChartData(chart, id, options) {
 }
 
 function ReMakeData(chart, id) {
+
     return $.ajax({
         type: 'get',
         url: '/beta/Data?no=' + id,
