@@ -109,8 +109,7 @@ const LogOut = (req, res, next) => {
     //req.session.UserLogin = null;
     req.session.destroy(() => {
         console.log("session Delete Beta User Info");
-        //req.session;
-        res.clearCookie('secreteKeyWon');
+        //res.clearCookie('secreteKeyWon');
         //return res.redirect('/beta/login');
     });
     return res.redirect('/beta/login');
