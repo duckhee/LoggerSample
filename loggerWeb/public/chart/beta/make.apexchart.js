@@ -88,6 +88,12 @@ function InputChartData(chart, id, options) {
         error: function() {
             return console.log('ajax error');
         },
+        beforeSend: function() {
+
+        },
+        complete: function() {
+
+        },
         success: function(data) {
             console.log('get data : ', data);
             if (data.error) {
@@ -106,6 +112,12 @@ function ReMakeData(chart, id) {
         dataType: 'json',
         error: function() {
             return console.log('ajax error');
+        },
+        beforeSend: function() {
+
+        },
+        complete: function() {
+
         },
         success: function(data) {
             if (data.error) {
