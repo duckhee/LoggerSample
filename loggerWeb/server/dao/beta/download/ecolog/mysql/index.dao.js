@@ -187,9 +187,9 @@ const MakeCSV = (data) => {
         Sheets.cell(1, 5).string("EC(ms/cm)").style(SheetStyle);
         Sheets.cell(1, 6).string("염분").style(SheetStyle);
         Sheets.cell(1, 7).string("TDS(mg/L)").style(SheetStyle);
-        Sheets.cell(1, 8).string("전원(V)").style(SheetStyle);
-	Sheets.cell(1, 9).string("전원 날짜(년-월-일)").style(SheetStyle);
-	Sheets.cell(1, 10).string("전원 시간(시:분)").style(SheetStyle);
+        Sheets.cell(1, 9).string("전원 날짜(년-월-일)").style(SheetStyle);
+        Sheets.cell(1, 10).string("전원 시간(시:분)").style(SheetStyle);
+        Sheets.cell(1, 11).string("전원(V)").style(SheetStyle);
         let count = 0;
         let temp0 = 0,
             temp1 = 0,
@@ -230,12 +230,12 @@ const MakeCSV = (data) => {
                 //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
                 count++;
             } else if (datas[i].ecologName === "0006") {
-		let Dates = new Date(datas[i].createdAt);
-		let GetHour = Dates.getHours() + 9;
-		Dates.setHours(GetHour);
-                Sheets.cell(temp5 + 2, 8).string("" + datas[i].ecologData).style(SheetStyle);
-		Sheets.cell(temp5+2, 9).date(datas[i].createdAt).style({numberFormat:'yyyy-mm-dd'});
-		Sheets.cell(temp5+2, 10).date(Dates).style({numberFormat:'HH:MM'});
+                let Dates = new Date(datas[i].createdAt);
+                let GetHour = Dates.getHours() + 9;
+                Dates.setHours(GetHour);
+                Sheets.cell(temp5 + 2, 9).date(datas[i].createdAt).style({ numberFormat: 'yyyy-mm-dd' });
+                Sheets.cell(temp5 + 2, 10).date(Dates).style({ numberFormat: 'HH:MM' });
+                Sheets.cell(temp5 + 2, 11).string("" + datas[i].ecologData).style(SheetStyle);
                 temp5++;
                 //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
                 count++;
