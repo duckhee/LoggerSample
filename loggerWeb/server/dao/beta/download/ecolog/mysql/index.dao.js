@@ -241,11 +241,7 @@ const MakeCSV = (data) => {
                 count++;
             }
         }
-        if (datas.length === count) {
             return resolve(_WorkBook);
-        } else {
-            return reject(null);
-        }
 
     });
 };
