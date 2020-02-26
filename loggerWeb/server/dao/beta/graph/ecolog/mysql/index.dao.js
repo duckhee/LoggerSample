@@ -135,7 +135,7 @@ const graph = (no, options) => {
             include: [{
                 model: models.ecologColumn,
                 attributes: ['ecologName', 'ecologData', 'createdAt'],
-                where: option
+                where: option,
             }]
         }).then(result => {
             if (!result) {
