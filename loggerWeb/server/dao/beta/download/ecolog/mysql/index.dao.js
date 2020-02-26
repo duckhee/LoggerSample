@@ -250,7 +250,7 @@ const MakeCSV = (data) => {
             return resolve(_WorkBook);
         }).catch(err => {
             return reject(err);
-        })
+        });
 
     });
 };
@@ -308,10 +308,11 @@ const MakesCSV = (data) => {
                 sheets.getCell(2 + temp6, 11).value = items.ecologData;
                 temp5++;
             }
+            return resolve();
         }));
     });
     Promise.all(_promise).then(() => {
-
+        return workbook.csv.writeFile("download.csv");
     });
 };
 
@@ -351,12 +352,7 @@ const download = (no, options) => {
             }
             console.log("Download Get Data ::: ", result.device);
             /*
-            MakeCSV(result, function(err, res) {
-                if (err) {
-                    return reject(err);
-                }
-                return resolve(res);
-            });
+                return resolve(MakeCSV(result));
             */
 
             console.log("Data Download ");
