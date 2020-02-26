@@ -73,7 +73,7 @@ const _EclogDBData = (Insert) => {
     return new Promise((resolve, reject) => {
         for (var i = 0; i < Insert.length; i++) {
             for (var j = 0; j < Insert[i].raw.length; j++) {
-                _promise.push(function() {
+                _promise.push(
                     new Promise((resolve, reject) => {
                         let _InsertJson = {};
                         _InsertJson.ecologName = Insert[i].name;
@@ -103,8 +103,8 @@ const _EclogDBData = (Insert) => {
                             _ReturnValue.push(_InsertJson);
                         }
                         return resolve();
-                    });
-                });
+                    })
+                );
             }
         }
         /*
