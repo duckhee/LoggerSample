@@ -196,8 +196,8 @@ const DownloadCSV = (req, res, next) => {
             /** excel4node download Function */
             else {
                 console.log("Download Logic Start");
-                //return result.write("download.csv", res);
-                return result.pipe(res);
+                return result.write("download.csv", res);
+                //return result.pipe(res);
                 //return result;
             }
         }).catch(err => {
