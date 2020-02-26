@@ -201,52 +201,52 @@ const MakeCSV = (data) => {
             temp4 = 0,
             temp5 = 0;
         let _promise = [];
-        for (let i = 0; i < datas.length; i++) {
+        datas.forEach(items => {
             //console.log("Make Data : ", datas[i]);
             _promise.push(new Promise((resolve, reject) => {
-                if (datas[i].ecologName == "0001") {
-                    let Dates = new Date(datas[i].createdAt);
-                    Sheets.cell(temp0 + 2, 3).string("" + datas[i].ecologData).style(SheetStyle);
-                    Sheets.cell(temp0 + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd' });
+                if (items.ecologName == "0001") {
+                    let Dates = new Date(items.createdAt);
+                    Sheets.cell(temp0 + 2, 3).string("" + items.ecologData).style(SheetStyle);
+                    Sheets.cell(temp0 + 2, 1).date(Dates).style({ numberFormat: 'yyyy-mm-dd' });
                     let GetHour = Dates.getHours() + 9;
                     Dates.setHours(GetHour);
                     Sheets.cell(temp0 + 2, 2).date(Dates).style({ numberFormat: 'HH:MM' });
                     temp0++;
                     count++;
-                } else if (datas[i].ecologName == "0002") {
-                    Sheets.cell(temp1 + 2, 4).string("" + datas[i].ecologData).style(SheetStyle);
+                } else if (items.ecologName == "0002") {
+                    Sheets.cell(temp1 + 2, 4).string("" + items.ecologData).style(SheetStyle);
                     temp1++;
                     //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
                     count++;
-                } else if (datas[i].ecologName == "0003") {
-                    Sheets.cell(temp2 + 2, 5).string("" + datas[i].ecologData).style(SheetStyle);
+                } else if (items.ecologName == "0003") {
+                    Sheets.cell(temp2 + 2, 5).string("" + items.ecologData).style(SheetStyle);
                     temp2++;
                     //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
                     count++;
-                } else if (datas[i].ecologName == "0004") {
-                    Sheets.cell(temp3 + 2, 6).string("" + datas[i].ecologData).style(SheetStyle);
+                } else if (items.ecologName == "0004") {
+                    Sheets.cell(temp3 + 2, 6).string("" + items.ecologData).style(SheetStyle);
                     temp3++;
                     //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
                     count++;
-                } else if (datas[i].ecologName === "0005") {
-                    Sheets.cell(temp4 + 2, 7).string("" + datas[i].ecologData).style(SheetStyle);
+                } else if (items.ecologName === "0005") {
+                    Sheets.cell(temp4 + 2, 7).string("" + items.ecologData).style(SheetStyle);
                     temp4++;
                     //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
                     count++;
-                } else if (datas[i].ecologName === "0006") {
-                    let Dates = new Date(datas[i].createdAt);
+                } else if (items.ecologName === "0006") {
+                    let Dates = new Date(items.createdAt);
                     let GetHour = Dates.getHours() + 9;
                     Dates.setHours(GetHour);
-                    Sheets.cell(temp5 + 2, 9).date(datas[i].createdAt).style({ numberFormat: 'yyyy-mm-dd' });
+                    Sheets.cell(temp5 + 2, 9).date(items.createdAt).style({ numberFormat: 'yyyy-mm-dd' });
                     Sheets.cell(temp5 + 2, 10).date(Dates).style({ numberFormat: 'HH:MM' });
-                    Sheets.cell(temp5 + 2, 11).string("" + datas[i].ecologData).style(SheetStyle);
+                    Sheets.cell(temp5 + 2, 11).string("" + items.ecologData).style(SheetStyle);
                     temp5++;
                     //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
                     count++;
                 }
                 resolve();
             }));
-        }
+        });
         Promise.all(_promise).then(() => {
             return resolve(_WorkBook);
         }).catch(err => {
