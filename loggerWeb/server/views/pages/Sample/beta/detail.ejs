@@ -171,9 +171,11 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <form id="<%=UserInfo.sites[0].plots[0].devices[i].name%>DownloadForm" action="/beta/download?no=<%=UserInfo.sites[0].plots[0].devices[i].id%>" method="post">
+                                    <form id="<%=UserInfo.sites[0].plots[0].devices[i].name%>DownloadForm" name="<%=UserInfo.sites[0].plots[0].devices[i].name%>DownloadForm" action="/beta/download?no=<%=UserInfo.sites[0].plots[0].devices[i].id%>" method="post">
                                         <input type="hidden" value="<%=_csrf%>" name="_csrf" id="_csrf">
-                                        <button type="submit" class="panel-control" style="float:right;" id="Download<%=UserInfo.sites[0].plots[0].devices[i].name%>">
+                                        <input type='hidden' value="" name="start" id="Start<%=UserInfo.sites[0].plots[0].devices[i].name%>Hidden">
+                                        <input type='hidden' value="" name="end" id="End<%=UserInfo.sites[0].plots[0].devices[i].name%>Hidden">
+                                        <button type="button" class="panel-control" style="float:right;" id="Download<%=UserInfo.sites[0].plots[0].devices[i].name%>"  data-toggle="modal" data-target="#<%=UserInfo.sites[0].plots[0].devices[i].name%>Modal">
                                             <i class="fas fa-download"></i>
                                         </button>
                                     </form>
@@ -184,6 +186,36 @@
                                 </div>
                             </div>
                             <!--./panel-header-->
+
+<!-- Modal -->
+<div class="modal fade" id="<%=UserInfo.sites[0].plots[0].devices[i].name%>Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><%=UserInfo.sites[0].plots[0].devices[i].name%></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+        <label>다운로드 시작 날짜 : </label>
+        <input type="text" class="datePicker" name="start" id="Start<%=UserInfo.sites[0].plots[0].devices[i].name%>Model">
+        </div>
+        <div>
+        <label>다운로드 끝 날짜 : </label>
+        <input type="text" class="datePicker" name='end' id ='End<%=UserInfo.sites[0].plots[0].devices[i].name%>Model'>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" id="Download<%=UserInfo.sites[0].plots[0].devices[i].name%>Model" data-dismiss="modal">다운로드</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--./modal-->
+
                             <div class="panel-body">
                                 <div class="panel-body-control">
                                     <div class="row panel-control-items"style="padding-top: 20px;" >
@@ -342,15 +374,26 @@
                                     
                                 });
                             }
+                            /** Download data */
+                            function <%=UserInfo.sites[0].plots[0].devices[i].name%>Download(){
+                                $("#Download<%=UserInfo.sites[0].plots[0].devices[i].name%>Model").click(function(){
+                                    console.log("Click Download Btn");
+                                    let start = $("#Start<%=UserInfo.sites[0].plots[0].devices[i].name%>Model").val();
+                                    let end = $("#End<%=UserInfo.sites[0].plots[0].devices[i].name%>Model").val();
+                                    $("#Start<%=UserInfo.sites[0].plots[0].devices[i].name%>Hidden").val(start);
+                                    $("#End<%=UserInfo.sites[0].plots[0].devices[i].name%>Hidden").val(end);
+                                    document.<%=UserInfo.sites[0].plots[0].devices[i].name%>DownloadForm.submit();
+                                });
+                            }
                             /** Make Chart And Function Registe */
-                            if('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%>' === "dataTracker"){
+                            if('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%>' === "DataTracker"){
                                 /** DataTracker Chart */
                                 let <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart = MakeAreaChart('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>', '<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');
                                 InputChartData(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart,'<%=UserInfo.sites[0].plots[0].devices[i].id%>');
                                 console.log('DataTracker');
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>ChangeChart(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart);
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>DateSelector(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart,'<%=UserInfo.sites[0].plots[0].devices[i].id%>','<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');
-                                
+                                <%=UserInfo.sites[0].plots[0].devices[i].name%>Download();
                             }else if('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%>' === "ecolog"){
                                 /** Ecolog Chart */
                                 let <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart = MakeAreaChart('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>', '<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');
@@ -358,7 +401,7 @@
                                 console.log('ecolog');
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>ChangeChart(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart);
                                 <%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>DateSelector(<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>Chart,'<%=UserInfo.sites[0].plots[0].devices[i].id%>','<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%><%=UserInfo.sites[0].plots[0].devices[i].name%>');
-                                
+                                <%=UserInfo.sites[0].plots[0].devices[i].name%>Download();
                             }else if('<%=UserInfo.sites[0].plots[0].devices[i].DeviceType%>'=== "hikVision"){
                                 /** HikVision Camera */
                                 console.log('hikVision');

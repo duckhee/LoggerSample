@@ -21,6 +21,7 @@ const CheckEcolog = (_Insert) => {
     });
 };
 
+//TODO
 /** Ecolog MIS File Parsing Function */
 const _MISParser = (_data, ecologId) => {
     let _RawData = _data;
@@ -60,6 +61,7 @@ const _EcologMakeDate = (data, time) => {
     return new Date(_SDate);
 };
 
+//TODO
 /** Make Data Json Type (Database Column Matching) */
 const _EclogDBData = (Insert) => {
     let _ReturnValue = [];

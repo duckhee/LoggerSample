@@ -8,7 +8,9 @@ const ecolog = require('../../../../../DataBase/models/ecolog');
 const ecologColumn = require('../../../../../DataBase/models/ecologcolumn');
 /** Excel Module */
 const excel = require('excel4node');
-
+const Excel = require('exceljs');
+/** Stream */
+const fs = require('fs');
 /** Style Setting */
 const DefaultSheetStyle = {
     alignment: {
@@ -175,6 +177,7 @@ const MakeCSV = (data) => {
         console.log("Make CSV File Format");
         if (data.dataValues.ecologColumns.length <= 0) {
             return reject(null);
+            //return callback(null, null);
         }
         /** Make WorkBook */
         const _WorkBook = new excel.Workbook();
@@ -201,9 +204,9 @@ const MakeCSV = (data) => {
             //console.log("Make Data : ", datas[i]);
             if (datas[i].ecologName == "0001") {
 
+                let Dates = new Date(datas[i].createdAt);
                 Sheets.cell(temp0 + 2, 3).string("" + datas[i].ecologData).style(SheetStyle);
                 Sheets.cell(temp0 + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd' });
-                let Dates = new Date(datas[i].createdAt);
                 let GetHour = Dates.getHours() + 9;
                 Dates.setHours(GetHour);
                 Sheets.cell(temp0 + 2, 2).date(Dates).style({ numberFormat: 'HH:MM' });
@@ -243,9 +246,69 @@ const MakeCSV = (data) => {
         }
         if (datas.length === count) {
             return resolve(_WorkBook);
+            //return callback(null, _WorkBook);
         } else {
             return reject(null);
+            //return callback(null, null);
         }
+
+
+    });
+};
+
+//TODO
+/** Exceljs function */
+const MakesCSV = (data) => {
+    let workbook = new Excel.Workbook();
+    let sheets = workbook.addWorksheet("sheet1");
+    sheets.columns = [
+        { header: '"센서 날짜(년-월-일)"', key: '1' },
+        { header: '센서 시간(시:분)', key: '2' },
+        { header: '수위(M)', key: '3' },
+        { header: '온도(℃)', key: '4' },
+        { header: 'EC(ms/cm)', key: '5' },
+        { header: '염분', key: '6' },
+        { header: 'TDS(mg/L)', key: '7' },
+        { header: '', key: '8' },
+        { header: '전원 날짜(년-월-일)', key: '9' },
+        { header: '전원 시간(시:분)', key: '10' },
+        { header: '전원(V)', key: '11' },
+    ];
+    let temp0 = 0,
+        temp1 = 0,
+        temp2 = 0,
+        temp3 = 0,
+        temp4 = 0,
+        temp5 = 0;
+    let datas = data.dataValues.ecologColumns;
+    let _promise = [];
+    datas.forEach(items => {
+        _promise.push(new Promise((resolve, reject) => {
+            if (items.ecologName == "0001") {
+                sheets.getCell(2 + temp0, 1).value = new Date(items.createdAt);
+                sheets.getCell(2 + temp0, 2).value = items.createdAt;
+                sheets.getCell(2 + temp0, 3).value = items.ecologData;
+                temp0++;
+            } else if (items.ecologName == "0002") {
+                console.log(sheets.getCell(2 + temp1, 1).value);
+                sheets.getCell(2 + temp1, 4).value = items.ecologData;
+                temp1++;
+            } else if (items.ecologName == "0003") {
+                sheets.getCell(2 + temp2, 5).value = items.ecologData;
+                temp2++;
+            } else if (items.ecologName == "0004") {
+                sheets.getCell(2 + temp3, 6).value = items.ecologData;
+                temp3++;
+            } else if (items.ecologName == "0005") {
+                sheets.getCell(2 + temp4, 7).value = items.ecologData;
+                temp4++;
+            } else if (items.ecologName == "0006") {
+                sheets.getCell(2 + temp5, 11).value = items.ecologData;
+                temp5++;
+            }
+        }));
+    });
+    Promise.all(_promise).then(() => {
 
     });
 };
@@ -253,7 +316,18 @@ const MakeCSV = (data) => {
 
 /** Download data get Module */
 const download = (no, options) => {
-    console.log("Download Controller");
+    console.log("Download Controller ", options);
+    var option = {};
+    /** select Options */
+    if (options.start) {
+        if (options.end) {
+            option = {
+                createdAt: {
+                    [models.Sequelize.Op.between]: [options.start, options.end]
+                }
+            };
+        }
+    }
     return new Promise((resolve, reject) => {
         models.ecolog.findOne({
             where: {
@@ -263,7 +337,7 @@ const download = (no, options) => {
             include: [{
                 model: models.ecologColumn,
                 attribute: ['ecologName', 'ecologData', 'createdAt'],
-                where: options
+                where: option
             }, {
                 model: models.device,
                 attributes: ['id', 'name']
@@ -274,12 +348,23 @@ const download = (no, options) => {
                 return resolve(null);
             }
             console.log("Download Get Data ::: ", result.device);
+            /*
+            MakeCSV(result, function(err, res) {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(res);
+            });
+            */
+
+            console.log("Data Download ");
             MakeCSV(result).then(results => {
                 return resolve(results);
             }).catch(err => {
                 console.log("Make CSV Error : ", err);
                 return reject(null);
             });
+
         }).catch(err => {
             console.log("Beta Ecolog Download Data Error Code ::: ", err.code);
             console.log("Beta Ecolog Download Data Error ::: ", err);

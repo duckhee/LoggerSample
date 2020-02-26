@@ -10,5 +10,6 @@
             "server": "localhost",
             "username": "root"
         }
-    ]
+    ],
+    "python.pythonPath": "/Users/duckheewon/anaconda3/bin/python"
 }

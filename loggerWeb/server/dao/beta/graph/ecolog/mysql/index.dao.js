@@ -158,6 +158,17 @@ const graph = (no, options) => {
 
 /** Download data get Module */
 const download = (no, options) => {
+    var option = {};
+    /** select Options */
+    if (options.start != "") {
+        if (options.end != "") {
+            option = {
+                createdAt: {
+                    [models.Sequelize.Op.between]: [options.start, options.end]
+                }
+            };
+        }
+    }
     return new Promise((resolve, reject) => {
         models.ecolog.findOne({
             where: {
@@ -167,10 +178,7 @@ const download = (no, options) => {
             include: [{
                 model: models.ecologColumn,
                 attribute: ['ecologName', 'ecologData', 'createdAt'],
-                where: options
-            }, {
-                model: models.device,
-                attributes: ['id', 'name']
+                where: option
             }]
         }).then(result => {
             if (!result) {

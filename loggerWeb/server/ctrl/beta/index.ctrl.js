@@ -117,10 +117,11 @@ const LogOut = (req, res, next) => {
 
 /** Make Chart Graph Data Json Type */
 const GraphDataJson = (req, res, next) => {
-    const StartDate = req.body.start || req.query.start || req.params.start || req.param.start || "";
-    const EndDate = req.body.end || req.query.end || req.params.end || req.param.end || "";
+    const StartDate = req.body.start || req.query.start || "";
+    const EndDate = req.body.end || req.query.end || "";
     const no = req.body.no || req.query.no || req.params.no || req.param.no || "";
-    console.log("Device Id : " + no + ", Start Date : " + StartDate + ", End Date : " + EndDate + ", body : " + req.body);
+    const csrf = req.body._csrf || req.query._csrf || "";
+    console.log("Device Id : " + no + ", Start Date : " + StartDate + ", End Date : " + EndDate + ", body : " + JSON.stringify(req.body) + " csrf : " + csrf);
     /** Device Id Null */
     if (no == "") {
         let msg = {
@@ -187,7 +188,7 @@ const DownloadCSV = (req, res, next) => {
         }
     }
     Device.GetDeviceType(no).then(Device => {
-        Download[Device.dataValues.deviceType](no).then(result => {
+        Download[Device.dataValues.deviceType](no, options).then(result => {
             if (!result) {
                 console.log("Download Logic Error");
                 return res.redirect('/beta/detail');
@@ -195,7 +196,8 @@ const DownloadCSV = (req, res, next) => {
             /** excel4node download Function */
             else {
                 console.log("Download Logic Start");
-                return result.write("download.csv", res);
+                //return result.write("download.csv", res);
+                return result.pipe(res);
                 //return result;
             }
         }).catch(err => {

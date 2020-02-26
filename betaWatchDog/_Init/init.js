@@ -27,6 +27,7 @@ const SizeCheck = (stat, files, dirs) => {
         console.log('get files : ', _files);
         for (let i in _files) {
             let size = GetFile.FileStat(_files[i]).size;
+            //TODO wait time and 
             if (size === 0) {
                 let err = new Error("File Size Zero");
                 return reject(err);

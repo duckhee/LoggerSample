@@ -30,6 +30,7 @@ const BetaRouter = (csurfMiddleware) => {
 
     /** Download CSV */
     router.post('/download', BetaCtrl.DownloadCSV);
+
     return router;
 }
 
