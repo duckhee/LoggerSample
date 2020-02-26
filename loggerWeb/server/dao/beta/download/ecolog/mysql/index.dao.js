@@ -285,8 +285,9 @@ const MakesCSV = (data) => {
     datas.forEach(items => {
         _promise.push(new Promise((resolve, reject) => {
             if (items.ecologName == "0001") {
-                sheets.getCell(2 + temp0, 1).value = new Date(items.createdAt);
-                sheets.getCell(2 + temp0, 2).value = items.createdAt;
+                let dates = new Date(items.createdAt);
+                sheets.getCell(2 + temp0, 1).value = String(dates.getFullYear()) + "-" + String(dates.getMonth() + 1) + "-" + String(dates.getDate());
+                sheets.getCell(2 + temp0, 2).value = String(dates.getHours()) + ":" + String(dates.getMinutes());
                 sheets.getCell(2 + temp1, 3).value = items.ecologData;
                 temp0++;
             } else if (items.ecologName == "0002") {
@@ -303,6 +304,9 @@ const MakesCSV = (data) => {
                 sheets.getCell(2 + temp5, 7).value = items.ecologData;
                 temp4++;
             } else if (items.ecologName == "0006") {
+                let dates = new Date(items.createdAt);
+                sheets.getCell(2 + temp6, 9).value = String(dates.getFullYear()) + "-" + String(dates.getMonth() + 1) + "-" + String(dates.getDate());
+                sheets.getCell(2 + temp6, 10).value = String(dates.getHours()) + ":" + String(dates.getMinutes());
                 sheets.getCell(2 + temp6, 11).value = items.ecologData;
                 temp5++;
             }
