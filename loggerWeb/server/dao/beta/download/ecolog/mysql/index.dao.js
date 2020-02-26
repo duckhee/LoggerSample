@@ -206,11 +206,10 @@ const MakeCSV = (data) => {
             _promise.push(new Promise((resolve, reject) => {
                 if (items.ecologName == "0001") {
                     let Dates = new Date(items.createdAt);
+                    Dates.setHours(Dates.getHours() + 9);
+                    Sheets.cell(temp0 + 2, 2).date(Dates).style({ numberFormat: 'HH:MM' });
                     Sheets.cell(temp0 + 2, 3).string("" + items.ecologData).style(SheetStyle);
                     Sheets.cell(temp0 + 2, 1).date(Dates).style({ numberFormat: 'yyyy-mm-dd' });
-                    let GetHour = Dates.getHours() + 9;
-                    Dates.setHours(GetHour);
-                    Sheets.cell(temp0 + 2, 2).date(Dates).style({ numberFormat: 'HH:MM' });
                     temp0++;
                     count++;
                 } else if (items.ecologName == "0002") {
@@ -235,9 +234,9 @@ const MakeCSV = (data) => {
                     count++;
                 } else if (items.ecologName === "0006") {
                     let Dates = new Date(items.createdAt);
-                    let GetHour = Dates.getHours() + 9;
-                    Dates.setHours(GetHour);
-                    Sheets.cell(temp5 + 2, 9).date(items.createdAt).style({ numberFormat: 'yyyy-mm-dd' });
+                    let GetHour = Dates.getHours();
+                    Dates.setHours(GetHour + 9);
+                    Sheets.cell(temp5 + 2, 9).date(Dates).style({ numberFormat: 'yyyy-mm-dd' });
                     Sheets.cell(temp5 + 2, 10).date(Dates).style({ numberFormat: 'HH:MM' });
                     Sheets.cell(temp5 + 2, 11).string("" + items.ecologData).style(SheetStyle);
                     temp5++;
