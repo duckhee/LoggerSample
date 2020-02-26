@@ -244,7 +244,7 @@ const MakeCSV = (data) => {
                     //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
                     count++;
                 }
-                resolve();
+                return resolve();
             }));
         });
         Promise.all(_promise).then(() => {
