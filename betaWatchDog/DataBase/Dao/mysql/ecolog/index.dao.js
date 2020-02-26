@@ -68,44 +68,59 @@ const _EcologMakeDate = (data, time) => {
 const _EclogDBData = (Insert) => {
     let _ReturnValue = [];
     console.log("Array LENGTH : ", Insert.length);
-    console.log("ecolog id : ", Insert.ecologIdx);
+    console.log("ecolog id : ", Insert[0].ecologIdx);
+    let _promise = [];
     return new Promise((resolve, reject) => {
         for (var i = 0; i < Insert.length; i++) {
             for (var j = 0; j < Insert[i].raw.length; j++) {
-                let _InsertJson = {};
-                _InsertJson.ecologName = Insert[i].name;
-                _InsertJson.ecologIdx = Insert[i].ecologIdx; //Insert[0].ecologIdx;
-                let _Detail = Insert[i].raw[j].split(";");
-                let _Date = _EcologMakeDate(_Detail[0], _Detail[1]);
-                if (!isNaN(_Date)) {
-                    _InsertJson.createdAt = _Date;
-                    _InsertJson.updatedAt = _Date;
-                }
-                let _FloatValue = parseFloat(_Detail[2]);
-                if (isNaN(_FloatValue)) {
-                    console.log("NULL");
-                    console.log("DATA " + i + " : ", _Detail[2]);
-                    if (_Detail[2] == undefined) {
-                        console.log("NULL VALUE");
-                    } else {
-                        //console.log("Insert full : ", _InsertJson);
+                _promise.push(function() {
+                    new Promise((resolve, reject) => {
+                        let _InsertJson = {};
                         _InsertJson.ecologName = Insert[i].name;
-                        _InsertJson.ecologData = _Detail[2];
-                        //console.log("Insert full : ", _InsertJson);
-                        _ReturnValue.push(_InsertJson);
-                    }
-                } else {
-                    //console.log("parse float : ", _FloatValue);
-                    _InsertJson.ecologData = String(_FloatValue);
-                    _ReturnValue.push(_InsertJson);
-                }
+                        _InsertJson.ecologIdx = Insert[i].ecologIdx; //Insert[0].ecologIdx;
+                        let _Detail = Insert[i].raw[j].split(";");
+                        let _Date = _EcologMakeDate(_Detail[0], _Detail[1]);
+                        if (!isNaN(_Date)) {
+                            _InsertJson.createdAt = _Date;
+                            _InsertJson.updatedAt = _Date;
+                        }
+                        let _FloatValue = parseFloat(_Detail[2]);
+                        if (isNaN(_FloatValue)) {
+                            console.log("NULL");
+                            console.log("DATA " + i + " : ", _Detail[2]);
+                            if (_Detail[2] == undefined) {
+                                console.log("NULL VALUE");
+                            } else {
+                                //console.log("Insert full : ", _InsertJson);
+                                _InsertJson.ecologName = Insert[i].name;
+                                _InsertJson.ecologData = _Detail[2];
+                                //console.log("Insert full : ", _InsertJson);
+                                _ReturnValue.push(_InsertJson);
+                            }
+                        } else {
+                            //console.log("parse float : ", _FloatValue);
+                            _InsertJson.ecologData = String(_FloatValue);
+                            _ReturnValue.push(_InsertJson);
+                        }
+                        return resolve();
+                    });
+                });
             }
         }
+        /*
         if (_ReturnValue.length > 0) {
             return resolve(_ReturnValue);
         } else {
             return reject(null);
         }
+        */
+        Promise.all(_promise).then(() => {
+            console.log(_ReturnValue);
+            return resolve(_ReturnValue);
+        }).catch(err => {
+            console.log("Test");
+            return reject(err);
+        });
     });
 };
 
@@ -134,6 +149,7 @@ const _MakeEcologData = (_Insert) => {
 const InsertDataColumn = (_Insert) => {
     return new Promise((resolve, reject) => {
         _MakeEcologData(_Insert).then(result => {
+            console.log(result);
             if (result.length <= 0) {
                 let err = new Error("Not Make Ecolog Data");
                 return reject(err);
