@@ -184,7 +184,7 @@ const _SelectCase = (stat, files, dirs) => {
                     console.log('Selection Error Code ::: ', err.code);
                     console.log('Selection Error ::: ', err);
                 });
-            }, 5000);
+            }, 10000);
             break;
         case "delete":
             FileEventLog(stat, files, dirs);
