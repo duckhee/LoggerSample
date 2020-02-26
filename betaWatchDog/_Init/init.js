@@ -11,6 +11,7 @@ const _Dao = require('../DataBase/Dao/index.dao');
 const Dao = _Dao();
 
 
+//TODO Change Uploading Data File Size check temp size = size
 /** File Size Check */
 const SizeCheck = (stat, files, dirs) => {
     let _ReturnValue = [];
@@ -25,6 +26,7 @@ const SizeCheck = (stat, files, dirs) => {
             return reject(err);
         }
         console.log('get files : ', _files);
+        let tempSize;
         for (let i in _files) {
             let size = GetFile.FileStat(_files[i]).size;
             console.log("File Size : ", size);
