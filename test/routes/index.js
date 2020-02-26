@@ -113,7 +113,8 @@ router.get('/test3', (req, res) => {
         temp2 = 0,
         temp3 = 0,
         temp4 = 0,
-        temp5 = 0;
+        temp5 = 0,
+        temp6 = 0;
     test().then(result => {
         let counts = 0;
         let test = [];
@@ -121,7 +122,6 @@ router.get('/test3', (req, res) => {
             test.push(new Promise(function(resolve, reject) {
                 if (items.ecologName == "0001") {
                     let dates = new Date(items.createdAt);
-
                     sheets.getCell(2 + temp0, 1).value = String(dates.getFullYear()) + "-" + String(dates.getMonth() + 1) + "-" + String(dates.getDate());
                     sheets.getCell(2 + temp0, 2).value = String(dates.getHours()) + ":" + String(dates.getMinutes());
                     sheets.getCell(2 + temp0, 3).value = items.ecologData;

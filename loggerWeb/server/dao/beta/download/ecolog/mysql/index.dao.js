@@ -200,58 +200,57 @@ const MakeCSV = (data) => {
             temp3 = 0,
             temp4 = 0,
             temp5 = 0;
+        let _promise = [];
         for (let i = 0; i < datas.length; i++) {
             //console.log("Make Data : ", datas[i]);
-            if (datas[i].ecologName == "0001") {
-
-                let Dates = new Date(datas[i].createdAt);
-                Sheets.cell(temp0 + 2, 3).string("" + datas[i].ecologData).style(SheetStyle);
-                Sheets.cell(temp0 + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd' });
-                let GetHour = Dates.getHours() + 9;
-                Dates.setHours(GetHour);
-                Sheets.cell(temp0 + 2, 2).date(Dates).style({ numberFormat: 'HH:MM' });
-                temp0++;
-                count++;
-            } else if (datas[i].ecologName == "0002") {
-                Sheets.cell(temp1 + 2, 4).string("" + datas[i].ecologData).style(SheetStyle);
-                temp1++;
-                //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
-                count++;
-            } else if (datas[i].ecologName == "0003") {
-                Sheets.cell(temp2 + 2, 5).string("" + datas[i].ecologData).style(SheetStyle);
-                temp2++;
-                //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
-                count++;
-            } else if (datas[i].ecologName == "0004") {
-                Sheets.cell(temp3 + 2, 6).string("" + datas[i].ecologData).style(SheetStyle);
-                temp3++;
-                //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
-                count++;
-            } else if (datas[i].ecologName === "0005") {
-                Sheets.cell(temp4 + 2, 7).string("" + datas[i].ecologData).style(SheetStyle);
-                temp4++;
-                //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
-                count++;
-            } else if (datas[i].ecologName === "0006") {
-                let Dates = new Date(datas[i].createdAt);
-                let GetHour = Dates.getHours() + 9;
-                Dates.setHours(GetHour);
-                Sheets.cell(temp5 + 2, 9).date(datas[i].createdAt).style({ numberFormat: 'yyyy-mm-dd' });
-                Sheets.cell(temp5 + 2, 10).date(Dates).style({ numberFormat: 'HH:MM' });
-                Sheets.cell(temp5 + 2, 11).string("" + datas[i].ecologData).style(SheetStyle);
-                temp5++;
-                //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
-                count++;
-            }
+            _promise.push(new Promise((resolve, reject) => {
+                if (datas[i].ecologName == "0001") {
+                    let Dates = new Date(datas[i].createdAt);
+                    Sheets.cell(temp0 + 2, 3).string("" + datas[i].ecologData).style(SheetStyle);
+                    Sheets.cell(temp0 + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd' });
+                    let GetHour = Dates.getHours() + 9;
+                    Dates.setHours(GetHour);
+                    Sheets.cell(temp0 + 2, 2).date(Dates).style({ numberFormat: 'HH:MM' });
+                    temp0++;
+                    count++;
+                } else if (datas[i].ecologName == "0002") {
+                    Sheets.cell(temp1 + 2, 4).string("" + datas[i].ecologData).style(SheetStyle);
+                    temp1++;
+                    //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
+                    count++;
+                } else if (datas[i].ecologName == "0003") {
+                    Sheets.cell(temp2 + 2, 5).string("" + datas[i].ecologData).style(SheetStyle);
+                    temp2++;
+                    //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
+                    count++;
+                } else if (datas[i].ecologName == "0004") {
+                    Sheets.cell(temp3 + 2, 6).string("" + datas[i].ecologData).style(SheetStyle);
+                    temp3++;
+                    //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
+                    count++;
+                } else if (datas[i].ecologName === "0005") {
+                    Sheets.cell(temp4 + 2, 7).string("" + datas[i].ecologData).style(SheetStyle);
+                    temp4++;
+                    //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
+                    count++;
+                } else if (datas[i].ecologName === "0006") {
+                    let Dates = new Date(datas[i].createdAt);
+                    let GetHour = Dates.getHours() + 9;
+                    Dates.setHours(GetHour);
+                    Sheets.cell(temp5 + 2, 9).date(datas[i].createdAt).style({ numberFormat: 'yyyy-mm-dd' });
+                    Sheets.cell(temp5 + 2, 10).date(Dates).style({ numberFormat: 'HH:MM' });
+                    Sheets.cell(temp5 + 2, 11).string("" + datas[i].ecologData).style(SheetStyle);
+                    temp5++;
+                    //Sheets.cell(i + 2, 1).date(new Date(datas[i].createdAt)).style({ numberFormat: 'yyyy-mm-dd:HH:MM' });
+                    count++;
+                }
+            }));
         }
-        if (datas.length === count) {
+        Promise.all(_promise).then(() => {
             return resolve(_WorkBook);
-            //return callback(null, _WorkBook);
-        } else {
-            return reject(null);
-            //return callback(null, null);
-        }
-
+        }).catch(err => {
+            return reject(err);
+        })
 
     });
 };
@@ -279,31 +278,34 @@ const MakesCSV = (data) => {
         temp2 = 0,
         temp3 = 0,
         temp4 = 0,
-        temp5 = 0;
+        temp5 = 0,
+        temp6 = 0;
     let datas = data.dataValues.ecologColumns;
     let _promise = [];
     datas.forEach(items => {
         _promise.push(new Promise((resolve, reject) => {
-            if (items.ecologName == "0001") {
+            if (items.createdAt) {
                 sheets.getCell(2 + temp0, 1).value = new Date(items.createdAt);
                 sheets.getCell(2 + temp0, 2).value = items.createdAt;
-                sheets.getCell(2 + temp0, 3).value = items.ecologData;
+            }
+            if (items.ecologName == "0001") {
+                sheets.getCell(2 + temp1, 3).value = items.ecologData;
                 temp0++;
             } else if (items.ecologName == "0002") {
                 console.log(sheets.getCell(2 + temp1, 1).value);
-                sheets.getCell(2 + temp1, 4).value = items.ecologData;
+                sheets.getCell(2 + temp2, 4).value = items.ecologData;
                 temp1++;
             } else if (items.ecologName == "0003") {
-                sheets.getCell(2 + temp2, 5).value = items.ecologData;
+                sheets.getCell(2 + temp3, 5).value = items.ecologData;
                 temp2++;
             } else if (items.ecologName == "0004") {
-                sheets.getCell(2 + temp3, 6).value = items.ecologData;
+                sheets.getCell(2 + temp4, 6).value = items.ecologData;
                 temp3++;
             } else if (items.ecologName == "0005") {
-                sheets.getCell(2 + temp4, 7).value = items.ecologData;
+                sheets.getCell(2 + temp5, 7).value = items.ecologData;
                 temp4++;
             } else if (items.ecologName == "0006") {
-                sheets.getCell(2 + temp5, 11).value = items.ecologData;
+                sheets.getCell(2 + temp6, 11).value = items.ecologData;
                 temp5++;
             }
         }));
