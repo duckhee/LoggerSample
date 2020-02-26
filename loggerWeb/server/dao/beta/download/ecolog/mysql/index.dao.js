@@ -284,11 +284,9 @@ const MakesCSV = (data) => {
     let _promise = [];
     datas.forEach(items => {
         _promise.push(new Promise((resolve, reject) => {
-            if (items.createdAt) {
+            if (items.ecologName == "0001") {
                 sheets.getCell(2 + temp0, 1).value = new Date(items.createdAt);
                 sheets.getCell(2 + temp0, 2).value = items.createdAt;
-            }
-            if (items.ecologName == "0001") {
                 sheets.getCell(2 + temp1, 3).value = items.ecologData;
                 temp0++;
             } else if (items.ecologName == "0002") {
