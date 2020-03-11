@@ -84,6 +84,7 @@ const _EclogDBData = (Insert) => {
                             _InsertJson.createdAt = _Date;
                             _InsertJson.updatedAt = _Date;
                         }
+                        //TODO Fix losing data here.
                         let _FloatValue = parseFloat(_Detail[2]);
                         if (isNaN(_FloatValue)) {
                             console.log("NULL");

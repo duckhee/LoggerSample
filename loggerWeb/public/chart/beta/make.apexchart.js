@@ -45,7 +45,7 @@ var DefaultOptions = {
 
     tooltip: {
         x: {
-            format: 'yyyy/MM/dd HH:mm'
+            format: 'yyyy/MM/dd HH:mm:ss'
         },
     }
 };
