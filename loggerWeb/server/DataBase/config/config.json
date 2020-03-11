@@ -3,7 +3,7 @@
         "username": "beta",
         "password": "won1228",
         "database": "beta_development",
-        "host": "127.0.0.1",
+        "host": "192.168.0.5",
         "dialect": "mysql",
         "timezone": "+09:00",
         "define": {
