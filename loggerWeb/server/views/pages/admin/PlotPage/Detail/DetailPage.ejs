@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include ('../../../../partials/admin/stylesheet.ejs') %>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+       <div class="wrapper">
+            <%- include ('../../../../partials/admin/header.ejs') %>
+            <div class="content-wrapper">
+                <div class="content">
+                   <div class="box box-warning">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class='fa fa-fw fa-folder' style="margin-right:10px;"></i>Plot Detail</h3>
+                        </div>
+                        <div class='box-body'>
+                            <div class="form-horizontal">
+                                <%if(PlotDetailInfo){%>
+                                    <div class='form-group'>
+                                        <label for='' class='col-xs-2 control-label'>Plot Name</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value='<%=PlotDetailInfo.dataValues.PlotName%>' disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='' class='col-xs-2 control-label'>Device Number</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value='<%=PlotDetailInfo.dataValues.devices.length%>' disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <%if(PlotDetailInfo.dataValues.devices){
+                                        PlotDetailInfo.dataValues.devices.forEach(Device=>{%>
+                                        <div class='box box-default'>
+                                            <div class='box-header with-border'>
+                                                <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style='margin-right:10px;'></i><%=Device.name%></h3>
+                                                <div class='box-tools pull-right'>
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                                </div>
+                                            </div>
+                                            <!--./box-header-->
+                                            <div class='box-body'>
+                                                <div class='form-horizontal'>
+                                                    <div class='form-group'>
+                                                        <label for='' class='col-xs-2 control-label'>Device Type</label>
+                                                        <div class='col-xs-4'>
+                                                            <input class='form-control' value='<%=Device.DeviceType%>' disabled>
+                                                        </div>
+                                                    </div>
+                                                    <!--./form-group-->
+                                                    <div class='form-group'>
+                                                        <label for='' class='col-xs-2 control-label'>Device Latitude</label>
+                                                        <div class='col-xs-4'>
+                                                            <input class='form-control' value='<%=Device.Latitude%>' disabled>
+                                                        </div>
+                                                    </div>
+                                                    <!--./form-group-->
+                                                    <div class='form-group'>
+                                                        <label for='' class='col-xs-2 control-label'>Device Longitude</label>
+                                                        <div class='col-xs-4'>
+                                                            <input class='form-control' value='<%=Device.Longitude%>' disabled>
+                                                        </div>
+                                                    </div>
+                                                    <!--./form-group-->
+                                                </div>
+                                                <!--./form-horizontal-->
+                                            </div>
+                                            <!--./box-body-->
+                                        </div>
+                                <%});}}%>
+                            </div>
+                        </div>
+                        <!--./box-body-->
+                        <div class='box-footer'>
+                            <div class='pull-right'>
+                                <button class='btn btn-warning'><i class='fa fa-fw fa-edit' style='margin-right:10px;'></i>Edit</button>
+                            </div>
+                        </div>
+                        <!--./box-footer-->
+                   </div>
+                </div>
+                <!--/.content-->
+            </div>
+            <!-- /.content-wrapper-->
+            <%- include ('../../../../partials/admin/footer.ejs') %>
+       </div>
+       <!--/.wrapper-->
+       <%- include ('../../../../partials/admin/footerScript.ejs') %>
+    </body>
+  
+</html>

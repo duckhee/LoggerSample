@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA=Compatible" content="IE=edge">
+        <title>IoF Admin | LogIn</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="shortcut icon" type="image/x-icon" href="/static/images/logo.png" >
+        <!-- BootStrap 3.3.6 -->
+        <link rel="stylesheet" href="/static/admin/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Theme Style -->
+        <link rel="stylesheet" href="/static/admin/dist/css/AdminLTE.min.css">
+        <!-- iCheck -->
+        <link rel="stylesheet" href="/static/admin/plugins/iCheck/square/blue.css">
+        <!-- sweetalert2 -->
+        <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
+    </head>
+    <body class="hold-transition login-page">
+        <!-- login box title end -->
+        <div class="login-box">
+            <div class="login-logo">
+                <a href="/"><b>Admin </b>IoF</a>
+            </div>
+        <!-- /.login box title end -->
+        <!-- Login Box body -->
+            <div class="login-box-body">
+                <p class="login-box-msg">Sing In to Start your Session</p>
+
+                <form name="loginInfo" id="loginInfo" action="" method="post">
+                    <input type="hidden" name="_csrf" value="<%=_csrf%>">
+                    <div class="form-group has-feedback">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email...">
+                        <i class="glyphicon glyphicon-envelope form-control-feedback"></i>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" name="password" id="pw" class="form-control" placeholder="PassWord...">
+                        <i class="glyphicon glyphicon-lock form-control-feedback"></i>
+                    </div>
+                    <div class="row">
+                        <!-- col -->
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input type="checkbox" id="rememberPass">  Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <!-- col -->
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-primary btn-block btn-flat" id="LoginDo">Sign In</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </form>
+                <a href="#">I Forget My password</a><br>
+                <!-- <a href="#" class="text-center">Registe a new Membership</a> -->
+            </div>
+            <!-- /.Login Box body -->
+        </div>
+        <!-- /.Login Box -->
+        <script src="/static/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="/static/admin/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/admin/plugins/iCheck/icheck.min.js"></script>
+        <!-- sweetalert2 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
+        <script>
+            function LogIn(){
+                $("#LoginDo").click(function(){
+                    document.loginInfo.action = "/admin/User/login";
+                    document.loginInfo.method = "post";
+                    document.loginInfo.submit();
+                });
+                $(":input").keydown(function(key){
+                    if(key.keyCode === 13){
+                        document.loginInfo.action = "/admin/User/login";
+                        document.loginInfo.method = "post";
+                        document.loginInfo.submit();
+                    }
+                });
+            }
+            $(function(){
+                $('#rememberPass').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                   // increaseArea: '230%' // optional
+                });
+                LogIn();
+                <%if(message.length > 0){%>
+                    Swal.fire({
+                        title:"<%=message%>",
+                        type:'warning'
+                    });
+                <%}%>
+               
+            });
+        </script>
+
+    </body>
+</html>

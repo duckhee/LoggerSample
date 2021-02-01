@@ -1,0 +1,35 @@
+{
+    "name": "betawatchdog",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "bin": {
+        "app": "main.js"
+    },
+    "scripts": {
+        "start": "node ./main.js",
+        "build": "pkg . --out-path ./dist --debug --force ",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt-nodejs": "0.0.3",
+        "dir_watchdog": "^1.0.0",
+        "mysql": "^2.17.1",
+        "mysql2": "^2.0.2",
+        "node-gyp": "^6.1.0",
+        "require": "^2.4.20",
+        "sequelize": "^5.21.3"
+    },
+    "devDependencies": {
+        "pkg": "^4.4.2"
+    },
+    "pkg": {
+        "assets": [
+            "./DataBase/config/config.json",
+            "./DataBase/models/*.js",
+            "./config/config.json"
+        ]
+    }
+}

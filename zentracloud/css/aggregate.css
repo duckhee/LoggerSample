@@ -1,0 +1,245 @@
+#wrapper {
+    margin-left:auto;
+    margin-right:auto;
+    width:960px;
+}
+
+/*.dropdown_timeframe{*/
+    /*visibility: hidden;*/
+/*}*/
+
+.chart_box {
+    border: 1px solid lightgrey;
+    width:96%;
+    height:380px;
+    background-color: #FFFFFF;
+}
+
+/*.max_input{*/
+    /*float:left;*/
+    /*margin:16px;*/
+    /*text-align:center;*/
+    /*font-size:12px;*/
+    /*z-index:2;*/
+    /*position:absolute;*/
+    /*left:1%;*/
+    /*height:25px;*/
+    /*width:50px;*/
+    /*top: 65px;*/
+/*}*/
+
+/*.min_input{*/
+    /*float:left;*/
+    /*text-align:center;*/
+    /*font-size:12px;*/
+    /*z-index:2;*/
+    /*position:relative;*/
+    /*bottom:62px;*/
+    /*right:1.2%;*/
+    /*height:25px;*/
+    /*width:50px;*/
+/*}*/
+
+.amchart_details{
+    /*width:95%;*/
+    height:380px;
+    z-index:1;
+    /*position:relative;*/
+}
+
+#background{
+     position: fixed;
+     top: 15px;
+     left: 20px;
+     height:50%;
+     width:80%;
+     background-color: #F0F0F0;
+}
+
+.chart_title_box{
+    border: 1px solid lightgrey;
+    width:96%;
+    height:60px;
+    background-color: #F7F6F6;
+}
+
+.measure_title{
+    width: 30%;
+    float:left;
+    padding-top:19px;
+    padding-left:15px;
+    text-align:left;
+}
+
+.unit_title{
+    float:left;
+    padding-top:15px;
+    color: #8c8c8c;
+}
+
+.reset_print_button{
+    float:right;
+    padding-top:15px;
+    color: #8c8c8c;
+    padding-right:20px;
+    width:20%;
+}
+
+.all_chart_components{
+    padding-top:30px;
+}
+
+.all_charts_box{
+    float:right;
+    width:100%;
+    border: 0px solid lightgrey;
+    height:6200px;
+}
+
+.sensor_list_container{
+    float:right;
+    width:100%;
+    border: 1px solid lightgrey;
+    height:80px;
+    background-color: #F7F6F6;
+}
+
+.download_button{
+    float:right;
+    padding-top:20px;
+    padding-right:55px;
+}
+
+.input_checkbox{
+    float:left;
+    padding-right:10px;
+    width:15px;
+    height:15px;
+    position:relative;
+}
+
+.port_label{
+    padding-right:15px;
+    font:normal 14px Arial;
+    position:relative;
+}
+
+.time_frame_button{
+    float:left;
+    /*padding-top:10px;*/
+    /*width:15.5%;
+    position:relative;*/
+    padding-left:2%;
+}
+
+.all_device_checkboxes{
+    width: 70%;
+    height:100%;
+    padding-top:8px;
+    float:left;
+}
+
+.device_checkboxes1{
+    float:left;
+    width:25%;
+    padding-top:8px;
+    height:90%;
+    position:relative;
+}
+
+
+.checkbox_design{
+    width:70%;
+    float:left;
+}
+
+.label_and_square{
+    padding-top:3px;
+}
+
+.blue_square{
+    width:13%;
+    height:15px;
+    background: #09417d;
+    padding-left:10px;
+    margin-top:2px;
+
+}
+
+.blue_square2{
+    width:13%;
+    height:15px;
+    background: #4B9DF5;
+    padding-left:10px;
+    margin-top:2px;
+
+}
+
+.green_square{
+    width:13%;
+    height:15px;
+    background: #58935b;
+    padding-left:10px;
+    margin-top:2px;
+
+}
+
+.green_square2{
+    width:13%;
+    height:15px;
+    background: #54C65A;
+    padding-left:10px;
+    margin-top:2px;
+
+}
+
+.yellow_square{
+    width:13%;
+    height:15px;
+    background: #CBAC2B;
+    padding-left:10px;
+    margin-top:2px;
+}
+
+.download_all_button{
+    float: right;
+    padding-right: 5px;
+}
+
+.modal_data {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 5000; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 260px;
+    top: 30%;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal_data-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

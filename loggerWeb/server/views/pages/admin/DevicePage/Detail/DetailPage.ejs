@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include ('../../../../partials/admin/stylesheet.ejs') %>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+       <div class="wrapper">
+            <%- include ('../../../../partials/admin/header.ejs') %>
+            <div class="content-wrapper">
+                <div class="content">
+                   <div class='box'>
+                        <div class='box-header with-border'>
+                            <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style="margin-right:10px;"></i>Device Detail</h3>
+                        </div>
+                        <!--./box-header-->
+                        <div class='box-body'>
+                            <div class='form-horizontal'>
+                                <%if(DeviceInfo){%>
+                                    <div class='form-group'>
+                                        <label for='' class='control-label col-xs-2'>Site Name</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value="<%=DeviceInfo.plot.dataValues.site.dataValues.name%>" disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='' class='control-label col-xs-2'>Plot Name</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value="<%=DeviceInfo.plot.dataValues.PlotName%>" disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for="" class='control-label col-xs-2'>Device Type</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value="<%=DeviceInfo.DeviceType%>" disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for="" class='control-label col-xs-2'>Device Name</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value="<%=DeviceInfo.name%>" disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='' class='control-label col-xs-2'>Device Latitude</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value='<%=DeviceInfo.Latitude%>' disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='' class='control-label col-xs-2'>Device Longitude</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value='<%=DeviceInfo.Longitude%>' disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='' class='control-label col-xs-2'>Device Longitude</label>
+                                        <div class='col-xs-4'>
+                                            <input class='form-control' value='<%=DeviceInfo.FTPFolder%>' disabled>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                <%}%>
+                            </div>
+                        </div>
+                        <!--./box-body-->
+                        <div class='box-footer'>
+                            <div class='pull-right'>
+                                <button class='btn btn-warning'><i class='fa fa-fw fa-edit' style='margin-right:10px;'></i>Edit</button>
+                            </div>
+                        </div>
+                        <!--./box-footer-->
+                   </div>
+                   <!--./box-->
+                   <!-- device Type Detail -->
+                   <%if((DeviceInfo.DeviceType == "DataTracker") && DeviceInfo.RawValue){%>
+                    <div class="box box-primary">
+                        <div class="box-header  with-border">
+                            <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style="margin-right:10px;"></i>DataTracker Detail</h3>
+                            <div class='box-tools pull-right'>
+                            
+                                <button type="button" class='btn btn-box-tool' data-widget="collapse"><i class='fa fa-minus'></i></button>
+                            </div>
+                        </div>
+                        <!--./box-header-->
+                        <div class="box-body">
+                            <div class='form-horizontal'>
+                                <div class="form-group">
+                                    <label for="" class="control-label col-xs-2">Data Tracker IP</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" value="<%=DeviceInfo.RawValue.DataTrackerIP %>" disabled>
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="" class="control-label col-xs-2">Data Tracker ID</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" value="<%=DeviceInfo.RawValue.DataTrackerId %>" disabled>
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--./box-->
+                   <%}else if(DeviceInfo.DeviceType == "ecolog"){%>
+                   <div class="box box-primary">
+                        <div class="box-header  with-border">
+                            <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style="margin-right:10px;"></i>ecolog Detail</h3>
+                            <div class='box-tools pull-right'>
+                                <button type="button" class='btn btn-box-tool' data-widget="collapse"><i class='fa fa-minus'></i></button>
+                            </div>
+                        </div>
+                        <!--./box-header-->
+                        <div class="box-body">
+                            <div class='form-horizontal'>
+                                <div class="form-group">
+                                    <label for="" class="control-label col-xs-2">File Type</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" disabled value="<%=DeviceInfo.RawValue.FileFormat%>">
+                                    </div>
+                                </div>
+                                <!-- ./form-group -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--./box-->
+                   <%} else if(DeviceInfo.DeviceType == "HikVision"){%>
+                   <div class="box box-primary">
+                        <div class="box-header  with-border">
+                            <h3 class='box-title'><i class='fa fa-fw fa-hdd-o' style="margin-right:10px;"></i>HikVision Detail</h3>
+                            <div class='box-tools pull-right'>
+                                <button type="button" class='btn btn-box-tool' data-widget="collapse"><i class='fa fa-minus'></i></button>
+                            </div>
+                        </div>
+                        <!--./box-header-->
+                        <div class="box-body">
+                            <div class='form-horizontal'>
+                                <div class="form-group">
+                                    <label for="" class="col-xs-2 control-label">HikVision IP</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" disabled value="<%=DeviceInfo.RawValue.HikVisionIp%>">
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="" class="col-xs-2 control-label">HikVision ID</label>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control" disabled value="<%=DeviceInfo.RawValue.HikVisionId%>">
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--./box-->
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Camera Image</h3>
+                            <div class="box-tools pull-right">
+                            
+                                <button type="button" class='btn btn-box-tool' data-widget="collapse"><i class='fa fa-minus'></i></button>
+                            </div>
+                        </div>
+                        <!-- ./box-header-->
+                        <div class="box-body">
+                            <div id="Camera-Image">
+                                <img style="height:100%;width:100%;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--./show img-->
+                   <%}else{%>
+                   <%}%>
+                   <!-- ./device Type Detail -->
+                   
+                   <%if(DeviceInfo.DeviceType !== "HikVision"){%>
+                   <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-line-chart" style="margin-right:10px;"></i>Device Graph</h3>
+                            <div class='box-tools pull-right'>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-box-tool" id="download"><i class="fa fa-fw fa-download"></i></button>
+                                </div>
+                                <!--<button type="button" class='btn btn-box-tool' data-widget="collapse"><i class='fa fa-minus'></i></button>-->
+                            </div>
+                            <!--./box-header-->
+                            <div class="box-body">
+                                <div id="graph">
+                                </div>
+                            </div>
+                            <!--./box-body-->
+                        </div>
+                   </div>
+                   <%}%>
+                   <!--./bod graph-->
+                </div>
+                <!--/.content-->
+            </div>
+            <!-- /.content-wrapper-->
+            <%- include ('../../../../partials/admin/footer.ejs') %>
+       </div>
+       <!--/.wrapper-->
+       <%- include ('../../../../partials/admin/footerScript.ejs') %>
+       <%- include ('../../../../partials/admin/chartScript.ejs') %>
+       <script src="/static/camera/camera.js"></script>
+       <script>
+            $(function(){
+
+            //console.log('Testing Value : ', TestingData);
+            /** Make Chart */
+            
+
+            let charData = JSON.parse('<%-JSON.stringify(DeviceInfo)%>');
+            console.log('char Data : ',charData);
+            
+            /** New Update */
+            
+            console.log("<%=DeviceInfo.dataValues.DeviceType%>");
+            if("<%=DeviceInfo.dataValues.DeviceType%>" === "HikVision"){
+                capture("admin", "won1228WON","Camera-Image");
+            }
+            //AjaxTest(<%=DeviceInfo.dataValues.id%>,chart);
+            if("<%=DeviceInfo.dataValues.DeviceType%>" === "DataTracker"){
+                let chart = MakeAreaChart("graph","<%=DeviceInfo.dataValues.name%>");
+                AjaxTest(charData.id, chart);
+                
+            }
+            if("<%=DeviceInfo.dataValues.DeviceType%>" === "ecolog"){
+                let chart = MakeAreaChart("graph","<%=DeviceInfo.dataValues.name%>");
+            }
+            })
+       </script>
+    </body>
+  
+</html>

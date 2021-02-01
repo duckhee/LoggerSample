@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include ('../../../../partials/admin/stylesheet.ejs') %>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+       <div class="wrapper">
+            <%- include ('../../../../partials/admin/header.ejs') %>
+            <div class="content-wrapper">
+                <div class="content">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-fw fa-users" style="margin-right:10px;"></i>Member List</h3>
+                            <div class='box-tools'>
+                                <div class="pull-left">
+                                    <select class="form-control">
+                                        <option value="">User Id</option>
+                                        <option value="">User Name</option>
+                                        <option value="">User Level</option>
+                                        <option value="">Registe Date</option>
+                                    </select>
+                                </div>
+                                <div class="input-group input-group-sm" style="width:150px;">
+                                    <input type='text' class="form-control pull-right" placeholder="Search...">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td style="width:10px;"><input type="checkbox" name="th_checkAll" id="th_checkAll" onclick="allCheck();"></td>
+                                         <td>User Id</td>
+                                         <td>User Name</td>
+                                         <td>User Level</td>
+                                         <td>Registe Date</td>
+                                         <td>Update Date</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="member-tbody">
+                                    <% if(UserInfoList){
+                                        UserInfoList.forEach(item=>{ %>
+                                            <tr>
+                                                <td><input type="checkbox" name="checkRow" value="<%=item.id%>"></td>
+                                                <td><%=item.UserEmail%></td>
+                                                <td><a href="/admin/Members/detail?no=<%=item.id%>"><%=item.UserName%></a></td>
+                                                <td><%=item.UserLevel%></td>
+                                                <td><%=new Date(item.createdAt).getFullYear() + '-' + (new Date(item.createdAt).getMonth()+1) + '-' + new Date(item.createdAt).getDate()+":"+new Date(item.createdAt).getHours()+":"+new Date(item.createdAt).getMinutes()%></td>
+                                                <td><%=item.updatedAt%></td>
+                                            </tr>
+                                    <%});
+                                    }%>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <div class="pull-left">
+                                <button id="Delete" class="btn btn-danger"><i class="fa fa-fw fa-trash-o" style="margin-right:10px;"></i>Delete</button>
+                            </div>
+                            <div class="pull-right">
+                                <!--<div class="btn-group">-->
+                                    <button type="button"id="Edit" class="btn btn-warning"><i class="fa fa-fw fa-edit" style="margin-right:10px;"></i>Edit</button>
+                                    <button type="button"id="Create" class="btn btn-primary"><i class="fa fa-fw fa-pencil" style="margin-right:10px;"></i>Insert</button>
+                                <!--</div>-->
+                            </div>
+                            <div class="text-center">
+                            <%if(UserAllPage){
+                                let leftFlag = false;
+                                let rightFlag = false;
+                                %>
+                                <ul class="pagination pagination-sm no-margin">
+                                <li>
+                                    <a href="/admin/Members/list?page=<%=parseInt(curPage)-1%>"><<</a>
+                                </li>
+                            <%for(var i = 1; i <= UserAllPage; i++){
+                                    if((i < 4) || (UserAllPage-3 < i) ){%>
+                                <li>
+                                    <a href="/admin/Members/list?page=<%=i%>"><%=i%></a>
+                                </li>
+                                <%}else{
+                                    if(rightFlag === false && (parseInt(curPage) >4 || parseInt(curPage)<3)){
+                                        rightFlag = true;%>
+                                        <li><a>...</a></li>
+                                <%}
+                                    if(parseInt(curPage)-2 <i && parseInt(curPage) + 2 > i){
+                                        if(parseInt(curPage) + 1 === parseInt(i)){
+                                            leftFlag = 1;
+                                        }%>
+                                <li>
+                                    <a href="/admin/Members/list?page=<%=i%>"><%=i%></a>
+                                </li>
+                                <%}
+                                    if(leftFlag === 1){
+                                        leftFlag = true;
+                                %>
+                                    <li><a>...</a></li>
+                                <%}}%>
+                                <%}%>
+                                <!-- For End -->
+                                <li>
+                                    <a href="/admin/Members/list?page=<%=parseInt(curPage)+1%>">>></a>
+                                </li>
+                            </ul>
+                            <%}else{%>
+                                <ul class="pagination pagination-sm no-margin">
+                                    <li>
+                                        <a ><<</a>
+                                    </li>
+                                    <li>
+                                        <a >>></a>
+                                    </li>
+                                </ul>
+                            <%}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.content-->
+            </div>
+            <!-- /.content-wrapper-->
+            <%- include ('../../../../partials/admin/footer.ejs') %>
+       </div>
+       <!--/.wrapper-->
+       <%- include ('../../../../partials/admin/footerScript.ejs') %>
+    </body>
+    <script>
+        function allCheck(){
+            if($("#th_checkAll").is(":checked")){
+                $("input[name=checkRow]").prop("checked", true);
+            }else{
+                $("input[name=checkRow]").prop("checked", false);
+            }
+        }
+        function CreateMember(){
+            $("#Create").click(function(){
+                location.href = "/admin/Members/registe";
+            });
+        }
+        function EditMember(){
+            $("#Edit").click(function(){
+                let checkValue = [];
+                $.each($('input[name="checkRow"]:checked'), function(){
+                    checkValue.push($(this).val());
+                });
+                if(checkValue.length === 1){
+                    location.href = '/admin/Members/modify?no='+checkValue;
+                }else if(checkValue.length === 0){
+                     Swal.fire({
+                        title:'Select check need',
+                        type:'warning',
+                    });
+                }else{
+                    Swal.fire({
+                        title:'Select Only One',
+                        type:'warning',
+                    });
+                }
+            });
+        }
+
+        function reloadingTable(data){
+            $("#member-tbody").empty();
+            let txt = "";
+            $.each(data, function(idx, obj){
+                txt += "<tr><td><input type='checkbox' name='checkRow' value="+obj.id+"></td>";
+                txt += "<td>"+obj.UserEmail+"</td>";
+                txt += "<td><a href='/admin/Members/detail?no='"+obj.id+"'>"+obj.UserName+"</a></td>";
+                txt += "<td>"+obj.UserLevel+"</td>";
+                txt += "<td>"+new Date(obj.createdAt).getFullYear() + '-' + (new Date(obj.createdAt).getMonth()+1) + '-' + new Date(obj.createdAt).getDate()+":"+new Date(obj.createdAt).getHours()+":"+new Date(obj.createdAt).getMinutes()+"</td>";
+                txt += "<td>"+obj.updatedAt+"</td></tr>";
+            });
+            $("#member-tbody").append(txt);
+        }
+
+        function DeleteMember(){
+            $("#Delete").click(function(){
+                let checkValue = [];
+                let checkingName = [];
+                $.each($('input[name="checkRow"]:checked'), function(){
+                    checkValue.push($(this).val());
+                    checkingName.push($(this).parent('td').next().html());
+                });
+                if(checkValue.length === 0){
+                    Swal.fire({
+                        title:'Check delete user first',
+                        type:'warning'
+                    });
+                }else{
+                    Swal.fire({
+                        title:'Are you Sure Delete User?',
+                        type:'question',
+                        html:'<p style="font-size:20px;">'+checkingName+'</p>',
+                        showCancelButton:true
+                    }).then(result=>{
+                        if(result.value){
+                            
+                            let curURL = new URL(location.href);
+                            let pages = curURL.searchParams.get('page');
+                            let keyId = curURL.searchParams.get('searchById');
+                            let keyName = curURL.searchParams.get('searchByName');
+                            let keyLevel = curURL.searchParams.get('searchByLevel');
+                            if(pages === null){
+                                pages = "";
+                            }
+                            if(keyId === null){
+                                keyId = "";
+                            }
+                            if(keyName === null){
+                                keyName = "";
+                            }
+                            if(keyLevel === null){
+                                keyLevel  = "";
+                            }
+                            let ajaxValue = JSON.stringify({
+                                    'delete':checkValue,
+                                    'page':pages,
+                                    'searchById':keyId,
+                                    'searchByName':keyName,
+                                    'searchByLevel':keyLevel
+                            });
+                            $.ajaxSetup({
+                                beforeSend: function(xhr) {
+                                    xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                                }
+                            });
+                            $.ajax({
+                                url:'/admin/Members/delete',
+                                type:'post',
+                                dataType:'json',
+                                contentType:'application/json',
+                                data:ajaxValue,
+                                success:function(data){
+                                    $("input:checkbox[id='th_checkAll']").prop("checked", false);
+                                    reloadingTable(data);
+                                },
+                                err:function(request, status, error){
+                                    console.log('code : ', request.status);
+                                    console.log('message : ', request.responseText);
+                                    console.log('status : ', status);
+                                    console.log('error ::: ', error);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+
+        $(document).ready(function(){
+            CreateMember();
+            EditMember();
+            DeleteMember();
+            
+        })
+    </script>
+</html>

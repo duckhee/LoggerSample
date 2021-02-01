@@ -1,3 +1,5 @@
+const SplitType = require("./split.file");
+
 const fs = require('fs');
 const fileType = ["MIS", "csv"];
 
@@ -39,9 +41,10 @@ const GetFileText = (FilePath) => {
             encoding: 'utf-8'
         });
         if (mineType == 'csv') {
-            fileData = GetFile.split('\r\n');
+            fileData = SplitType.GetDataCSV(GetFile);
         } else if (mineType == 'MIS') {
-            fileData = GetFile.split('\r\n');
+            //fileData = GetFile.split('\r\n');
+            return GetFile;
         }
         return fileData;
     }

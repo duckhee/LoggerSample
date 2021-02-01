@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include ('../../../../partials/admin/stylesheet.ejs') %>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+       <div class="wrapper">
+            <%- include ('../../../../partials/admin/header.ejs') %>
+            <div class="content-wrapper">
+                <div class="content">
+                   <div class="box box-primary" style="margin:auto; width:80%;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class='fa fa-fw fa-inbox' style="margin-right:10ox;"></i>Site Detail</h3>
+                            <!--<div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>-->
+                        </div>
+                        <div class="box-body">
+                            <%if(SiteDetailInfo){%>
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="Site Name" class="col-sm-2 control-label">Site Name</label>
+                                        <div class="col-sm-4">
+                                            <input id="Site Name" class="form-control" disabled value="<%=SiteDetailInfo.dataValues.name%>">
+                                        </div>
+                                    </div>
+                                    <!--./site form-group-->
+                                    <div class="form-group">
+                                        <label for="Site Owner" class="col-sm-2 control-label">Site Owner</label>
+                                        <div class="col-sm-4">
+                                            <input id="Site Owner" class="form-control" disabled value="<%=SiteDetailInfo.dataValues.Owner%>">
+                                        </div>
+                                    </div>
+                                    <!--./site form-group-->
+                                    <div class="form-group">
+                                        <label for="Site Owner" class="col-sm-2 control-label">Plot Number</label>
+                                        <div class="col-sm-4">
+                                            <input id="Site Owner" class="form-control" disabled value="<%=SiteDetailInfo.dataValues.plots.length%>">
+                                        </div>
+                                    </div>
+                                    <!--./site form-group-->
+                                    <%if(SiteDetailInfo.dataValues.plots){
+                                        SiteDetailInfo.dataValues.plots.forEach(item=>{ %>
+                                        <div class="box box-warning">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title"><i class='fa fa-fw fa-folder' style="margin-right:10px;"></i><%=item.PlotName%></h3>
+                                                <div class="box-tools pull-right">
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                                </div>
+                                            </div>
+                                            <!--./plot box-->
+                                            <div class="box-body">
+                                                <div class="form-horizontal">
+                                                    <div class="form-group">
+                                                            <label for="PlotName" class="col-sm-2 control-label">Plot Name</label>
+                                                        <div class="col-sm-4">
+                                                            <input id="PlotName" class="form-control" disabled value="<%=item.PlotName%>">
+                                                        </div>
+                                                    </div>
+                                                    <!-- ./plot form-group-->
+                                                    <div class="form-group">
+                                                            <label for="DeviceNumber" class="col-sm-2 control-label">Device Number</label>
+                                                        <div class="col-sm-4">
+                                                            <input id="DeviceNumber" class="form-control" disabled value="<%=item.devices.length%>">
+                                                        </div>
+                                                    </div>
+                                                    <!-- ./plot form-group-->
+                                                </div>
+                                                <%if(item.DeviceInfo){
+                                                    item.DeviceInfo.forEach(device=>{%>
+                                                    <div class="box box-default">
+                                                        <div class="box-header with-border">
+                                                            <h3 class="box-title"><i class='fa fa-fw fa-hdd-o' style="margin-right:10px;"></i><%=device.DeviceName%></h3>
+                                                            <div class="box-tools pull-right">
+                                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <!--./Device header-->
+                                                        <div class="box-body">
+                                                            <div class='form-horizontal'>
+                                                                <div class="form-group">
+                                                                    <label for="" class='control-label col-sm-2'>Device Name</label> 
+                                                                    <div class="col-sm-4">
+                                                                        <input class="form-control" disabled value="<%=device.DeviceName%>">
+                                                                    </div>
+                                                                </div>
+                                                                <!--./form-group-->
+                                                                <div class="form-group">
+                                                                    <label for='' class="control-label col-sm-2">Device Type</label>
+                                                                    <div class="col-sm-4">
+                                                                        <input class="form-control" disabled value="<%=device.Type%>">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--./Device box body -->
+                                                        </div>
+                                                        <!--./Device box-->
+                                                    </div>
+                                                <%});
+                                                }%>
+                                            </div>
+                                            <!--<div class="box-footer">
+                                                <div class="pull-right">
+                                                    <button type="button" class="btn btn-default"><i class="fa fa-fw fa-pencil"></i>Edit</button>
+                                                </div>
+                                            </div>-->
+                                            <!--./box footer-->
+                                        </div>
+                                    <%});
+                                    }%>
+                                </div>
+                                <!--./site-->
+                            <%}%>
+                        </div>
+                        <!--./box-body-->
+                        <div class="box-footer clearfix">
+                            <div class="pull-left">
+                                <button class="btn btn-danger"><i class="fa fa-fw fa-trash-o" style="margin-right:10px;"></i>Delete</button>
+                            </div>
+                            <div class="pull-right">
+                                <button class="btn btn-warning"><i class="fa fa-fw fa-edit" style="margin-right:10px;"></i>Edit</button>
+                            </div>
+                        </div>
+                   </div>
+                   <!--./box-->
+                </div>
+                <!--/.content-->
+            </div>
+            <!-- /.content-wrapper-->
+            <%- include ('../../../../partials/admin/footer.ejs') %>
+       </div>
+       <!--/.wrapper-->
+       <%- include ('../../../../partials/admin/footerScript.ejs') %>
+    </body>
+  
+</html>

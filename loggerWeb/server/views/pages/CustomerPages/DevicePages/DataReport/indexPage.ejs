@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>IoF Main Page</title>
+        <% include ../../../../partials/customer/MainPage/afterstylesheet.ejs %>
+    </head>
+    <body>
+        <!-- header -->
+        <% include ../../../../partials/customer/MainPage/afterMainHeader.ejs %>
+        <!-- end header -->
+        <div class="wrapper">
+            <div class="content-wrapper">
+                <div class="DataReport-content-header">
+                    <div class="DataReport-content-header-menu">
+                        <h1>Testing</h1>
+                    </div>
+                    <div class="DataReport-content-header-menu-body">
+                        <div class="btn-group DataReport-content-header-menu-body-menu">
+                            <ul class="resp-tabs-list">
+                                <li class="resp-tab-item resp-tab-active" id="tab1" rule="tag">Selection Criteria</li>
+                                 <li class="resp-tab-item " id="tab2" rule="tag">Plot</li>
+                                 <li class="resp-tab-item" id="tab3" rule="tag">Report</li>
+                            </ul>
+                        </div>
+                        <div class="DataReport-content-menu-body">
+                        Testing
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Footer -->
+        <% include ../../../../partials/customer/MainPage/footer.ejs %>
+        <% include ../../../../partials/customer/MainPage/afterjavascript.ejs %>
+        <script>
+            $(document).ready(function(){
+                function HoverContentMenu()
+                {
+                    $("#tag2").hover(function(){
+                        alert('click');
+                        console.log('testing:');
+                        $("#tag1").removeClass('resp-tab-active');
+                        $("#tag3").removeClass('resp-tab-active');
+                        $("#tag2").addClass('resp-tab-active');
+                    });
+                    $("#tag2").click(function(){
+                        alert("click")
+                    });
+                    
+                }
+                /* Layout Fix */
+                function fix()
+                {
+                    var window_height = $(window).height();
+                    var footer_height = $(".main-footer").outerHeight() || 0;
+                    $('body, html, .wrapper').css('height', 'auto');
+                    $(".content-wrapper").css("min-height", window_height - footer_height);
+                    $('.map').css('height', window_height-footer_height);
+                }
+                fix();
+                HoverContentMenu();
+                $(window, ".wrapper").resize(function(){
+                    fix();
+                    HoverContentMenu();
+                });
+            });
+    </script>
+        
+    </body>
+</html>

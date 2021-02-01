@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>IoF Main Page</title>
+        <% include ../../../../partials/customer/MainPage/afterstylesheet.ejs %>
+        
+    </head>
+    <body>
+        <!-- header -->
+        <% include ../../../../partials/customer/MainPage/afterMainHeader.ejs %>
+        <!-- end header -->
+        <div class="wrapper">
+            <div class="content-wrapper">
+                <div class="content_menu">
+                    <h1>Dashboard</h1>
+                    <div class="showButtons">
+                        <button class="showButton1" type="button"></button>
+                        <button class="showButton2" type="button"></button>
+                        <button class="showButton3" type="button"></button>
+                        <button type="button" class="addPanel blue-color" data-toggle="modal" data-target="#addPanelshow">Add Panel to Dashboard</button>
+                    </div>
+                </div>
+                <!-- modal -->
+                <div class="modal fade" id="addPanelshow" tabindex="-1" role="dialog" aria-labelledby="addPanelshowTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header panel-config-header">
+                                <h5 class="modal-title" id="addPanelshowTitle">Panel Configuration</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <!-- /.modal header -->
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="panel-config-header panel-config-mini-header">
+                                            <h5 class="modal-title panel-config-mini-title" id="">Panel Configuration</h5>
+                                            <div class="button-group pull-right">
+                                                <button type="button" class="close">
+                                                    <span aria-hidden="true"><i class="fa fa-fw fa-trash"></i></span>
+                                                </button>
+                                                <button type="button" class="close">
+                                                    <span aria-hidden="true"><i class="fa fa-fw fa-trash"></i></span>
+                                                </button>
+                                            </div>
+                                            <!--/.button-group-->
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="/static/images/no_image_dashboard.jpg" alt="no image" style="width:100%;">
+                                        </div>
+                                        
+                                        <div class="modal-footer">
+                                            <div class="form-group">
+                                                <label for="Enter Description">Enter Description:</label>
+                                                <textarea class="form-control description" maxlength="255" rows cols name="description"></textarea>
+                                            </div>
+                                        </div>
+                                        <!--/.modal-title in modal -->
+                                    </div>
+                                    <!-- /.col-sm-3 -->
+                                    <div class="col-md-7">
+                                        <div class="">
+                                            <div class="form-group">
+                                                <label for="title" class="form-control-label">Title</label>
+                                                <input type="text" class="form-control" placeholder="Input your station name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="graph" >Graph</label>
+                                                <input type="radio" class="" name="InitDashboard">
+                                                <label for="table" >Table</label>
+                                                <input type="radio" class="" name="InitDashboard">
+                                                <label for="images">Images</label>
+                                                <input type="radio" class="" name="InitDashboard">
+                                            </div>
+                                            <!-- /.form-group -->
+                                            <div class="form-group">
+                                                <label for="SelectTime">Select Time:</label>
+                                                select box
+                                            </div>
+                                            <hr>
+                                            <div class="form-group">
+                                                <label for="Image">Upload Image:</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sortBy">Sort By:</label>
+                                                <input type="radio" class="" name="sort">
+                                                <label for="Stations/Sensor">Stations/Sensor</label>
+                                                <input type="radio" class="" name="sort">
+                                                <label for="Sensor/Stations">Sensor/Stations</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Values">Values:</label>
+                                                <textarea class="form-control description" maxlength="255" rows cols name="description"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="display">Display:</label>
+                                                <input type="radio" name="display">
+                                                <label for="StationName">StationName</label>
+                                                <input type="radio" name="display">
+                                                <label for="SensorName">SensorName</label>
+                                            </div>
+                                            <!--/.form-group-->
+                                        </div>
+                                    </div>
+                                    <!-- /.col-sm-7 -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.modal-body -->
+                            <div class="modal-footer justify-content-center">
+                                
+                                    <button type="button" class="blue-color" id="dashboardPreview">Preview</button>
+                                    <button type="button" class="blue-color" id="dashboardSetting">Done</button>
+                                
+                            </div>
+                            <!-- end footer main -->
+                        </div>
+                        <!-- end content modal -->
+                    </div>
+                </div>
+                <!-- /.modal -->
+                <!-- content -->
+                <div class="content_inner">
+                    <div class="dashboard-content" >
+                        <div class="row">
+                            <div class="col-md-4">
+                                Testing
+                            </div>
+                            <div class="col-md-4">
+                                Testing
+                            </div>
+                            <div class="col-md-4">
+                                Testing
+                            </div>
+                            <div class="col-md-4">
+                                Testing
+                            </div>
+                        </div>
+                    <!--/.row-->
+                    </div>
+                </div>
+                
+                <!-- /.content -->
+            </div>
+            <!--/.content-wrapper-->
+        </div>
+        <!--/.wrapper-->
+            <!-- Footer -->
+        <% include ../../../../partials/customer/MainPage/footer.ejs %>
+        <% include ../../../../partials/customer/MainPage/afterjavascript.ejs %>
+        
+        <script>
+            $(document).ready(function(){
+                
+                /* Layout Fix */
+                function fix()
+                {
+                    var window_height = $(window).height();
+                    var footer_height = $(".main-footer").outerHeight() || 0;
+                    $('body, html, .wrapper').css('height', 'auto');
+                    $(".content-wrapper").css("min-height", window_height - footer_height);
+                    $(".content_inner").css("min-height", window_height - footer_height-100);
+                }
+                fix();
+                $(window, ".wrapper").resize(function(){
+                    fix();
+                });
+            });
+    </script>
+        
+    </body>
+</html>

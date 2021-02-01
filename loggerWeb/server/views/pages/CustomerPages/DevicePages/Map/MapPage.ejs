@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>IoF Main Page</title>
+        <% include ../../../../partials/customer/MainPage/afterstylesheet.ejs %>
+    </head>
+    <body>
+        <!-- header -->
+        <% include ../../../../partials/customer/MainPage/afterMainHeader.ejs %>
+        <!-- end header -->
+        <div class="wrapper">
+            <div class="content-wrapper">
+                <div class="content-map">
+                    <div id="world-map-markers" class="map"></div>
+                </div>
+            </div>
+        </div>
+            <!-- Footer -->
+        <% include ../../../../partials/customer/MainPage/footer.ejs %>
+        <% include ../../../../partials/customer/MainPage/afterjavascript.ejs %>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=def2722a96dab30bb5441f914e98d2b1"></script>
+        <script>
+            $(document).ready(function(){
+                /* Make Map Need lat Lng */
+                function getMap()
+                {
+                    var mapContainer = document.getElementById("world-map-markers");
+                    mapOption = {
+                    center:new kakao.maps.LatLng(37.335887, 126.584063),
+                    level:12
+                    }
+                    var map = new kakao.maps.Map(mapContainer, mapOption);
+                    /* change map view type */
+                    var mapTypeControl = new kakao.maps.MapTypeControl();
+                    map.addControl(mapTypeControl, kakao.maps.ControlPosition.LEFT);
+                    /* Zoom Control */
+                    var zoomControl = new kakao.maps.ZoomControl();
+                    map.addControl(zoomControl, kakao.maps.ControlPosition.BOTTOMRIGHT);
+                }
+                function getMarker()
+                {
+
+                }
+                /* Layout Fix */
+                function fix()
+                {
+                    var window_height = $(window).height();
+                    var footer_height = $(".main-footer").outerHeight() || 0;
+                    $('body, html, .wrapper').css('height', 'auto');
+                    $(".content-wrapper").css("min-height", window_height - footer_height);
+                    $('.map').css('height', window_height-footer_height);
+                }
+                fix();
+                getMap();
+                $(window, ".wrapper").resize(function(){
+                    fix();
+                    getMap();
+                });
+            });
+    </script>
+        
+    </body>
+</html>

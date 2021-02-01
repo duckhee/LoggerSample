@@ -1,0 +1,18 @@
+{
+  "name": "loggerweb",
+  "description": "",
+  "main": "",
+  "authors": [
+    "duckhee <fain9301@yahoo.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/duckhee/LoggerSample",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

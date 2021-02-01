@@ -1,0 +1,29 @@
+{
+    "DataBaseType": {
+        "mysql": true,
+        "mongodb": null
+    },
+    "DataBase": {
+        "host": "127.0.0.1",
+        "user": "beta",
+        "password": "won1228",
+        "database": "beta_development",
+        "port": 3306,
+        "timezone": "+09:00",
+        "connectionLimit": 10
+    },
+    "FileType": {
+        "csv": true,
+        "MIS": true,
+        "jpg": true
+    },
+    "WatchDog": {
+        "rootpath": "./window_dataShareFolder/beta/",
+        "timer": 1000
+    },
+    "DeviceType": {
+        "HikVision": true,
+        "DataTracker": true,
+        "ecolog": true
+    }
+}

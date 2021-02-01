@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include ('../../../../partials/admin/stylesheet.ejs') %>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+       <div class="wrapper">
+            <%- include ('../../../../partials/admin/header.ejs') %>
+            <div class="content-wrapper">
+                <div class="content">
+                   <div class="box" style="margin:10% auto; width:75%;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-fw fa-folder" style="margin-right:10px;"></i>Plot Create</h3>
+                        </div>
+                        <!--./box header-->
+                        <div class="box-body">
+                           <form id="createPlot" name="createPlot"class="form-horizontal">
+                                <input type="hidden" id="_csrf" name="_csrf" value ="<%=_csrf%>">
+                                <div class="form-group">
+                                    <label for="PlotOwnerId" class="col-sm-2 control-label">Site Owner Id</label>
+                                    <div class="col-sm-4">
+                                        <input type="text"  name="PlotOwnerId" id="PlotOwnerId" class="form-control" id="SiteOwnerId" placeholder="Site Owner Id ...">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="hidden" id="IdFlag" value>
+                                        <button type="button" id="checkingOwner" class="btn btn-default btn-block"><i class="fa fa-fw fa-user" style="margin-right:10px;"></i>Id Check</button>
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="SiteName" class="col-sm-2 control-label">Site Name</label>
+                                    <div class="col-sm-4">
+                                        <!--<input type="text" class="form-control" name="SiteName" id="SiteName" placeholder="Site Name ..."> -->
+                                        
+                                        <select name="SiteCheckId" id="siteValue" class="form-control" disabled>
+                                            <option value>Select options ...</option>
+                                        </select>
+                                        
+                                    </div>
+                                   <!--
+                                    <div class="col-sm-4">
+                                        <input type="hidden" id="SiteFlag" value>
+                                        <input type="hidden" name="SiteCheckId" id="SiteCheckId" value>
+                                        <button type="button" id="checkingSite" class="btn btn-default btn-block"><i class="fa fa-fw fa-inbox" style="margin-right:10px;"></i>Site Name Check</button>
+                                    </div>
+                                    -->
+                                    <div class="col-sm-2">
+                                        <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-inbox" style="margin-right:5px;"></i>Site Name Check</button>-->
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                               
+                                <div class="form-group">
+                                    <label for="PlotName" class="col-sm-2 control-label">Plot Name</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="PlotName" id="PlotName" placeholder="Plot Name ...">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-folder" style="margin-right:5px;"></i>Plot Name Check</button>-->
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                           </form>
+                        </div>
+                        <!--./box body-->
+                        <div class="box-footer">
+                            <div class=' pull-right'>
+                                <button type="button" id="cancel" class="btn btn-flat btn-danger"><i class="fa fa-fw fa-times" style="margin-right:10px;"></i>Cancel</button>
+                                <button type="button" id="create" name="create" class="btn btn-flat btn-primary"><i class="fa fa-fw fa-save" style="margin-right:10px;"></i>Create</button>
+                            </div>
+                        </div>
+                        <!--./box-footer-->
+                   </div>
+                   <!--./box-->
+                </div>
+                <!--/.content-->
+            </div>
+            <!-- /.content-wrapper-->
+            <%- include ('../../../../partials/admin/footer.ejs') %>
+       </div>
+       <!--/.wrapper-->
+       <%- include ('../../../../partials/admin/footerScript.ejs') %>
+    </body>
+    <script>
+    /** Custom Alert Message */
+    function AlertMsg(data, type){
+
+    }
+    /** Email Checking */
+    function validateEmail(email){
+        let re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        return re.test(email);
+    }
+    /** Owner Checking */
+    function IdCheck(){
+        $("#checkingOwner").click(function(){
+            let getId = $("#PlotOwnerId").val();
+            /** Empty Check */
+            if(!getId){
+                Swal.fire({
+                    title:'Plot Owner Not Empty',
+                    type:'warning'
+                });
+                return false;
+            }
+            /** Space Value Check */
+            if(getId.indexOf(' ') !== -1){
+                Swal.fire({
+                    title:'Not Use Space Value',
+                    type:'warning'
+                });
+                return false;
+            }
+            /** Email Type Check */
+            if(!validateEmail(getId)){
+                Swal.fire({
+                    title:'Not Email',
+                    type:'warning'
+                });
+                return false;
+            }
+            $.ajaxSetup({
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                }
+            });
+            $.ajax({
+                url:'/admin/Site/siteName-check',
+                type:'post',
+                dataType:'json',
+                contentType:'application/json',
+                data:JSON.stringify({
+                    'email':getId
+                }),
+                success:function(data){
+                    console.log('Email check success ', data);
+                    if(data === 0){
+                        Swal.fire({
+                            title:'Not have user or Not have site',
+                            type:'warning'
+                        });
+                        return false;
+                        /*
+                         Swal.fire({
+                            title:'Not Have User',
+                            text:'go to Make User',
+                            type:'warning',
+                            showCancelButton:true
+                        }).then(result=>{
+                            if(result.value){
+                                location.href='/admin/Members/create';
+                            }
+                            return false;
+                        });
+                        */
+                    }else if(data === '-1'){
+                       Swal.fire({
+                            title:'RETRY',
+                            type:'warning'
+                        });
+                        return false;
+                    }else if(data == '1'){
+                            Swal.fire({
+                                title:'Not have Site',
+                                text:'Go to Create Site',
+                                type:'warning',
+                                showCancelButton:true
+                            }).then(result=>{
+                                if(result.value){
+                                    location.href="/admin/Site/create"
+                                }
+                            });
+                            return false;
+                        }
+                    else{
+                        let SelectValue = "";
+                        console.log('data : ', data);
+                        $("#siteValue").empty();
+                        SelectValue = "<option value>Select options ...</option>";
+                        data.forEach(item=>{
+                            let MakeDate = new Date(item.createdAt).getFullYear() + "-"+(new Date(item.createdAt).getMonth()+1) + "-"+new Date(item.createdAt).getDate() + " : " + new Date(item.createdAt).getHours() + " : " + new Date(item.createdAt).getMinutes();
+                            SelectValue += "<option value="+item.id+">Site Name : "+item.name + ", Create Time : "+MakeDate+"</span></option>"
+                        });
+                        $("#siteValue").prop('disabled', false);
+                        $("#siteValue").append(SelectValue);
+                        $("#IdFlag").val(true);
+                    }
+                },
+                err:function(request, status, error){
+                    console.log('code : ', request.status);
+                    console.log('message : ', request.responseText);
+                    console.log('status : ', status);
+                    console.log('error ::: ', error);
+                    return false;
+                }
+            })
+            return true;
+        })
+    }
+    
+    /** Id Check flag get */
+    function IdCheckFlag(){
+        let flag = $("#IdFlag").val();
+        console.log('id check flag ', flag);
+        if($("#IdFlag").val() === "true"){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function PlotNameCheck(){
+        let NameValue = $("#PlotName").val();
+        if(!NameValue){
+            Swal.fire({
+                title:'Not Empty Plot Name',
+                type:'warning'
+            });
+            return false;
+        }
+        if(NameValue === ""){
+            Swal.fire({
+                title:'Not Empty Plot Name',
+                type:'warning'
+            });
+            return false;
+        }
+        if((NameValue.indexOf(' ') === 0) || NameValue.indexOf(' ') > 0){
+            Swal.fire({
+                title:'Not Plot Name space value',
+                type:'warning'
+            });
+            return false;
+        }
+        return true;
+    }
+
+    /** Plot Create */
+    function PlotCreate(){
+        $("#create").click(function(){
+            let SiteFlags = $("#siteValue option:selected").val();
+            console.log('flag : ',SiteFlags);
+            if(!IdCheckFlag()){
+                Swal.fire({
+                    title:'Id Check First',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(!PlotNameCheck()){
+                return false;
+            }
+            
+            if(SiteFlags){
+                console.log('created');
+                document.createPlot.method = "post";
+                document.createPlot.action = "/admin/Plot/create";
+                document.createPlot.submit();
+            }else{
+                Swal.fire({
+                    title:'Select Site',
+                    type:'warning'
+                });
+                return false;
+            }
+        });
+    }
+
+    /** Owner Check */
+    $(document).ready(function(){
+        IdCheck();
+        PlotCreate();
+        <%if(message.length > 0){%>
+            Swal.fire({
+                title:"<%=message%>",
+                type:'warning'
+            });
+        <%}%>
+    });
+    </script>
+</html>

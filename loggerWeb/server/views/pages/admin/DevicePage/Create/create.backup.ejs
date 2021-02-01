@@ -1,0 +1,642 @@
+x<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../../../../partials/admin/stylesheet.ejs %>
+        <!--
+        <style>
+
+            .SelectDiv{
+                display:none;
+            }
+            .SelectActive{
+                display:block;
+            }
+            .DataTracker{
+                display:none;
+            }
+            .ecolog{
+                display:none;
+            }
+            .HikVision{
+                display:none;
+            }
+        </style>
+        -->
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+       <div class="wrapper">
+            <% include ../../../../partials/admin/header.ejs %>
+            <div class="content-wrapper">
+                <div class="content">
+                   <div class="box" style="margin:10% auto; width:75%;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-fw fa-hdd-o" style="margin-right:10px;"></i>Device Create</h3>
+                        </div>
+                        <!--./box header-->
+                        <div class="box-body">
+                           <form name="DeviceCreate" class="form-horizontal">
+                                <input type="hidden" id="_csrf" name="_csrf" value ="<%=_csrf%>">
+                                <div class="form-group">
+                                    <label for="SiteOwnerId" class="col-sm-2 control-label">Site Owner Id</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="SiteOwnerId" id="SiteOwnerId" placeholder="Site Owner Id ...">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button type="button" id="OwnerIdBtn" name="OwnerIdBtn" class="btn btn-default btn-block"><i class="fa fa-fw fa-user" style="margin-right:10px;"></i>Id Check</button>
+                                        <input type="hidden" id="OwnerId" value>
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="SiteName" class="col-sm-2 control-label">Site Name</label>
+                                    <div class="col-sm-4">
+                                        <!--<input type="text" class="form-control" id="SiteName" placeholder="Site Name ...">-->
+                                        <select class='form-control' name="SiteSelect" id="SiteSelect" disabled>
+                                            <option>Selected...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="hidden" id="SiteCheck" value>
+                                        <input type="hidden" id="SiteId" value>
+                                        <!-- <button type="button" id="SiteNameIdBtn" name="SiteNameIdBtn" class="btn btn-default btn-block"><i class="fa fa-inbox" style="margin-right:5px;"></i>Site Name Check</button> -->
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-inbox" style="margin-right:5px;"></i>Site Name Check</button>-->
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="PlotName" class="col-sm-2 control-label">Plot Name</label>
+                                    <div class="col-sm-4">
+                                        <!--<input type="text" class="form-control" id="PlotName" placeholder="Plot Name ...">-->
+                                        <select class="form-control" name="PlotSelect" id="PlotSelect" disabled>
+                                            <option>Selected...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="hidden" id="PlotCheck" value>
+                                        <input type="hidden" id="PlotId" value>
+                                        <!-- <button type="button" name="PlotNameIdBtn" id="PlotNameIdBtn" class="btn btn-default btn-block"><i class="fa fa-folder" style="margin-right:5px;"></i>Plot Name Check</button> -->
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-folder" style="margin-right:5px;"></i>Plot Name Check</button>-->
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="DeviceName" class="col-sm-2 control-label">Device Name</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="DeviceName" id="DeviceName" placeholder="Device Name ...">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <!--<button type="button" class="btn btn-default btn-block"><i class="fa fa-fw fa-hdd-o" style="margin-right:5px;"></i>Device Name Check</button>-->
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="SelectType" class="col-sm-2 control-label">Device Type</label>
+                                    <div class="col-sm-4">
+                                        <select name="deviceType" id="deviceType" class="form-control">
+                                            <option>Selected...</option>
+                                            <option value="DataTracker">Data Tracker</option>
+                                            <option value="ecolog">EcoLog</option>
+                                            <option value="HikVision">Hikvision Camera</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="lat" class="col-sm-2 control-label">Device Latitude</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="lat" id='lat' placeholder="Device Latitude ...">
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div class="form-group">
+                                    <label for="lon" class="col-sm-2 control-label">Device Longitude</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="lon" id='lon' placeholder="Device Longitude ...">
+                                    </div>
+                                </div>
+                                <!--./form-group-->
+                                <div name="DeType" id="DeType">
+                                </div>
+                                <!-- ./DType is detail view -->
+                                <div name="DType" class="DataTracker">
+                                    <div class='form-group'>
+                                        <label for='dataTrackerIP' class='col-sm-2 control-label'>Data Tracker IP</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="IP" id="dataTrackerIP" placeholder="Data Tracker IP...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class="form-group">
+                                        <label for="dataTrackerID" class="col-sm-2 control-label">Data Tracker ID</label>
+                                        <div class='col-sm-4'>
+                                            <input type="text" class="form-control" name="ID" id="dataTrackerID" placeholder="Data Tracker WEB dEX4 id...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class="form-group">
+                                        <label for='dataTrackerPw' class='col-sm-2 control-label'>Data Tracker Password</label>
+                                        <div class='col-sm-4'>
+                                            <input type='password' class='form-control' name="Pw" id="dataTrackerPw" placeholder="Data Tracker WEB dEX4 password ...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class="form-group">
+                                        <label for='dataTrackerFolder' class='col-sm-2 control-label'>Data Tracker FTP Folder Name</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="Folderpath" id='dataTrackerFolder' placeholder="Data Tracker FTP Folder Name...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                </div>
+                                <!--./data-tracker-->
+                                <div name="DType" class="ecolog">
+                                    <div class='form-group'>
+                                        <label for='ecologFTPFolder' class='control-label col-sm-2'>ecolog FTP Folder Name</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="Folderpath" id="ecologFTPFolder" placeholder="FTP Folder Name...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='ecologFileType' class='control-label col-sm-2'>ecolog File Type</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="Filetype" id="ecologFileType" placeholder='ecolog File Type...'>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                </div>
+                                <!--./ecolog-->
+                                <div name="DType" class="HikVision">
+                                    <div class='form-group'>
+                                        <label for='hikvisionIp' class='col-sm-2 control-label'>HikVision Camera IP</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="IP" id="hikvisionIp" placeholder="Input Camera IP...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='hikvisionID' class='col-sm-2 control-label'>HikVision Camera ID</label>
+                                        <div class='col-sm-4'>
+                                            <input class='form-control' name="ID" id="hikvisionID" placeholder="Input Camera Login ID...">
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                    <div class='form-group'>
+                                        <label for='hikVisionPw' class='col-sm-2 control-label'>HikVision Camera Password</label>
+                                        <div class='col-sm-4'>
+                                            <input type="password" class='form-control' name="Pw" id="hikVisionPw" placeholder='Input Camera Login Password...'>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                     <div class='form-group'>
+                                        <label for='hikVisionPw' class='col-sm-2 control-label'>HikVision Camera FTP Folder</label>
+                                        <div class='col-sm-4'>
+                                            <input type="text" class='form-control' name="Folderpath" id="hikVisionFolder" placeholder='Input Camera Login Password...'>
+                                        </div>
+                                    </div>
+                                    <!--./form-group-->
+                                </div>
+                                <!--./hikvision-->
+                           </form>
+                        </div>
+                        <!--./box body-->
+                        <div class="box-footer">
+                            <div class=' pull-right'>
+                                <button id="Cancel" type="button" class="btn btn-flat btn-danger"><i class="fa fa-fw fa-times" style="margin-right:10px;"></i>Cancel</button>
+                                <button id="Create" type="button" class="btn btn-flat btn-primary"><i class="fa fa-fw fa-save" style="margin-right:10px;"></i>Create</button>
+                            </div>
+                        </div>
+                        <!--./box-footer-->
+                   </div>
+                </div>
+                <!--/.content-->
+            </div>
+            <!-- /.content-wrapper-->
+            <% include ../../../../partials/admin/footer.ejs %>
+       </div>
+       <!--/.wrapper-->
+       <% include ../../../../partials/admin/footerScript.ejs %>
+    </body>
+    <script>
+        let TypeDevice = (function(){
+            const _deviceType = { 'Types':['DataTracker', 'ecolog', 'HikVision'],'DataTracker':true, 'ecolog':true,'HikVision':true };
+            return {
+                getType:function(){
+                    return _deviceType;
+                }
+            }
+        }());
+
+        let ResultValue;
+
+        /** space Check */
+        function SpaceCheck(Id){
+            let testing =  $(Id).val();
+            console.log("index ", testing);
+            if(($(Id).val().indexOf(' ') > -1) || $(Id).val().indexOf(' ') === 0){
+                
+                return false;
+            }
+            return true;
+        }
+
+         /** Email checking */
+        function validateEmail(email) {
+            let re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            return re.test(email);
+        }
+
+        /** select check */
+        function selectChecking(){
+            let value = TypeDevice.getType();
+            let deviceTypes = $("#deviceType").val();
+            if(value[deviceTypes]){
+                return true;
+            }else{
+                Swal.fire({
+                    title:'Select Device Type',
+                    type:'warning',
+                });
+                return false;
+            }
+        }
+
+        /** Owner Id Check */
+        function OwnerCheck(){
+            $("#OwnerIdBtn").click(function(){
+                console.log('id check');
+                let OwnerValue = $("#SiteOwnerId").val();
+                console.log("Owner Value : ", OwnerValue);
+                if(OwnerValue === ""){
+                    Swal.fire({
+                        title:"not Owner id Not empty",
+                        type:'warning'
+                    });
+                    return false;
+                }
+                if(OwnerValue.indexOf(' ') !== -1){
+                    Swal.fire({
+                        title:"not Owner id Not have space value",
+                        type:'warning'
+                    });
+                    return false;
+                }
+                if(!validateEmail(OwnerValue)){
+                    Swal.fire({
+                        title:"not Owner Email Type",
+                        type:'warning'
+                    });
+                    return false;
+                }
+                $.ajaxSetup({
+                    beforeSend:function(xhr){
+                        xhr.setRequestHeader('X-CSRF-Token', "<%=_csrf%>");
+                    }
+                })
+                $.ajax({
+                    url:'/admin/site/siteName-check',
+                    type:'post',
+                    contentType:'application/json',
+                    data:JSON.stringify({
+                        'email':OwnerValue
+                    }),
+                    success:function(data){
+                        console.log('Email check success value : ', data);
+                        if(data == 0){
+                            Swal.fire({
+                                title:'Create site First or Registe User First',
+                                type:'warning'
+                            });
+                            return false;
+                        }
+                        if(data.length !== 0 && (data.length !== undefined)){
+                            console.log('have user');
+                            $("#SiteSelect").empty();
+                            $("#OwnerId").val(true);
+                            let SiteText = '';
+                            SiteText += "<option value>Select options ...</option>";
+                            data.forEach(item=>{
+                                let MakeDate = new Date(item.createdAt).getFullYear() + "-"+(new Date(item.createdAt).getMonth()+1) + "-"+new Date(item.createdAt).getDate() + " : " + new Date(item.createdAt).getHours() + " : " + new Date(item.createdAt).getMinutes();
+                                SiteText += "<option value="+item.id+">Site Name : "+item.name+", Create Time : "+MakeDate+"</option>";
+                            })
+                            console.log('value : '+SiteText);
+                            $("#SiteSelect").prop('disabled', false);
+                            $("#SiteSelect").append(SiteText);
+                            ResultValue = data;
+                            Swal.fire({
+                                title:'Success',
+                                type:'success'
+                            });
+                            return true;
+                        }else if(data === "-1"){
+                            console.log('server error');
+                            Swal.fire({
+                                title:'Create Error',
+                                type:'warning',
+                                text:'Retry few minute later'
+                            });
+                            return false;
+                        }else{
+                            Swal.fire({
+                                title:'Not have User',
+                                type:'warning',
+                                text:'first Make User\r\ngo to Registe Page',
+                                showCancelButton:true
+                            }).then(result=>{
+                                if(result.value){
+                                    location.href = "/admin/Members/registe";
+                                }
+                                return false;
+                            });
+                        }
+                    }
+                });
+            });
+
+        }
+
+        /** Site Check change */
+        function SiteSelected(){
+            $("#SiteSelect").change(function(data){
+                console.log('all data : ', ResultValue);
+                let selectValue = this.value;
+                console.log('data', this.value);
+                let PlotsIdx = ResultValue.findIndex((item, idx)=>{
+                     console.log('test : ',item.id);
+                     console.log('aa : ',this.value);
+                    return (item.id == selectValue);
+                });
+                console.log('Testing : ',PlotsIdx);
+                console.log("Testing :: ", ResultValue[PlotsIdx]);
+                $("#PlotSelect").empty();
+                let PlotText = "";
+                PlotText += "<option value>Select options ...</option>";
+                if(!ResultValue[PlotsIdx]){
+                    return $("#PlotSelect").prop('disabled', true);
+                }
+                ResultValue[PlotsIdx].plots.forEach(items=>{
+                    let MakeDate = new Date(items.createdAt).getFullYear() + "-"+(new Date(items.createdAt).getMonth()+1) + "-"+new Date(items.createdAt).getDate() + " : " + new Date(items.createdAt).getHours() + " : " + new Date(items.createdAt).getMinutes();
+                    PlotText += "<option value="+items.id+">Plot Name : "+items.PlotName+", Create Time : "+MakeDate+"</option>";
+                });
+                console.log("Plot Text : ", PlotText);
+                $("#PlotSelect").prop("disabled", false);
+                $("#PlotSelect").append(PlotText);
+
+            });
+        }
+
+        /** Owner Id Flag check */
+        function OwnerIdFlagCheck(){
+            let IDFlag = $("#OwnerId").val();
+            let SiteOwner = $("#SiteOwnerId").val();
+            console.log("ID FLAG", IDFlag+", "+SiteOwner);
+            if(IDFlag === "true"){
+                console.log("ID FLAG !!", IDFlag+", "+SiteOwner);
+                return true;
+            }
+            return false;
+        }
+
+
+        /** function Device Wrong Check */
+        function DeviceValueCheck(){
+            let OwnerId = $("#SiteOwnerId").val();
+            let SiteName = $("#SiteSelect option:selected").val();
+            let PlotName = $("#PlotSelect option:selected").val();
+            let DeviceName = $("#DeviceName").val();
+            let latitude = $("#lat").val();
+            let longitude = $("#lon").val();
+            console.log('device value : ' + OwnerId+", " +SiteName+", "+PlotName + ", " + DeviceName+', '+latitude+', '+longitude);
+            if(OwnerId === ""){
+                Swal.fire({
+                    title:'Not Owner Id Not Empty',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(SiteName === ""){
+                Swal.fire({
+                    title:"Site Name Not Select",
+                    type:'warning'
+                });
+                return false;
+            }
+            if(PlotName === ""){
+                Swal.fire({
+                    title:'Plot Name Not Select',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(DeviceName === ""){
+                Swal.fire({
+                    title:'Device Name Not Empty',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(!SpaceCheck("#SiteOwnerId")){
+                Swal.fire({
+                    title:'Owner Id Not have space value',
+                    type:'warning'
+                });
+                return false;
+            }
+            if(!SpaceCheck("#DeviceName")){
+                Swal.fire({
+                    title:'Device Name Not have space value',
+                    type:'warning'
+                });
+                return false;
+            }
+            return true;
+        }
+
+        /** null check */
+        function ValueNull(value){
+            if(value === ""){
+                console.log('value is ', value);
+                return true;
+            }
+            if(!value){
+                console.log('value is ', value);
+                return true;
+            }
+            return false;
+        }
+
+        
+
+        /** function Detail Value Check */
+        function DeviceRawCheck(){
+            let DeviceType = $("#deviceType option:selected").val();
+                if(DeviceType === "DataTracker"){
+                    console.log('value type : ', DeviceType);
+                    let DataTrackerIP = $("#dataTrackerIP").val();
+                    let DataTrackerID = $("#dataTrackerID").val();
+                    let DataTrackerPw = $("#dataTrackerPw").val();
+                    let DataTrackerPath = $("#dataTrackerFolder").val();
+                    if(ValueNull(DataTrackerIP)){
+                        Swal.fire({
+                            title:"Input DataTracker IP",
+                            type:'warning'
+                        });
+                        return false;
+                    }
+                    if(ValueNull(DataTrackerPath)){
+                        Swal.fire({
+                            title:'Input Data Tracker FTP Server Path',
+                            type:'warning'
+                        });
+                        return false;
+                    }
+                    if(!ValueNull(DataTrackerID) && (DataTrackerID.indexOf(' ') !== 0) && (DataTrackerID.indexOf(' ') !== -1)){
+                        if(ValueNull(DataTrackerPw)){
+                            Swal.fire({
+                                title:'Input Data Tracker Password',
+                                type:'warning'
+                            });
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                if(DeviceType === "ecolog"){
+                    console.log('value type : ', DeviceType);
+                    let EcologPath = $("#ecologFTPFolder").val();
+                    let EcologFile = $("#ecologFileType").val();
+                    return true;
+                }
+                if(DeviceType === "HikVision"){
+                    console.log('value type : ', DeviceType);
+                    let HikVisionIp = $("#hikvisionIp").val();
+                    let HikVisionId = $("#hikvisionID").val();
+                    let HikVisionPw = $("#hikVisionPw").val();
+
+                    if(ValueNull(HikVisionIp)){
+                        Swal.fire({
+                            title:'Input HikVision Ip',
+                            type:'warning',
+                        });
+                        return false;
+                    }
+                    if(ValueNull(HikVisionId)){
+                        Swal.fire({
+                            title:'Input HikVision Id',
+                            type:'warning'
+                        });
+                        return false;
+                    }
+                    if(ValueNull(HikVisionPw)){
+                        Swal.fire({
+                            title:'Input HikVision Password',
+                            type:'warning'
+                        });
+                        return false;
+                    }
+                    return true;
+                }
+        }
+
+        function MakeDetailSelect(){
+            $("#deviceType").change(function(){
+                let value = this.value;
+                let text = "";
+                $("#DeType").empty();
+                if(value === "DataTracker"){
+                    text += 
+                    "<div class='form-group'>"+
+                    "<label for='dataTrackerIP' class='col-sm-2 control-label'>Data Tracker IP</label>"
+                    +"<div class='col-sm-4'>"
+                    +"<input type='text' name='IP' id='dataTrackerIP' class='form-control' placeholder='Input Data Tracker IP ...'>"
+                    +"</div>"
+                    +"</div>"
+                    +"<div class='form-group'>"
+                    +"<label for=dataTrackerID' class='col-sm-2 control-label'>Data Tracker ID</label>"
+                    +"<div class='col-sm-4'>"
+                    +"<input type='text' id='dataTrackerID' name='ID' class='form-control' placeholder='Input Data Tracker ID ...'>"
+                    +"</div>"
+                    +"</div>"
+                    +"<div class='form-group'>"
+                    +"<label for='dataTrackerPw' class='col-sm-2 control-label'>Data Tracker Password</label>"
+                    +"<div class='col-sm-4'>"
+                    +"<input type='password' class='form-control' name='Pw' id='dataTrackerPw' placeholder='Input Data Tracker Password ...'>"
+                    +"</div>"
+                    +"</div>"
+                    +"<div class='form-group'>"
+                    +"<label for='dataTrackerFolder' class='col-sm-2 control-label'>Data Tracker FTP Path</label>"
+                    +"<div class='col-sm-4'>"
+                    +"<input type='text' class='form-control' name='Folderpath' id='dataTrackerFolder' placeholder='Input Data Tracker FTP Path ...'>"
+                    +"</div>";
+                }else if(value === "ecolog"){
+                     text += 
+                    "<div class='form-group'>"
+                    +"<label for='ecologFTPFolder' class='col-sm-2 control-label'>ecolog FTP Path</label>"
+                    +"<div class='col-sm-4'>"
+                    +"<input type='text' class='form-control' name='Folderpath' id='ecologFTPFolder' placeholder='Input ecolog FTP Path ...'>"
+                    +"</div>"
+                    +"</div>"
+                    +"<div class='form-group'>"
+                    +"<label for='ecologFileType' class='col-sm-2 control-label'>File Type</label>"
+                    +"<div class='col-sm-4'>"
+                    +"<input type='text' class='form-control' name='ecologFileType' id='ecologFileType' placeholder='Input ecolog File Type ...'>"
+                    +"</div>";
+                }else if(value === "HikVision"){
+                     text += 
+                    "<div class='form-group'>"+
+                    "<label for='hikvisionIp' class='col-sm-2 control-label'>HikVision Camera IP</label>"
+                    +"<div class='col-sm-4'>"
+                    +"<input type='text' name='IP' id='hikvisionIp' class='form-control' placeholder='Input HikVision Camera IP ...'>"
+                    +"</div>"
+                    +"</div>"
+                    +"<div class='form-group'>"
+                    +"<label for=hikvisionID' class='col-sm-2 control-label'>HikVision Camera ID</label>"
+                    +"<div class='col-sm-4'>"
+                    +"<input type='text' id='hikvisionID' name='ID' class='form-control' placeholder='Input HikVision Camera ID ...'>"
+                    +"</div>"
+                    +"</div>"
+                    +"<div class='form-group'>"
+                    +"<label for='hikVisionPw' class='col-sm-2 control-label'>Data HikVision Camera Password</label>"
+                    +"<div class='col-sm-4'>"
+                    +"<input type='password' class='form-control' name='Pw' id='hikVisionPw' placeholder='Input HikVision Camera Password ...'>"
+                    +"</div>"
+                    +"</div>"
+                    +"<div class='form-group'>"
+                    +"<label for='hikVisionFolder' class='col-sm-2 control-label'>HikVision Camera FTP Path</label>"
+                    +"<div class='col-sm-4'>"
+                    +"<input type='text' class='form-control' name='Folderpath' id='hikVisionFolder' placeholder='Input HikVision Camera FTP Path ...'>"
+                    +"</div>";
+                }else{
+                    
+                }
+
+                $("#DeType").append(text);
+            })
+        }
+
+        function Create(){
+            $("#Create").click(function(){
+                //selectChecking();
+                if(DeviceValueCheck() && selectChecking() && DeviceRawCheck()){
+                    console.log('create');
+                    document.DeviceCreate.action = "/admin/Device/create";
+                    document.DeviceCreate.method = "post";
+                    document.DeviceCreate.submit();
+                }
+            });
+        }
+
+
+        $(document).ready(function(){
+          
+            MakeDetailSelect();
+            OwnerCheck();
+            SiteSelected();
+            Create();
+        });
+    </script>
+</html>
